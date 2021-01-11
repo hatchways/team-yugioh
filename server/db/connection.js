@@ -4,7 +4,7 @@ const db = require("./models");
 
 try {
     mongoose.connect(
-        "mongodb+srv://Lil_Kuriboh:PUomxQIoP25kT2u0@cluster0.wghil.mongodb.net/calendly?retryWrites=true&w=majority",
+        "mongodb+srv://Lil_Kuriboh:[PASSWORD]@cluster0.wghil.mongodb.net/calendly?retryWrites=true&w=majority",
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
