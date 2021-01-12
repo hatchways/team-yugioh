@@ -19,7 +19,7 @@ const ConnectGoogleCalendar = (props) => {
         container
         item
         wrap="nowrap"
-        alignItems="start"
+        alignItems="flex-start"
         justify="space-between"
         className={classes.topContent}
       >
@@ -66,9 +66,6 @@ const ConnectGoogleCalendar = (props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  pageTwoRoot: {
-    flexGrow: 1,
-  },
   topContent: {
     padding: "2em",
     height: "6em",
