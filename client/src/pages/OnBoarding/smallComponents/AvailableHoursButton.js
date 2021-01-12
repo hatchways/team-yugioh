@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, MenuItem, makeStyles, Menu } from "@material-ui/core";
+import { TextField, MenuItem, makeStyles } from "@material-ui/core";
 
 const timeSlots = [];
 for (let i = 0; i < 24; i++) {
