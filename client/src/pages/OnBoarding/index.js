@@ -1,11 +1,27 @@
 import React, { useState, useRef } from "react";
-import { Paper, Grid, Typography, Button } from "@material-ui/core";
+import {
+  Paper,
+  Grid,
+  Typography,
+  Button,
+  makeStyles,
+  Container,
+  Box,
+  useTheme,
+} from "@material-ui/core";
 
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
 import SetAvailability from "./SetAvailability";
+import useStyles from "./useStylesHook";
 
 const OnBoarding = (props) => {
+  //styles
+  const classes = useStyles();
+  const theme = useTheme();
+  console.log(theme.palette.main);
+
+  //data related variables
   const [pageNum, setPageNum] = useState(0);
   const url = useRef();
   const timezone = useRef();
@@ -23,13 +39,23 @@ const OnBoarding = (props) => {
   };
 
   return (
-    <Paper>
-      {pageNum === 0 && <SetTimezoneUrl url={url} timezone={timezone} />}
-      {pageNum === 1 && <ConnectGoogleCalendar />}
-      {pageNum === 2 && <SetAvailability days={days} hours={hours} />}
-      <Button onClick={FlipToNextPage}>
-        {pageNum === 2 ? "Finish" : "Continue"}
-      </Button>
+    <Paper elevation={3} className={classes.paper}>
+      <div className={classes.mainContent}>
+        {pageNum === 0 && <SetTimezoneUrl url={url} timezone={timezone} />}
+        {pageNum === 1 && <ConnectGoogleCalendar />}
+        {pageNum === 2 && <SetAvailability days={days} hours={hours} />}
+      </div>
+
+      <Grid container justify="center">
+        <Button
+          onClick={FlipToNextPage}
+          className={classes.continueButton}
+          color="primary"
+          variant="contained"
+        >
+          {pageNum === 2 ? "Finish" : "Continue"}
+        </Button>
+      </Grid>
     </Paper>
   );
 };
