@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     height: "20em",
   },
   mainContent: {
-    height: "15em",
+    height: "20em",
     flexGrow: 1,
   },
   gridForMainContent: {
@@ -30,6 +30,18 @@ const useStyles = makeStyles((theme) => ({
   },
   pageTwoRoot: {
     flexGrow: 1,
+  },
+  pageThreeRoot: {
+    flexGrow: 1,
+  },
+  pageThreeLabel: {
+    margin: "0.05em 2em",
+  },
+  pageThreeEntry: {
+    margin: "1.5em 2em",
+  },
+  pageThreeMain: {
+    margin: "1em 0",
   },
   urlPrefixInput: {
     width: "8em",
