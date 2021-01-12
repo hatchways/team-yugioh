@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import LandingPage from "./pages/Landing";
-import OnBoardingPage from "./pages/OnBoarding";
+import OnBoardingPage from "./pages/OnBoarding/OnBoarding";
 
 import "./App.css";
 
