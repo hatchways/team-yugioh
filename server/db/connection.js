@@ -18,6 +18,17 @@ try {
             //         db.Test.find().then((data) => console.log(data));
             //     }
             // );
+
+            // testing appointment model
+            db.Appointment.create({
+                meeting_id: 2617,
+                name: "name string",
+                email: "nellie@email.com",
+                time: new Date(),
+                timezone: "PST",
+            }).then(() => {
+                db.Appointment.find().then((data) => console.log(data));
+            });
         }
     );
 } catch (error) {

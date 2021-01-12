@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     meeting_id: {
+        // TODO: generate unique meeting id
         type: Number,
     },
     name: {
@@ -22,6 +23,7 @@ const schema = new Schema({
         type: Date,
     },
     timezone: {
+        // TODO: validate timezone
         type: String,
     },
 });
