@@ -1,7 +1,13 @@
 import React from "react";
-import { Grid, Typography, useTheme, Divider, Button } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  useTheme,
+  Divider,
+  Button,
+  makeStyles,
+} from "@material-ui/core";
 
-import useStyles from "./useStylesHook";
 import ProgressBar from "./ProgressBar";
 
 const ConnectGoogleCalendar = (props) => {
@@ -60,5 +66,24 @@ const ConnectGoogleCalendar = (props) => {
     </div>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  pageTwoRoot: {
+    flexGrow: 1,
+  },
+  topContent: {
+    padding: "2em",
+    height: "6em",
+  },
+  pageTwoRoot: {
+    flexGrow: 1,
+  },
+  pageTwoEntry: {
+    margin: "0.4em 2em",
+  },
+  pageOneEntry: {
+    margin: "1.5em 2em",
+  },
+}));
 
 export default ConnectGoogleCalendar;

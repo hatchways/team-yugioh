@@ -8,9 +8,9 @@ import {
   Select,
   MenuItem,
   Menu,
+  makeStyles,
 } from "@material-ui/core";
 
-import useStyles from "./useStylesHook";
 import ProgressBar from "./ProgressBar";
 
 const SetTimezoneUrl = (props) => {
@@ -78,10 +78,22 @@ const SetTimezoneUrl = (props) => {
   );
 };
 
+const useStyles = makeStyles((theme) => ({
+  topContent: {
+    padding: "2em",
+    height: "6em",
+  },
+  pageOneEntry: {
+    margin: "1.5em 2em",
+  },
+  urlPrefixInput: {
+    width: "8em",
+    lineHeight: "1.2em",
+  },
+  urlInput: {
+    width: "6em",
+    lineHeight: "1.2em",
+  },
+}));
+
 export default SetTimezoneUrl;
-
-{
-  /*
-
-   */
-}

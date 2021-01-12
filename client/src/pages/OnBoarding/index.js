@@ -13,13 +13,11 @@ import {
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
 import SetAvailability from "./SetAvailability";
-import useStyles from "./useStylesHook";
 
 const OnBoarding = (props) => {
   //styles
   const classes = useStyles();
   const theme = useTheme();
-  console.log(theme.palette.main);
 
   //data related variables
   const [pageNum, setPageNum] = useState(0);
@@ -59,5 +57,22 @@ const OnBoarding = (props) => {
     </Paper>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    margin: "auto",
+    width: "30em",
+  },
+  verticalGrid: {
+    height: "20em",
+  },
+  mainContent: {
+    height: "20em",
+    flexGrow: 1,
+  },
+  gridForMainContent: {
+    height: "100%",
+  },
+}));
 
 export default OnBoarding;

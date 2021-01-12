@@ -8,9 +8,9 @@ import {
   Select,
   MenuItem,
   Menu,
+  makeStyles,
 } from "@material-ui/core";
 
-import useStyles from "./useStylesHook";
 import ProgressBar from "./ProgressBar";
 import AvailableHours from "./smallComponents/AvailableHoursButton";
 
@@ -60,5 +60,24 @@ const SetAvailability = (props) => {
     </div>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  pageThreeRoot: {
+    flexGrow: 1,
+  },
+  pageThreeLabel: {
+    margin: "0.05em 2em",
+  },
+  pageThreeEntry: {
+    margin: "1.5em 2em",
+  },
+  pageThreeMain: {
+    margin: "1em 0",
+  },
+  topContent: {
+    padding: "2em",
+    height: "6em",
+  },
+}));
 
 export default SetAvailability;

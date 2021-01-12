@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MobileStepper, Button } from "@material-ui/core";
-
-import useStyles from "./useStylesHook";
+import { MobileStepper, Button, makeStyles } from "@material-ui/core";
 
 const ProgressBar = (props) => {
   const classes = useStyles();
@@ -29,5 +27,16 @@ const ProgressBar = (props) => {
     ></MobileStepper>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  progressBar: {
+    width: "11em",
+    margin: "1em",
+    padding: 0,
+  },
+  linearProgress: {
+    width: "100%",
+  },
+}));
 
 export default ProgressBar;
