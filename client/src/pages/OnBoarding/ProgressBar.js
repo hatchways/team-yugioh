@@ -20,7 +20,7 @@ const ProgressBar = (props) => {
     <MobileStepper
       className={classes.progressBar}
       variant="progress"
-      steps={4}
+      steps={5}
       position="static"
       activeStep={activeStep}
       LinearProgressProps={{
