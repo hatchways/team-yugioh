@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Checkbox,
   Grid,
@@ -25,8 +25,14 @@ const AvailableDays = (props) => {
   const selectDay = (event) => {
     const newDays = { ...daysLocal, [event.target.name]: event.target.checked };
     setDays(newDays);
-    days.current = newDays;
   };
+
+  useEffect(() => {
+    const availableDays = Object.entries(daysLocal)
+      .filter((entry) => entry[1] === true)
+      .map((entry) => entry[0]);
+    days.current = availableDays;
+  }, [daysLocal, days]);
 
   return (
     <Grid container direction="row" wrap="nowrap" alignItems="center">
@@ -39,8 +45,9 @@ const AvailableDays = (props) => {
             control={
               <Checkbox
                 className={classes.eachDay}
-                checked={daysLocal[item]}
+                checked={daysLocal[item] || false}
                 onChange={selectDay}
+                name={item}
               />
             }
           />
