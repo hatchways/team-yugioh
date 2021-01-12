@@ -44,7 +44,7 @@ const SetAvailability = (props) => {
         <Typography className={classes.pageThreeLabel}>
           Available days
         </Typography>
-        <Grid container className={classes.pageThreeEntry}>
+        <Grid container className={classes.daysGrid}>
           <AvailableDays days={days} />
         </Grid>
       </div>
@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
   pageThreeMain: {
     margin: "1em 0",
+  },
+  daysGrid: {
+    padding: "1em 2em",
   },
   topContent: {
     padding: "2em",

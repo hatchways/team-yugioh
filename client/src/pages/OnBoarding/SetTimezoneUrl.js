@@ -48,7 +48,7 @@ const SetTimezoneUrl = (props) => {
         item
         wrap="nowrap"
         alignItems="center"
-        className={classes.pageOneEntry}
+        className={classes.entry}
       >
         <Typography>Create your CalendApp URL:</Typography>
         <TextField
@@ -70,7 +70,7 @@ const SetTimezoneUrl = (props) => {
         />
       </Grid>
 
-      <Grid container item alignItems="center" className={classes.pageOneEntry}>
+      <Grid container item alignItems="center" className={classes.entry}>
         <Typography>Select your time zone</Typography>
         <TextField
           select
@@ -78,6 +78,7 @@ const SetTimezoneUrl = (props) => {
           onChange={(e) => {
             setTimezone(e.target.value);
           }}
+          className={classes.timezoneMenu}
         >
           {["UTC-12", "UTC-11", "UTC-10", "UTC-9"].map((item, i) => {
             return (
@@ -97,16 +98,22 @@ const useStyles = makeStyles((theme) => ({
     padding: "2em",
     height: "6em",
   },
-  pageOneEntry: {
+  entry: {
     margin: "1.5em 2em",
   },
   urlPrefixInput: {
     width: "8em",
     lineHeight: "1.2em",
+    margin: "0 0 0 1em",
   },
   urlInput: {
+    margin: "0",
     width: "6em",
     lineHeight: "1.2em",
+  },
+  timezoneMenu: {
+    width: "5em",
+    margin: "0 1em",
   },
 }));
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, MenuItem } from "@material-ui/core";
+import { TextField, MenuItem, makeStyles, Menu } from "@material-ui/core";
 
 const timeSlots = [];
 for (let i = 0; i < 24; i++) {
@@ -14,6 +14,8 @@ const AvailableHoursBtn = (props) => {
   const hour = props.hour; //useRef object
   const [hourLocal, setHour] = useState("");
 
+  const classes = useStyles();
+
   const selectHour = (event) => {
     setHour(event.target.value);
   };
@@ -23,7 +25,14 @@ const AvailableHoursBtn = (props) => {
   }, [hour, hourLocal]);
 
   return (
-    <TextField select value={hourLocal} onChange={selectHour}>
+    <TextField
+      select
+      value={hourLocal}
+      onChange={selectHour}
+      className={classes.menu}
+      variant="outlined"
+      size="small"
+    >
       {timeSlots.map((time, i) => {
         return (
           <MenuItem key={i} value={time}>
@@ -35,5 +44,12 @@ const AvailableHoursBtn = (props) => {
     </TextField>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  menu: {
+    width: "6em",
+    margin: "0 1em",
+  },
+}));
 
 export default AvailableHoursBtn;
