@@ -3,7 +3,7 @@ import { TextField, MenuItem } from "@material-ui/core";
 
 const timeSlots = [];
 for (let i = 0; i < 24; i++) {
-  for (let j = 0; j <= 60; j = j + 15) {
+  for (let j = 0; j < 60; j = j + 15) {
     const hour = i < 10 ? "0" + i.toString() : i.toString();
     const min = j < 10 ? "0" + j.toString() : j.toString();
     timeSlots.push(hour + min);
