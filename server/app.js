@@ -22,7 +22,7 @@ app.use(express.static(join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/ping", pingRouter);
 
-// app.use(require("./routes/controllers/AppointmentAPI"));
+app.use(require("./routes/controllers/AppointmentAPI"));
 app.use(require("./routes/controllers/eventAPI"));
 
 // error handler
