@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Typography,
@@ -14,11 +14,14 @@ import ProgressBar from "./smallComponents/ProgressBar";
 const SetTimezoneUrl = (props) => {
   //styles
   const classes = useStyles();
-  const theme = useTheme();
 
   //two useRef objects below
   const url = props.url;
   const timezone = props.timezone;
+
+  //local state
+  const [urlLocal, setUrl] = useState("john-doe");
+  const [timezoneLocal, setTimezone] = useState("");
 
   return (
     <div>
@@ -55,14 +58,25 @@ const SetTimezoneUrl = (props) => {
           className={classes.urlInput}
           required
           variant="outlined"
-          defaultValue="John-Doe"
           size="small"
+          value={urlLocal}
+          onChange={(e) => {
+            setUrl(e.target.value);
+            url.current = e.target.value;
+          }}
         />
       </Grid>
 
       <Grid container item alignItems="center" className={classes.pageOneEntry}>
         <Typography>Select your time zone</Typography>
-        <TextField select>
+        <TextField
+          select
+          value={timezoneLocal}
+          onChange={(e) => {
+            setTimezone(e.target.value);
+            timezone.current = e.target.value;
+          }}
+        >
           {["UTC-12", "UTC-11", "UTC-10", "UTC-9"].map((item, i) => {
             return (
               <MenuItem value={item} key={i}>
