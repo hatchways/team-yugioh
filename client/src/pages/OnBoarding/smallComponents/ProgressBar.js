@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MobileStepper, Button, makeStyles } from "@material-ui/core";
+import { MobileStepper, makeStyles } from "@material-ui/core";
 
 const ProgressBar = (props) => {
   const classes = useStyles();
