@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     user_id: {
-        type: mongoose.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
     },
     duration: {
         type: Number,
