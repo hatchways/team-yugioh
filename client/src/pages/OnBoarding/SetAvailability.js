@@ -14,7 +14,6 @@ import AvailableHours from "./smallComponents/AvailableHoursButton";
 const SetAvailability = (props) => {
   //styles
   const classes = useStyles();
-  const theme = useTheme();
 
   //two useRef objects below
   const hours = props.hours;
