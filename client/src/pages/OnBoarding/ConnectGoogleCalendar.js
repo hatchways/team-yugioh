@@ -8,7 +8,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./smallComponents/ProgressBar";
 
 const ConnectGoogleCalendar = (props) => {
   //styles
