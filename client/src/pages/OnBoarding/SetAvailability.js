@@ -3,6 +3,10 @@ import React from "react";
 import { Grid, Typography, TextField } from "@material-ui/core";
 
 const SetAvailability = (props) => {
+  //two useRef objects below
+  const hours = props.hours;
+  const days = props.days;
+
   return (
     <div>
       <Grid container>

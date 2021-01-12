@@ -3,6 +3,10 @@ import React from "react";
 import { Grid, Typography, TextField } from "@material-ui/core";
 
 const SetTimezoneUrl = (props) => {
+  //two useRef objects below
+  const url = props.url;
+  const timezone = props.timezone;
+
   return (
     <div>
       <Grid container>
