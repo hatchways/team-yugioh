@@ -1,14 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  Paper,
-  Grid,
-  Typography,
-  Button,
-  makeStyles,
-  Container,
-  Box,
-  useTheme,
-} from "@material-ui/core";
+import { Paper, Grid, Button, makeStyles, useTheme } from "@material-ui/core";
 
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";

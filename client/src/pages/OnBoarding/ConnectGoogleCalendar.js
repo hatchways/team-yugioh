@@ -2,7 +2,6 @@ import React from "react";
 import {
   Grid,
   Typography,
-  useTheme,
   Divider,
   Button,
   makeStyles,
@@ -13,7 +12,6 @@ import ProgressBar from "./smallComponents/ProgressBar";
 const ConnectGoogleCalendar = (props) => {
   //styles
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <div className={classes.pageTwoRoot}>
