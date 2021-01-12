@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const db = require("./models");
+const axios = require("axios");
 
 const { password } = require("./password");
 
@@ -39,6 +40,17 @@ try {
             // }).then(() => {
             //     db.EventType.find().then((data) => console.log(data));
             // });
+
+            // axios
+            //     .get("/api/event", {
+            //         params: {
+            //             user_id: 7289,
+            //         },
+            //     })
+            //     .then((res) => console.log(res))
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
         }
     );
 } catch (error) {
