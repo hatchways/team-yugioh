@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Typography,
@@ -21,6 +21,11 @@ const SetTimezoneUrl = (props) => {
   //local state
   const [urlLocal, setUrl] = useState("john-doe");
   const [timezoneLocal, setTimezone] = useState("");
+
+  useEffect(() => {
+    url.current = urlLocal;
+    timezone.current = timezoneLocal;
+  }, [urlLocal, timezoneLocal, url, timezone]);
 
   return (
     <div>
@@ -61,7 +66,6 @@ const SetTimezoneUrl = (props) => {
           value={urlLocal}
           onChange={(e) => {
             setUrl(e.target.value);
-            url.current = e.target.value;
           }}
         />
       </Grid>
@@ -73,7 +77,6 @@ const SetTimezoneUrl = (props) => {
           value={timezoneLocal}
           onChange={(e) => {
             setTimezone(e.target.value);
-            timezone.current = e.target.value;
           }}
         >
           {["UTC-12", "UTC-11", "UTC-10", "UTC-9"].map((item, i) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, MenuItem } from "@material-ui/core";
 
 const timeSlots = [];
@@ -16,8 +16,11 @@ const AvailableHoursBtn = (props) => {
 
   const selectHour = (event) => {
     setHour(event.target.value);
-    hour.current = event.target.value;
   };
+
+  useEffect(() => {
+    hour.current = hourLocal;
+  }, [hour, hourLocal]);
 
   return (
     <TextField select value={hourLocal} onChange={selectHour}>
