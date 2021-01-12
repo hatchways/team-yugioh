@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, MenuItem } from "@material-ui/core";
 
 const timeSlots = [];
@@ -12,9 +12,15 @@ for (let i = 0; i <= 24; i++) {
 
 const AvailableHoursBtn = (props) => {
   const hour = props.hour; //useRef object
+  const [hourLocal, setHour] = useState("");
+
+  const selectHour = (event) => {
+    setHour(event.target.value);
+    hour.current = event.target.value;
+  };
 
   return (
-    <TextField select>
+    <TextField select value={hourLocal} onChange={selectHour}>
       {timeSlots.map((time, i) => {
         return (
           <MenuItem key={i} value={time}>
