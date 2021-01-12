@@ -1,23 +1,16 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const db = require("./models");
+require("dotenv").config();
 
 try {
     mongoose.connect(
-        "mongodb+srv://Lil_Kuriboh:[PASSWORD]@cluster0.wghil.mongodb.net/calendly?retryWrites=true&w=majority",
+        process.env.DB_URI,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
         () => {
             console.log("mongo connected");
-
-            // links to tests collection
-            // db.Test.create({ id: Math.random() * 10, name: "nellie" }).then(
-            //     () => {
-            //         db.Test.find().then((data) => console.log(data));
-            //     }
-            // );
         }
     );
 } catch (error) {
