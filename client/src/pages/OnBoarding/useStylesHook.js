@@ -17,12 +17,19 @@ const useStyles = makeStyles((theme) => ({
   },
   topContent: {
     padding: "2em",
+    height: "6em",
   },
   continueButton: {
     margin: "2em 0 3em 0",
   },
   pageOneEntry: {
     margin: "1.5em 2em",
+  },
+  pageTwoEntry: {
+    margin: "0.4em 2em",
+  },
+  pageTwoRoot: {
+    flexGrow: 1,
   },
   urlPrefixInput: {
     width: "8em",
