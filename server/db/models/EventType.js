@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     user_id: {
-        // Link to appointments using user_id?
-        type: Number,
+        type: mongoose.ObjectId,
     },
     duration: {
         type: Number,
