@@ -1,22 +1,17 @@
 import React from "react";
-import {
-  Grid,
-  Typography,
-  TextField,
-  useTheme,
-  Divider,
-  makeStyles,
-} from "@material-ui/core";
+import { Grid, Typography, Divider, makeStyles } from "@material-ui/core";
 
 import ProgressBar from "./smallComponents/ProgressBar";
 import AvailableHours from "./smallComponents/AvailableHoursButton";
+import AvailableDays from "./smallComponents/AvailableDays";
 
 const SetAvailability = (props) => {
   //styles
   const classes = useStyles();
 
   //two useRef objects below
-  const hours = props.hours;
+  const startHour = props.startHour;
+  const finishHour = props.finishHour;
   const days = props.days;
 
   return (
@@ -41,16 +36,16 @@ const SetAvailability = (props) => {
         </Typography>
 
         <Grid container className={classes.pageThreeEntry}>
-          <AvailableHours />
+          <AvailableHours hour={startHour} />
           <div>--</div>
-          <AvailableHours />
+          <AvailableHours hour={finishHour} />
         </Grid>
 
         <Typography className={classes.pageThreeLabel}>
           Available days
         </Typography>
         <Grid container className={classes.pageThreeEntry}>
-          <TextField></TextField>
+          <AvailableDays days={days} />
         </Grid>
       </div>
     </div>
