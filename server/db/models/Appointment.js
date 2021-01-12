@@ -4,9 +4,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     meeting_id: {
-        // TODO: generate unique meeting id
-        // unique: true,
-        type: String,
+        type: mongoose.ObjectId,
     },
     name: {
         type: String,
