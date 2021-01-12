@@ -4,7 +4,6 @@ const db = require("./models");
 
 const { password } = require("./password");
 
-console.log(password);
 try {
     mongoose.connect(
         `mongodb+srv://Lil_Kuriboh:${password}@cluster0.wghil.mongodb.net/calendly?retryWrites=true&w=majority`,
@@ -23,15 +22,23 @@ try {
             // );
 
             // testing appointment model
-            db.Appointment.create({
-                meeting_id: 2617,
-                name: "name string",
-                email: "nellie@email.com",
-                time: new Date(),
-                timezone: "PST",
-            }).then(() => {
-                db.Appointment.find().then((data) => console.log(data));
-            });
+            // db.Appointment.create({
+            //     meeting_id: "blue2617",
+            //     name: "name string",
+            //     email: "nellie@email.com",
+            //     time: new Date(),
+            //     timezone: "PST",
+            // }).then(() => {
+            //     db.Appointment.find().then((data) => console.log(data));
+            // });
+
+            //testing eventtype
+            // db.EventType.create({
+            //     user_id: 7289,
+            //     duration: 30,
+            // }).then(() => {
+            //     db.EventType.find().then((data) => console.log(data));
+            // });
         }
     );
 } catch (error) {
