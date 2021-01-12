@@ -2,9 +2,12 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const db = require("./models");
 
+const { password } = require("./password");
+
+console.log(password);
 try {
     mongoose.connect(
-        "mongodb+srv://Lil_Kuriboh:[PASSWORD]@cluster0.wghil.mongodb.net/calendly?retryWrites=true&w=majority",
+        `mongodb+srv://Lil_Kuriboh:${password}@cluster0.wghil.mongodb.net/calendly?retryWrites=true&w=majority`,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,

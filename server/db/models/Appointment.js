@@ -28,6 +28,6 @@ const schema = new Schema({
     },
 });
 
-const Test = mongoose.model("Test", schema);
+const Appointment = mongoose.model("Appointment", schema);
 
-module.exports = Test;
+module.exports = Appointment;

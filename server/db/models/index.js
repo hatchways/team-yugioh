@@ -1,5 +1,4 @@
 module.exports = {
-    Test: require("./Test.js"),
-    Appointments: require("./Appointment.js"),
-    EventTypes: require("./EventType.js"),
+    Appointment: require("./Appointment.js"),
+    // EventType: require("./EventType.js"),
 };
