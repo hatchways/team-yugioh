@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Paper, Grid, Button, makeStyles, useTheme } from "@material-ui/core";
+import { Paper, Grid, Button, makeStyles } from "@material-ui/core";
 
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
@@ -8,14 +8,14 @@ import SetAvailability from "./SetAvailability";
 const OnBoarding = (props) => {
   //styles
   const classes = useStyles();
-  const theme = useTheme();
 
   //data related variables
   const [pageNum, setPageNum] = useState(0);
   const url = useRef();
   const timezone = useRef();
   const days = useRef();
-  const hours = useRef();
+  const startHour = useRef();
+  const finishHour = useRef();
 
   const FlipToNextPage = () => {
     //send data to backend here
@@ -32,7 +32,13 @@ const OnBoarding = (props) => {
       <div className={classes.mainContent}>
         {pageNum === 0 && <SetTimezoneUrl url={url} timezone={timezone} />}
         {pageNum === 1 && <ConnectGoogleCalendar />}
-        {pageNum === 2 && <SetAvailability days={days} hours={hours} />}
+        {pageNum === 2 && (
+          <SetAvailability
+            days={days}
+            startHour={startHour}
+            finishHour={finishHour}
+          />
+        )}
       </div>
 
       <Grid container justify="center">
