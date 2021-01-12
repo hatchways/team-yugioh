@@ -1,30 +1,87 @@
 import React from "react";
+import {
+  Grid,
+  Typography,
+  TextField,
+  useTheme,
+  Divider,
+  Select,
+  MenuItem,
+  Menu,
+} from "@material-ui/core";
 
-import { Grid, Typography, TextField } from "@material-ui/core";
+import useStyles from "./useStylesHook";
+import ProgressBar from "./ProgressBar";
 
 const SetTimezoneUrl = (props) => {
+  //styles
+  const classes = useStyles();
+  const theme = useTheme();
+
   //two useRef objects below
   const url = props.url;
   const timezone = props.timezone;
 
   return (
-    <div>
-      <Grid container>
-        <Typography>Welcome to CalendApp!</Typography>
-        <div>Progress bar...</div>
+    <>
+      <Grid
+        container
+        item
+        wrap="nowrap"
+        alignItems="center"
+        justify="space-between"
+        className={classes.topContent}
+      >
+        <Typography variant="h6">Welcome to CalendApp!</Typography>
+        <ProgressBar start={0} end={1} />
       </Grid>
 
-      <Grid container>
+      <Divider />
+
+      <Grid
+        container
+        item
+        wrap="nowrap"
+        alignItems="center"
+        className={classes.pageOneEntry}
+      >
         <Typography>Create your CalendApp URL:</Typography>
-        <TextField></TextField>
+        <TextField
+          className={classes.urlPrefixInput}
+          disabled
+          variant="outlined"
+          defaultValue="calendapp.com/"
+          size="small"
+        />
+        <TextField
+          className={classes.urlInput}
+          required
+          variant="outlined"
+          defaultValue="John-Doe"
+          size="small"
+        />
       </Grid>
 
-      <Grid container>
+      <Grid container item alignItems="center" className={classes.pageOneEntry}>
         <Typography>Select your time zone</Typography>
-        <TextField></TextField>
+        <TextField select>
+          {["UTC-12", "UTC-11", "UTC-10", "UTC-9"].map((item, i) => {
+            return (
+              <MenuItem value={item} key={i}>
+                {item}
+              </MenuItem>
+            );
+          })}
+        </TextField>
       </Grid>
-    </div>
+    </>
   );
 };
 
 export default SetTimezoneUrl;
+
+{
+  /*
+
+   */
+}
