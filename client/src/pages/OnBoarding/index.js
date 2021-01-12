@@ -19,11 +19,26 @@ const OnBoarding = (props) => {
 
   const FlipToNextPage = () => {
     //send data to backend here
-
-    if (pageNum === 2) {
-      //redirect to somewhere
-    } else {
-      setPageNum(Math.min(2, pageNum + 1));
+    switch (pageNum) {
+      case 0:
+        console.log(
+          `Send data to backend (todo). \n url: ${url.current}, \n timezone: ${timezone.current}`
+        );
+        setPageNum(pageNum + 1);
+        break;
+      case 1:
+        setPageNum(pageNum + 1);
+        break;
+      case 2:
+        console.log(
+          `Send data to backend (todo). \n available days: ${days.current}\n
+          available hour start: ${startHour.current}\n
+          available hour end: ${finishHour.current}`
+        );
+        console.log("Redirect user to somewhere (todo)");
+        break;
+      default:
+        break;
     }
   };
 
