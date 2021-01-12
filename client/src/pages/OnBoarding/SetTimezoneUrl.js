@@ -5,9 +5,7 @@ import {
   TextField,
   useTheme,
   Divider,
-  Select,
   MenuItem,
-  Menu,
   makeStyles,
 } from "@material-ui/core";
 
@@ -23,7 +21,7 @@ const SetTimezoneUrl = (props) => {
   const timezone = props.timezone;
 
   return (
-    <>
+    <div>
       <Grid
         container
         item
@@ -74,7 +72,7 @@ const SetTimezoneUrl = (props) => {
           })}
         </TextField>
       </Grid>
-    </>
+    </div>
   );
 };
 
