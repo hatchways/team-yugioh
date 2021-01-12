@@ -14,7 +14,7 @@ const ConnectGoogleCalendar = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.pageTwoRoot}>
+    <div className={classes.root}>
       <Grid
         container
         item
@@ -28,7 +28,7 @@ const ConnectGoogleCalendar = (props) => {
       </Grid>
       <Divider />
 
-      <Typography className={classes.pageOneEntry}>
+      <Typography className={classes.entryBig}>
         Here is how CalendApp will work with john-doe@gmail.com
       </Typography>
 
@@ -39,25 +39,25 @@ const ConnectGoogleCalendar = (props) => {
         wrap="nowrap"
         justify="space-between"
         alignItems="center"
-        className={classes.pageTwoEntry}
+        className={classes.entrySmall}
       >
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </Typography>
-        <Button>Edit</Button>
+        <Button className={classes.editButton}>Edit</Button>
       </Grid>
 
       <Grid
         container
-        justify="space-between"
         alignItems="center"
-        className={classes.pageTwoEntry}
+        justify="space-between"
+        className={classes.entrySmall}
         spacing={0}
       >
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </Typography>
-        <Button>Edit</Button>
+        <Button className={classes.editButton}>Edit</Button>
       </Grid>
 
       <Divider />
@@ -70,14 +70,18 @@ const useStyles = makeStyles((theme) => ({
     padding: "2em",
     height: "6em",
   },
-  pageTwoRoot: {
+  root: {
     flexGrow: 1,
   },
-  pageTwoEntry: {
-    margin: "0.4em 2em",
+  entrySmall: {
+    padding: "0.4em 2em",
+    width: "100%",
   },
-  pageOneEntry: {
-    margin: "1.5em 2em",
+  entryBig: {
+    padding: "1.5em 2em",
+  },
+  editButton: {
+    margin: "0",
   },
 }));
 

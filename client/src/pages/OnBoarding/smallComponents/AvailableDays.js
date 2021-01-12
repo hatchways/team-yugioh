@@ -4,6 +4,8 @@ import {
   Grid,
   FormControlLabel,
   makeStyles,
+  ButtonGroup,
+  Typography,
 } from "@material-ui/core";
 
 const week = [
@@ -35,19 +37,25 @@ const AvailableDays = (props) => {
   }, [daysLocal, days]);
 
   return (
-    <Grid container direction="row" wrap="nowrap" alignItems="center">
+    <Grid container justify="center" wrap="nowrap" className={classes.daysGrid}>
       {week.map((item, i) => {
         return (
           <FormControlLabel
             key={i}
-            label={item}
-            labelPlacement="top"
+            label={
+              <Typography variant="caption" className={classes.labelText}>
+                {item}
+              </Typography>
+            }
+            labelPlacement="bottom"
+            className={classes.label}
             control={
               <Checkbox
                 className={classes.eachDay}
                 checked={daysLocal[item] || false}
                 onChange={selectDay}
                 name={item}
+                color="primary"
               />
             }
           />
@@ -58,7 +66,15 @@ const AvailableDays = (props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  daysGrid: {
+    margin: "0",
+  },
   eachDay: {
+    margin: "0",
+  },
+  label: {
+    outline: "1px lightgray solid",
+    width: "4em",
     margin: "0",
   },
 }));

@@ -30,12 +30,11 @@ const ProgressBar = (props) => {
 
 const useStyles = makeStyles((theme) => ({
   progressBar: {
-    width: "11em",
     margin: "1em",
     padding: 0,
   },
   linearProgress: {
-    width: "100%",
+    width: "10em",
   },
 }));
 
