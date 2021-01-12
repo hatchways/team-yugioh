@@ -62,9 +62,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     margin: "auto",
     width: "30em",
-  },
-  verticalGrid: {
-    height: "20em",
+    height: "25em",
   },
   mainContent: {
     height: "20em",
