@@ -1,5 +1,12 @@
 import React, { useState, useRef } from "react";
 import { Paper, Grid, Button, makeStyles } from "@material-ui/core";
+import {
+  Route,
+  useHistory,
+  Switch,
+  Redirect,
+  useRouteMatch,
+} from "react-router-dom";
 
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
@@ -10,32 +17,22 @@ const OnBoarding = (props) => {
   const classes = useStyles();
 
   //data related variables
-  const [pageNum, setPageNum] = useState(0);
   const url = useRef();
   const timezone = useRef();
   const days = useRef();
   const startHour = useRef();
   const finishHour = useRef();
+  const history = useHistory();
+  const match = useRouteMatch({ path: "/onboarding/:page" });
+  const page = match ? match.params.page : 0;
 
   const FlipToNextPage = () => {
-    //send data to backend here
-    switch (pageNum) {
-      case 0:
-        console.log(
-          `Send data to backend (todo). \n url: ${url.current}, \n timezone: ${timezone.current}`
-        );
-        setPageNum(pageNum + 1);
+    switch (page) {
+      case "1":
+        history.push("/onboarding/2");
         break;
-      case 1:
-        setPageNum(pageNum + 1);
-        break;
-      case 2:
-        console.log(
-          `Send data to backend (todo). \n available days: ${days.current}\n
-          available hour start: ${startHour.current}\n
-          available hour end: ${finishHour.current}`
-        );
-        console.log("Redirect user to somewhere (todo)");
+      case "2":
+        history.push("/onboarding/3");
         break;
       default:
         break;
@@ -45,15 +42,24 @@ const OnBoarding = (props) => {
   return (
     <Paper elevation={3} className={classes.paper}>
       <div className={classes.mainContent}>
-        {pageNum === 0 && <SetTimezoneUrl url={url} timezone={timezone} />}
-        {pageNum === 1 && <ConnectGoogleCalendar />}
-        {pageNum === 2 && (
-          <SetAvailability
-            days={days}
-            startHour={startHour}
-            finishHour={finishHour}
-          />
-        )}
+        <Switch>
+          <Route path="/onboarding/1">
+            <SetTimezoneUrl url={url} timezone={timezone} />
+          </Route>
+          <Route path="/onboarding/2">
+            <ConnectGoogleCalendar />
+          </Route>
+          <Route path="/onboarding/3">
+            <SetAvailability
+              days={days}
+              startHour={startHour}
+              finishHour={finishHour}
+            />
+          </Route>
+          <Route>
+            <Redirect to="/onboarding/1" />
+          </Route>
+        </Switch>
       </div>
 
       <Grid container justify="center">
@@ -63,7 +69,7 @@ const OnBoarding = (props) => {
           color="primary"
           variant="contained"
         >
-          {pageNum === 2 ? "Finish" : "Continue"}
+          {page === "2" ? "Finish" : "Continue"}
         </Button>
       </Grid>
     </Paper>
