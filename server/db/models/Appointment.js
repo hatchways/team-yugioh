@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     meeting_id: {
-        type: mongoose.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
     },
     name: {
         type: String,
