@@ -6,7 +6,7 @@ import useStyles from "./useStylesHook";
 const ProgressBar = (props) => {
   const classes = useStyles();
 
-  const start = props.from || 0;
+  const start = props.start || 0;
   const end = props.end;
   const [activeStep, setActiveStep] = useState(start);
 
