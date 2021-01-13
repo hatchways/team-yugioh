@@ -55,17 +55,6 @@ const OnBoarding = (props) => {
           </Route>
         </Switch>
       </div>
-
-      {/* <Grid container justify="center">
-        <Button
-          onClick={FlipToNextPage}
-          className={classes.continueButton}
-          color="primary"
-          variant="contained"
-        >
-          {page === "2" ? "Finish" : "Continue"}
-        </Button>
-      </Grid> */}
     </Paper>
   );
 };
