@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Paper,
   Grid,
@@ -18,6 +18,12 @@ const OnBoarding = () => {
 
   const match = useRouteMatch({ path: "/onboarding/:page" });
   const page = match ? match.params.page : 0;
+
+  const [url, setUrl] = useState("john-doe");
+  const [timezone, setTimezone] = useState("");
+  const [startHour, setStartHour] = useState("");
+  const [finishHour, setFinishHour] = useState("");
+  const [days, setDays] = useState({});
 
   return (
     <Paper elevation={5} className={classes.paper}>
@@ -42,13 +48,25 @@ const OnBoarding = () => {
         <Divider />
         <Switch>
           <Route path="/onboarding/1">
-            <SetTimezoneUrl />
+            <SetTimezoneUrl
+              url={url}
+              setUrl={setUrl}
+              timezone={timezone}
+              setTimezone={setTimezone}
+            />
           </Route>
           <Route path="/onboarding/2">
             <ConnectGoogleCalendar />
           </Route>
           <Route path="/onboarding/3">
-            <SetAvailability />
+            <SetAvailability
+              startHour={startHour}
+              setStartHour={setStartHour}
+              finishHour={finishHour}
+              setFinishHour={setFinishHour}
+              days={days}
+              setDays={setDays}
+            />
           </Route>
           <Route>
             <Redirect to="/onboarding/1" />

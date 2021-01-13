@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Grid,
   Typography,
@@ -8,12 +8,12 @@ import {
   Button,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const SetTimezoneUrl = () => {
+const SetTimezoneUrl = (props) => {
   const classes = useStyles();
 
-  const [url, setUrl] = useState("john-doe");
-  const [timezone, setTimezone] = useState("");
+  const { url, setUrl, timezone, setTimezone } = props;
 
   return (
     <div className={classes.root}>
@@ -117,5 +117,12 @@ const useStyles = makeStyles((theme) => ({
     width: "3em",
   },
 }));
+
+SetTimezoneUrl.propTypes = {
+  url: PropTypes.string,
+  setUrl: PropTypes.func,
+  timezone: PropTypes.string,
+  setTimezone: PropTypes.func,
+};
 
 export default SetTimezoneUrl;

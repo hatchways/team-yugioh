@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import AvailableHours from "./smallComponents/AvailableHoursButton";
 import AvailableDays from "./smallComponents/AvailableDays";
 
-const SetAvailability = () => {
+const SetAvailability = (props) => {
   const classes = useStyles();
 
-  const [startHour, setStartHour] = useState("");
-  const [finishHour, setFinishHour] = useState("");
-  const [days, setDays] = useState({});
+  const {
+    startHour,
+    setStartHour,
+    finishHour,
+    setFinishHour,
+    days,
+    setDays,
+  } = props;
 
   return (
     <div className={classes.root}>
@@ -82,5 +88,14 @@ const useStyles = makeStyles((theme) => ({
     width: "3em",
   },
 }));
+
+SetAvailability.propTypes = {
+  startHour: PropTypes.string,
+  setStartHour: PropTypes.func,
+  finishHour: PropTypes.string,
+  setFinishHour: PropTypes.func,
+  days: PropTypes.object,
+  setDays: PropTypes.func,
+};
 
 export default SetAvailability;
