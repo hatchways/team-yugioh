@@ -140,7 +140,6 @@ const SignUpPage = () => {
             size="large"
             className={classes.button}
             type="submit"
-            startIcon
           >
             {welcomeMsg ? (
               <span style={{ marginLeft: "20px" }}>
