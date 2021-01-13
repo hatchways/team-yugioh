@@ -27,6 +27,9 @@ app.use(function (req, res, next) {
     next(createError(404));
 });
 
+app.use(require("./routes/controllers/AppointmentAPI"));
+app.use(require("./routes/controllers/eventAPI"));
+
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
