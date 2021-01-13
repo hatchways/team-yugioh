@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
@@ -39,12 +39,11 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   },
   button: {
-    background:theme.palette.primary.button,
+    background: theme.palette.primary.button,
     color: "white",
     padding: "15px 50px 15px 50px",
     marginTop: "15%",
-    marginBottom:"10%"
-
+    marginBottom: "10%"
   },
   link: {
     marginLeft: 3,
@@ -67,22 +66,22 @@ const useStyles = makeStyles(theme => ({
 
 const LogInPage = () => {
   const classes = useStyles();
-  const [email, setEmail]=useState(null);
+  const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
-  const [welcomeMsg, showWelcome]=useState(false);
+  const [welcomeMsg, showWelcome] = useState(false);
 
-  const handleClick=(event)=>{
+  const handleClick = event => {
     event.preventDefault();
     //cehck if user has entered an email
-    if(email){
+    if (email) {
       showWelcome(true);
     }
   };
 
-  const handleChange=(event)=>{
+  const handleChange = event => {
     setEmail(event.target.value);
     console.log(email);
-  }
+  };
 
   return (
     <Container
@@ -94,32 +93,60 @@ const LogInPage = () => {
       <img src={logo} alt="company logo" className={classes.logo} />
       <Paper elevation={5} className={classes.paper}>
         <form className={classes.formMain} onSubmit={handleClick}>
-          <Typography variant="h4">
-            {welcomeMsg?<span style={{display:"flex",flexDirection:"column", textAlign:"center"}}><span>{`Welcome back,`}</span><span>{email}</span></span>:`Log into your account`}
+          <Typography variant="h5">
+            {welcomeMsg ? (
+              <span
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  textAlign: "center"
+                }}
+              >
+                <span>{`Welcome back,`}</span>
+                <span>{email}</span>
+              </span>
+            ) : (
+              `Log into your account`
+            )}
           </Typography>
-          {welcomeMsg?null:
-          <div className={classes.formInput}>
-            <Typography variant="h6" className={classes.formLabel}>
-              Enter your E-mail to get started:
-            </Typography>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              name="email"
-              autoComplete="email"
-              placeholder="E-mail address"
-              autoFocus
-              style={{ textAlign: "center" }}
-              inputProps={{ min: 0, style: { textAlign: "center" } }}
-              onChange={handleChange}
-            />
-          </div>
-          }
-          <Button size="large" className={classes.button} onClick={handleClick} startIcon>
-            {welcomeMsg?(<span style={{marginLeft:"20px"}}><img src={googleLogo} style={{position:"absolute", left:45, top:14}}/>Login with Google</span>):"Continue"}
+          {welcomeMsg ? null : (
+            <div className={classes.formInput}>
+              <Typography variant="h6" className={classes.formLabel}>
+                Enter your E-mail to get started:
+              </Typography>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                name="email"
+                autoComplete="email"
+                placeholder="E-mail address"
+                autoFocus
+                style={{ textAlign: "center" }}
+                inputProps={{ min: 0, style: { textAlign: "center" } }}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+          <Button
+            size="large"
+            className={classes.button}
+            onClick={handleClick}
+            startIcon
+          >
+            {welcomeMsg ? (
+              <span style={{ marginLeft: "20px" }}>
+                <img
+                  src={googleLogo}
+                  style={{ position: "absolute", left: 45, top: 14 }}
+                />
+                Login with Google
+              </span>
+            ) : (
+              "Continue"
+            )}
           </Button>
         </form>
         <Divider />

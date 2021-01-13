@@ -62,9 +62,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "-10px",
     textAlign: "center"
   },
-  paragraphText:{
-      marginTop:"10%",
-      textAlign:"center"
+  paragraphText: {
+    marginTop: "10%",
+    textAlign: "center"
   }
 }));
 
@@ -112,7 +112,9 @@ const SignUpPage = () => {
           </Typography>
           {welcomeMsg ? (
             <Typography className={classes.paragraphText} variant="body1">
-                The easiest way for you to sign up is with google. This will automaticaly connect your google calendar so you can start using the app right away!
+              The easiest way for you to sign up is with google. This will
+              automaticaly connect your google calendar so you can start using
+              the app right away!
             </Typography>
           ) : (
             <div className={classes.formInput}>
@@ -157,9 +159,11 @@ const SignUpPage = () => {
         <Divider />
         <div className={classes.footer}>
           <Typography variant="h6">
-            {welcomeMsg?`Prefer to an account with a password?`:`Already have an account?`}
-            <Link className={classes.link} to={welcomeMsg?"#":"/login"}>
-              {welcomeMsg?"Click here":"Login"}
+            {welcomeMsg
+              ? `Prefer to an account with a password?`
+              : `Already have an account?`}
+            <Link className={classes.link} to={welcomeMsg ? "#" : "/login"}>
+              {welcomeMsg ? "Click here" : "Login"}
             </Link>
           </Typography>
         </div>
