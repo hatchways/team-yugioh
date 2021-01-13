@@ -5,8 +5,9 @@ import {
   makeStyles,
   Typography,
   Divider,
+  Button,
 } from "@material-ui/core";
-import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom";
+import { Route, Switch, Link, Redirect, useRouteMatch } from "react-router-dom";
 
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
@@ -27,7 +28,7 @@ const OnBoarding = () => {
 
   return (
     <Paper elevation={5} className={classes.paper}>
-      <div className={classes.mainContent}>
+      <div className={classes.root}>
         <Grid
           container
           item
@@ -72,12 +73,27 @@ const OnBoarding = () => {
             <Redirect to="/onboarding/1" />
           </Route>
         </Switch>
+
+        <Grid container justify="center">
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.button}
+          >
+            <Link to="/onboarding/3" className={classes.link}>
+              Finish
+            </Link>
+          </Button>
+        </Grid>
       </div>
     </Paper>
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+  },
   topContent: {
     padding: "2em",
     height: "6em",
@@ -86,11 +102,20 @@ const useStyles = makeStyles(() => ({
     margin: "auto",
     width: "30em",
   },
-  mainContent: {
-    flexGrow: 1,
-  },
   gridForMainContent: {
     height: "100%",
+  },
+  button: {
+    background: theme.palette.primary.button,
+    color: "white",
+    padding: "15px 50px 15px 50px",
+    position: "absolute",
+    bottom: "2em",
+    width: "3em",
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.common.white,
   },
 }));
 
