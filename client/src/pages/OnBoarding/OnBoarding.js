@@ -21,16 +21,8 @@ import SetAvailability from "./SetAvailability";
 import ProgressBar from "./smallComponents/ProgressBar";
 
 const OnBoarding = (props) => {
-  //styles
   const classes = useStyles();
 
-  //data related variables
-  const url = useRef();
-  const timezone = useRef();
-  const days = useRef();
-  const startHour = useRef();
-  const finishHour = useRef();
-  const history = useHistory();
   const match = useRouteMatch({ path: "/onboarding/:page" });
   const page = match ? match.params.page : 0;
 
@@ -57,17 +49,13 @@ const OnBoarding = (props) => {
         <Divider />
         <Switch>
           <Route path="/onboarding/1">
-            <SetTimezoneUrl url={url} timezone={timezone} />
+            <SetTimezoneUrl />
           </Route>
           <Route path="/onboarding/2">
             <ConnectGoogleCalendar />
           </Route>
           <Route path="/onboarding/3">
-            <SetAvailability
-              days={days}
-              startHour={startHour}
-              finishHour={finishHour}
-            />
+            <SetAvailability />
           </Route>
           <Route>
             <Redirect to="/onboarding/1" />

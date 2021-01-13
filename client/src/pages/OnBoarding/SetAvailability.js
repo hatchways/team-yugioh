@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import ProgressBar from "./smallComponents/ProgressBar";
 import AvailableHours from "./smallComponents/AvailableHoursButton";
 import AvailableDays from "./smallComponents/AvailableDays";
 
 const SetAvailability = (props) => {
-  //styles
   const classes = useStyles();
 
-  //two useRef objects below
-  const startHour = props.startHour;
-  const finishHour = props.finishHour;
-  const days = props.days;
+  const [startHour, setStartHour] = useState("");
+  const [finishHour, setFinishHour] = useState("");
+  const [days, setDays] = useState({});
 
   return (
     <div className={classes.root}>
@@ -22,14 +19,14 @@ const SetAvailability = (props) => {
       </Typography>
 
       <Grid container className={classes.pageThreeEntry}>
-        <AvailableHours hour={startHour} />
+        <AvailableHours hour={startHour} setHour={setStartHour} />
         <div>--</div>
-        <AvailableHours hour={finishHour} />
+        <AvailableHours hour={finishHour} setHour={setFinishHour} />
       </Grid>
 
       <Typography className={classes.pageThreeLabel}>Available days</Typography>
       <Grid container className={classes.daysGrid}>
-        <AvailableDays days={days} />
+        <AvailableDays days={days} setDays={setDays} />
       </Grid>
 
       <Grid container justify="center" className={classes.buttonGrid}>

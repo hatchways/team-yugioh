@@ -13,21 +13,10 @@ import { Link } from "react-router-dom";
 import ProgressBar from "./smallComponents/ProgressBar";
 
 const SetTimezoneUrl = (props) => {
-  //styles
   const classes = useStyles();
 
-  //two useRef objects below
-  const url = props.url;
-  const timezone = props.timezone;
-
-  //local state
-  const [urlLocal, setUrl] = useState("john-doe");
-  const [timezoneLocal, setTimezone] = useState("");
-
-  useEffect(() => {
-    url.current = urlLocal;
-    timezone.current = timezoneLocal;
-  }, [urlLocal, timezoneLocal, url, timezone]);
+  const [url, setUrl] = useState("john-doe");
+  const [timezone, setTimezone] = useState("");
 
   return (
     <div className={classes.root}>
@@ -51,7 +40,7 @@ const SetTimezoneUrl = (props) => {
           required
           variant="outlined"
           size="small"
-          value={urlLocal}
+          value={url}
           onChange={(e) => {
             setUrl(e.target.value);
           }}
@@ -62,7 +51,7 @@ const SetTimezoneUrl = (props) => {
         <Typography>Select your time zone</Typography>
         <TextField
           select
-          value={timezoneLocal}
+          value={timezone}
           onChange={(e) => {
             setTimezone(e.target.value);
           }}
