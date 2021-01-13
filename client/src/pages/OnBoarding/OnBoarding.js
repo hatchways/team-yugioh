@@ -1,19 +1,12 @@
-import React, { useRef } from "react";
+import React from "react";
 import {
   Paper,
   Grid,
-  Button,
   makeStyles,
   Typography,
   Divider,
 } from "@material-ui/core";
-import {
-  Route,
-  useHistory,
-  Switch,
-  Redirect,
-  useRouteMatch,
-} from "react-router-dom";
+import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom";
 
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
