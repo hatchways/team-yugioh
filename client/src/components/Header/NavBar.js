@@ -11,9 +11,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
   },
@@ -33,17 +30,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     cursor: 'pointer',
     fontWeight: 'bold',
-  },
-  orangeBackground: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  orangeText: {
-    color: deepOrange[500],
-  },
-  title: {
-    flexGrow: 1,
-    color: 'black'
   },
   profileImg: {
     color: theme.palette.getContrastText(deepOrange[500]),

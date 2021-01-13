@@ -8,9 +8,8 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 
 import EventTypesTab from './EventTypesTab';
-import Avatar from '@material-ui/core/Avatar';
 import { deepOrange } from '@material-ui/core/colors';
-import Button from '@material-ui/core/Button';
+
 
 
 function TabPanel(props) {
