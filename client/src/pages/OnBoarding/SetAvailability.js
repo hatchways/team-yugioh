@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Typography, Divider, makeStyles } from "@material-ui/core";
+import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import ProgressBar from "./smallComponents/ProgressBar";
 import AvailableHours from "./smallComponents/AvailableHoursButton";
@@ -15,46 +16,38 @@ const SetAvailability = (props) => {
   const days = props.days;
 
   return (
-    <div>
-      <Grid
-        container
-        item
-        wrap="nowrap"
-        alignItems="center"
-        justify="space-between"
-        className={classes.topContent}
-      >
-        <Typography variant="h6">Set your availability</Typography>
-        <ProgressBar start={2} end={3} />
+    <div className={classes.root}>
+      <Typography className={classes.pageThreeLabel}>
+        Available hours
+      </Typography>
+
+      <Grid container className={classes.pageThreeEntry}>
+        <AvailableHours hour={startHour} />
+        <div>--</div>
+        <AvailableHours hour={finishHour} />
       </Grid>
 
-      <Divider />
+      <Typography className={classes.pageThreeLabel}>Available days</Typography>
+      <Grid container className={classes.daysGrid}>
+        <AvailableDays days={days} />
+      </Grid>
 
-      <div className={classes.pageThreeMain}>
-        <Typography className={classes.pageThreeLabel}>
-          Available hours
-        </Typography>
-
-        <Grid container className={classes.pageThreeEntry}>
-          <AvailableHours hour={startHour} />
-          <div>--</div>
-          <AvailableHours hour={finishHour} />
-        </Grid>
-
-        <Typography className={classes.pageThreeLabel}>
-          Available days
-        </Typography>
-        <Grid container className={classes.daysGrid}>
-          <AvailableDays days={days} />
-        </Grid>
-      </div>
+      <Grid container justify="center" className={classes.buttonGrid}>
+        <Button color="primary" variant="contained">
+          <Link to="/onboarding/3" className={classes.link}>
+            Finish
+          </Link>
+        </Button>
+      </Grid>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  pageThreeRoot: {
+  root: {
     flexGrow: 1,
+    position: "relative",
+    height: "20em",
   },
   pageThreeLabel: {
     margin: "0.05em 2em",
@@ -68,9 +61,13 @@ const useStyles = makeStyles((theme) => ({
   daysGrid: {
     padding: "1em 2em",
   },
-  topContent: {
-    padding: "2em",
-    height: "6em",
+  link: {
+    textDecoration: "none",
+    color: theme.palette.common.white,
+  },
+  buttonGrid: {
+    position: "absolute",
+    bottom: "2em",
   },
 }));
 
