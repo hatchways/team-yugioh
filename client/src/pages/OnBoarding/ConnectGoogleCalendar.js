@@ -6,6 +6,7 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import ProgressBar from "./smallComponents/ProgressBar";
 
@@ -15,19 +16,6 @@ const ConnectGoogleCalendar = (props) => {
 
   return (
     <div className={classes.root}>
-      <Grid
-        container
-        item
-        wrap="nowrap"
-        alignItems="flex-start"
-        justify="space-between"
-        className={classes.topContent}
-      >
-        <Typography variant="h6">Your Google calendar is connected!</Typography>
-        <ProgressBar start={1} end={2} />
-      </Grid>
-      <Divider />
-
       <Typography className={classes.entryBig}>
         Here is how CalendApp will work with john-doe@gmail.com
       </Typography>
@@ -61,17 +49,25 @@ const ConnectGoogleCalendar = (props) => {
       </Grid>
 
       <Divider />
+      <Grid container justify="center" className={classes.buttonGrid}>
+        <Button
+          className={classes.continueButton}
+          color="primary"
+          variant="contained"
+        >
+          <Link to="/onboarding/3" className={classes.link}>
+            Continue
+          </Link>
+        </Button>
+      </Grid>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  topContent: {
-    padding: "2em",
-    height: "6em",
-  },
   root: {
-    flexGrow: 1,
+    position: "relative",
+    height: "20em",
   },
   entrySmall: {
     padding: "0.4em 2em",
@@ -82,6 +78,14 @@ const useStyles = makeStyles((theme) => ({
   },
   editButton: {
     margin: "0",
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.common.white,
+  },
+  buttonGrid: {
+    position: "absolute",
+    bottom: "2em",
   },
 }));
 

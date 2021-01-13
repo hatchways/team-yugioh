@@ -1,5 +1,12 @@
 import React, { useRef } from "react";
-import { Paper, Grid, Button, makeStyles } from "@material-ui/core";
+import {
+  Paper,
+  Grid,
+  Button,
+  makeStyles,
+  Typography,
+  Divider,
+} from "@material-ui/core";
 import {
   Route,
   useHistory,
@@ -11,50 +18,44 @@ import {
 import SetTimezoneUrl from "./SetTimezoneUrl";
 import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
 import SetAvailability from "./SetAvailability";
+import ProgressBar from "./smallComponents/ProgressBar";
 
 const OnBoarding = (props) => {
-  //styles
   const classes = useStyles();
 
-  //data related variables
-  const url = useRef();
-  const timezone = useRef();
-  const days = useRef();
-  const startHour = useRef();
-  const finishHour = useRef();
-  const history = useHistory();
   const match = useRouteMatch({ path: "/onboarding/:page" });
   const page = match ? match.params.page : 0;
-
-  const FlipToNextPage = () => {
-    switch (page) {
-      case "1":
-        history.push("/onboarding/2");
-        break;
-      case "2":
-        history.push("/onboarding/3");
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <Paper elevation={3} className={classes.paper}>
       <div className={classes.mainContent}>
+        <Grid
+          container
+          item
+          wrap="nowrap"
+          alignItems="center"
+          justify="space-between"
+          className={classes.topContent}
+        >
+          <Typography variant="h6">
+            {page === "1"
+              ? "Welcome to CalendApp!"
+              : page === "2"
+              ? "Your Google calendar is connected!"
+              : "Set your availability"}
+          </Typography>
+          <ProgressBar start={page - 1} />
+        </Grid>
+        <Divider />
         <Switch>
           <Route path="/onboarding/1">
-            <SetTimezoneUrl url={url} timezone={timezone} />
+            <SetTimezoneUrl />
           </Route>
           <Route path="/onboarding/2">
             <ConnectGoogleCalendar />
           </Route>
           <Route path="/onboarding/3">
-            <SetAvailability
-              days={days}
-              startHour={startHour}
-              finishHour={finishHour}
-            />
+            <SetAvailability />
           </Route>
           <Route>
             <Redirect to="/onboarding/1" />
@@ -62,7 +63,7 @@ const OnBoarding = (props) => {
         </Switch>
       </div>
 
-      <Grid container justify="center">
+      {/* <Grid container justify="center">
         <Button
           onClick={FlipToNextPage}
           className={classes.continueButton}
@@ -71,19 +72,21 @@ const OnBoarding = (props) => {
         >
           {page === "2" ? "Finish" : "Continue"}
         </Button>
-      </Grid>
+      </Grid> */}
     </Paper>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  topContent: {
+    padding: "2em",
+    height: "6em",
+  },
   paper: {
     margin: "auto",
     width: "30em",
-    height: "25em",
   },
   mainContent: {
-    height: "20em",
     flexGrow: 1,
   },
   gridForMainContent: {

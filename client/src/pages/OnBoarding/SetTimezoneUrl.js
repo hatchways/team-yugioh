@@ -6,43 +6,20 @@ import {
   Divider,
   MenuItem,
   makeStyles,
+  Button,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import ProgressBar from "./smallComponents/ProgressBar";
 
 const SetTimezoneUrl = (props) => {
-  //styles
   const classes = useStyles();
 
-  //two useRef objects below
-  const url = props.url;
-  const timezone = props.timezone;
-
-  //local state
-  const [urlLocal, setUrl] = useState("john-doe");
-  const [timezoneLocal, setTimezone] = useState("");
-
-  useEffect(() => {
-    url.current = urlLocal;
-    timezone.current = timezoneLocal;
-  }, [urlLocal, timezoneLocal, url, timezone]);
+  const [url, setUrl] = useState("john-doe");
+  const [timezone, setTimezone] = useState("");
 
   return (
-    <div>
-      <Grid
-        container
-        item
-        wrap="nowrap"
-        alignItems="center"
-        justify="space-between"
-        className={classes.topContent}
-      >
-        <Typography variant="h6">Welcome to CalendApp!</Typography>
-        <ProgressBar start={0} end={1} />
-      </Grid>
-
-      <Divider />
-
+    <div className={classes.root}>
       <Grid
         container
         item
@@ -63,7 +40,7 @@ const SetTimezoneUrl = (props) => {
           required
           variant="outlined"
           size="small"
-          value={urlLocal}
+          value={url}
           onChange={(e) => {
             setUrl(e.target.value);
           }}
@@ -74,7 +51,7 @@ const SetTimezoneUrl = (props) => {
         <Typography>Select your time zone</Typography>
         <TextField
           select
-          value={timezoneLocal}
+          value={timezone}
           onChange={(e) => {
             setTimezone(e.target.value);
           }}
@@ -89,14 +66,22 @@ const SetTimezoneUrl = (props) => {
           })}
         </TextField>
       </Grid>
+
+      <Grid container justify="center" className={classes.buttonGrid}>
+        <Button color="primary" variant="contained">
+          <Link to="/onboarding/2" className={classes.link}>
+            Continue
+          </Link>
+        </Button>
+      </Grid>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  topContent: {
-    padding: "2em",
-    height: "6em",
+  root: {
+    position: "relative",
+    height: "20em",
   },
   entry: {
     margin: "1.5em 2em",
@@ -114,6 +99,14 @@ const useStyles = makeStyles((theme) => ({
   timezoneMenu: {
     width: "5em",
     margin: "0 1em",
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.common.white,
+  },
+  buttonGrid: {
+    position: "absolute",
+    bottom: "2em",
   },
 }));
 

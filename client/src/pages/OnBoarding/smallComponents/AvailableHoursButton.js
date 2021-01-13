@@ -11,8 +11,8 @@ for (let i = 0; i < 24; i++) {
 }
 
 const AvailableHoursBtn = (props) => {
-  const hour = props.hour; //useRef object
-  const [hourLocal, setHour] = useState("");
+  const setHour = props.setHour;
+  const hour = props.hour;
 
   const classes = useStyles();
 
@@ -20,14 +20,10 @@ const AvailableHoursBtn = (props) => {
     setHour(event.target.value);
   };
 
-  useEffect(() => {
-    hour.current = hourLocal;
-  }, [hour, hourLocal]);
-
   return (
     <TextField
       select
-      value={hourLocal}
+      value={hour}
       onChange={selectHour}
       className={classes.menu}
       variant="outlined"
