@@ -25,7 +25,7 @@ const ProgressBar = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   progressBar: {
     margin: "1em",
     padding: 0,

@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const SetTimezoneUrl = (props) => {
+const SetTimezoneUrl = () => {
   const classes = useStyles();
 
   const [url, setUrl] = useState("john-doe");

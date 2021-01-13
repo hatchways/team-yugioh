@@ -8,9 +8,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import ProgressBar from "./smallComponents/ProgressBar";
-
-const ConnectGoogleCalendar = (props) => {
+const ConnectGoogleCalendar = () => {
   //styles
   const classes = useStyles();
 
@@ -30,7 +28,7 @@ const ConnectGoogleCalendar = (props) => {
         className={classes.entrySmall}
       >
         <Typography>
-          1. We will check <b>"john-doe@gmail.com"</b> for conflicts
+          1. We will check <b>john-doe@gmail.com</b> for conflicts
         </Typography>
         <Button className={classes.editButton}>Edit</Button>
       </Grid>
@@ -43,7 +41,7 @@ const ConnectGoogleCalendar = (props) => {
         spacing={0}
       >
         <Typography>
-          2. We will add event to <b>"john-doe@gmail.com"</b>
+          2. We will add event to <b>john-doe@gmail.com</b>
         </Typography>
         <Button className={classes.editButton}>Edit</Button>
       </Grid>

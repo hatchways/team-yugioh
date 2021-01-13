@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import AvailableHours from "./smallComponents/AvailableHoursButton";
 import AvailableDays from "./smallComponents/AvailableDays";
 
-const SetAvailability = (props) => {
+const SetAvailability = () => {
   const classes = useStyles();
 
   const [startHour, setStartHour] = useState("");

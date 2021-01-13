@@ -62,7 +62,7 @@ const AvailableDays = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   daysGrid: {
     margin: "0",
   },

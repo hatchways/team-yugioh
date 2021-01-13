@@ -13,7 +13,7 @@ import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
 import SetAvailability from "./SetAvailability";
 import ProgressBar from "./smallComponents/ProgressBar";
 
-const OnBoarding = (props) => {
+const OnBoarding = () => {
   const classes = useStyles();
 
   const match = useRouteMatch({ path: "/onboarding/:page" });
@@ -59,7 +59,7 @@ const OnBoarding = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   topContent: {
     padding: "2em",
     height: "6em",

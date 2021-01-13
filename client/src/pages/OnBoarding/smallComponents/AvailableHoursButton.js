@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TextField, MenuItem, makeStyles } from "@material-ui/core";
 
 const timeSlots = [];
@@ -41,7 +41,7 @@ const AvailableHoursBtn = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   menu: {
     width: "6em",
     margin: "0 1em 0 0",
