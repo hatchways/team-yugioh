@@ -100,7 +100,7 @@ const LogInPage = () => {
           {welcomeMsg?null:
           <div className={classes.formInput}>
             <Typography variant="h6" className={classes.formLabel}>
-              Enter your E-mail to get started
+              Enter your E-mail to get started:
             </Typography>
             <TextField
               variant="outlined"
@@ -126,7 +126,7 @@ const LogInPage = () => {
         <div className={classes.footer}>
           <Typography variant="h6">
             {`Don't have an account?`}
-            <Link className={classes.link} to="#">
+            <Link className={classes.link} to="signup">
               Sign up
             </Link>
           </Typography>

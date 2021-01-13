@@ -9,6 +9,12 @@ export const theme = createMuiTheme({
     },
     h4: {
       fontWeight: 500
+    },
+    h5: {
+      fontWeight: 600
+    },
+    button: {
+      textTransform: "none"
     }
   },
   palette: {
