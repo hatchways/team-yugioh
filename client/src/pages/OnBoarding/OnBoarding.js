@@ -26,6 +26,12 @@ const OnBoarding = () => {
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
 
+  const submitIfOnLastPage = () => {
+    if (page === 3) {
+      //send request to back end
+    }
+  };
+
   return (
     <Paper elevation={5} className={classes.paper}>
       <div className={classes.root}>
@@ -79,9 +85,13 @@ const OnBoarding = () => {
             color="primary"
             variant="contained"
             className={classes.button}
+            onClick={submitIfOnLastPage}
           >
-            <Link to="/onboarding/3" className={classes.link}>
-              Finish
+            <Link
+              to={page === "3" ? "/" : `/onboarding/${parseInt(page) + 1}`}
+              className={classes.link}
+            >
+              {page === "3" ? "Finish" : "Continue"}
             </Link>
           </Button>
         </Grid>
