@@ -16,7 +16,7 @@ const ConnectGoogleCalendar = (props) => {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.entryBig}>
+      <Typography className={classes.entryBig} variant="subtitle1">
         Here is how CalendApp will work with john-doe@gmail.com
       </Typography>
 
@@ -30,7 +30,7 @@ const ConnectGoogleCalendar = (props) => {
         className={classes.entrySmall}
       >
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          1. We will check <b>"john-doe@gmail.com"</b> for conflicts
         </Typography>
         <Button className={classes.editButton}>Edit</Button>
       </Grid>
@@ -43,13 +43,13 @@ const ConnectGoogleCalendar = (props) => {
         spacing={0}
       >
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          2. We will add event to <b>"john-doe@gmail.com"</b>
         </Typography>
         <Button className={classes.editButton}>Edit</Button>
       </Grid>
 
       <Divider />
-      <Grid container justify="center" className={classes.buttonGrid}>
+      <Grid container justify="center">
         <Button
           className={classes.continueButton}
           color="primary"
@@ -78,14 +78,19 @@ const useStyles = makeStyles((theme) => ({
   },
   editButton: {
     margin: "0",
+    color: theme.palette.text.secondary,
   },
   link: {
     textDecoration: "none",
     color: theme.palette.common.white,
   },
-  buttonGrid: {
+  continueButton: {
     position: "absolute",
     bottom: "2em",
+    width: "3em",
+    background: theme.palette.primary.button,
+    color: "white",
+    padding: "15px 50px 15px 50px",
   },
 }));
 

@@ -29,7 +29,12 @@ const AvailableDays = (props) => {
   };
 
   return (
-    <Grid container justify="center" wrap="nowrap" className={classes.daysGrid}>
+    <Grid
+      container
+      justify="flex-start"
+      wrap="nowrap"
+      className={classes.daysGrid}
+    >
       {week.map((item, i) => {
         return (
           <FormControlLabel
@@ -66,7 +71,8 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     outline: "1px lightgray solid",
-    width: "4em",
+    maxWidth: "4em",
+    minWidth: "3.5em",
     margin: "0",
   },
 }));

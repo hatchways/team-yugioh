@@ -44,7 +44,7 @@ const AvailableHoursBtn = (props) => {
 const useStyles = makeStyles((theme) => ({
   menu: {
     width: "6em",
-    margin: "0 1em",
+    margin: "0 1em 0 0",
   },
 }));
 

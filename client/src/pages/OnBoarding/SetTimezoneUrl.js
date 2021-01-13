@@ -9,8 +9,6 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import ProgressBar from "./smallComponents/ProgressBar";
-
 const SetTimezoneUrl = (props) => {
   const classes = useStyles();
 
@@ -26,7 +24,7 @@ const SetTimezoneUrl = (props) => {
         alignItems="center"
         className={classes.entry}
       >
-        <Typography>Create your CalendApp URL:</Typography>
+        <Typography variant="subtitle1">Create your CalendApp URL:</Typography>
         <TextField
           className={classes.urlPrefixInput}
           disabled
@@ -47,7 +45,7 @@ const SetTimezoneUrl = (props) => {
       </Grid>
 
       <Grid container item alignItems="center" className={classes.entry}>
-        <Typography>Select your time zone</Typography>
+        <Typography variant="subtitle1">Select your time zone</Typography>
         <TextField
           select
           value={timezone}
@@ -66,8 +64,12 @@ const SetTimezoneUrl = (props) => {
         </TextField>
       </Grid>
 
-      <Grid container justify="center" className={classes.buttonGrid}>
-        <Button color="primary" variant="contained">
+      <Grid container justify="center">
+        <Button
+          color="primary"
+          variant="contained"
+          className={classes.continueButton}
+        >
           <Link to="/onboarding/2" className={classes.link}>
             Continue
           </Link>
@@ -95,6 +97,9 @@ const useStyles = makeStyles((theme) => ({
     width: "6em",
     lineHeight: "1.2em",
   },
+  urlInputTextFormat: {
+    fontWeight: 600,
+  },
   timezoneMenu: {
     width: "5em",
     margin: "0 1em",
@@ -103,9 +108,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.common.white,
   },
-  buttonGrid: {
+  continueButton: {
+    background: theme.palette.primary.button,
+    color: "white",
+    padding: "15px 50px 15px 50px",
     position: "absolute",
     bottom: "2em",
+    width: "3em",
   },
 }));
 

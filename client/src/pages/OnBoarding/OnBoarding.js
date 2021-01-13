@@ -20,7 +20,7 @@ const OnBoarding = (props) => {
   const page = match ? match.params.page : 0;
 
   return (
-    <Paper elevation={3} className={classes.paper}>
+    <Paper elevation={5} className={classes.paper}>
       <div className={classes.mainContent}>
         <Grid
           container
@@ -30,7 +30,7 @@ const OnBoarding = (props) => {
           justify="space-between"
           className={classes.topContent}
         >
-          <Typography variant="h6">
+          <Typography variant="h5">
             {page === "1"
               ? "Welcome to CalendApp!"
               : page === "2"
