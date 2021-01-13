@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import EventGrid from '../UserEvents/EventGrid';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import ProfileImage from './../../img/user-image.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     background: theme.palette.secondary.main
   },
+  name : {
+    fontWeight: 500
+  },
+  userUrl: {
+    color: 'gray'
+  }
 }));
 
 export default function EventTypesTab() {
@@ -27,10 +34,10 @@ export default function EventTypesTab() {
     <Container>
       <Box display='flex' justifyContent='space-between'>
         <Box display='flex'>
-          <Avatar className={classes.avatar}>JD</Avatar>
+          <Avatar className={classes.avatar} src={ProfileImage}/>
           <span>
-            <Typography>John Doe</Typography>
-            <Typography>calendapp.com/john-doe</Typography>
+            <Typography className={classes.name}>John Doe</Typography>
+            <Typography className={classes.userUrl}>calendapp.com/john-doe</Typography>
           </span>
         </Box>
         <Box>

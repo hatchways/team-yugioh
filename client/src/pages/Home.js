@@ -28,7 +28,7 @@ export default function Home() {
     <div className={classes.root}>
       <NavBar />
 
-      <Typography className={classes.title}variant="h5">My CalendApp</Typography>
+      <Typography className={classes.title} variant="h5">My CalendApp</Typography>
 
       <SelectTabs/>
 
