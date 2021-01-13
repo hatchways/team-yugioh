@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
@@ -7,7 +7,8 @@ import logo from "../assets/logo.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import googleLogo from "../assets/googlesvg1.svg";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,23 +39,24 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   },
   button: {
-    background:
-      "linear-gradient(270deg, rgba(247,132,0,1) 2%, rgba(247,105,0,1) 53%)",
+    background:theme.palette.primary.button,
     color: "white",
     padding: "15px 50px 15px 50px",
-    marginTop: "15%"
+    marginTop: "15%",
+    marginBottom:"10%"
+
   },
   link: {
     marginLeft: 3,
-    color: "#f76900",
-    textDecoration:"none"
+    color: theme.palette.primary.main,
+    textDecoration: "none"
   },
   paper: {
     width: "80%",
     margin: "auto"
   },
   formInput: {
-    marginTop: "15%",
+    marginTop: "20%",
     width: "90%"
   },
   formLabel: {
@@ -64,9 +66,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogInPage = () => {
-
-    
   const classes = useStyles();
+  const [email, setEmail]=useState(null);
+  //welcomeMsg is true if use has entered an email and pressed continue button
+  const [welcomeMsg, showWelcome]=useState(false);
+
+  const handleClick=(event)=>{
+    event.preventDefault();
+    //cehck if user has entered an email
+    if(email){
+      showWelcome(true);
+    }
+  };
+
+  const handleChange=(event)=>{
+    setEmail(event.target.value);
+    console.log(email);
+  }
 
   return (
     <Container
@@ -77,8 +93,11 @@ const LogInPage = () => {
     >
       <img src={logo} alt="company logo" className={classes.logo} />
       <Paper elevation={5} className={classes.paper}>
-        <div className={classes.formMain}>
-          <Typography variant="h4">Log into your account</Typography>
+        <form className={classes.formMain} onSubmit={handleClick}>
+          <Typography variant="h4">
+            {welcomeMsg?<span style={{display:"flex",flexDirection:"column", textAlign:"center"}}><span>{`Welcome back,`}</span><span>{email}</span></span>:`Log into your account`}
+          </Typography>
+          {welcomeMsg?null:
           <div className={classes.formInput}>
             <Typography variant="h6" className={classes.formLabel}>
               Enter your E-mail to get started
@@ -95,17 +114,21 @@ const LogInPage = () => {
               autoFocus
               style={{ textAlign: "center" }}
               inputProps={{ min: 0, style: { textAlign: "center" } }}
+              onChange={handleChange}
             />
           </div>
-          <Button size="large" className={classes.button}>
-            Continue
+          }
+          <Button size="large" className={classes.button} onClick={handleClick} startIcon>
+            {welcomeMsg?(<span style={{marginLeft:"20px"}}><img src={googleLogo} style={{position:"absolute", left:45, top:14}}/>Login with Google</span>):"Continue"}
           </Button>
-        </div>
+        </form>
         <Divider />
         <div className={classes.footer}>
           <Typography variant="h6">
             {`Don't have an account?`}
-            <Link className={classes.link} to="#">Sign up</Link>
+            <Link className={classes.link} to="#">
+              Sign up
+            </Link>
           </Typography>
         </div>
       </Paper>
