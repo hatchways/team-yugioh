@@ -6,6 +6,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const week = [
   "Sunday",
@@ -76,5 +77,10 @@ const useStyles = makeStyles(() => ({
     margin: "0",
   },
 }));
+
+AvailableDays.propTypes = {
+  days: PropTypes.object,
+  setDays: PropTypes.func,
+};
 
 export default AvailableDays;

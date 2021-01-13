@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, MenuItem, makeStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const timeSlots = [];
 for (let i = 0; i < 24; i++) {
@@ -47,5 +48,10 @@ const useStyles = makeStyles(() => ({
     margin: "0 1em 0 0",
   },
 }));
+
+AvailableHoursBtn.propTypes = {
+  setHour: PropTypes.func,
+  hour: PropTypes.string,
+};
 
 export default AvailableHoursBtn;

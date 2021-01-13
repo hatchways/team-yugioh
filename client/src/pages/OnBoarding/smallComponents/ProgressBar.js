@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MobileStepper, makeStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const ProgressBar = (props) => {
   const classes = useStyles();
@@ -34,5 +35,9 @@ const useStyles = makeStyles(() => ({
     width: "10em",
   },
 }));
+
+ProgressBar.propTypes = {
+  start: PropTypes.number,
+};
 
 export default ProgressBar;
