@@ -80,7 +80,6 @@ const LogInPage = () => {
 
   const handleChange = event => {
     setEmail(event.target.value);
-    console.log(email);
   };
 
   return (
@@ -133,7 +132,7 @@ const LogInPage = () => {
           <Button
             size="large"
             className={classes.button}
-            onClick={handleClick}
+            type="submit"
             startIcon
           >
             {welcomeMsg ? (
