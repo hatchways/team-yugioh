@@ -8,11 +8,6 @@ const schema = new Schema({
     },
     duration: {
         type: Number,
-        validate: {
-            validator: function (v) {
-                return [15, 30, 60].includes(v);
-            },
-        },
     },
 });
 
