@@ -5,21 +5,9 @@ const router = express.Router();
 
 // CREATE appointment
 router.post("/api/appointment", (req, res) => {
+    console.log(req.body);
     // sanitize req data
-    if (
-        req.body.meeting_id &&
-        req.body.name &&
-        req.body.email &&
-        req.body.time &&
-        req.body.timezone
-    ) {
-        db.Appointment.create(req.body)
-            .then((response) => res.send(response))
-            .catch((error) => {
-                console.log(error);
-                res.status(500).send("Unable to create appointment", error);
-            });
-    } else if (!req.body.meeting_id) {
+    if (!req.body.meeting_id) {
         res.status(400).send("Meeting ID is required");
     } else if (!req.body.name) {
         res.status(400).send("Name is required");
@@ -29,6 +17,15 @@ router.post("/api/appointment", (req, res) => {
         res.status(400).send("Time is required");
     } else if (!req.body.timezone) {
         res.status(400).send("Timezone is required");
+    } else {
+        {
+            db.Appointment.create(req.body)
+                .then((response) => res.send(response))
+                .catch((error) => {
+                    console.log(error);
+                    res.status(500).send(error);
+                });
+        }
     }
 });
 
@@ -38,7 +35,7 @@ router.get("/api/appointment", (req, res) => {
         .then((data) => res.send(data))
         .catch((error) => {
             console.log(error);
-            res.status(500).send("Unable to get appointments", error);
+            res.status(500).send(error);
         });
 });
 
