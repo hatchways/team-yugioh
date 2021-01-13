@@ -9,7 +9,7 @@ const data = () => {
 const Scheduler = () => {
   const classes = useStyles();
   return (
-    <Paper>
+    <Paper className={classes.root} elevation={5}>
       <Grid>
         <p>hello</p>
       </Grid>
@@ -19,7 +19,9 @@ const Scheduler = () => {
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: "30em",
+    height: "20em",
+    width: "40em",
+    margin: "3em auto",
   },
 }));
 
