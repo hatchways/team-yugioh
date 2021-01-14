@@ -51,7 +51,8 @@ export default function EventCard() {
           <Typography item variant='subtitle2'>
             15min
           </Typography>
-          <Button item variant='outlined' color='secondary' size='small'>
+          <Button item variant='outlined' color='secondary' size='small'
+          style={{textTransform: 'none'}}>
             Copy Link
           </Button>
         </Grid>

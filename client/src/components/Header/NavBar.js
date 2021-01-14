@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box'
+import { shadows } from '@material-ui/system';
 
 import Logo from './../../img/logo.png';
 import ProfileImage from './../../img/user-image.png';
@@ -12,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: 'white',
-    padding: '2rem 3rem',
+    padding: '1.5rem 3rem',
+    
   },
   title: {
     flexGrow: 1,
@@ -40,11 +43,12 @@ export default function NavBar() {
   const preventDefault = (event) => event.preventDefault();
 
   return (
-    <AppBar className={classes.root} position='static' elevation={0} inherit>
+    <AppBar className={classes.root} position='static'>
       <Toolbar>
         <span className={classes.title}>
           <img width='110rem' src={Logo} />
         </span>
+
 
         <Link
           variant='subtitle1'

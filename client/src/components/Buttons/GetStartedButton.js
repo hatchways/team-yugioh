@@ -1,14 +1,19 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button"
-
+import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     color: 'white',
     background: 'linear-gradient(45deg, #e06602 30%, #eda346 90%)',
-    padding: theme.spacing(2),
-    borderRadius: 29
+    padding: "1rem 2rem",
+    borderRadius: 29,
+    textTransform: 'none',
+    
+  },
+  text : {
+    fontWeight: 500
   }
 }));
 
@@ -18,7 +23,7 @@ const classes = useStyles();
 
   return (
     <Button className={classes.root}>
-     Getting Started Guide
+     <Typography className={classes.text}variant="subtitle1">Getting Started Guide</Typography>
     </Button>
   )
 }

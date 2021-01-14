@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -8,12 +8,9 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 
 import EventTypesTab from './EventTypesTab';
-import { deepOrange } from '@material-ui/core/colors';
-
 
 
 function TabPanel(props) {
-  const classes = useStyles();
   const { children, value, index, ...other } = props;
 
   return (
@@ -49,16 +46,38 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-  tab: {
-    color: 'orange',
+    paddingLeft:  theme.spacing(10),
+    paddingRight:  theme.spacing(10),
+    paddingTop:  theme.spacing(2),
+    paddingBottom:  theme.spacing(5),
   },
   avatar: {
     marginRight: theme.spacing(2), 
     marginBottom: theme.spacing(4), 
   }
 }));
+
+const StyledTab = withStyles((theme) => ({
+  root: {
+    
+    minWidth: 72,
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: theme.spacing(4),
+    fontSize: '1rem',
+    '&:hover': {
+      color: 'orange',
+      opacity: 1,
+    },
+    '&$selected': {
+      color: theme.palette.secondary.main,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    '&:focus': {
+      color: 'black',
+    },
+  },
+  selected: {},
+}))((props) => <Tab disableRipple {...props} />);
 
 export default function SelectTabs() {
   const classes = useStyles();
@@ -76,12 +95,11 @@ export default function SelectTabs() {
           onChange={handleChange}
           aria-label='simple tabs example'
         >
-          <Tab
-            style={{ color: deepOrange[500] }}
+          <StyledTab
             label='Event Types'
             {...a11yProps(0)}
           />
-          <Tab
+          <StyledTab
             classes={classes.tab}
             label='Scheduled Events'
             {...a11yProps(1)}
@@ -92,8 +110,10 @@ export default function SelectTabs() {
         <EventTypesTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        To be completed...
       </TabPanel>
     </Container>
   );
 }
+
+
