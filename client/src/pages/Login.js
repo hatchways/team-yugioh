@@ -131,7 +131,7 @@ const LogInPage = () => {
             </div>
           )}
           {welcomeMsg ? (
-            <GoogleLoginButton />
+            <GoogleLoginButton email={email} variant={"login"} />
           ) : (
             <Button className={classes.button}>
               <span style={{ marginLeft: "20px" }}>Continue</span>

@@ -158,7 +158,7 @@ const SignUpPage = () => {
         <div className={classes.footer}>
           <Typography variant="h6">
             {welcomeMsg
-              ? `Prefer to an account with a password?`
+              ? `Prefer to create an account with a password?`
               : `Already have an account?`}
             <Link className={classes.link} to={welcomeMsg ? "#" : "/login"}>
               {welcomeMsg ? "Click here" : "Login"}

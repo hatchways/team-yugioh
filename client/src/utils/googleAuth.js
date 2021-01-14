@@ -1,18 +1,13 @@
 import axios from "axios";
 
-const userAPIpath = "http://localhost:3001/api/authentication";
+const userAPIpath = "http://localhost:3001/api/authentication/google";
 
-export const sendToken = async token => {
+export const sendToken = async (code, email, variant) => {
+  try {
+    const response = await axios.post(userAPIpath, { code: code.code, email, variant });
 
-    console.log(token.tokenObj.id_token);
-    try{
-  await axios.post(
-    userAPIpath,
-    {tokenId:token.tokenObj.id_token}
-  )
-}
-catch(err){
+    console.log(response);
+  } catch (err) {
     console.log(err);
-}
-
+  }
 };
