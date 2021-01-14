@@ -46,7 +46,7 @@ export default function NavBar() {
     <AppBar className={classes.root} position='static'>
       <Toolbar>
         <span className={classes.title}>
-          <img width='110rem' src={Logo} />
+          <img width='110rem' src={Logo} alt='CalendApp logo'/>
         </span>
 
 

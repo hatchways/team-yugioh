@@ -9,8 +9,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'linear-gradient(45deg, #e06602 30%, #eda346 90%)',
     padding: "1rem 2rem",
     borderRadius: 29,
-    textTransform: 'none',
-    
+    textTransform: 'none',  
   },
   text : {
     fontWeight: 500

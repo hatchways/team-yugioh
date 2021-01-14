@@ -47,7 +47,7 @@ export default function EventTypesTab() {
       >
         <Box item display='flex'
         className={classes.profileAndNewTypeBox}>
-          <Avatar className={classes.avatar} src={ProfileImage} />
+          <Avatar className={classes.avatar} src={ProfileImage} alt = "User image"/>
           <Box >
             <Typography className={classes.name}>John Doe</Typography>
             <Typography className={classes.userUrl}>
