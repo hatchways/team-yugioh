@@ -45,7 +45,7 @@ router.post("/api/authentication/google", async (req, res) => {
         await newUser.save();
 
 
-        res.status(201).send({ tokens:{id_token, access_token} });
+        res.status(201).send(tokens);
       } catch (err) {
         res.status(400).send(err);
       }
@@ -57,13 +57,11 @@ router.post("/api/authentication/google", async (req, res) => {
         return res.status(500).send("No such email registerd!");
       }
       
-      //trying to send cookie
-      res.cookie('name', 'express').send('cookie set')
-
-
-      //res.status(201).send();
+      
+      res.status(201).send(JSON.stringify(tokens));
     }
   });
 });
+
 
 module.exports = router;

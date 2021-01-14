@@ -133,7 +133,7 @@ const LogInPage = () => {
           {welcomeMsg ? (
             <GoogleLoginButton email={email} variant={"login"} />
           ) : (
-            <Button className={classes.button}>
+            <Button className={classes.button} type="submit">
               <span style={{ marginLeft: "20px" }}>Continue</span>
             </Button>
           )}
