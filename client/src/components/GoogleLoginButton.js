@@ -39,7 +39,8 @@ const GoogleLoginButton = ({ email, variant }) => {
               style={{ position: "absolute", left: 45, top: 14 }}
               alt="google logo"
             />
-            Login with Google
+            
+            {variant==="login"?`Login with Google`:`Signup with Google`}
           </span>
         </Button>
       )}

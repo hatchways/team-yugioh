@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
-import googleLogo from "../assets/googlesvg1.svg";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "10%"
   },
   link: {
+    display:"block",
     marginLeft: 3,
     color: theme.palette.primary.main,
     textDecoration: "none"
@@ -136,23 +137,13 @@ const SignUpPage = () => {
               />
             </div>
           )}
-          <Button
-            size="large"
-            className={classes.button}
-            type="submit"
-          >
-            {welcomeMsg ? (
-              <span style={{ marginLeft: "20px" }}>
-                <img
-                  src={googleLogo}
-                  style={{ position: "absolute", left: 45, top: 14 }}
-                />
-                Sign up with Google
-              </span>
-            ) : (
-              "Get Started"
-            )}
-          </Button>
+          {welcomeMsg ? (
+            <GoogleLoginButton email={email} variant={"signup"} />
+          ) : (
+            <Button className={classes.button} size="large" type="submit">
+              <span style={{ marginLeft: "20px" }}>Get started</span>
+            </Button>
+          )}
         </form>
         <Divider />
         <div className={classes.footer}>
