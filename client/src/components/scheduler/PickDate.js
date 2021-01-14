@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import {
+  DatePicker,
+  MuiPickersUtilsProvider,
+  Calendar,
+  useStaticState,
+} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 const PickDate = () => {
   const classes = useStyles();
 
-  const [date, setDate] = useState(new Date());
-
   return (
     <Grid className={classes.root}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DatePicker variant="static" value={date} onChange={setDate} />
+        <DisplayCalendar />
       </MuiPickersUtilsProvider>
     </Grid>
   );
+};
+
+const DisplayCalendar = () => {
+  const [date, setDate] = useState(new Date());
+  const { pickerProps } = useStaticState({
+    value: date,
+    onChange: setDate,
+  });
+  return <Calendar {...pickerProps} />;
 };
 
 const useStyles = makeStyles(() => ({
