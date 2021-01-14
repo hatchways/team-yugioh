@@ -19,8 +19,9 @@ function App() {
           <Redirect to="/signup"/>
         </Route>
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/login" componzent={LogInPage} />
-        <Route path="/home" componzent={Home} />
+        <Route path="/login" component={LogInPage} />
+        <Route path="/landing" component={LandingPage} />        
+        <Route path="/home" component={Home} />
 
       </BrowserRouter>
     </MuiThemeProvider>
