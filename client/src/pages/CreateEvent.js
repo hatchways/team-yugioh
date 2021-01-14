@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from "react";
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    TextField,
+    DialogActions,
+    Button,
+    Select,
+    MenuItem,
+    Grid,
+} from "@material-ui/core";
 import axios from "axios";
 import mongoose from "mongoose";
 
 function CreatEvent(props) {
     const [userEvents, setUserEvents] = useState([15, 30, 60]);
+    const [openNewEvent, setOpenNewEvent] = useState(false);
+    const [unit, setUnit] = useState("min");
     // replace with actual user id
     const userId = "5ffe8c395a611a0000d0c692";
 
@@ -11,31 +25,91 @@ function CreatEvent(props) {
         axios
             .get("/api/event?user_id=" + userId)
             .then((res) => {
-                console.log(res);
                 const oldEventTypes = res.data.map(({ duration }) => duration);
                 setUserEvents([...userEvents, ...oldEventTypes]);
             })
             .catch((err) => console.log(err));
     }, []);
 
+    const handleClickOpen = () => {
+        setOpenNewEvent(true);
+    };
+
+    const handleClose = () => {
+        setOpenNewEvent(false);
+    };
+    const handleChange = (event) => {
+        setUnit(event.target.value);
+    };
+
     function createNewEventType() {
+        handleClose();
+
+        let duration = Math.floor(Math.random() * 60);
+        if (userEvents.includes(duration)) {
+            console.log("you already have that one");
+            return;
+        }
+
         axios
             .post("/api/event", {
                 user_id: userId,
-                duration: Math.floor(Math.random() * 60),
+                duration: duration,
             })
             .then((res) => {
                 console.log(res);
+                const currentEventTypes = [...userEvents];
+                currentEventTypes.push(res.data.duration);
+                setUserEvents(currentEventTypes);
             })
             .catch((err) => console.log(err));
     }
 
     return (
         <>
-            <button onClick={createNewEventType}>Create new event type</button>
+            <button onClick={handleClickOpen}>Create new event type</button>
             {userEvents.map((type) => (
                 <MeetingCard type={type} key={type} />
             ))}
+            <Dialog
+                open={openNewEvent}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+            >
+                <DialogTitle id="form-dialog-title">
+                    Create New Event Type
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please choose how long you would like your new event
+                        type to be.
+                    </DialogContentText>
+                    <Grid container={true} alignItems="baseline">
+                        <TextField
+                            autoFocus
+                            id="duration"
+                            label="Duration"
+                            type="number"
+                        />
+                        <Select
+                            value={unit}
+                            onChange={handleChange}
+                            label="Units"
+                        >
+                            <MenuItem value={"min"}>minutes</MenuItem>
+                            <MenuItem value={"hour"}>hours</MenuItem>
+                        </Select>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={createNewEventType} color="primary">
+                        Create New Event Type
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 }
