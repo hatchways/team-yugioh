@@ -1,5 +1,8 @@
 import React from "react";
-import { makeStyles, Paper, Grid } from "@material-ui/core";
+import { makeStyles, Paper, Grid, Divider } from "@material-ui/core";
+import Overview from "../components/scheduler/Overview";
+import PickDate from "../components/scheduler/PickDate";
+import PickTime from "../components/scheduler/PickTime";
 
 const data = () => {
   // Since I'm not sure how the data will be fetched or in what format,
@@ -10,19 +13,28 @@ const Scheduler = () => {
   const classes = useStyles();
   return (
     <Paper className={classes.root} elevation={5}>
-      <Grid>
-        <p>hello</p>
+      <Grid container direction="row" wrap="nowrap" className={classes.grid}>
+        <Overview />
+        <Divider orientation="vertical" flexItem={true} />
+        <PickDate />
+        <Divider orientation="vertical" flexItem={true} />
+        <PickTime />
       </Grid>
     </Paper>
   );
 };
 
-const useStyles = makeStyles(() => ({
-  root: {
-    height: "20em",
-    width: "40em",
-    margin: "3em auto",
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      height: theme.spacing(30),
+      width: theme.spacing(60),
+      margin: `${theme.spacing(10)}px auto`,
+    },
+    grid: {
+      height: "100%",
+    },
+  };
+});
 
 export default Scheduler;
