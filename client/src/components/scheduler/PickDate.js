@@ -18,7 +18,7 @@ const PickDate = () => {
 };
 
 const useStyles = makeStyles(() => ({
-  root: { height: "100%" },
+  root: { height: "100%", overflow: "hidden" },
 }));
 
 export default PickDate;
