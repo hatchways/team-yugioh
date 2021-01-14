@@ -8,6 +8,7 @@
         "test": "NODE_ENV=test ./node_modules/.bin/mocha --exit --timeout 30000"
     },
     "dependencies": {
+        "aws-sdk": "^2.827.0",
         "cookie-parser": "^1.4.5",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
