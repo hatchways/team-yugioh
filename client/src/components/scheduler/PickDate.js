@@ -20,12 +20,7 @@ const PickDate = (props) => {
 
 const DisplayCalendar = (props) => {
   const { selectedDate, setSelectedDate } = props;
-
-  const { pickerProps } = useStaticState({
-    value: selectedDate,
-    onChange: setSelectedDate,
-  });
-  return <Calendar {...pickerProps} />;
+  return <Calendar date={selectedDate} onChange={setSelectedDate} />;
 };
 
 const useStyles = makeStyles(() => ({
