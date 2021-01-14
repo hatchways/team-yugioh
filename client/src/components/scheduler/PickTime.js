@@ -25,12 +25,19 @@ const PickTime = (props) => {
   const date = props.date || "January 14, 2020, Thursday";
 
   return (
-    <Grid item xs={3} className={classes.root}>
+    <Grid container className={classes.root} direction="column">
       <Grid item>
-        <Typography variant="h6">{date}</Typography>
+        <Typography variant="body1">{date}</Typography>
       </Grid>
 
-      <Grid item className={classes.list}>
+      <Grid
+        item
+        className={classes.list}
+        container
+        direction="column"
+        alignItems="center"
+        wrap="nowrap"
+      >
         {timeSlots.map((slot, i) => (
           <ListItem key={i} className={classes.listItem} button>
             <Grid container direction="row" justify="space-around">
@@ -46,13 +53,11 @@ const PickTime = (props) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100%",
-    padding: theme.spacing(2),
+    width: "100%",
   },
   list: {
-    overflow: "auto",
-    height: "80%",
-    padding: theme.spacing(1),
+    overflowY: "scroll",
+    height: theme.spacing(30),
   },
   icon: {
     width: "3px",
@@ -65,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     height: theme.spacing(5),
     margin: `${theme.spacing(2)}px 0`,
+    width: theme.spacing(15),
   },
 }));
 

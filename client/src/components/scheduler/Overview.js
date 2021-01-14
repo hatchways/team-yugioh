@@ -9,14 +9,7 @@ const Overview = (props) => {
   const duration = props.duration || "60";
 
   return (
-    <Grid
-      item
-      xs={4}
-      className={classes.root}
-      spacing={1}
-      container
-      direction="column"
-    >
+    <Grid className={classes.root} spacing={1} container direction="column">
       <Grid item>
         <Typography variant="subtitle2" color="textSecondary">
           {name}

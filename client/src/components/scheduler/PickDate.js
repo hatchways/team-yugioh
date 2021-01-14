@@ -9,7 +9,7 @@ const PickDate = () => {
   const [date, setDate] = useState(new Date());
 
   return (
-    <Grid item xs={5} className={classes.root}>
+    <Grid className={classes.root}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DatePicker variant="static" value={date} onChange={setDate} />
       </MuiPickersUtilsProvider>
