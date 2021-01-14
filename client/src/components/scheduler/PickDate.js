@@ -7,22 +7,23 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const PickDate = () => {
+const PickDate = (props) => {
   const classes = useStyles();
   return (
     <Grid className={classes.root}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DisplayCalendar />
+        <DisplayCalendar {...props} />
       </MuiPickersUtilsProvider>
     </Grid>
   );
 };
 
-const DisplayCalendar = () => {
-  const [date, setDate] = useState(new Date());
+const DisplayCalendar = (props) => {
+  const { selectedDate, setSelectedDate } = props;
+
   const { pickerProps } = useStaticState({
-    value: date,
-    onChange: setDate,
+    value: selectedDate,
+    onChange: setSelectedDate,
   });
   return <Calendar {...pickerProps} />;
 };

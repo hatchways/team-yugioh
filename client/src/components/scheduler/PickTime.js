@@ -1,9 +1,12 @@
 import React from "react";
 import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
+import { format } from "date-fns";
 
 const PickTime = (props) => {
   const classes = useStyles();
+  const selectedDate = props.selectedDate;
+  const date = format(selectedDate, "EEEE, LLL do");
   const timeSlots = [
     "16:30",
     "17:00",
@@ -14,7 +17,6 @@ const PickTime = (props) => {
     "19:30",
     "20:00",
   ];
-  const date = props.date || "January 14, 2020, Thursday";
 
   return (
     <Grid

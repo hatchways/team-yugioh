@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Paper,
@@ -17,6 +17,7 @@ const data = () => {
 
 const Scheduler = () => {
   const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <Paper className={classes.root} elevation={5}>
       <Grid container direction="row" wrap="nowrap" className={classes.grid}>
@@ -42,10 +43,13 @@ const Scheduler = () => {
 
           <Grid item container spacing={2}>
             <Grid item xs={7}>
-              <PickDate />
+              <PickDate
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
             </Grid>
             <Grid item xs={5}>
-              <PickTime />
+              <PickTime selectedDate={selectedDate} />
             </Grid>
           </Grid>
         </Grid>
