@@ -47,6 +47,9 @@ const Scheduler = () => {
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
               />
+              <Typography variant="subtitle2">
+                Coordinated Universal Time
+              </Typography>
             </Grid>
             <Grid item xs={5}>
               <PickTime selectedDate={selectedDate} />
