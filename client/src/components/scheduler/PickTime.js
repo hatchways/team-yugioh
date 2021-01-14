@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 
 const PickTime = (props) => {
@@ -69,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     borderStyle: "solid",
     borderRadius: 10,
     height: theme.spacing(5),
-    margin: `${theme.spacing(2)}px 0`,
+    margin: `${theme.spacing(0.5)}px 0`,
     width: theme.spacing(15),
   },
 }));
