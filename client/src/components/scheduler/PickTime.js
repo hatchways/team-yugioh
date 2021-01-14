@@ -17,7 +17,13 @@ const PickTime = (props) => {
   const date = props.date || "January 14, 2020, Thursday";
 
   return (
-    <Grid container className={classes.root} direction="column">
+    <Grid
+      container
+      className={classes.root}
+      direction="column"
+      wrap="nowrap"
+      spacing={2}
+    >
       <Grid item>
         <Typography variant="body1">{date}</Typography>
       </Grid>
@@ -49,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     overflowY: "scroll",
-    height: theme.spacing(30),
+    height: theme.spacing(40),
   },
   icon: {
     width: "3px",
