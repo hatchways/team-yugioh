@@ -1,17 +1,47 @@
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
+import { AccessTime } from "@material-ui/icons";
 import React from "react";
 
-const Overview = () => {
+const Overview = (props) => {
   const classes = useStyles();
+
+  const name = props.name || "John Doe";
+  const duration = props.duration || "60";
+
   return (
-    <Grid item xs={4} className={classes.root}>
-      overview
+    <Grid
+      item
+      xs={4}
+      className={classes.root}
+      spacing={1}
+      container
+      direction="column"
+    >
+      <Grid item>
+        <Typography variant="subtitle2" color="textSecondary">
+          {name}
+        </Typography>
+      </Grid>
+
+      <Grid item>
+        <Typography variant="h6">{duration} minute meeting</Typography>
+      </Grid>
+      <Grid container item alignItems="center" className={classes.iconWrapper}>
+        <AccessTime />
+        <Typography variant="caption">{duration} minute</Typography>
+      </Grid>
     </Grid>
   );
 };
 
-const useStyles = () => ({
-  root: { height: "100%" },
-});
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100%",
+    padding: theme.spacing(3),
+  },
+  iconWrapper: {
+    padding: 0,
+  },
+}));
 
 export default Overview;

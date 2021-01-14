@@ -27,8 +27,8 @@ const Scheduler = () => {
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      height: theme.spacing(30),
-      width: theme.spacing(60),
+      height: theme.spacing(40),
+      width: theme.spacing(80),
       margin: `${theme.spacing(10)}px auto`,
     },
     grid: {
