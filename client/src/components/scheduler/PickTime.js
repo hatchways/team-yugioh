@@ -25,6 +25,7 @@ const PickTime = (props) => {
       direction="column"
       wrap="nowrap"
       spacing={2}
+      alignItems="center"
     >
       <Grid item>
         <Typography variant="body1">{date}</Typography>
