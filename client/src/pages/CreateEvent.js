@@ -49,11 +49,19 @@ function CreatEvent(props) {
     function createNewEventType() {
         handleClose();
 
-        // TODO: make minutes based on duration/units
+        // TODO: make card titles change to xx hours xx mins for time > 60
+
+        let time;
+        if (unit === "hour") {
+            time = Math.floor(duration * 60);
+        } else {
+            time = Math.floor(duration);
+        }
+
         axios
             .post("/api/event", {
                 user_id: userId,
-                duration: duration,
+                duration: time,
             })
             .then((res) => {
                 console.log(res);
