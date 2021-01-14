@@ -18,6 +18,8 @@ function CreatEvent(props) {
     const [userEvents, setUserEvents] = useState([15, 30, 60]);
     const [openNewEvent, setOpenNewEvent] = useState(false);
     const [unit, setUnit] = useState("min");
+    const [duration, setDuration] = useState();
+
     // replace with actual user id
     const userId = "5ffe8c395a611a0000d0c692";
 
@@ -34,23 +36,20 @@ function CreatEvent(props) {
     const handleClickOpen = () => {
         setOpenNewEvent(true);
     };
-
     const handleClose = () => {
         setOpenNewEvent(false);
     };
-    const handleChange = (event) => {
+    const handleUnitChange = (event) => {
         setUnit(event.target.value);
+    };
+    const handleDurationChange = (event) => {
+        setDuration(event.target.value);
     };
 
     function createNewEventType() {
         handleClose();
 
-        let duration = Math.floor(Math.random() * 60);
-        if (userEvents.includes(duration)) {
-            console.log("you already have that one");
-            return;
-        }
-
+        // TODO: make minutes based on duration/units
         axios
             .post("/api/event", {
                 user_id: userId,
@@ -61,6 +60,7 @@ function CreatEvent(props) {
                 const currentEventTypes = [...userEvents];
                 currentEventTypes.push(res.data.duration);
                 setUserEvents(currentEventTypes);
+                setDuration();
             })
             .catch((err) => console.log(err));
     }
@@ -87,13 +87,13 @@ function CreatEvent(props) {
                     <Grid container={true} alignItems="baseline">
                         <TextField
                             autoFocus
-                            id="duration"
                             label="Duration"
                             type="number"
+                            onChange={handleDurationChange}
                         />
                         <Select
                             value={unit}
-                            onChange={handleChange}
+                            onChange={handleUnitChange}
                             label="Units"
                         >
                             <MenuItem value={"min"}>minutes</MenuItem>
