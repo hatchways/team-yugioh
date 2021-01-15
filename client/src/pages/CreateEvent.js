@@ -4,18 +4,58 @@ import {
     DialogTitle,
     DialogContent,
     DialogContentText,
-    TextField,
     DialogActions,
     Button,
     Select,
     MenuItem,
     Grid,
+    Input,
+    Box,
 } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import mongoose from "mongoose";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+    },
+    cancel: {
+        margin: theme.spacing(3, 0, 2),
+        color: "lightgrey",
+    },
+    instruction: {
+        width: "100%",
+        textAlign: "center",
+        marginBottom: "3%",
+    },
+    button: {
+        background: theme.palette.primary.button,
+        color: "white",
+        padding: "2% 5%",
+        margin: "5% -6% 2% 0",
+    },
+    box: {
+        padding: "0 3%",
+        width: "90%",
+    },
+    formLabel: {
+        marginTop: "2%",
+        textAlign: "center",
+    },
+    groupedInput: {
+        border: "1px solid lightgray",
+        borderRadius: "4px",
+        padding: "0 3%",
+        width: "fit-content",
+        margin: "auto",
+    },
+}));
+
 function CreatEvent(props) {
+    const classes = useStyles();
     const [userEvents, setUserEvents] = useState([15, 30, 60]);
     const [openNewEvent, setOpenNewEvent] = useState(false);
     const [unit, setUnit] = useState("min");
@@ -84,40 +124,77 @@ function CreatEvent(props) {
                 open={openNewEvent}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
+                classes={{
+                    root: classes.root,
+                }}
+                fullWidth={true}
+                maxWidth="sm"
             >
-                <DialogTitle id="form-dialog-title">
-                    Create New Event Type
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Please choose how long you would like your new event
-                        type to be.
-                    </DialogContentText>
-                    <Grid container={true} alignItems="baseline">
-                        <TextField
-                            autoFocus
-                            label="Duration"
-                            type="number"
-                            onChange={handleDurationChange}
-                        />
-                        <Select
-                            value={unit}
-                            onChange={handleUnitChange}
-                            label="Units"
-                        >
-                            <MenuItem value={"min"}>minutes</MenuItem>
-                            <MenuItem value={"hour"}>hours</MenuItem>
-                        </Select>
-                    </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={createNewEventType} color="primary">
+                <Box className={classes.box}>
+                    <DialogTitle
+                        id="form-dialog-title"
+                        variant="h6"
+                        className={classes.formLabel}
+                    >
                         Create New Event Type
-                    </Button>
-                </DialogActions>
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText className={classes.instruction}>
+                            Please choose how long your new event type will be.
+                        </DialogContentText>
+                        <Grid
+                            container={true}
+                            direction="row"
+                            alignItems="baseline"
+                            justify="center"
+                            spacing="2"
+                            className={classes.groupedInput}
+                        >
+                            <Grid item>
+                                <Input
+                                    autoFocus
+                                    label="Duration"
+                                    type="number"
+                                    onChange={handleDurationChange}
+                                    disableUnderline={true}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Select
+                                    value={unit}
+                                    onChange={handleUnitChange}
+                                    label="Units"
+                                    disableUnderline={true}
+                                >
+                                    <MenuItem value={"min"}>minutes</MenuItem>
+                                    <MenuItem value={"hour"}>hours</MenuItem>
+                                </Select>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Grid
+                            container={true}
+                            alignItems="baseline"
+                            justify="flex-end"
+                        >
+                            <Button
+                                onClick={handleClose}
+                                color="primary"
+                                className={classes.cancel}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                onClick={createNewEventType}
+                                color="primary"
+                                className={classes.button}
+                            >
+                                Create New Event Type
+                            </Button>
+                        </Grid>
+                    </DialogActions>
+                </Box>
             </Dialog>
         </>
     );
