@@ -22,7 +22,6 @@ function App() {
                 <Route path="/signup" component={SignUpPage} />
                 <Route path="/login" component={LogInPage} />
                 <Route path="/onboarding" component={OnBoardingPage} />
-                <Route path="/landing" component={LandingPage} />
                 <Route path="/schedule-meeting" component={Scheduler} />
                 <Route path="/home" component={Home} />
             </BrowserRouter>
