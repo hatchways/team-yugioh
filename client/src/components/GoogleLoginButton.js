@@ -2,7 +2,6 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import googleLogo from "../assets/googlesvg1.svg";
-import GoogleLogin from "react-google-login";
 import { sendToken } from "../utils/googleAuth";
 
 const useStyles = makeStyles(theme => ({
@@ -24,14 +23,10 @@ const GoogleLoginButton = ({ email, variant }) => {
   };
 
   return (
-    <GoogleLogin
-      clientId="294753578980-nbeunl8bovad0pp6t4ve8p5vso2hiahg.apps.googleusercontent.com"
-      render={renderProps => (
         <Button
           size="large"
           className={classes.button}
-          onClick={renderProps.onClick}
-          disabled={renderProps.disabled}
+          onClick={responseGoogle}
         >
           <span style={{ marginLeft: "20px" }}>
             <img
@@ -43,14 +38,6 @@ const GoogleLoginButton = ({ email, variant }) => {
             {variant==="login"?`Login with Google`:`Signup with Google`}
           </span>
         </Button>
-      )}
-      buttonText="Login"
-      onSuccess={responseGoogle}
-      onFailure={responseGoogle}
-      cookiePolicy={"single_host_origin"}
-      accessType={"offline"}
-      responseType={"code"}
-    />
   );
 };
 

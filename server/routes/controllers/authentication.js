@@ -4,6 +4,7 @@ const db = require("../../db/models");
 const { google } = require("googleapis");
 const User = require("../../db/models/User");
 const auth = require("../../middleware/auth");
+const {generateAuthUrl, getAccessToken}=require("../../utils/googleAuthUtils");
 
 const router = new express.Router();
 
@@ -22,6 +23,7 @@ router.post("/api/authentication/google", async (req, res) => {
       console.log(err);
       res.status(500).send("Authentication error.", err);
     }
+    console.log(token)
     const tokens = {
       id_token: token.id_token,
       access_token: token.access_token
@@ -63,6 +65,12 @@ router.post("/api/authentication/google", async (req, res) => {
 
 router.get("/api/authentication/test", auth, (req, res) => {
   res.status(200).send("successfull auth");
+});
+
+router.get("/api/authentication/geturl", (req, res) => {
+  const url=generateAuthUrl();
+  console.log(url)
+  res.status(200).send({url});
 });
 
 module.exports = router;

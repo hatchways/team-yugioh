@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { theme } from "./themes/theme";
 import LogInPage from "./pages/Login";
 import SignUpPage from "./pages/Signup";
+import Authentication from "./pages/Authentication";
 
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
         </Route>
         <Route path="/signup" component={SignUpPage} />
         <Route path="/login" component={LogInPage} />
+        <Route path="/authorized" component={Authentication} />
       </BrowserRouter>
     </MuiThemeProvider>
   );

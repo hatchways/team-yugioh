@@ -18,13 +18,14 @@ const auth = async (req, res, next) => {
         "294753578980-nbeunl8bovad0pp6t4ve8p5vso2hiahg.apps.googleusercontent.com"
     });
 
+    console.log(userInfo)
+
     if (!userInfo.payload.email_verified || !userInfo)
       res.status(401).send({ error: "Authentication error" });
 
     next();
   } catch (err) {
-    console.log(err);
-    res.status(401).send({ error: "Authentication error" });
+    res.status(401).send();
   }
 };
 
