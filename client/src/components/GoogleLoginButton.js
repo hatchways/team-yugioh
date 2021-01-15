@@ -14,12 +14,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const GoogleLoginButton = ({ email, variant }) => {
+const GoogleLoginButton = ({ variant }) => {
   const classes = useStyles();
 
   //handle response from googlAuth
   const responseGoogle = response => {
-    sendToken(response, email, variant);
+    sendToken(response, variant);
   };
 
   return (

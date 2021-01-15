@@ -25,32 +25,7 @@ export const sendToken = async () => {
   }
 };
 
-const sendTest=async()=>{
-  try {
-    //const response = await axios.post(userAPIpath, { code: code.code, email, variant }, { withCredentials: true });
 
-    // const response = await fetch(userAPIpath+"test", {
-    //   method: "get",
-    //   headers: {
-    //     "Accept": "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   credentials: "same-origin"
-    // });
-    // const content = await response.json();
-
-    const content=await axios.get(
-      userAPIpath+"test",
-    { withCredentials: true }
-    )
-
-  
-
-    
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 export const sendCode=async(code)=>{
   const response = await fetch(userAPIpath+"google", {
