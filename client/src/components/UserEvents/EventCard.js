@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import { deepOrange } from "@material-ui/core/colors";
+import axios from "axios";
 
 const useStyles = makeStyles({
     root: {
@@ -24,44 +25,66 @@ const useStyles = makeStyles({
         background: deepOrange[500],
         padding: 4,
     },
+    button: {
+        border: "none",
+        backgroundColor: "transparent",
+    },
 });
 
 export default function EventCard({ time }) {
     const classes = useStyles();
 
+    // Calls won't work until we can generate meeting IDs
+    function addAppointment() {
+        axios
+            .post("/api/appointment", {
+                meeting_id: "5fff33d12c19a10000b2ed68",
+                name: "test user",
+                email: "test@test.com",
+                time: new Date(),
+                timezone: "PST",
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.log(err));
+    }
+
     return (
-        <Card className={classes.root}>
-            <CardHeader className={classes.colorBar}></CardHeader>
+        <button onClick={addAppointment} className={classes.button}>
+            <Card className={classes.root}>
+                <CardHeader className={classes.colorBar}></CardHeader>
 
-            <CardContent>
-                <Typography variant="h5">{time} minute meeting</Typography>
+                <CardContent>
+                    <Typography variant="h5">{time} minute meeting</Typography>
 
-                <Typography variant="subtitle2" color="textSecondary">
-                    One-on-One
-                </Typography>
-            </CardContent>
-            <Divider />
-            <CardActions>
-                <Grid
-                    container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
-                >
-                    <Typography item variant="subtitle2">
-                        {time} min
+                    <Typography variant="subtitle2" color="textSecondary">
+                        One-on-One
                     </Typography>
-                    <Button
-                        item
-                        variant="outlined"
-                        color="secondary"
-                        size="small"
-                        style={{ textTransform: "none" }}
+                </CardContent>
+                <Divider />
+                <CardActions>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
                     >
-                        Copy Link
-                    </Button>
-                </Grid>
-            </CardActions>
-        </Card>
+                        <Typography item variant="subtitle2">
+                            {time} min
+                        </Typography>
+                        <Button
+                            item
+                            variant="outlined"
+                            color="secondary"
+                            size="small"
+                            style={{ textTransform: "none" }}
+                        >
+                            Copy Link
+                        </Button>
+                    </Grid>
+                </CardActions>
+            </Card>
+        </button>
     );
 }
