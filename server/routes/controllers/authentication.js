@@ -53,8 +53,11 @@ router.post("/api/authentication/google", async (req, res) => {
     //create JWT token for route auth
     const claims = { type: "route security", app: "calndApp" };
     const jwt_token = jwt.create(claims, process.env.JWT_SECRET);
+    const jwt_compact= jwt_token.compact()
 
-    console.log("refresh token");
+
+
+    console.log("jwt_compact--> ", jwt_compact);
     console.log(tokens.refresh_token);
 
     //check if authentication record exists in db if it does update it
@@ -65,19 +68,18 @@ router.post("/api/authentication/google", async (req, res) => {
         { email },
         {
           authenticationTokenGoogle: tokens.access_token,
-          authorizationToken: jwt_token,
+          authorizationToken: jwt_compact,
           refreshToken: tokens.refresh_token
         }
       );
-
-      res.status(201).send(JSON.stringify(jwt_token));
+      res.status(201).send(JSON.stringify(jwt_compact));
       return;
     }
     //save authentication tokens
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
       authenticationTokenGoogle: tokens.access_token,
-      authorizationToken: jwt_token,
+      authorizationToken: jwt_compact,
       refreshToken: tokens.refresh_token
     });
 
@@ -89,7 +91,6 @@ router.post("/api/authentication/google", async (req, res) => {
       return;
     }
 
-    console.log(jwt_token);
 
     const app_user = await User.find({ email: userInfo.payload.email });
 
@@ -108,7 +109,7 @@ router.post("/api/authentication/google", async (req, res) => {
       }
     }
 
-    res.status(201).send(JSON.stringify(jwt_token));
+    res.status(201).send(JSON.stringify(jwt_compact));
   });
 });
 
