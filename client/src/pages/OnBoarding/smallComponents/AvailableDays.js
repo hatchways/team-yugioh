@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   makeStyles,
   Typography,
+  Divider,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
@@ -32,8 +33,8 @@ const AvailableDays = (props) => {
   return (
     <Grid
       container
-      justify="flex-start"
       wrap="nowrap"
+      justify="space-between"
       className={classes.daysGrid}
     >
       {week.map((item, i) => {
@@ -63,18 +64,20 @@ const AvailableDays = (props) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   daysGrid: {
     margin: "0",
+    border: "1px lightgray solid",
+    borderRight: "0",
+    width: "100%",
   },
   eachDay: {
     margin: "0",
   },
   label: {
-    outline: "1px lightgray solid",
-    maxWidth: "4em",
-    minWidth: "3.5em",
+    width: theme.spacing(7),
     margin: "0",
+    borderRight: "1px lightgray solid",
   },
 }));
 

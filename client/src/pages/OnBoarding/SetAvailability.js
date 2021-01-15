@@ -46,7 +46,7 @@ const SetAvailability = (props) => {
         <Typography className={classes.entryText} variant="subtitle1">
           Available days
         </Typography>
-        <Grid container item>
+        <Grid item>
           <AvailableDays days={days} setDays={setDays} />
         </Grid>
       </Grid>
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0.05em 0",
   },
   entry: {
-    margin: "1.5em 2em",
+    padding: "0.75em 2em",
   },
   pageThreeMain: {
     margin: "1em 0",
