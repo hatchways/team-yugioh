@@ -4,7 +4,8 @@ import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 
-import SignUpPage from "./pages/Signup";
+import LandingPage from "./pages/Landing";
+import Home from "./pages/Home"
 import LogInPage from "./pages/Login";
 import OnBoardingPage from "./pages/OnBoarding/OnBoarding";
 
@@ -20,6 +21,8 @@ function App() {
         <Route path="/signup" component={SignUpPage} />
         <Route path="/login" component={LogInPage} />
         <Route path="/onboarding" component={OnBoardingPage} />
+        <Route path="/landing" component={LandingPage} />        
+        <Route path="/home" component={Home} />
       </BrowserRouter>
     </MuiThemeProvider>
   );

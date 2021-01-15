@@ -28,7 +28,8 @@ export const theme = createMuiTheme({
     primary: {
       main: "#f68002",
       button:
-        "linear-gradient(270deg, rgba(247,132,0,1) 2%, rgba(247,105,0,1) 53%)",
+        "linear-gradient(270deg, rgba(247,132,0,1) 2%, rgba(247,105,0,1) 53%)"
     },
-  },
+    secondary: {main: "#e06602"}
+  }
 });
