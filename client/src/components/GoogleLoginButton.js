@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const GoogleLoginButton = ({ email, variant }) => {
+const GoogleLoginButton = ({email, variant }) => {
   const classes = useStyles();
 
   //handle response from googlAuth

@@ -8,12 +8,11 @@ const Authentication=()=>{
     useEffect(() => {
         
         const code = new URLSearchParams(search).get('code');
-        console.log(code);
         sendCode(code)
       }, []);
 
     return(
-        <div>Hello</div>
+    <div></div>
     )
 }
 

@@ -1,6 +1,4 @@
 const express = require("express");
-const db = require("../../db/models");
-//const { OAuth2Client } = require("google-auth-library");
 const { google } = require("googleapis");
 const User = require("../../db/models/User");
 const AuthStore = require("../../db/models/AuthenticationStore");
@@ -21,7 +19,8 @@ const oAuthClient = new google.auth.OAuth2(
 
 // login with googleAuth
 router.post("/api/authentication/google", async (req, res) => {
-  //code from google auth, email=user email, variant=type of authentication [login vs signup]
+
+  try{
   const { code } = req.body;
   oAuthClient.getToken(code, async (err, token) => {
     if (err) {
@@ -29,8 +28,9 @@ router.post("/api/authentication/google", async (req, res) => {
       res.status(500).send("Authentication error.");
       return;
     }
-    console.log(token);
+
     const accessToken={token:token.access_token, exp:token.expiry_date}
+
     const tokens = {
       id_token: token.id_token,
       access_token: accessToken,
@@ -53,9 +53,8 @@ router.post("/api/authentication/google", async (req, res) => {
     //create JWT token for route auth
     const claims = { type: "route security", app: "calndApp" };
     const jwt_token = jwt.create(claims, process.env.JWT_SECRET);
-
-    console.log("refresh token");
-    console.log(tokens.refresh_token);
+    jwt_token.setExpiration(new Date().getTime() + (24*60*60*1000))
+    const jwt_compact=jwt_token.compact();
 
     //check if authentication record exists in db if it does update it
     const auth_record = await AuthStore.find({ email: userInfo.payload.email });
@@ -65,19 +64,17 @@ router.post("/api/authentication/google", async (req, res) => {
         { email },
         {
           authenticationTokenGoogle: tokens.access_token,
-          authorizationToken: jwt_token,
           refreshToken: tokens.refresh_token
         }
       );
 
-      res.status(201).send(JSON.stringify(jwt_token));
+      res.status(201).send(JSON.stringify(jwt_compact));
       return;
     }
     //save authentication tokens
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
       authenticationTokenGoogle: tokens.access_token,
-      authorizationToken: jwt_token,
       refreshToken: tokens.refresh_token
     });
 
@@ -89,8 +86,8 @@ router.post("/api/authentication/google", async (req, res) => {
       return;
     }
 
-    console.log(jwt_token);
-
+    console.log(jwt_compact);
+    
     const app_user = await User.find({ email: userInfo.payload.email });
 
     //check if email is already registered if not add user to db
@@ -108,12 +105,14 @@ router.post("/api/authentication/google", async (req, res) => {
       }
     }
 
-    res.status(201).send(JSON.stringify(jwt_token));
+    res.status(201).send(JSON.stringify(jwt_compact));
   });
+}
+catch(err){
+} 
 });
 
 router.get("/api/authentication/test", auth, (req, res) => {
-  console.log(req.cookies.app_auth_token111);
   res.status(200).send("successfull auth");
 });
 

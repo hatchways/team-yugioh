@@ -138,7 +138,7 @@ const SignUpPage = () => {
             </div>
           )}
           {welcomeMsg ? (
-            <GoogleLoginButton email={email} variant={"signup"} />
+            <GoogleLoginButton variant={"signup"} />
           ) : (
             <Button className={classes.button} size="large" type="submit">
               <span style={{ marginLeft: "20px" }}>Get started</span>

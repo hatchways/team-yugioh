@@ -13,7 +13,6 @@ const pingRouter = require("./routes/ping");
 
 const { json, urlencoded } = express;
 
-const connection = require("./db/connection");
 
 var app = express();
 
