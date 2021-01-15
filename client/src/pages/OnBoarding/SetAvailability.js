@@ -1,5 +1,11 @@
 import React from "react";
-import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Button,
+  makeStyles,
+  Divider,
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -25,10 +31,14 @@ const SetAvailability = (props) => {
           Available hours
         </Typography>
 
-        <Grid container item>
-          <AvailableHours hour={startHour} setHour={setStartHour} />
-          <div>--</div>
-          <AvailableHours hour={finishHour} setHour={setFinishHour} />
+        <Grid container item spacing={4} alignItems="center">
+          <Grid item>
+            <AvailableHours hour={startHour} setHour={setStartHour} />
+          </Grid>
+          <div className={classes.dash}>&ndash;</div>
+          <Grid item>
+            <AvailableHours hour={finishHour} setHour={setFinishHour} />
+          </Grid>
         </Grid>
       </Grid>
 
@@ -86,6 +96,9 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: "2em",
     width: "3em",
+  },
+  dash: {
+    fontSize: theme.spacing(3),
   },
 }));
 
