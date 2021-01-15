@@ -20,7 +20,6 @@ function App() {
                 </Route>
                 <Route path="/signup" component={SignUpPage} />
                 <Route path="/login" component={LogInPage} />
-                <Route path="/landing" component={LandingPage} />
                 <Route path="/home" component={Home} />
             </BrowserRouter>
         </MuiThemeProvider>
