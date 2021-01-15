@@ -11,7 +11,6 @@ import { format } from "date-fns";
 
 const PickTime = (props) => {
   const classes = useStyles();
-  const theme = useTheme();
   const selectedDate = props.selectedDate;
   const date = format(selectedDate, "EEEE, LLL do");
 

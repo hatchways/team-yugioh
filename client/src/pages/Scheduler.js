@@ -10,11 +10,6 @@ import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
 
-const data = () => {
-  // Since I'm not sure how the data will be fetched or in what format,
-  // I will use this for now to provide the component with data
-};
-
 const Scheduler = () => {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState(new Date());

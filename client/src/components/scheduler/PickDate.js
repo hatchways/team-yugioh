@@ -1,10 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
-import {
-  MuiPickersUtilsProvider,
-  Calendar,
-  useStaticState,
-} from "@material-ui/pickers";
+import { MuiPickersUtilsProvider, Calendar } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 const PickDate = (props) => {
