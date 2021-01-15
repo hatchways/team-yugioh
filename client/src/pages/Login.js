@@ -10,11 +10,11 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import googleLogo from "../assets/googlesvg1.svg";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   formMain: {
     marginTop: theme.spacing(1),
@@ -22,46 +22,46 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     alignItems: "center",
     padding: "10%",
-    fontFamily: theme.typography.fontFamily
+    fontFamily: theme.typography.fontFamily,
   },
   footer: {
     fontFamily: theme.typography.fontFamily,
     padding: "5%",
-    textAlign: "center"
+    textAlign: "center",
   },
   logo: {
     marginTop: "10vh",
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: "5vh"
+    marginBottom: "5vh",
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   button: {
     background: theme.palette.primary.button,
     color: "white",
     padding: "15px 50px 15px 50px",
     marginTop: "15%",
-    marginBottom: "10%"
+    marginBottom: "10%",
   },
   link: {
     marginLeft: 3,
     color: theme.palette.primary.main,
-    textDecoration: "none"
+    textDecoration: "none",
   },
   paper: {
     width: "80%",
-    margin: "auto"
+    margin: "auto",
   },
   formInput: {
     marginTop: "20%",
-    width: "90%"
+    width: "90%",
   },
   formLabel: {
     marginBottom: "-10px",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 }));
 
 const LogInPage = () => {
@@ -70,7 +70,7 @@ const LogInPage = () => {
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     event.preventDefault();
     //cehck if user has entered an email
     if (email) {
@@ -78,7 +78,7 @@ const LogInPage = () => {
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setEmail(event.target.value);
   };
 
@@ -86,7 +86,7 @@ const LogInPage = () => {
     <Container
       maxWidth="sm"
       classes={{
-        root: classes.root
+        root: classes.root,
       }}
     >
       <img src={logo} alt="company logo" className={classes.logo} />
@@ -98,7 +98,7 @@ const LogInPage = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  textAlign: "center"
+                  textAlign: "center",
                 }}
               >
                 <span>{`Welcome back,`}</span>
@@ -139,6 +139,7 @@ const LogInPage = () => {
               <span style={{ marginLeft: "20px" }}>
                 <img
                   src={googleLogo}
+                  alt="Google Logo"
                   style={{ position: "absolute", left: 45, top: 14 }}
                 />
                 Login with Google
