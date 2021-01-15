@@ -20,7 +20,20 @@ const PickDate = (props) => {
 
 const DisplayCalendar = (props) => {
   const { selectedDate, setSelectedDate } = props;
-  return <Calendar date={selectedDate} onChange={setSelectedDate} />;
+
+  const disableDate = (date) => {
+    //check against the availability to determine which dates to grey out
+    if (date.getDay() === 0 || date.getDay() === 6) {
+      return true;
+    }
+  };
+  return (
+    <Calendar
+      date={selectedDate}
+      onChange={setSelectedDate}
+      shouldDisableDate={disableDate}
+    />
+  );
 };
 
 const useStyles = makeStyles(() => ({
