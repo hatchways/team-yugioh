@@ -45,7 +45,7 @@ export default function EventTypesTab() {
         direction='row'
         justify='space-between'
       >
-        <Box item display='flex'
+        <Grid item display='flex'
         className={classes.profileAndNewTypeBox}>
           <Avatar className={classes.avatar} src={ProfileImage} alt = "User image"/>
           <Box >
@@ -54,8 +54,8 @@ export default function EventTypesTab() {
               calendapp.com/john-doe
             </Typography>
           </Box>
-        </Box>
-        <Box item>
+        </Grid>
+        <Grid item>
           <Button
             className={classes.newEventTypeButton}
             color='secondary'
@@ -63,7 +63,7 @@ export default function EventTypesTab() {
           >
             + New Event Type
           </Button>
-          </Box>
+          </Grid>
       </Grid>
       {/* TYPE OF EVENT CARDS */}
       <EventGrid />

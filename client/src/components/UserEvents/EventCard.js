@@ -35,7 +35,7 @@ export default function EventCard() {
 
       <CardContent>
         <Typography variant='h5'>15 minute meeting</Typography>
-        
+
         <Typography variant='subtitle2' color='textSecondary'>
           One-on-One
         </Typography>
@@ -48,13 +48,19 @@ export default function EventCard() {
           justify='space-between'
           alignItems='center'
         >
-          <Typography item variant='subtitle2'>
-            15min
-          </Typography>
-          <Button item variant='outlined' color='secondary' size='small'
-          style={{textTransform: 'none'}}>
-            Copy Link
-          </Button>
+          <Grid item>
+            <Typography variant='subtitle2'>15min</Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              variant='outlined'
+              color='secondary'
+              size='small'
+              style={{ textTransform: 'none' }}
+            >
+              Copy Link
+            </Button>
+          </Grid>
         </Grid>
       </CardActions>
     </Card>
