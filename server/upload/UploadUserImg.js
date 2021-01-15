@@ -19,22 +19,21 @@ const imageUpload = (path, buffer) => {
     Body: buffer,
     ContentEncoding: 'base64',
     ContentType: 'image/jpeg',
-    ACL: 'public-read'
-  }
+    ACL: 'public-read',
+  };
   return new Promise((resolve, reject) => {
     s3Bucket.putObject(data, (err) => {
       if (err) {
         reject(err);
-      } 
-      else {
-        resolve(s3Url + path)
+      } else {
+        resolve(s3Url + path);
       }
-    })
-  })
-}
+    });
+  });
+};
 
 const getImageUrl = async (type, base64Image) => {
   const buffer = getImgBuffer(base64Image);
   const currentTime = new Date().getTime();
   return imageUpload(`${type}/${currentTime}.jpeg`, buffer);
-}
+};
