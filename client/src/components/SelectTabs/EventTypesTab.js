@@ -113,7 +113,7 @@ export default function EventTypesTab() {
     function createNewEventType() {
         handleClose();
 
-        // TODO: make card titles change to xx hours xx mins for time > 60
+        // TODO: make card titles change to xx hours xx mins for time > 60?
 
         let time;
         if (unit === "hour") {
