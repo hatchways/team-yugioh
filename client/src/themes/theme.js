@@ -8,14 +8,21 @@ export const theme = createMuiTheme({
       // could customize the h1 variant as well
     },
     h4: {
-      fontWeight: 500
+      fontWeight: 500,
     },
     h5: {
-      fontWeight: 600
+      fontWeight: 600,
     },
     button: {
-      textTransform: "none"
-    }
+      textTransform: "none",
+    },
+    subtitle1: {
+      fontWeight: 600, //for bold text
+    },
+    subtitle2: {
+      fontWeight: 600,
+      fontSize: "0.7rem",
+    },
   },
   palette: {
     primary: {
