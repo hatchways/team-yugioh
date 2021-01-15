@@ -13,21 +13,21 @@ import Scheduler from "./pages/Scheduler";
 import "./App.css";
 
 function App() {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Route exact path="/">
-          <Redirect to="/signup" />
-        </Route>
-        <Route path="/signup" component={SignUpPage} />
-        <Route path="/login" component={LogInPage} />
-        <Route path="/onboarding" component={OnBoardingPage} />
-        <Route path="/landing" component={LandingPage} />
-        <Route path="/schedule-meeting" component={Scheduler} />
-        <Route path="/home" component={Home} />
-      </BrowserRouter>
-    </MuiThemeProvider>
-  );
+    return (
+        <MuiThemeProvider theme={theme}>
+            <BrowserRouter>
+                <Route exact path="/">
+                    <Redirect to="/signup" />
+                </Route>
+                <Route path="/signup" component={SignUpPage} />
+                <Route path="/login" component={LogInPage} />
+                <Route path="/onboarding" component={OnBoardingPage} />
+                <Route path="/landing" component={LandingPage} />
+                <Route path="/schedule-meeting" component={Scheduler} />
+                <Route path="/home" component={Home} />
+            </BrowserRouter>
+        </MuiThemeProvider>
+    );
 }
 
 export default App;
