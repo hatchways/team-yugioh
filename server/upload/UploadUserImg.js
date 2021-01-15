@@ -17,9 +17,9 @@ const imageUpload = (path, buffer) => {
   const data = {
     Key: path,
     Body: buffer,
-    ContentEncoding: contentEncoding,
-    ContentType: contentType,
-    ACL: acl
+    ContentEncoding: 'base64',
+    ContentType: 'image/jpeg',
+    ACL: 'public-read'
   }
   return new Promise((resolve, reject) => {
     s3Bucket.putObject(data, (err) => {
@@ -31,4 +31,10 @@ const imageUpload = (path, buffer) => {
       }
     })
   })
+}
+
+const getImageUrl = async (type, base64Image) => {
+  const buffer = getImgBuffer(base64Image);
+  const currentTime = new Date().getTime();
+  return imageUpload(`${type}/${currentTime}.jpeg`, buffer);
 }
