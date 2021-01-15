@@ -25,7 +25,6 @@ export const sendToken = async (code, email, variant) => {
     //store google auth access_token in cookie
     cookies.set("access_token", content.access_token, { path: "/" });
 
-    console.log(content.id_token);
   } catch (err) {
     console.log(err);
   }
