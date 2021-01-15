@@ -9,9 +9,8 @@ export const sendToken = async (code, email, variant) => {
     const response = await fetch(userAPIpath, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        cookie: "accessToken=undefied; other=one"
       },
       credentials: "same-origin",
       body: JSON.stringify({ code: code.code, email, variant })
@@ -26,7 +25,7 @@ export const sendToken = async (code, email, variant) => {
     //store google auth access_token in cookie
     cookies.set("access_token", content.access_token, { path: "/" });
 
-    console.log(content);
+    console.log(content.id_token);
   } catch (err) {
     console.log(err);
   }

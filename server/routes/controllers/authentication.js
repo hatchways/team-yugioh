@@ -3,20 +3,20 @@ const db = require("../../db/models");
 //const { OAuth2Client } = require("google-auth-library");
 const { google } = require("googleapis");
 const User = require("../../db/models/User");
+const auth = require("../../middleware/auth");
 
 const router = new express.Router();
 
 const oAuthClient = new google.auth.OAuth2(
-  "294753578980-nbeunl8bovad0pp6t4ve8p5vso2hiahg.apps.googleusercontent.com",
-  "mXf71c1jwjRcO-2AIZMPjrXQ",
-  "http://localhost:3000"
+  process.env.AUTH_CREDENTIALS,
+  process.env.AUTH_SECRET,
+  process.env.AUTH_REDIRECT_PATH
 );
 
 // login with googleAuth
 router.post("/api/authentication/google", async (req, res) => {
   //code from google auth, email=user email, variant=type of authentication [login vs signup]
   const { code, email, variant } = req.body;
-  console.log(req.body);
   oAuthClient.getToken(code, async (err, token) => {
     if (err) {
       console.log(err);
@@ -26,12 +26,12 @@ router.post("/api/authentication/google", async (req, res) => {
       id_token: token.id_token,
       access_token: token.access_token
     };
-    const id_token = token.id_token;
-    const access_token = token.access_token;
+    // const id_token = token.id_token;
+    // const access_token = token.access_token;
 
     if (variant === "signup") {
       const userInfo = await oAuthClient.verifyIdToken({
-        idToken: id_token,
+        idToken: tokens.id_token,
         audience:
           "294753578980-nbeunl8bovad0pp6t4ve8p5vso2hiahg.apps.googleusercontent.com"
       });
@@ -44,7 +44,6 @@ router.post("/api/authentication/google", async (req, res) => {
       try {
         await newUser.save();
 
-
         res.status(201).send(tokens);
       } catch (err) {
         res.status(400).send(err);
@@ -56,12 +55,14 @@ router.post("/api/authentication/google", async (req, res) => {
       if (!user) {
         return res.status(500).send("No such email registerd!");
       }
-      
-      
+
       res.status(201).send(JSON.stringify(tokens));
     }
   });
 });
 
+router.get("/api/authentication/test", auth, (req, res) => {
+  res.status(200).send("successfull auth");
+});
 
 module.exports = router;
