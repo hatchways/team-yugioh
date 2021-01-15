@@ -26,7 +26,7 @@ router.post("/api/authentication/google", async (req, res) => {
       id_token: token.id_token,
       access_token: token.access_token
     };
-    // const id_token = token.id_token;
+    const id_token = token.id_token;
     // const access_token = token.access_token;
 
     if (variant === "signup") {
