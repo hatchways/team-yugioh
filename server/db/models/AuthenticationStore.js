@@ -20,10 +20,6 @@ const schema = new Schema({
   authenticationTokenGoogle: {
     type: Schema.Types.Mixed
   },
-  //used to secure routes
-  authorizationToken: {
-    type: Schema.Types.Mixed
-  },
   refreshToken: {
     type: Schema.Types.Mixed
   }

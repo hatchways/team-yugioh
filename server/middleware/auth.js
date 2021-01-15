@@ -10,7 +10,6 @@ const auth = async (req, res, next) => {
       console.log(err); // Token has expired, has been tampered with, etc
       res.status(401).send('')
     }else{
-      console.log(verifiedJwt); // Will contain the header and body
       next()
     }
   });

@@ -21,7 +21,6 @@ const oAuthClient = new google.auth.OAuth2(
 
 // login with googleAuth
 router.post("/api/authentication/google", async (req, res) => {
-  //code from google auth, email=user email, variant=type of authentication [login vs signup]
   const { code } = req.body;
   oAuthClient.getToken(code, async (err, token) => {
     if (err) {
@@ -29,8 +28,7 @@ router.post("/api/authentication/google", async (req, res) => {
       res.status(500).send("Authentication error.");
       return;
     }
-    console.log(token);
-    const accessToken={token:token.access_token, exp:token.expiry_date}
+    const accessToken = { token: token.access_token, exp: token.expiry_date };
     const tokens = {
       id_token: token.id_token,
       access_token: accessToken,
@@ -53,22 +51,17 @@ router.post("/api/authentication/google", async (req, res) => {
     //create JWT token for route auth
     const claims = { type: "route security", app: "calndApp" };
     const jwt_token = jwt.create(claims, process.env.JWT_SECRET);
-    const jwt_compact= jwt_token.compact()
-
-
-
-    console.log("jwt_compact--> ", jwt_compact);
-    console.log(tokens.refresh_token);
+    //token valid for 24h
+    jwt_token.setExpiration(new Date().getTime() + 24 * 60 * 60 * 1000);
+    const jwt_compact = jwt_token.compact();
 
     //check if authentication record exists in db if it does update it
     const auth_record = await AuthStore.find({ email: userInfo.payload.email });
     if (auth_record) {
-      
       await AuthStore.update(
         { email },
         {
           authenticationTokenGoogle: tokens.access_token,
-          authorizationToken: jwt_compact,
           refreshToken: tokens.refresh_token
         }
       );
@@ -79,18 +72,15 @@ router.post("/api/authentication/google", async (req, res) => {
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
       authenticationTokenGoogle: tokens.access_token,
-      authorizationToken: jwt_compact,
       refreshToken: tokens.refresh_token
     });
 
     try {
       await newAuthStore.save();
     } catch (err) {
-      console.log("error1");
       res.status(400).send(err);
       return;
     }
-
 
     const app_user = await User.find({ email: userInfo.payload.email });
 
@@ -103,7 +93,6 @@ router.post("/api/authentication/google", async (req, res) => {
       try {
         await newUser.save();
       } catch (err) {
-        console.log("error2");
         res.status(400).send(err);
         return;
       }
@@ -114,13 +103,11 @@ router.post("/api/authentication/google", async (req, res) => {
 });
 
 router.get("/api/authentication/test", auth, (req, res) => {
-  console.log(req.cookies.app_auth_token111);
   res.status(200).send("successfull auth");
 });
 
 router.get("/api/authentication/geturl", (req, res) => {
   const url = generateAuthUrl();
-  console.log(url);
   res.status(200).send({ url });
 });
 
