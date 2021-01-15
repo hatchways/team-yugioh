@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  ListItem,
-  makeStyles,
-  Typography,
-  useTheme,
-} from "@material-ui/core";
+import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 import { format } from "date-fns";
 
