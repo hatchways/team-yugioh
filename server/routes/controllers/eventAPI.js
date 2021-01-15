@@ -11,7 +11,7 @@ router.post("/api/event", (req, res) => {
             .then((response) => res.send(response))
             .catch((error) => {
                 console.log(error);
-                res.status(500).send("Unable to create meeting", error);
+                res.status(500).send(error);
             });
     } else if (!req.body.user_id) {
         res.status(400).send("User ID is required");
@@ -25,8 +25,8 @@ router.get("/api/event", (req, res) => {
     db.EventType.find({ user_id: req.query.user_id })
         .then((data) => res.send(data))
         .catch((error) => {
-            console.log(error);
-            res.status(500).send("Unable to get meetings", error);
+            console.log(error.message);
+            res.status(500).send(error);
         });
 });
 
