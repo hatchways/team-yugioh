@@ -29,7 +29,7 @@ const PickTime = (props) => {
       "19:30",
       "20:00",
     ]);
-  }, [timeSlots]);
+  }, [date]);
 
   return (
     <Grid
