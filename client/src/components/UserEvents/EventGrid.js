@@ -24,8 +24,8 @@ export default function EventGrid({ userEvents }) {
         <div className={classes.root}>
             <Grid container spacing={10} justify="center">
                 {userEvents.map((time) => (
-                    <Grid item xs={3}>
-                        <EventCard time={time} />
+                    <Grid item>
+                        <EventCard time={time} key={time} />
                     </Grid>
                 ))}
             </Grid>
