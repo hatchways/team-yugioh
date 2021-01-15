@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
+    dialog: {},
     profileAndNewTypeBox: {
         marginBottom: theme.spacing(5),
     },
@@ -178,9 +179,7 @@ export default function EventTypesTab() {
                 open={openNewEvent}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
-                classes={{
-                    root: classes.root,
-                }}
+                classes={classes.dialog}
                 fullWidth={true}
                 maxWidth="sm"
             >
