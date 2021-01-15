@@ -7,7 +7,6 @@ import { theme } from "./themes/theme";
 import Home from "./pages/Home";
 import LogInPage from "./pages/Login";
 import SignUpPage from "./pages/Signup";
-import CreateEvent from "./pages/CreateEvent";
 
 import "./App.css";
 
