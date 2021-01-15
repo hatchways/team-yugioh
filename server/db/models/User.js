@@ -23,20 +23,6 @@ const schema = new Schema({
     profilePic:{
         type:String
     },
-    password:{
-        type: String,
-        trim: true,
-    },
-    //token used for api access and google auth
-    googleCredentials:{
-        type: String,
-        trim: true,
-    },
-    //used for email and password authentication [feature not yet added]
-    jwtToken:{
-        type: String,
-        trim: true,
-    },
     timezone: {
         // TODO: validate timezone
         type: String,
