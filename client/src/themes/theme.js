@@ -19,6 +19,10 @@ export const theme = createMuiTheme({
     subtitle1: {
       fontWeight: 600, //for bold text
     },
+    subtitle2: {
+      fontWeight: 600,
+      fontSize: "0.7rem",
+    },
   },
   palette: {
     primary: {

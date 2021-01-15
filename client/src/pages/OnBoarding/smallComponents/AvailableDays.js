@@ -42,7 +42,7 @@ const AvailableDays = (props) => {
           <FormControlLabel
             key={i}
             label={
-              <Typography variant="caption" className={classes.labelText}>
+              <Typography variant="subtitle2" className={classes.labelText}>
                 {item}
               </Typography>
             }
