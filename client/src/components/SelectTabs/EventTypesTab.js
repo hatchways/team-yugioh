@@ -90,6 +90,7 @@ export default function EventTypesTab() {
     const [userEvents, setUserEvents] = useState([15, 30, 60]);
     const [openNewEvent, setOpenNewEvent] = useState(false);
     const [unit, setUnit] = useState("min");
+    // todo prevent negative time
     const [duration, setDuration] = useState();
 
     // replace with actual user id
@@ -201,6 +202,7 @@ export default function EventTypesTab() {
                             alignItems="center"
                             container={true}
                             justify="flex-start"
+                            className={classes.inputRow}
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
@@ -214,6 +216,7 @@ export default function EventTypesTab() {
                                     type="text"
                                     onChange={handleDurationChange}
                                     disableUnderline={true}
+                                    fullWidth
                                 />
                             </Grid>
                         </Grid>
