@@ -17,6 +17,7 @@ require("./db/connection");
 
 var app = express();
 
+//Mount utilities
 app.use(logger("dev"));
 app.use(json());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
@@ -31,20 +32,8 @@ app.use(require("./routes/controllers/AppointmentAPI"));
 app.use(require("./routes/controllers/eventAPI"));
 app.use(authenticationRout);
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.json({ error: err });
-});
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+//Mount utilities
+app.use(require("./utils/errorHandler"));
+app.use(require("./utils/fourOfourHandler"));
 
 module.exports = app;
