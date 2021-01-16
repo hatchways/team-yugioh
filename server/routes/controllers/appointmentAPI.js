@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("../../db/models");
+const mongoose = require("mongoose");
 
 const router = express.Router();
 
@@ -7,7 +8,7 @@ const router = express.Router();
 router.post("/api/appointment", (req, res) => {
     console.log(req.body);
     // sanitize req data
-    if (!req.body.meeting_id) {
+    if (!req.body.event_id) {
         res.status(400).send("Meeting ID is required");
     } else if (!req.body.name) {
         res.status(400).send("Name is required");

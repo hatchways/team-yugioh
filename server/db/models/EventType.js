@@ -9,6 +9,18 @@ const schema = new Schema({
     duration: {
         type: Number,
     },
+    name: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    color: {
+        type: String,
+    },
+    link: {
+        type: String,
+    },
 });
 
 const EventType = mongoose.model("EventType", schema);

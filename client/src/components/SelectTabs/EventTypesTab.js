@@ -11,6 +11,7 @@ import {
     MenuItem,
     Grid,
     Input,
+    InputLabel,
     Box,
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -49,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
         color: "lightgrey",
     },
-    instruction: {
-        width: "100%",
-        textAlign: "center",
-        marginBottom: "3%",
+    label: {
+        fontWeight: "bold",
+        fontSize: "0.9rem",
+        color: "rgba(0, 0, 0, 0.8)",
     },
     button: {
         background: theme.palette.primary.button,
@@ -64,16 +65,23 @@ const useStyles = makeStyles((theme) => ({
         padding: "0 3%",
         width: "90%",
     },
+    inputRow: {
+        marginBottom: "3%",
+    },
     formLabel: {
         marginTop: "2%",
         textAlign: "center",
     },
+    singleInput: {
+        border: "1px solid lightgray",
+        padding: "7px 3%",
+        borderRadius: "4px",
+    },
     groupedInput: {
         border: "1px solid lightgray",
         borderRadius: "4px",
-        padding: "0 3%",
-        width: "fit-content",
-        margin: "auto",
+        width: "100%",
+        margin: 0,
     },
 }));
 
@@ -184,44 +192,76 @@ export default function EventTypesTab() {
                 maxWidth="sm"
             >
                 <Box className={classes.box}>
-                    <DialogTitle
-                        id="form-dialog-title"
-                        variant="h6"
-                        className={classes.formLabel}
-                    >
-                        Create New Event Type
+                    <DialogTitle className={classes.formLabel}>
+                        What event is this?
                     </DialogTitle>
                     <DialogContent>
-                        <DialogContentText className={classes.instruction}>
-                            Please choose how long your new event type will be.
-                        </DialogContentText>
                         <Grid
-                            container={true}
                             direction="row"
-                            alignItems="baseline"
-                            justify="center"
-                            spacing="2"
-                            className={classes.groupedInput}
+                            alignItems="center"
+                            container={true}
+                            justify="flex-start"
                         >
-                            <Grid item>
+                            <Grid xs="2" item>
+                                <InputLabel className={classes.label}>
+                                    Name:
+                                </InputLabel>
+                            </Grid>
+
+                            <Grid xs="8" className={classes.singleInput} item>
                                 <Input
-                                    autoFocus
-                                    label="Duration"
-                                    type="number"
+                                    label="Name"
+                                    type="text"
                                     onChange={handleDurationChange}
                                     disableUnderline={true}
                                 />
                             </Grid>
-                            <Grid item>
-                                <Select
-                                    value={unit}
-                                    onChange={handleUnitChange}
-                                    label="Units"
-                                    disableUnderline={true}
+                        </Grid>
+                        <Grid
+                            direction="row"
+                            alignItems="center"
+                            container={true}
+                            justify="flex-start"
+                        >
+                            <Grid xs="2" item>
+                                <InputLabel className={classes.label}>
+                                    Duration:
+                                </InputLabel>
+                            </Grid>
+
+                            <Grid xs="8" item>
+                                <Grid
+                                    container={true}
+                                    direction="row"
+                                    alignItems="baseline"
+                                    justify="space-evenly"
+                                    spacing="2"
+                                    className={classes.groupedInput}
                                 >
-                                    <MenuItem value={"min"}>minutes</MenuItem>
-                                    <MenuItem value={"hour"}>hours</MenuItem>
-                                </Select>
+                                    <Grid item>
+                                        <Input
+                                            label="Duration"
+                                            type="number"
+                                            onChange={handleDurationChange}
+                                            disableUnderline={true}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <Select
+                                            value={unit}
+                                            onChange={handleUnitChange}
+                                            label="Units"
+                                            disableUnderline={true}
+                                        >
+                                            <MenuItem value={"min"}>
+                                                minutes
+                                            </MenuItem>
+                                            <MenuItem value={"hour"}>
+                                                hours
+                                            </MenuItem>
+                                        </Select>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </DialogContent>
