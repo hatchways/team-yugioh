@@ -11,6 +11,13 @@ const useStyles = makeStyles(theme => ({
     padding: "15px 50px 15px 50px",
     marginTop: "15%",
     marginBottom: "10%"
+  },
+  img:{
+    position: "absolute", 
+    left: 45, top: 14
+  },
+  btnTxt:{
+    marginLeft: "20px" 
   }
 }));
 
@@ -28,10 +35,10 @@ const GoogleLoginButton = ({ variant }) => {
           className={classes.button}
           onClick={responseGoogle}
         >
-          <span style={{ marginLeft: "20px" }}>
+          <span className={classes.btnTxt}>
             <img
               src={googleLogo}
-              style={{ position: "absolute", left: 45, top: 14 }}
+              className={classes.img}
               alt="google logo"
             />
             

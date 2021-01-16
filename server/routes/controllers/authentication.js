@@ -1,6 +1,5 @@
 const express = require("express");
 const db = require("../../db/models");
-//const { OAuth2Client } = require("google-auth-library");
 const { google } = require("googleapis");
 const User = require("../../db/models/User");
 const AuthStore = require("../../db/models/AuthenticationStore");
@@ -65,7 +64,8 @@ router.post("/api/authentication/google", async (req, res) => {
           refreshToken: tokens.refresh_token
         }
       );
-      res.status(201).send(JSON.stringify(jwt_compact));
+      res.cookie('app_auth_token',jwt_compact, { maxAge: 86400, httpOnly: true })
+      res.status(201).send(jwt_compact);
       return;
     }
     //save authentication tokens
@@ -97,12 +97,13 @@ router.post("/api/authentication/google", async (req, res) => {
         return;
       }
     }
-
-    res.status(201).send(JSON.stringify(jwt_compact));
+    res.cookie('app_auth_token',jwt_compact, { maxAge: 86400, httpOnly: true })
+    res.status(201).send(jwt_compact);
+    
   });
 });
 
-router.get("/api/authentication/test", auth, (req, res) => {
+router.get("/api/authentication/test",auth, (req, res) => {
   res.status(200).send("successfull auth");
 });
 
