@@ -4,6 +4,10 @@ const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+const authenticationRout=require("./routes/controllers/authentication");
+
+const cors = require('cors');
+
 const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
 
@@ -15,20 +19,21 @@ var app = express();
 
 app.use(logger("dev"));
 app.use(json());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
+
 app.use("/", indexRouter);
 app.use("/ping", pingRouter);
 
-app.use(require("./routes/controllers/appointmentAPI"));
+
+
+app.use(require("./routes/controllers/AppointmentAPI"));
 app.use(require("./routes/controllers/eventAPI"));
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    next(createError(404));
-});
+app.use(authenticationRout);
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -39,6 +44,11 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.json({ error: err });
+});
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 module.exports = app;

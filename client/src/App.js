@@ -9,6 +9,7 @@ import LogInPage from "./pages/Login";
 import OnBoardingPage from "./pages/OnBoarding/OnBoarding";
 import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
+import Authentication from "./pages/Authentication";
 
 import "./App.css";
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/signup" component={SignUpPage} />
                 <Route path="/login" component={LogInPage} />
                 <Route path="/onboarding" component={OnBoardingPage} />
+                <Route path="/authorized" component={Authentication} />
                 <Route path="/schedule-meeting" component={Scheduler} />
                 <Route path="/home" component={Home} />
             </BrowserRouter>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -8,7 +7,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
-import googleLogo from "../assets/googlesvg1.svg";
+import GoogleLoginButton from "../components/GoogleLoginButton";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,25 +129,13 @@ const LogInPage = () => {
               />
             </div>
           )}
-          <Button
-            size="large"
-            className={classes.button}
-            type="submit"
-            startIcon
-          >
-            {welcomeMsg ? (
-              <span style={{ marginLeft: "20px" }}>
-                <img
-                  src={googleLogo}
-                  alt="Google Logo"
-                  style={{ position: "absolute", left: 45, top: 14 }}
-                />
-                Login with Google
-              </span>
-            ) : (
-              "Continue"
-            )}
-          </Button>
+          {welcomeMsg ? (
+            <GoogleLoginButton variant={"login"} />
+          ) : (
+            <Button className={classes.button} type="submit">
+              <span style={{ marginLeft: "20px" }}>Continue</span>
+            </Button>
+          )}
         </form>
         <Divider />
         <div className={classes.footer}>
