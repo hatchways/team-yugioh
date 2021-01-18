@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
     Dialog,
-    DialogTitle,
     DialogContent,
-    DialogContentText,
     DialogActions,
     Button,
     Select,
@@ -12,6 +10,7 @@ import {
     Grid,
     Input,
     InputLabel,
+    TextareaAutosize,
     Box,
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -69,8 +68,14 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "3%",
     },
     formLabel: {
-        marginTop: "2%",
-        textAlign: "center",
+        margin: "4%",
+        textAlign: "left",
+    },
+    descriptionLabel: {
+        marginTop: "13%",
+        fontWeight: "bold",
+        fontSize: "0.9rem",
+        color: "rgba(0, 0, 0, 0.8)",
     },
     prefix: {
         fontSize: ".85rem",
@@ -83,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
         border: "1px solid lightgray",
         padding: "7px 3%",
         borderRadius: "4px",
+    },
+    textArea: {
+        border: "none",
+        width: "100%",
+        maxWidth: "100%",
     },
     groupedInput: {
         border: "1px solid lightgray",
@@ -200,9 +210,9 @@ export default function EventTypesTab() {
                 maxWidth="sm"
             >
                 <Box className={classes.box}>
-                    <DialogTitle className={classes.formLabel}>
+                    <Typography className={classes.formLabel} variant="h5">
                         What event is this?
-                    </DialogTitle>
+                    </Typography>
                     <DialogContent>
                         <Grid
                             direction="row"
@@ -213,7 +223,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Name:
+                                    Name
                                 </InputLabel>
                             </Grid>
 
@@ -236,7 +246,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Duration:
+                                    Duration
                                 </InputLabel>
                             </Grid>
 
@@ -278,6 +288,32 @@ export default function EventTypesTab() {
                         </Grid>
                         <Grid
                             direction="row"
+                            alignItems="flex-start"
+                            container
+                            justify="flex-start"
+                            className={classes.inputRow}
+                        >
+                            <Grid xs="2" item>
+                                <InputLabel
+                                    className={classes.descriptionLabel}
+                                >
+                                    Desciption
+                                </InputLabel>
+                            </Grid>
+
+                            <Grid xs="10" className={classes.singleInput} item>
+                                <TextareaAutosize
+                                    rowsMax={6}
+                                    placeholder={`Write a summary and details about your event.
+                                    
+                                    
+                                    `}
+                                    className={classes.textArea}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            direction="row"
                             alignItems="center"
                             container={true}
                             justify="flex-start"
@@ -285,7 +321,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Link:
+                                    Link
                                 </InputLabel>
                             </Grid>
 
