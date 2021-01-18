@@ -21,9 +21,20 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
   const elements = useElements();
   const submitPayment = (event) => {
     event.preventDefault();
-    stripe.confirmCardPayment(clientSecret, {
-      payment_method: {},
-    });
+    setStatus("pending");
+    stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+        },
+      })
+      .then((res) => {
+        if (res.error) {
+          setStatus("failure");
+        } else {
+          setStatus("success");
+        }
+      });
   };
   return (
     <form className={classes.form} onSubmit={submitPayment}>
