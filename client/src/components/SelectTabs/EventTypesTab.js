@@ -225,6 +225,7 @@ export default function EventTypesTab() {
                             alignItems="center"
                             container={true}
                             justify="flex-start"
+                            className={classes.inputRow}
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
@@ -265,6 +266,29 @@ export default function EventTypesTab() {
                                         </Select>
                                     </Grid>
                                 </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            direction="row"
+                            alignItems="center"
+                            container={true}
+                            justify="flex-start"
+                            className={classes.inputRow}
+                        >
+                            <Grid xs="2" item>
+                                <InputLabel className={classes.label}>
+                                    Name:
+                                </InputLabel>
+                            </Grid>
+
+                            <Grid xs="8" className={classes.singleInput} item>
+                                <Input
+                                    label="Name"
+                                    type="text"
+                                    onChange={handleDurationChange}
+                                    disableUnderline={true}
+                                    fullWidth
+                                />
                             </Grid>
                         </Grid>
                     </DialogContent>
