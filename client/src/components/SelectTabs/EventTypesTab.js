@@ -12,12 +12,15 @@ import {
     InputLabel,
     TextareaAutosize,
     Box,
+    RadioGroup,
+    Radio,
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
 import ProfileImage from "./../../img/user-image.png";
+import Checkmark from "../../assets/check.png";
 
 import axios from "axios";
 
@@ -26,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
-    dialog: {},
+    dialog: {
+        overflowX: "hidden",
+        backgroundColor: "red",
+    },
     profileAndNewTypeBox: {
         marginBottom: theme.spacing(5),
     },
@@ -67,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     inputRow: {
         marginBottom: "3%",
     },
+    colorRow: {
+        marginTop: "6%",
+    },
     formLabel: {
         margin: "6% 4% 3% 4%",
         textAlign: "left",
@@ -105,9 +114,13 @@ const useStyles = makeStyles((theme) => ({
         listStyle: "none",
         borderRadius: "50%",
         border: "1px solid #d3d3d345",
+        width: "1rem",
+        height: "1rem",
+    },
+    colorButton: {
         textIndent: "-9999px",
-        width: "2rem",
-        height: "2rem",
+        backgroundColor: "transparent",
+        border: "none",
     },
     purple: {
         backgroundColor: "#7900FF",
@@ -127,6 +140,31 @@ const useStyles = makeStyles((theme) => ({
     grey: {
         backgroundColor: "#808080",
     },
+    "@global": {
+        ".MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded": {
+            overflowX: "hidden",
+        },
+        "input[type=radio][name=color]": {},
+        ".PrivateRadioButtonIcon-root-153": {
+            opacity: 0,
+        },
+        ".PrivateRadioButtonIcon-checked-155": {
+            opacity: 1,
+        },
+        ".PrivateRadioButtonIcon-checked-155 svg": {
+            opacity: 0,
+        },
+        ".PrivateRadioButtonIcon-checked-155:after": {
+            content: "''",
+            backgroundImage: `url("${Checkmark}")`,
+            width: "1.5rem",
+            height: "1.5rem",
+            position: "absolute",
+            top: "-1px",
+            left: "-1px",
+            backgroundSize: "contain",
+        },
+    },
 }));
 
 export default function EventTypesTab() {
@@ -134,7 +172,6 @@ export default function EventTypesTab() {
     const [userEvents, setUserEvents] = useState([15, 30, 60]);
     const [openNewEvent, setOpenNewEvent] = useState(false);
     const [unit, setUnit] = useState("min");
-    // todo prevent negative time
     const [duration, setDuration] = useState();
     const colors = ["purple", "blue", "green", "yellow", "orange", "grey"];
 
@@ -294,6 +331,9 @@ export default function EventTypesTab() {
                                             type="number"
                                             onChange={handleDurationChange}
                                             disableUnderline={true}
+                                            inputProps={{
+                                                min: "1",
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item>
@@ -384,7 +424,7 @@ export default function EventTypesTab() {
                             alignItems="center"
                             container={true}
                             justify="flex-start"
-                            className={classes.inputRow}
+                            className={classes.colorRow}
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
@@ -393,25 +433,23 @@ export default function EventTypesTab() {
                             </Grid>
 
                             <Grid xs="10" item>
-                                <ul>
+                                <RadioGroup aria-label="color" name="color">
                                     <Grid
                                         direction="row"
-                                        alignItems="center"
+                                        alignItems="baseline"
                                         container={true}
-                                        justify="flex-start"
-                                        className={classes.inputRow}
+                                        justify="space-evenly"
                                     >
                                         {colors.map((color) => (
-                                            <Grid xs="2" item>
-                                                <li
+                                            <Grid xs="1" item>
+                                                <Radio
+                                                    value={color}
                                                     className={`${classes.color} ${classes[color]}`}
-                                                >
-                                                    {color}
-                                                </li>
+                                                />
                                             </Grid>
                                         ))}
                                     </Grid>
-                                </ul>
+                                </RadioGroup>
                             </Grid>
                         </Grid>
                     </DialogContent>
