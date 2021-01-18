@@ -174,6 +174,13 @@ export default function EventTypesTab() {
     const classes = useStyles();
     const [userEvents, setUserEvents] = useState([15, 30, 60]);
     const [openNewEvent, setOpenNewEvent] = useState(false);
+    const [eventBody, setEventBody] = useState({
+        name: "",
+        duration: "",
+        description: "",
+        link: "",
+        color: "orange",
+    });
     const [unit, setUnit] = useState("min");
     const [duration, setDuration] = useState();
     const colors = ["purple", "blue", "green", "yellow", "orange", "grey"];
@@ -202,6 +209,11 @@ export default function EventTypesTab() {
     };
     const handleDurationChange = (event) => {
         setDuration(event.target.value);
+    };
+
+    const handleFormChange = (event) => {
+        const { name, value } = event.target;
+        setEventBody({ ...eventBody, [name]: value });
     };
 
     function createNewEventType() {
@@ -298,10 +310,12 @@ export default function EventTypesTab() {
                             <Grid xs="10" className={classes.singleInput} item>
                                 <Input
                                     label="Name"
+                                    name="name"
                                     type="text"
-                                    onChange={handleDurationChange}
+                                    onChange={handleFormChange}
                                     disableUnderline
                                     fullWidth
+                                    value={eventBody.name || ""}
                                 />
                             </Grid>
                         </Grid>
@@ -331,8 +345,9 @@ export default function EventTypesTab() {
                                     <Grid xs="4" item>
                                         <Input
                                             label="Duration"
+                                            name="duration"
                                             type="number"
-                                            onChange={handleDurationChange}
+                                            onChange={handleFormChange}
                                             disableUnderline
                                             inputProps={{
                                                 min: "1",
@@ -378,6 +393,8 @@ export default function EventTypesTab() {
                             <Grid xs="10" className={classes.singleInput} item>
                                 <TextareaAutosize
                                     rowsMax={6}
+                                    name="description"
+                                    onChange={handleFormChange}
                                     placeholder={`Write a summary and details about your event.
                                     
                                     
@@ -420,8 +437,9 @@ export default function EventTypesTab() {
                                     <Grid item>
                                         <Input
                                             label="Link"
+                                            name="link"
                                             type="text"
-                                            onChange={handleDurationChange}
+                                            onChange={handleFormChange}
                                             disableUnderline
                                             fullWidth
                                         />
@@ -446,6 +464,7 @@ export default function EventTypesTab() {
                                 <RadioGroup
                                     aria-label="color"
                                     name="color"
+                                    onChange={handleFormChange}
                                     defaultValue="orange"
                                 >
                                     <Grid
