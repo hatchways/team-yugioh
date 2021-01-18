@@ -1,14 +1,11 @@
 const express = require("express");
-const db = require("../../db/models");
+const db = require("../db/models");
 const { google } = require("googleapis");
-const User = require("../../db/models/User");
-const AuthStore = require("../../db/models/AuthenticationStore");
-const auth = require("../../middleware/auth");
+const User = require("../db/models/User");
+const AuthStore = require("../db/models/AuthenticationStore");
+const auth = require("../middleware/auth");
 const jwt = require("njwt");
-const {
-  generateAuthUrl,
-  getAccessToken
-} = require("../../utils/googleAuthUtils");
+const { generateAuthUrl, getAccessToken } = require("../utils/googleAuthUtils");
 
 const router = new express.Router();
 
@@ -31,12 +28,12 @@ router.post("/api/authentication/google", async (req, res) => {
     const tokens = {
       id_token: token.id_token,
       access_token: accessToken,
-      refresh_token: token.refresh_token
+      refresh_token: token.refresh_token,
     };
 
     const userInfo = await oAuthClient.verifyIdToken({
       idToken: tokens.id_token,
-      audience: process.env.AUTH_CREDENTIALS
+      audience: process.env.AUTH_CREDENTIALS,
     });
 
     const email = userInfo.payload.email;
@@ -61,10 +58,13 @@ router.post("/api/authentication/google", async (req, res) => {
         { email },
         {
           authenticationTokenGoogle: tokens.access_token,
-          refreshToken: tokens.refresh_token
+          refreshToken: tokens.refresh_token,
         }
       );
-      res.cookie('app_auth_token',jwt_compact, { maxAge: 86400, httpOnly: true })
+      res.cookie("app_auth_token", jwt_compact, {
+        maxAge: 86400,
+        httpOnly: true,
+      });
       res.status(201).send(jwt_compact);
       return;
     }
@@ -72,7 +72,7 @@ router.post("/api/authentication/google", async (req, res) => {
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
       authenticationTokenGoogle: tokens.access_token,
-      refreshToken: tokens.refresh_token
+      refreshToken: tokens.refresh_token,
     });
 
     try {
@@ -88,7 +88,7 @@ router.post("/api/authentication/google", async (req, res) => {
     if (!app_user) {
       const newUser = new User({
         email: userInfo.payload.email,
-        name: userInfo.payload.name
+        name: userInfo.payload.name,
       });
       try {
         await newUser.save();
@@ -97,13 +97,15 @@ router.post("/api/authentication/google", async (req, res) => {
         return;
       }
     }
-    res.cookie('app_auth_token',jwt_compact, { maxAge: 86400, httpOnly: true })
+    res.cookie("app_auth_token", jwt_compact, {
+      maxAge: 86400,
+      httpOnly: true,
+    });
     res.status(201).send(jwt_compact);
-    
   });
 });
 
-router.get("/api/authentication/test",auth, (req, res) => {
+router.get("/api/authentication/test", auth, (req, res) => {
   res.status(200).send("successfull auth");
 });
 

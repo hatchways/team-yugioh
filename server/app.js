@@ -20,7 +20,7 @@ app.use(express.static(join(__dirname, "public")));
 //Mount route handlers
 app.use(require("./routes/AppointmentAPI"));
 app.use(require("./routes/eventAPI"));
-app.use(require(".routes/authentication"));
+app.use(require("./routes/authentication"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));
