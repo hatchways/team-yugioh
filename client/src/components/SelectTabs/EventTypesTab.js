@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
         margin: "auto",
     },
     inputRow: {
-        marginBottom: "3%",
+        marginBottom: "4%",
     },
     colorRow: {
         marginTop: "6%",
@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "600",
         color: "lightgrey",
         borderRight: "1px solid lightgrey",
-        textAlign: "right",
+        textAlign: "center",
         marginLeft: "2%",
     },
     singleInput: {
@@ -121,7 +121,6 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
     },
     color: {
-        listStyle: "none",
         borderRadius: "50%",
         border: "1px solid #d3d3d345",
         width: "1rem",
@@ -275,7 +274,7 @@ export default function EventTypesTab() {
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
                 classes={classes.dialog}
-                fullWidth={true}
+                fullWidth
                 maxWidth="sm"
             >
                 <Box className={classes.box}>
@@ -286,7 +285,7 @@ export default function EventTypesTab() {
                         <Grid
                             direction="row"
                             alignItems="center"
-                            container={true}
+                            container
                             justify="flex-start"
                             className={classes.inputRow}
                         >
@@ -301,7 +300,7 @@ export default function EventTypesTab() {
                                     label="Name"
                                     type="text"
                                     onChange={handleDurationChange}
-                                    disableUnderline={true}
+                                    disableUnderline
                                     fullWidth
                                 />
                             </Grid>
@@ -309,7 +308,7 @@ export default function EventTypesTab() {
                         <Grid
                             direction="row"
                             alignItems="center"
-                            container={true}
+                            container
                             justify="flex-start"
                             className={classes.inputRow}
                         >
@@ -321,7 +320,7 @@ export default function EventTypesTab() {
 
                             <Grid xs="6" item>
                                 <Grid
-                                    container={true}
+                                    container
                                     direction="row"
                                     alignItems="baseline"
                                     justify="flex-start"
@@ -334,7 +333,7 @@ export default function EventTypesTab() {
                                             label="Duration"
                                             type="number"
                                             onChange={handleDurationChange}
-                                            disableUnderline={true}
+                                            disableUnderline
                                             inputProps={{
                                                 min: "1",
                                                 style: { textAlign: "center" },
@@ -347,7 +346,7 @@ export default function EventTypesTab() {
                                             value={unit}
                                             onChange={handleUnitChange}
                                             label="Units"
-                                            disableUnderline={true}
+                                            disableUnderline
                                             fullWidth
                                         >
                                             <MenuItem value={"min"}>
@@ -390,7 +389,7 @@ export default function EventTypesTab() {
                         <Grid
                             direction="row"
                             alignItems="center"
-                            container={true}
+                            container
                             justify="flex-start"
                             className={classes.inputRow}
                         >
@@ -402,7 +401,7 @@ export default function EventTypesTab() {
 
                             <Grid xs="10" item>
                                 <Grid
-                                    container={true}
+                                    container
                                     direction="row"
                                     alignItems="baseline"
                                     justify="flex-start"
@@ -423,7 +422,7 @@ export default function EventTypesTab() {
                                             label="Link"
                                             type="text"
                                             onChange={handleDurationChange}
-                                            disableUnderline={true}
+                                            disableUnderline
                                             fullWidth
                                         />
                                     </Grid>
@@ -433,7 +432,7 @@ export default function EventTypesTab() {
                         <Grid
                             direction="row"
                             alignItems="center"
-                            container={true}
+                            container
                             justify="flex-start"
                             className={classes.colorRow}
                         >
@@ -452,11 +451,12 @@ export default function EventTypesTab() {
                                     <Grid
                                         direction="row"
                                         alignItems="baseline"
-                                        container={true}
-                                        justify="space-evenly"
+                                        container
+                                        justify="flex-start"
+                                        spacing="2"
                                     >
                                         {colors.map((color) => (
-                                            <Grid xs="1" item>
+                                            <Grid item>
                                                 <Radio
                                                     value={color}
                                                     className={`${classes.color} ${classes[color]}`}
@@ -470,7 +470,7 @@ export default function EventTypesTab() {
                     </DialogContent>
                     <DialogActions>
                         <Grid
-                            container={true}
+                            container
                             alignItems="baseline"
                             justify="flex-end"
                         >
