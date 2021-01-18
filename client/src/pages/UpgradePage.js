@@ -2,36 +2,45 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import NavBar from "../components/Header/NavBar";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import UpgradeCard from "../components/UpgradeCard";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "inherit",
     flexGrow: 1
   },
-  main:{
-    display:"flex",
-    justifyContent:"center"
+  main: {
+    display: "flex",
+    flexDirection:"column",
+    marginTop: theme.spacing(6)
   },
   heading: {
     textAlign: "center"
   },
   title: {
-    marginTop: theme.spacing(6),
     fontWeight: 600,
     marginBottom: theme.spacing(2)
   },
   subtitle: {
     fontSize: 16,
+    color: "#909090"
+  },
+  cardContainer: {
+    display: "flex",
+    flexDirection: "row"
   }
 }));
 
-export default function UpgradePage() {
+const UpgradePage = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <NavBar />
-      <main className={classes.main}>
+
+      <Container maxWidth="lg" className={classes.main}>
         <div className={classes.heading}>
           <Typography className={classes.title} variant="h4">
             Upgrade your account
@@ -40,7 +49,17 @@ export default function UpgradePage() {
             You are on a free basic plan
           </Typography>
         </div>
-      </main>
+        <Grid container spacing={6} className={classes.cardContainer}>
+          <Grid item lg={6}>
+            <UpgradeCard />
+          </Grid>
+          <Grid item lg={6}>
+            <UpgradeCard />
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
-}
+};
+
+export default UpgradePage;
