@@ -21,5 +21,6 @@ yarn-error.log*
 
 #TODO add .env to your gitignore
 **/.env
+.eslintcache
 
 client/debug.log
