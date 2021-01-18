@@ -64,7 +64,7 @@ router.post("/api/authentication/google", async (req, res) => {
           refreshToken: tokens.refresh_token
         }
       );
-      res.cookie('app_auth_token',jwt_compact, { maxAge: 86400, httpOnly: true })
+      res.cookie('app_auth_token',jwt_compact, { httpOnly: true })
       res.status(201).send(jwt_compact);
       return;
     }
@@ -97,7 +97,7 @@ router.post("/api/authentication/google", async (req, res) => {
         return;
       }
     }
-    res.cookie('app_auth_token',jwt_compact, { maxAge: 86400, httpOnly: true })
+    res.cookie('app_auth_token',jwt_compact, { httpOnly: true })
     res.status(201).send(jwt_compact);
     
   });
