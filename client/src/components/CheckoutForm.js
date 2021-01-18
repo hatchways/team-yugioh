@@ -1,15 +1,10 @@
 import React from "react";
 import { Grid, makeStyles, Paper, Button, Typography } from "@material-ui/core";
 import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
-import { Link } from "react-router-dom";
 
 const CheckoutForm = (props) => {
   //const stripe = useStripe();
@@ -48,9 +43,7 @@ const CheckoutForm = (props) => {
             variant="contained"
             className={classes.button}
           >
-            <Link to="/" className={classes.link}>
-              Pay {amount} CAD$
-            </Link>
+            Pay {amount} CAD$
           </Button>
         </Grid>
       </Grid>
