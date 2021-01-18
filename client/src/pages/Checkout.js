@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Paper, Button, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -11,6 +11,7 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import CheckoutForm from "../components/CheckoutForm";
 
@@ -20,6 +21,28 @@ const stripePromise = loadStripe(
 
 const CheckoutPage = () => {
   const classes = useStyles();
+
+  const [amount, setAmount] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("/api/checkout")
+      .then((res) => {
+        const amount = res.data.amount || undefined;
+        const clientSecret = res.data.clientSecret || undefined;
+        if (amount && clientSecret) {
+          setAmount(amount);
+          setClientSecret(clientSecret);
+        } else {
+          throw new Error("Not getting amount or client secret from backend");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <Elements stripe={stripePromise}>
       <Paper className={classes.root} elevation={5} spacing={5}>
@@ -37,20 +60,10 @@ const CheckoutPage = () => {
           </Grid>
 
           <Grid item>
-            <CheckoutForm />
+            <CheckoutForm amount={amount} clientSecret={clientSecret} />
           </Grid>
 
-          <Grid item>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.button}
-            >
-              <Link to="/" className={classes.link}>
-                Pay
-              </Link>
-            </Button>
-          </Grid>
+          <Grid item></Grid>
         </Grid>
       </Paper>
     </Elements>
@@ -77,16 +90,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardCvc: {
     width: theme.spacing(10),
-  },
-  link: {
-    textDecoration: "none",
-    color: theme.palette.common.white,
-  },
-  button: {
-    background: theme.palette.primary.button,
-    color: "white",
-    padding: "15px 50px 15px 50px",
-    width: "3em",
   },
 }));
 
