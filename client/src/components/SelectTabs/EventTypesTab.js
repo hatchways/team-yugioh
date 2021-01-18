@@ -72,6 +72,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "2%",
         textAlign: "center",
     },
+    prefix: {
+        fontSize: ".7rem",
+        borderRight: "1px solid lightgrey",
+        textAlign: "center",
+    },
     singleInput: {
         border: "1px solid lightgray",
         padding: "7px 3%",
@@ -239,6 +244,7 @@ export default function EventTypesTab() {
                                     direction="row"
                                     alignItems="baseline"
                                     justify="space-evenly"
+                                    wrap="nowrap"
                                     spacing="2"
                                     className={classes.groupedInput}
                                 >
@@ -281,14 +287,29 @@ export default function EventTypesTab() {
                                 </InputLabel>
                             </Grid>
 
-                            <Grid xs="8" className={classes.singleInput} item>
-                                <Input
-                                    label="Name"
-                                    type="text"
-                                    onChange={handleDurationChange}
-                                    disableUnderline={true}
-                                    fullWidth
-                                />
+                            <Grid xs="8" item>
+                                <Grid
+                                    container={true}
+                                    direction="row"
+                                    alignItems="baseline"
+                                    justify="flex-start"
+                                    spacing="2"
+                                    wrap="nowrap"
+                                    className={classes.groupedInput}
+                                >
+                                    <Grid className={classes.prefix} item>
+                                        calendapp.com/john-doe/
+                                    </Grid>
+                                    <Grid item>
+                                        <Input
+                                            label="Link"
+                                            type="text"
+                                            onChange={handleDurationChange}
+                                            disableUnderline={true}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </DialogContent>
