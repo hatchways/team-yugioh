@@ -163,6 +163,7 @@ const useStyles = makeStyles((theme) => ({
             top: "-1px",
             left: "-1px",
             backgroundSize: "contain",
+            filter: `drop-shadow(1px 1px 1px #80808050)`,
         },
     },
 }));
