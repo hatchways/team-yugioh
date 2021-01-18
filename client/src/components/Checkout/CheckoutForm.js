@@ -11,17 +11,19 @@ import {
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
+  useStripe,
+  useElements,
 } from "@stripe/react-stripe-js";
 
 const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
   const classes = useStyles();
+  const stripe = useStripe();
+  const elements = useElements();
   const submitPayment = (event) => {
     event.preventDefault();
-    console.log("submit button pressed");
-    setStatus("pending");
-    setTimeout(() => {
-      setStatus("failure");
-    }, 2000);
+    stripe.confirmCardPayment(clientSecret, {
+      payment_method: {},
+    });
   };
   return (
     <form className={classes.form} onSubmit={submitPayment}>
