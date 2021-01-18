@@ -73,7 +73,9 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
     },
     prefix: {
-        fontSize: ".7rem",
+        fontSize: ".85rem",
+        fontWeight: "600",
+        color: "lightgrey",
         borderRight: "1px solid lightgrey",
         textAlign: "center",
     },
@@ -215,7 +217,7 @@ export default function EventTypesTab() {
                                 </InputLabel>
                             </Grid>
 
-                            <Grid xs="8" className={classes.singleInput} item>
+                            <Grid xs="10" className={classes.singleInput} item>
                                 <Input
                                     label="Name"
                                     type="text"
@@ -238,7 +240,7 @@ export default function EventTypesTab() {
                                 </InputLabel>
                             </Grid>
 
-                            <Grid xs="8" item>
+                            <Grid xs="10" item>
                                 <Grid
                                     container={true}
                                     direction="row"
@@ -287,7 +289,7 @@ export default function EventTypesTab() {
                                 </InputLabel>
                             </Grid>
 
-                            <Grid xs="8" item>
+                            <Grid xs="10" item>
                                 <Grid
                                     container={true}
                                     direction="row"
@@ -297,6 +299,7 @@ export default function EventTypesTab() {
                                     wrap="nowrap"
                                     className={classes.groupedInput}
                                 >
+                                    {/* TODO: pass in user link prefix */}
                                     <Grid className={classes.prefix} item>
                                         calendapp.com/john-doe/
                                     </Grid>
