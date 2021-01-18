@@ -11,7 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import { deepOrange } from "@material-ui/core/colors";
 import axios from "axios";
 
-export default function EventCard({ name, duration, color }) {
+export default function EventCard({ name, duration, color, link }) {
     const useStyles = makeStyles({
         root: {
             minWidth: 275,

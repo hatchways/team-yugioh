@@ -172,18 +172,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EventTypesTab() {
     const classes = useStyles();
-    const [userEvents, setUserEvents] = useState([15, 30, 60]);
+    const [userEvents, setUserEvents] = useState([
+        {
+            name: "",
+            duration: 15,
+            description: "",
+            link: "",
+            color: "#FF6A00",
+        },
+        {
+            name: "",
+            duration: 30,
+            description: "",
+            link: "",
+            color: "#FF6A00",
+        },
+        {
+            name: "",
+            duration: 60,
+            description: "",
+            link: "",
+            color: "#FF6A00",
+        },
+    ]);
     const [openNewEvent, setOpenNewEvent] = useState(false);
     const [eventBody, setEventBody] = useState({
         name: "",
         duration: "",
         description: "",
         link: "",
-        color: "orange",
+        color: "#FF6A00",
     });
     const [unit, setUnit] = useState("min");
-    const [duration, setDuration] = useState();
-    const colors = ["purple", "blue", "green", "yellow", "orange", "grey"];
 
     // replace with actual user id
     const userId = "5ffe8c395a611a0000d0c692";
@@ -192,8 +212,21 @@ export default function EventTypesTab() {
         axios
             .get("/api/event?user_id=" + userId)
             .then((res) => {
-                const oldEventTypes = res.data.map(({ duration }) => duration);
-                setUserEvents([...userEvents, ...oldEventTypes]);
+                // [15, 30, 60].forEach((time) => {
+                //     const presetEvent = {
+                //         name: "",
+                //         duration: time,
+                //         description: "",
+                //         link: "",
+                //         color: "#FF6A00",
+                //     };
+                //     // setUserEvents([...userEvents, presetEvent]);
+                //     let temp = [...userEvents];
+                //     temp.push(presetEvent);
+                //     setUserEvents(temp);
+                //     console.log([...userEvents, presetEvent]);
+                // });
+                setUserEvents([...userEvents, ...res.data]);
             })
             .catch((err) => console.log(err));
     }, []);
@@ -207,10 +240,6 @@ export default function EventTypesTab() {
     const handleUnitChange = (event) => {
         setUnit(event.target.value);
     };
-    const handleDurationChange = (event) => {
-        setDuration(event.target.value);
-    };
-
     const handleFormChange = (event) => {
         const { name, value } = event.target;
         setEventBody({ ...eventBody, [name]: value });
@@ -220,25 +249,25 @@ export default function EventTypesTab() {
         handleClose();
 
         // TODO: make card titles change to xx hours xx mins for time > 60?
-
-        let time;
+        let minutes;
         if (unit === "hour") {
-            time = Math.floor(duration * 60);
+            minutes = Math.floor(eventBody.duration * 60);
         } else {
-            time = Math.floor(duration);
+            minutes = Math.floor(eventBody.duration);
         }
+        setUnit("min");
 
         axios
             .post("/api/event", {
+                ...eventBody,
                 user_id: userId,
-                duration: time,
+                duration: minutes,
             })
             .then((res) => {
                 console.log(res);
                 const currentEventTypes = [...userEvents];
-                currentEventTypes.push(res.data.duration);
+                currentEventTypes.push(res.data);
                 setUserEvents(currentEventTypes);
-                setDuration();
             })
             .catch((err) => console.log(err));
     }
@@ -465,7 +494,7 @@ export default function EventTypesTab() {
                                     aria-label="color"
                                     name="color"
                                     onChange={handleFormChange}
-                                    defaultValue="orange"
+                                    defaultValue="#FF6A00"
                                 >
                                     <Grid
                                         direction="row"
@@ -474,11 +503,20 @@ export default function EventTypesTab() {
                                         justify="flex-start"
                                         spacing="2"
                                     >
-                                        {colors.map((color) => (
+                                        {[
+                                            { name: "purple", hex: "#7900FF" },
+                                            { name: "blue", hex: "#00AAFF" },
+                                            { name: "green", hex: "#66CC33" },
+                                            { name: "yellow", hex: "#FFFF00" },
+                                            { name: "orange", hex: "#FF6A00" },
+                                            { name: "grey", hex: "#808080" },
+                                        ].map((color) => (
                                             <Grid item>
                                                 <Radio
-                                                    value={color}
-                                                    className={`${classes.color} ${classes[color]}`}
+                                                    value={color.hex}
+                                                    className={`${
+                                                        classes.color
+                                                    } ${classes[color.name]}`}
                                                 />
                                             </Grid>
                                         ))}
