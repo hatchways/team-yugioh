@@ -6,6 +6,9 @@ import {
   CardElement,
   useStripe,
   useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
 } from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(
@@ -16,12 +19,13 @@ const CheckoutPage = () => {
   const classes = useStyles();
   return (
     <Elements stripe={stripePromise}>
-      <Paper className={classes.root} elevation={5}>
+      <Paper className={classes.root} elevation={5} spacing={5}>
         <Grid
+          className={classes.grid}
           container
           direction="column"
+          justify="space-between"
           alignItems="center"
-          justify="space-around"
         >
           <Grid item>
             <Typography variant="h5" className={classes.title}>
@@ -44,9 +48,23 @@ const CheckoutPage = () => {
 
 const CheckoutForm = () => {
   const stripe = useStripe();
+  const classes = useStyles();
   return (
     <form>
-      <CardElement />
+      <Typography variant="subtitle2">Card number</Typography>
+      <CardNumberElement />
+
+      <Grid item container>
+        <Grid item>
+          <Typography variant="subtitle2">Expiry date</Typography>
+          <CardExpiryElement />
+        </Grid>
+
+        <Grid item className={classes.cvc}>
+          <Typography variant="subtitle2">CVC</Typography>
+          <CardCvcElement />
+        </Grid>
+      </Grid>
     </form>
   );
 };
@@ -57,35 +75,18 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(100),
     margin: `${theme.spacing(10)}px auto`,
   },
+  form: {
+    width: "20em",
+  },
+  grid: {
+    height: "100%",
+  },
+  cardNum: {
+    width: "10em",
+  },
+  cardCvc: {
+    width: "5em",
+  },
 }));
 
 export default CheckoutPage;
-
-// import React from "react";
-// import { loadStripe } from "@stripe/stripe-js";
-// import {
-//   CardElement,
-//   Elements,
-//   useStripe,
-//   useElements,
-// } from "@stripe/react-stripe-js";
-
-// const CheckoutForm = () => {
-//   const stripe = useStripe();
-
-//   return (
-//     <form>
-//       <CardElement />
-//     </form>
-//   );
-// };
-
-// const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
-
-// const App = () => (
-//   <Elements stripe={stripePromise}>
-//     <CheckoutForm />
-//   </Elements>
-// );
-
-// export default App;
