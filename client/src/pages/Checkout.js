@@ -10,6 +10,9 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { Link } from "react-router-dom";
+
+import CheckoutForm from "../components/CheckoutForm";
 
 const stripePromise = loadStripe(
   "pk_test_51IAF0CHUsZNgCog2HKJ6N7blSBXlpTbMyPOsW4bXMVHlrWEPAbvhkcLtHxrcLdB7Git73G7i4eU2I4kovKAfBhvY00gbMjxWER"
@@ -24,7 +27,7 @@ const CheckoutPage = () => {
           className={classes.grid}
           container
           direction="column"
-          justify="space-between"
+          justify="space-around"
           alignItems="center"
         >
           <Grid item>
@@ -38,7 +41,15 @@ const CheckoutPage = () => {
           </Grid>
 
           <Grid item>
-            <Button>Pay</Button>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.button}
+            >
+              <Link to="/" className={classes.link}>
+                Pay
+              </Link>
+            </Button>
           </Grid>
         </Grid>
       </Paper>
@@ -46,46 +57,36 @@ const CheckoutPage = () => {
   );
 };
 
-const CheckoutForm = () => {
-  const stripe = useStripe();
-  const classes = useStyles();
-  return (
-    <form>
-      <Typography variant="subtitle2">Card number</Typography>
-      <CardNumberElement />
-
-      <Grid item container>
-        <Grid item>
-          <Typography variant="subtitle2">Expiry date</Typography>
-          <CardExpiryElement />
-        </Grid>
-
-        <Grid item className={classes.cvc}>
-          <Typography variant="subtitle2">CVC</Typography>
-          <CardCvcElement />
-        </Grid>
-      </Grid>
-    </form>
-  );
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: theme.spacing(60),
-    width: theme.spacing(100),
+    height: theme.spacing(40),
+    width: theme.spacing(60),
     margin: `${theme.spacing(10)}px auto`,
   },
   form: {
-    width: "20em",
+    width: theme.spacing(40),
   },
   grid: {
     height: "100%",
   },
   cardNum: {
-    width: "10em",
+    width: theme.spacing(20),
+  },
+  cardNum2: {
+    border: "1px black solid",
   },
   cardCvc: {
-    width: "5em",
+    width: theme.spacing(10),
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.common.white,
+  },
+  button: {
+    background: theme.palette.primary.button,
+    color: "white",
+    padding: "15px 50px 15px 50px",
+    width: "3em",
   },
 }));
 
