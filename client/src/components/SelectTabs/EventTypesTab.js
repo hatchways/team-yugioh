@@ -277,7 +277,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Name:
+                                    Link:
                                 </InputLabel>
                             </Grid>
 
