@@ -2,7 +2,7 @@ import axios from "axios";
 
 const userAPIpath = "http://localhost:3001/api/authentication/";
 
-export const sendToken = async closeCallback => {
+export const sendToken = async callback => {
   try {
     const response = await fetch(userAPIpath + "geturl", {
       method: "get",
@@ -19,10 +19,9 @@ export const sendToken = async closeCallback => {
     var popupTick = setInterval(async function() {
       if (loginPopup.closed) {
         clearInterval(popupTick);
-
-        const authOutcome = await testAuth();
-
-        closeCallback(authOutcome);
+        testAuth()
+          .then(resp => callback(resp))
+          .catch(err => console.log(err));
       }
     }, 500);
   } catch (err) {
@@ -31,9 +30,13 @@ export const sendToken = async closeCallback => {
 };
 
 export const sendCode = async code => {
-  await axios.post(userAPIpath + "google", { code }, { withCredentials: true });
-
-  window.close();
+  axios
+    .post(userAPIpath + "google", { code }, { withCredentials: true })
+    .then(resp => window.close())
+    .catch(err => {
+      console.log(err);
+      window.close();
+    });
 };
 
 //tests weather user is authenticated returns true for authenticated and false for not authenticated

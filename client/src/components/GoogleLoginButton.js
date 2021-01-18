@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import googleLogo from "../assets/googlesvg1.svg";
 import { sendToken } from "../utils/googleAuth";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -25,15 +26,11 @@ const useStyles = makeStyles(theme => ({
 
 const GoogleLoginButton = ({ variant }) => {
   const classes = useStyles();
-  const history = useHistory();
-
-  const uponAuth = outcome => {
-    if (outcome) history.push("/home");
-  };
+  const { setAuthenticated } = useContext(AuthContext);
 
   //handle response from googlAuth
   const responseGoogle = async () => {
-    await sendToken(uponAuth);
+    sendToken(setAuthenticated);
   };
 
   return (
