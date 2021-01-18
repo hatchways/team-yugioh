@@ -9,10 +9,13 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { Link } from "react-router-dom";
 
-const CheckoutForm = () => {
-  const stripe = useStripe();
+const CheckoutForm = (props) => {
+  //const stripe = useStripe();
   const classes = useStyles();
+  const amount = props.amount;
+  const clientSecret = props.clientSecret;
   return (
     <form className={classes.form}>
       <Grid container direction="column" alignItems="center" spacing={3}>
@@ -37,6 +40,18 @@ const CheckoutForm = () => {
               <CardCvcElement />
             </div>
           </Grid>
+        </Grid>
+
+        <Grid item>
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.button}
+          >
+            <Link to="/" className={classes.link}>
+              Pay {amount} CAD$
+            </Link>
+          </Button>
         </Grid>
       </Grid>
     </form>
@@ -65,6 +80,16 @@ const useStyles = makeStyles((theme) => ({
   },
   cardExpiry: {
     width: theme.spacing(10),
+  },
+  link: {
+    textDecoration: "none",
+    color: theme.palette.common.white,
+  },
+  button: {
+    background: theme.palette.primary.button,
+    color: "white",
+    padding: "15px 50px 15px 50px",
+    width: "3em",
   },
 }));
 
