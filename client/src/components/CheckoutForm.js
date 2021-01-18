@@ -17,8 +17,8 @@ const CheckoutForm = () => {
     <form className={classes.form}>
       <Grid container direction="column" alignItems="center" spacing={3}>
         <Grid item>
-          <div className={classes.cardNum}>
-            <Typography variant="subtitle2">Card number</Typography>
+          <Typography variant="subtitle2">Card number</Typography>
+          <div className={`${classes.cardInput} ${classes.cardNum}`}>
             <CardNumberElement classes={classes.cardNum2} />
           </div>
         </Grid>
@@ -26,12 +26,14 @@ const CheckoutForm = () => {
         <Grid item container spacing={4} justify="center" alignItems="center">
           <Grid item>
             <Typography variant="subtitle2">Expiry date</Typography>
-            <CardExpiryElement />
+            <div className={`${classes.cardInput} ${classes.cardExpiry}`}>
+              <CardExpiryElement />
+            </div>
           </Grid>
 
           <Grid item>
-            <div className={classes.cardCvc}>
-              <Typography variant="subtitle2">CVC</Typography>
+            <Typography variant="subtitle2">CVC</Typography>
+            <div className={`${classes.cardCvc} ${classes.cardInput}`}>
               <CardCvcElement />
             </div>
           </Grid>
@@ -49,12 +51,19 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   cardNum: {
-    width: theme.spacing(20),
+    width: theme.spacing(30),
   },
-  cardNum2: {
-    border: "1px black solid",
+  cardInput: {
+    padding: theme.spacing(1.5),
+    borderRadius: theme.spacing(0.3),
+    borderColor: "#bfcae1",
+    borderWidth: "2px",
+    borderStyle: "solid",
   },
   cardCvc: {
+    width: theme.spacing(10),
+  },
+  cardExpiry: {
     width: theme.spacing(10),
   },
 }));
