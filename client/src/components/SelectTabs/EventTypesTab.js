@@ -144,17 +144,10 @@ const useStyles = makeStyles((theme) => ({
         ".MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded": {
             overflowX: "hidden",
         },
-        "input[type=radio][name=color]": {},
-        ".PrivateRadioButtonIcon-root-153": {
+        "div[class*='PrivateRadioButtonIcon'] svg": {
             opacity: 0,
         },
-        ".PrivateRadioButtonIcon-checked-155": {
-            opacity: 1,
-        },
-        ".PrivateRadioButtonIcon-checked-155 svg": {
-            opacity: 0,
-        },
-        ".PrivateRadioButtonIcon-checked-155:after": {
+        "div[class*='PrivateRadioButtonIcon-checked-']:after": {
             content: "''",
             backgroundImage: `url("${Checkmark}")`,
             width: "1.5rem",
@@ -289,7 +282,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Name *
+                                    Name
                                 </InputLabel>
                             </Grid>
 
@@ -312,7 +305,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Duration *
+                                    Duration
                                 </InputLabel>
                             </Grid>
 
@@ -334,7 +327,7 @@ export default function EventTypesTab() {
                                             disableUnderline={true}
                                             inputProps={{
                                                 min: "1",
-                                                style: { textAlign: "right" },
+                                                style: { textAlign: "center" },
                                             }}
                                             fullWidth
                                         />
@@ -437,7 +430,11 @@ export default function EventTypesTab() {
                             </Grid>
 
                             <Grid xs="10" item>
-                                <RadioGroup aria-label="color" name="color">
+                                <RadioGroup
+                                    aria-label="color"
+                                    name="color"
+                                    // defaultValue="orange"
+                                >
                                     <Grid
                                         direction="row"
                                         alignItems="baseline"
