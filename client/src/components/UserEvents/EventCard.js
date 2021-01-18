@@ -11,27 +11,26 @@ import Grid from "@material-ui/core/Grid";
 import { deepOrange } from "@material-ui/core/colors";
 import axios from "axios";
 
-const useStyles = makeStyles({
-    root: {
-        minWidth: 275,
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-    colorBar: {
-        background: deepOrange[500],
-        padding: 4,
-    },
-    button: {
-        border: "none",
-        backgroundColor: "transparent",
-    },
-});
-
-export default function EventCard({ time }) {
+export default function EventCard({ name, duration, color }) {
+    const useStyles = makeStyles({
+        root: {
+            minWidth: 275,
+        },
+        title: {
+            fontSize: 14,
+        },
+        pos: {
+            marginBottom: 12,
+        },
+        colorBar: {
+            background: color || deepOrange[500],
+            padding: 4,
+        },
+        button: {
+            border: "none",
+            backgroundColor: "transparent",
+        },
+    });
     const classes = useStyles();
 
     // Calls won't work until we can generate meeting IDs
@@ -56,7 +55,9 @@ export default function EventCard({ time }) {
                 <CardHeader className={classes.colorBar}></CardHeader>
 
                 <CardContent>
-                    <Typography variant="h5">{time} minute meeting</Typography>
+                    <Typography variant="h5">
+                        {name || duration + " minute meeting"}
+                    </Typography>
 
                     <Typography variant="subtitle2" color="textSecondary">
                         One-on-One
@@ -71,7 +72,7 @@ export default function EventCard({ time }) {
                         alignItems="center"
                     >
                         <Typography item variant="subtitle2">
-                            {time} min
+                            {duration} min
                         </Typography>
                         <Button
                             item

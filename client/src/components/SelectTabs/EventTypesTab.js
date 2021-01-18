@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "3%",
     },
     formLabel: {
-        margin: "4%",
+        margin: "6% 4% 3% 4%",
         textAlign: "left",
     },
     descriptionLabel: {
@@ -93,12 +93,39 @@ const useStyles = makeStyles((theme) => ({
         border: "none",
         width: "100%",
         maxWidth: "100%",
+        minWidth: "100%",
     },
     groupedInput: {
         border: "1px solid lightgray",
         borderRadius: "4px",
         width: "100%",
         margin: 0,
+    },
+    color: {
+        listStyle: "none",
+        borderRadius: "50%",
+        border: "1px solid #d3d3d345",
+        textIndent: "-9999px",
+        width: "2rem",
+        height: "2rem",
+    },
+    purple: {
+        backgroundColor: "#7900FF",
+    },
+    orange: {
+        backgroundColor: "#FF6A00",
+    },
+    green: {
+        backgroundColor: "#66CC33",
+    },
+    blue: {
+        backgroundColor: "#00AAFF",
+    },
+    yellow: {
+        backgroundColor: "#FFFF00",
+    },
+    grey: {
+        backgroundColor: "#808080",
     },
 }));
 
@@ -109,6 +136,7 @@ export default function EventTypesTab() {
     const [unit, setUnit] = useState("min");
     // todo prevent negative time
     const [duration, setDuration] = useState();
+    const colors = ["purple", "blue", "green", "yellow", "orange", "grey"];
 
     // replace with actual user id
     const userId = "5ffe8c395a611a0000d0c692";
@@ -349,6 +377,41 @@ export default function EventTypesTab() {
                                         />
                                     </Grid>
                                 </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            direction="row"
+                            alignItems="center"
+                            container={true}
+                            justify="flex-start"
+                            className={classes.inputRow}
+                        >
+                            <Grid xs="2" item>
+                                <InputLabel className={classes.label}>
+                                    Color
+                                </InputLabel>
+                            </Grid>
+
+                            <Grid xs="10" item>
+                                <ul>
+                                    <Grid
+                                        direction="row"
+                                        alignItems="center"
+                                        container={true}
+                                        justify="flex-start"
+                                        className={classes.inputRow}
+                                    >
+                                        {colors.map((color) => (
+                                            <Grid xs="2" item>
+                                                <li
+                                                    className={`${classes.color} ${classes[color]}`}
+                                                >
+                                                    {color}
+                                                </li>
+                                            </Grid>
+                                        ))}
+                                    </Grid>
+                                </ul>
                             </Grid>
                         </Grid>
                     </DialogContent>
