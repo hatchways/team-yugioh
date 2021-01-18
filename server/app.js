@@ -27,7 +27,7 @@ app.use(express.static(join(__dirname, "public")));
 //Mount route handlers
 app.use(require("./routes/controllers/AppointmentAPI"));
 app.use(require("./routes/controllers/eventAPI"));
-app.use(authenticationRout);
+app.use(require(".routes/controllers/authentication"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));
