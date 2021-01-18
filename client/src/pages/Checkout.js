@@ -1,16 +1,7 @@
 import { Grid, makeStyles, Paper, Button, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-} from "@stripe/react-stripe-js";
-import { Link } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
 import CheckoutForm from "../components/CheckoutForm";
@@ -62,8 +53,6 @@ const CheckoutPage = () => {
           <Grid item>
             <CheckoutForm amount={amount} clientSecret={clientSecret} />
           </Grid>
-
-          <Grid item></Grid>
         </Grid>
       </Paper>
     </Elements>
@@ -81,15 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     height: "100%",
-  },
-  cardNum: {
-    width: theme.spacing(20),
-  },
-  cardNum2: {
-    border: "1px black solid",
-  },
-  cardCvc: {
-    width: theme.spacing(10),
   },
 }));
 
