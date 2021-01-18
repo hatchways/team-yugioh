@@ -25,8 +25,6 @@ app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
 //Mount route handlers
-app.use("/", indexRouter);
-app.use("/ping", pingRouter);
 app.use(require("./routes/controllers/AppointmentAPI"));
 app.use(require("./routes/controllers/eventAPI"));
 app.use(authenticationRout);
