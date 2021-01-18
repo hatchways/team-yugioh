@@ -11,3 +11,5 @@ router.get("/api/checkout", async (req, res) => {
   });
   res.status(200).json({ clientSecret: paymentIntent.client_secret, amount });
 });
+
+module.exports = router;
