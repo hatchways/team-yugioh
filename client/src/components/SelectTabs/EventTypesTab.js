@@ -64,11 +64,14 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.primary.button,
         color: "white",
         padding: "2% 5%",
-        margin: "5% -6% 2% 0",
+        margin: "5% -2% 2% 0",
     },
     box: {
         padding: "0 3%",
         width: "90%",
+        minWidth: "90%",
+        maxWidth: "90%",
+        margin: "auto",
     },
     inputRow: {
         marginBottom: "3%",
@@ -77,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "6%",
     },
     formLabel: {
-        margin: "6% 4% 3% 4%",
+        margin: "7% 4% 4% 3%",
         textAlign: "left",
     },
     descriptionLabel: {
@@ -87,11 +90,12 @@ const useStyles = makeStyles((theme) => ({
         color: "rgba(0, 0, 0, 0.8)",
     },
     prefix: {
-        fontSize: ".85rem",
+        fontSize: ".75rem",
         fontWeight: "600",
         color: "lightgrey",
         borderRight: "1px solid lightgrey",
-        textAlign: "center",
+        textAlign: "right",
+        marginLeft: "2%",
     },
     singleInput: {
         border: "1px solid lightgray",
@@ -103,6 +107,12 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         maxWidth: "100%",
         minWidth: "100%",
+        "&::placeholder": {
+            fontSize: ".8rem",
+            fontWeight: "500",
+            color: "lightgrey",
+            fontFamily: "sans-serif",
+        },
     },
     groupedInput: {
         border: "1px solid lightgray",
@@ -401,7 +411,11 @@ export default function EventTypesTab() {
                                     className={classes.groupedInput}
                                 >
                                     {/* TODO: pass in user link prefix */}
-                                    <Grid className={classes.prefix} item>
+                                    <Grid
+                                        xs="5"
+                                        className={classes.prefix}
+                                        item
+                                    >
                                         calendapp.com/john-doe/
                                     </Grid>
                                     <Grid item>
@@ -433,7 +447,7 @@ export default function EventTypesTab() {
                                 <RadioGroup
                                     aria-label="color"
                                     name="color"
-                                    // defaultValue="orange"
+                                    defaultValue="orange"
                                 >
                                     <Grid
                                         direction="row"
