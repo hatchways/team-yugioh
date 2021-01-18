@@ -289,7 +289,7 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Name
+                                    Name *
                                 </InputLabel>
                             </Grid>
 
@@ -312,21 +312,21 @@ export default function EventTypesTab() {
                         >
                             <Grid xs="2" item>
                                 <InputLabel className={classes.label}>
-                                    Duration
+                                    Duration *
                                 </InputLabel>
                             </Grid>
 
-                            <Grid xs="10" item>
+                            <Grid xs="6" item>
                                 <Grid
                                     container={true}
                                     direction="row"
                                     alignItems="baseline"
-                                    justify="space-evenly"
+                                    justify="flex-start"
                                     wrap="nowrap"
                                     spacing="2"
                                     className={classes.groupedInput}
                                 >
-                                    <Grid item>
+                                    <Grid xs="4" item>
                                         <Input
                                             label="Duration"
                                             type="number"
@@ -334,15 +334,18 @@ export default function EventTypesTab() {
                                             disableUnderline={true}
                                             inputProps={{
                                                 min: "1",
+                                                style: { textAlign: "right" },
                                             }}
+                                            fullWidth
                                         />
                                     </Grid>
-                                    <Grid item>
+                                    <Grid xs="8" item>
                                         <Select
                                             value={unit}
                                             onChange={handleUnitChange}
                                             label="Units"
                                             disableUnderline={true}
+                                            fullWidth
                                         >
                                             <MenuItem value={"min"}>
                                                 minutes
