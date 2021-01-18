@@ -17,6 +17,11 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
   const classes = useStyles();
   const submitPayment = (event) => {
     event.preventDefault();
+    console.log("submit button pressed");
+    setStatus("pending");
+    setTimeout(() => {
+      setStatus("failure");
+    }, 2000);
   };
   return (
     <form className={classes.form} onSubmit={submitPayment}>
@@ -25,7 +30,7 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
         container
         direction="column"
         alignItems="center"
-        spacing={3}
+        spacing={5}
       >
         <Grid item>
           <Typography variant="h5" className={classes.title}>
@@ -58,16 +63,27 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
           </Grid>
         </Grid>
 
-        {status === "failure" ? <Typography>Payment failed</Typography> : null}
+        {status === "failure" ? (
+          <Grid item>
+            <Typography
+              className={classes.failureMsg}
+              variant="h5"
+              color="error"
+            >
+              Payment failed
+            </Typography>
+          </Grid>
+        ) : null}
       </Grid>
 
       <Grid container justify="center">
-        <Button color="primary" variant="contained" className={classes.button}>
-          {status === "pending" ? (
-            <CircularProgress color="secondary" />
-          ) : (
-            `Pay ${amount} CAD$`
-          )}
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          className={classes.button}
+        >
+          {status === "pending" ? <CircularProgress /> : `Pay ${amount} CAD$`}
         </Button>
       </Grid>
     </form>
@@ -104,6 +120,9 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: theme.spacing(4),
     margin: "auto",
+  },
+  failureMsg: {
+    margin: theme.spacing(3),
   },
 }));
 
