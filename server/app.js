@@ -2,19 +2,12 @@ const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
-const authenticationRout = require("./routes/controllers/authentication");
-
 const cors = require("cors");
-
-const indexRouter = require("./routes/index");
-const pingRouter = require("./routes/ping");
-
 const { json, urlencoded } = express;
 
 require("./db/connection");
 
-var app = express();
+const app = express();
 
 //Mount utilities
 app.use(logger("dev"));
