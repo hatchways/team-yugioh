@@ -53,11 +53,13 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
         </Grid>
 
         <Grid container direction="column" alignItems="center" spacing={3}>
-          <Grid item>
-            <Typography variant="subtitle2">Card number</Typography>
-            <div className={`${classes.cardInput} ${classes.cardNum}`}>
-              <CardNumberElement classes={classes.cardNum2} />
-            </div>
+          <Grid item container>
+            <Grid item xs={12}>
+              <Typography variant="subtitle2">Card number</Typography>
+              <div className={classes.cardInput}>
+                <CardNumberElement classes={classes.cardNum2} />
+              </div>
+            </Grid>
           </Grid>
 
           <Grid item container spacing={4} justify="center" alignItems="center">
