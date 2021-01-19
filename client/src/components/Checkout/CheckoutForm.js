@@ -13,6 +13,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import PropTypes from "prop-types";
 
 const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
   const classes = useStyles();
@@ -138,5 +139,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3),
   },
 }));
+
+CheckoutForm.propTypes = {
+  amount: PropTypes.number,
+  clientSecret: PropTypes.string,
+  status: PropTypes.string,
+  setStatus: PropTypes.func,
+};
 
 export default CheckoutForm;

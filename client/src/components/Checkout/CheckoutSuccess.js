@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, makeStyles, Grid, Button } from "@material-ui/core";
 import { CheckCircleOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const CheckoutSuccess = ({ amount, clientSecret }) => {
   const classes = useStyles();
@@ -64,5 +65,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
 }));
+
+CheckoutSuccess.propTypes = {
+  amount: PropTypes.number,
+  clientSecret: PropTypes.string,
+};
 
 export default CheckoutSuccess;
