@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const stripe = require("stripe").Stripe(process.env.STRIPE_SECRET);
-const Membership = require("../db/models/membership");
 
 router.get("/api/checkout", async (req, res) => {
   const amount = 120;
