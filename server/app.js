@@ -21,10 +21,10 @@ app.use(express.static(join(__dirname, "public")));
 app.use(require("./routes/AppointmentAPI"));
 app.use(require("./routes/eventAPI"));
 app.use(require("./routes/authentication"));
+app.use(require("./routes/checkout"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));
 app.use(require("./utils/fourOfourHandler"));
 
-app.use(require("./routes/checkout"));
 module.exports = app;
