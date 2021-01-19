@@ -1,44 +1,29 @@
-const createError = require("http-errors");
 const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
-const indexRouter = require("./routes/index");
-const pingRouter = require("./routes/ping");
-
+const cors = require("cors");
 const { json, urlencoded } = express;
 
-const connection = require("./db/connection");
+require("./db/connection");
 
-var app = express();
+const app = express();
 
+//Mount utilities
 app.use(logger("dev"));
 app.use(json());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/ping", pingRouter);
+//Mount route handlers
+app.use(require("./routes/AppointmentAPI"));
+app.use(require("./routes/eventAPI"));
+app.use(require("./routes/authentication"));
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    next(createError(404));
-});
-
-app.use(require("./routes/controllers/AppointmentAPI"));
-app.use(require("./routes/controllers/eventAPI"));
-
-// error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.json({ error: err });
-});
+//Mount utilities
+app.use(require("./utils/errorHandler"));
+app.use(require("./utils/fourOfourHandler"));
 
 module.exports = app;

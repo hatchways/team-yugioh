@@ -8,11 +8,18 @@ const schema = new Schema({
     },
     duration: {
         type: Number,
-        validate: {
-            validator: function (v) {
-                return [15, 30, 60].includes(v);
-            },
-        },
+    },
+    name: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    color: {
+        type: String,
+    },
+    link: {
+        type: String,
     },
 });
 

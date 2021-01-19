@@ -3,23 +3,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    event_id: {
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
     },
     name: {
         type: String,
+        required: true,
     },
     email: {
         type: String,
         trim: true,
         unique: true,
+        required:true,
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             "Please fill a valid email address",
         ],
     },
-    time: {
-        type: Date,
+    profilePic:{
+        type:String
     },
     timezone: {
         // TODO: validate timezone
@@ -27,6 +29,6 @@ const schema = new Schema({
     },
 });
 
-const Appointment = mongoose.model("Appointment", schema);
+const User = mongoose.model("User", schema);
 
-module.exports = Appointment;
+module.exports = User;
