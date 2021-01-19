@@ -23,7 +23,7 @@ const CheckoutPage = () => {
       const amount = res.data.amount || undefined;
       const clientSecret = res.data.clientSecret || undefined;
       if (amount && clientSecret) {
-        setAmount(amount);
+        setAmount(amount / 100); //stripe API interpret the last two digits as decimals
         setClientSecret(clientSecret);
       } else {
         throw new Error("Not getting amount or client secret from backend");
