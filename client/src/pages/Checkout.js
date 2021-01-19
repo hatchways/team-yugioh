@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Paper, Button, Typography } from "@material-ui/core";
+import { makeStyles, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
