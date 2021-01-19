@@ -4,19 +4,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import CheckIcon from "@material-ui/icons/Check";
-import { UsbTwoTone } from "@material-ui/icons";
+import PlanListItem from "./UpgradeListItem";
 
 const useStyles = makeStyles(theme => ({
   paper:{
     maxWidth:"300px",
     height:"280px",
     paddingTop:"5%",
-    paddingBottom:"5%"
+    paddingBottom:"5%",
   },
   root: {
     display: "flex",
@@ -49,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
   ListItemIcon: {
     minWidth: 0,
-    marginRight:5
+    marginRight:10
   },
   icon:{
     fontSize:16,
@@ -61,15 +57,21 @@ const useStyles = makeStyles(theme => ({
   itemText:{
     color:"#898989",
     fontSize:14,
-    fontWeight:400
+    fontWeight:500
+  },
+  border:{
+    borderStyle:"solid",
+    borderWidth:"2px",
+    color:theme.palette.primary.main
   }
 }));
 
-const UpgradeCard = ({ title, titleColor, feturesList, price }) => {
+const UpgradeCard = ({ title, titleColor, featuresList, price, selected }) => {
   const classes = useStyles();
+  const elevation=selected?20:8;
 
   return (
-    <Paper elevation={6} className={classes.paper}>
+    <Paper elevation={elevation} className={selected?`${classes.paper} ${classes.border}`:classes.paper}>
       <div className={classes.root}>
         <Typography variant="h5" className={classes[titleColor]}>
           {title}
@@ -79,25 +81,15 @@ const UpgradeCard = ({ title, titleColor, feturesList, price }) => {
           variant="outlined"
           color="secondary"
           classes={{ root: classes.buttonRoot }}
+          disabled={selected}
         >
-          Upgrade
+          {selected?"Active":"Upgrade"}
         </Button>
       </div>
       <Divider />
       <div className={`${classes.root} ${classes.listContainer}`}>
         <List>
-          <ListItem classes={{ root: classes.item }}>
-            <ListItemIcon classes={{root:classes.ListItemIcon}}>
-              <CheckIcon className={classes.icon}/>
-            </ListItemIcon>
-            <span className={classes.itemText}>Unlimited event types</span>
-          </ListItem>
-          <ListItem classes={{ root: classes.item }}>
-            <ListItemIcon classes={{root:classes.ListItemIcon}}>
-              <CheckIcon className={classes.icon}/>
-            </ListItemIcon>
-            <span className={classes.itemText}>Unlimited event types</span>
-          </ListItem>
+          {featuresList.map(item=>{<PlanListItem itemText={item} key={item}/>})}
         </List>
       </div>
     </Paper>
