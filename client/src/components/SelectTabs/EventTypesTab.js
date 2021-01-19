@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
     },
     cancel: {
         margin: theme.spacing(3, 0, 2),
-        color: "lightgrey",
+        fontSize: ".8rem",
+        color: "#9e9e9e",
     },
     label: {
         fontWeight: "bold",
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         background: theme.palette.primary.button,
+        fontSize: ".8rem",
         color: "white",
         padding: "2% 5%",
         margin: "5% -2% 2% 0",
