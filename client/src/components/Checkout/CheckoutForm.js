@@ -32,7 +32,7 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
         if (res.error) {
           setStatus("failure");
         } else {
-          console.log(res);
+          //send data to backend to store payment history
           setStatus("success");
         }
       });
