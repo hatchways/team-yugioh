@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import NavBar from "../components/Header/NavBar";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import UpgradeCard from "../components/UpgradeCard";
+import UpgradeCard from "../components/upgradeCard/UpgradeCard";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,11 +44,11 @@ const UpgradePage = () => {
           <Typography className={classes.title} variant="h4">
             Upgrade your account
           </Typography>
-          <Typography className={classes.subtitle} variant="body4">
+          <Typography className={classes.subtitle}>
             You are on a free basic plan
           </Typography>
         </div>
-        <Grid container spacing={2} className={classes.cardContainer}>
+        <Grid container spacing={5} className={classes.cardContainer}>
           <Grid item xs={12} sm={6}>
             <UpgradeCard title="Premium" price="Free" titleColor="color1" />
           </Grid>
