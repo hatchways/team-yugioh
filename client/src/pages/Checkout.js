@@ -40,7 +40,7 @@ const CheckoutPage = () => {
     <Elements stripe={stripePromise}>
       <Paper className={classes.root} elevation={5}>
         {status === "success" ? (
-          <CheckoutSuccess />
+          <CheckoutSuccess amount={amount} clientSecret={clientSecret} />
         ) : (
           <CheckoutForm
             amount={amount}
