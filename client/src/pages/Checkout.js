@@ -19,21 +19,16 @@ const CheckoutPage = () => {
   const [status, setStatus] = useState(""); //pending, success, failure
 
   useEffect(() => {
-    axios
-      .get("/api/checkout")
-      .then((res) => {
-        const amount = res.data.amount || undefined;
-        const clientSecret = res.data.clientSecret || undefined;
-        if (amount && clientSecret) {
-          setAmount(amount);
-          setClientSecret(clientSecret);
-        } else {
-          throw new Error("Not getting amount or client secret from backend");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axios.get("/api/checkout").then((res) => {
+      const amount = res.data.amount || undefined;
+      const clientSecret = res.data.clientSecret || undefined;
+      if (amount && clientSecret) {
+        setAmount(amount);
+        setClientSecret(clientSecret);
+      } else {
+        throw new Error("Not getting amount or client secret from backend");
+      }
+    });
   }, []);
 
   return (
