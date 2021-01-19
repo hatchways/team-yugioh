@@ -278,7 +278,6 @@ export default function EventTypesTab() {
             <Container>
                 <Grid container direction="row" justify="space-between">
                     <Box
-                        item
                         display="flex"
                         className={classes.profileAndNewTypeBox}
                     >
@@ -296,7 +295,7 @@ export default function EventTypesTab() {
                             </Typography>
                         </Box>
                     </Box>
-                    <Box item>
+                    <Box>
                         <Button
                             className={classes.newEventTypeButton}
                             color="secondary"
@@ -511,7 +510,7 @@ export default function EventTypesTab() {
                                             { name: "orange", hex: "#FF6A00" },
                                             { name: "grey", hex: "#808080" },
                                         ].map((color) => (
-                                            <Grid item>
+                                            <Grid key={color.name} item>
                                                 <Radio
                                                     value={color.hex}
                                                     className={`${
