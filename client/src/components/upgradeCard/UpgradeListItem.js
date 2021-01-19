@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     itemText:{
       color:"#898989",
       fontSize:14,
-      fontWeight:500
+      fontWeight:400
     }
   }));
 

@@ -35,6 +35,8 @@ const useStyles = makeStyles(theme => ({
 const UpgradePage = () => {
   const classes = useStyles();
   const plan= "free basic";
+  const basicPlanFeatures=["Unlimited event types", "Group meetings"];
+  const premiumPlanFeatures=["Unlimited event types", "Group meetings", "24/7 Support"];
 
   return (
     <div >
@@ -49,12 +51,12 @@ const UpgradePage = () => {
             You are on a {plan} plan
           </Typography>
         </div>
-        <Grid container spacing={5} className={classes.cardContainer}>
+        <Grid container spacing={6} className={classes.cardContainer}>
           <Grid item xs={12} sm={6}>
-            <UpgradeCard title="Standard" price="Free" titleColor="color1" selected/>
+            <UpgradeCard title="Basic" price="Free" titleColor="color1" selected featuresList={basicPlanFeatures}/>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <UpgradeCard  title="Premium" price="$8/month" titleColor="color2"/>
+            <UpgradeCard  title="Premium" price="$8/month" titleColor="color2" featuresList={premiumPlanFeatures}/>
           </Grid>
         </Grid>
       </Container>
