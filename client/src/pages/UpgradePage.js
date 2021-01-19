@@ -21,15 +21,14 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontWeight: 600,
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(1)
   },
   subtitle: {
     fontSize: 16,
     color: "#909090"
   },
-  cardContainer: {
-    display: "flex",
-    flexDirection: "row"
+  cardContainer:{
+    marginTop:theme.spacing(4)
   }
 }));
 
@@ -37,10 +36,10 @@ const UpgradePage = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div >
       <NavBar />
 
-      <Container maxWidth="lg" className={classes.main}>
+      <Container maxWidth="sm" className={classes.main}>
         <div className={classes.heading}>
           <Typography className={classes.title} variant="h4">
             Upgrade your account
@@ -49,11 +48,11 @@ const UpgradePage = () => {
             You are on a free basic plan
           </Typography>
         </div>
-        <Grid container spacing={6} className={classes.cardContainer}>
-          <Grid item lg={6}>
+        <Grid container spacing={2} className={classes.cardContainer}>
+          <Grid item xs={12} sm={6}>
             <UpgradeCard />
           </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} sm={6}>
             <UpgradeCard />
           </Grid>
         </Grid>
