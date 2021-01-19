@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
     },
     dialog: {
         overflowX: "hidden",
-        backgroundColor: "red",
     },
     profileAndNewTypeBox: {
         marginBottom: theme.spacing(5),
@@ -214,20 +213,6 @@ export default function EventTypesTab() {
         axios
             .get("/api/event?user_id=" + userId)
             .then((res) => {
-                // [15, 30, 60].forEach((time) => {
-                //     const presetEvent = {
-                //         name: "",
-                //         duration: time,
-                //         description: "",
-                //         link: "",
-                //         color: "#FF6A00",
-                //     };
-                //     // setUserEvents([...userEvents, presetEvent]);
-                //     let temp = [...userEvents];
-                //     temp.push(presetEvent);
-                //     setUserEvents(temp);
-                //     console.log([...userEvents, presetEvent]);
-                // });
                 setUserEvents([...userEvents, ...res.data]);
             })
             .catch((err) => console.log(err));
@@ -266,10 +251,16 @@ export default function EventTypesTab() {
                 duration: minutes,
             })
             .then((res) => {
-                console.log(res);
                 const currentEventTypes = [...userEvents];
                 currentEventTypes.push(res.data);
                 setUserEvents(currentEventTypes);
+                setEventBody({
+                    name: "",
+                    duration: "",
+                    description: "",
+                    link: "",
+                    color: "#FF6A00",
+                });
             })
             .catch((err) => console.log(err));
     }
@@ -345,7 +336,7 @@ export default function EventTypesTab() {
                                     onChange={handleFormChange}
                                     disableUnderline
                                     fullWidth
-                                    value={eventBody.name || ""}
+                                    value={eventBody.name}
                                 />
                             </Grid>
                         </Grid>
@@ -377,6 +368,7 @@ export default function EventTypesTab() {
                                             label="Duration"
                                             name="duration"
                                             type="number"
+                                            value={eventBody.duration}
                                             onChange={handleFormChange}
                                             disableUnderline
                                             inputProps={{
@@ -425,6 +417,7 @@ export default function EventTypesTab() {
                                     rowsMax={6}
                                     name="description"
                                     onChange={handleFormChange}
+                                    value={eventBody.description}
                                     placeholder={`Write a summary and details about your event.
                                     
                                     
@@ -468,6 +461,7 @@ export default function EventTypesTab() {
                                         <Input
                                             label="Link"
                                             name="link"
+                                            value={eventBody.link}
                                             type="text"
                                             onChange={handleFormChange}
                                             disableUnderline
@@ -495,7 +489,7 @@ export default function EventTypesTab() {
                                     aria-label="color"
                                     name="color"
                                     onChange={handleFormChange}
-                                    defaultValue="#FF6A00"
+                                    value={eventBody.color}
                                 >
                                     <Grid
                                         direction="row"
