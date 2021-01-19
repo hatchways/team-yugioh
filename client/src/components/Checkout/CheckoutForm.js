@@ -122,9 +122,6 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: "2px",
     borderStyle: "solid",
   },
-  cardNum: {
-    width: theme.spacing(30),
-  },
   link: {
     textDecoration: "none",
     color: theme.palette.common.white,
@@ -133,6 +130,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.button,
     color: "white",
     width: theme.spacing(20),
+    height: theme.spacing(5),
     position: "absolute",
     bottom: theme.spacing(4),
     margin: "auto",

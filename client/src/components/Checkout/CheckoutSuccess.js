@@ -27,17 +27,13 @@ const CheckoutSuccess = ({ amount, clientSecret }) => {
         <Grid item>
           <CheckCircleOutline className={classes.checkCircle} />
         </Grid>
-        <Grid item>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
-            <Link to="/" className={classes.link}>
-              Return to home page
-            </Link>
-          </Button>
-        </Grid>
+      </Grid>
+      <Grid container justify="center">
+        <Button color="primary" variant="contained" className={classes.button}>
+          <Link to="/" className={classes.link}>
+            Return to home page
+          </Link>
+        </Button>
       </Grid>
     </div>
   );
@@ -62,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.button,
     color: "white",
     width: theme.spacing(20),
+    height: theme.spacing(5),
+    position: "absolute",
+    bottom: theme.spacing(4),
+    margin: "auto",
   },
 }));
 
