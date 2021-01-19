@@ -29,6 +29,9 @@ function App() {
         <Route path="/authorized" component={Authentication} />
         <PrivateRoute Component={Scheduler} path="/schedule-meeting" />
         <PrivateRoute Component={Home} path="/home" />
+        <Route path="/checkout">
+          <Checkout />
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );
