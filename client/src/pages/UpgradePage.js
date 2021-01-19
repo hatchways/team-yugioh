@@ -50,10 +50,10 @@ const UpgradePage = () => {
         </div>
         <Grid container spacing={2} className={classes.cardContainer}>
           <Grid item xs={12} sm={6}>
-            <UpgradeCard />
+            <UpgradeCard title="Premium" price="Free" titleColor="color1" />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <UpgradeCard />
+            <UpgradeCard  title="Professional" price="$8/month" titleColor="color2"/>
           </Grid>
         </Grid>
       </Container>
