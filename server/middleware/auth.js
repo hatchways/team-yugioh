@@ -12,8 +12,8 @@ const auth = (req, res, next) => {
       return;
     } else {
       const decodedToken = jwt(jwtToken);
-      const { userId, email } = decodedToken;
-      req.userId = userId;
+      const { user_id, email } = decodedToken;
+      req.userId = user_id;
       req.email = email; //not sure if email would be needed but I will include here for now
       next();
     }
