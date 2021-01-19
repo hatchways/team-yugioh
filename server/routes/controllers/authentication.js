@@ -48,7 +48,7 @@ router.post("/api/authentication/google", async (req, res) => {
     }
 
     //create JWT token for route auth
-    const claims = { type: "route security", app: "calndApp" };
+    const claims = { user_email: email, app: "calndApp" };
     const jwt_token = jwt.create(claims, process.env.JWT_SECRET);
     //token valid for 24h
     jwt_token.setExpiration(new Date().getTime() + 24 * 60 * 60 * 1000);

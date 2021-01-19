@@ -11,7 +11,8 @@ const router = new express.Router();
 
 // get user's availability from google calendar
 router.get("/api/calendar/availability", async (req, res) => {
- 
+    const day=req.param('day');
+    
 
 });
 
