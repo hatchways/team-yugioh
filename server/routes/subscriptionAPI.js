@@ -8,7 +8,7 @@ router.get("/api/subscription/check", auth, async (req, res) => {
   // Check if the user is already subscribed. If so, set askForPayment in the response
   // to false; otherwise set it to true
   const user = await dbSubscription.findOne({
-    user_id: req.userId,
+    userId: req.userId,
   });
   if (user) {
     res.status(200).send({ subscribed: true });
@@ -39,7 +39,7 @@ router.post("/api/subscription/set", auth, async (req, res) => {
       res.status(400).send("Client secret not included in request body");
     }
     await dbSubscription.create({
-      user_id: req.userId,
+      userId: req.userId,
       clientSecret,
     });
     res.status(200).send("OK");
