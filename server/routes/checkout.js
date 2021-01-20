@@ -17,8 +17,9 @@ router.get("/api/pre-checkout", auth, async (req, res) => {
 });
 
 router.get("/api/checkout", async (req, res) => {
-  //starts a payment intent and send back the transaction ID (aptly named clientSecret)
-  //it is the front end's responsibility to make sure precheckout has been run
+  // Starts a payment intent and send back the transaction ID (aptly named clientSecret)
+  // It is the front end's responsibility to make sure precheckout has been run
+  // In the event that payment failed, the clientSecret would be discarded.
   const amount = 120;
   const currency = "cad";
   const paymentIntent = await stripe.paymentIntents.create({
