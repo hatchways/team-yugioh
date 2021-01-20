@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 router.get("/api/pre-checkout", auth, async (req, res) => {
   //check if the user is already subscribed
   const user = await dbSubscription.findOne({
-    _id: "60073b42110ac1321c6b18b5",
+    user_id: req.userId,
   });
   if (user) {
     res.status(400).send("User has already paid for subscription");
