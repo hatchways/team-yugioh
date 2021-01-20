@@ -2,14 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-// add URL to user?
 const schema = new Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
     },
     name: {
         type: String,
-        required: true,
     },
     email: {
         type: String,
@@ -26,6 +24,9 @@ const schema = new Schema({
     },
     timezone: {
         // TODO: validate timezone
+        type: String,
+    },
+    URL: {
         type: String,
     },
 });

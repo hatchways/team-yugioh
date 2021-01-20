@@ -263,11 +263,18 @@ export default function EventTypesTab() {
 
     function testUser() {
         axios
-            .post("/api/user", {})
+            .post("/api/user", { URL: "fool" })
             .then((res) => {
                 console.log(res);
             })
             .catch((err) => console.log(err));
+
+        // axios
+        //     .get("/api/user/is_unique?URL=fodo")
+        //     .then((res) => {
+        //         console.log(res);
+        //     })
+        //     .catch((err) => console.log(err));
     }
 
     /* USER PROFILE + NEW EVENT TYPE BTN */
