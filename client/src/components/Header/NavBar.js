@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box";
 
 import Logo from "./../../img/logo.png";
 import ProfileImage from "./../../img/user-image.png";
-import ImageUploader from './../UploadModal/ImageUploader'
+import ImageUploader from '../SelectTabs/ImageUploader'
 
 const useStyles = makeStyles((theme) => ({
   root: {
