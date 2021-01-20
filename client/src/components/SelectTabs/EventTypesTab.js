@@ -206,13 +206,11 @@ export default function EventTypesTab() {
     });
     const [unit, setUnit] = useState("min");
 
-    // replace with actual user id
-    const userId = "5ffe8c395a611a0000d0c692";
-
     useEffect(() => {
         axios
-            .get("/api/event?user_id=" + userId)
+            .get("/api/event")
             .then((res) => {
+                console.log(res);
                 setUserEvents([...userEvents, ...res.data]);
             })
             .catch((err) => console.log(err));
@@ -247,7 +245,6 @@ export default function EventTypesTab() {
         axios
             .post("/api/event", {
                 ...eventBody,
-                user_id: userId,
                 duration: minutes,
             })
             .then((res) => {
