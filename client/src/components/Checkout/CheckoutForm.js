@@ -95,13 +95,23 @@ const CheckoutForm = ({
         </Grid>
 
         <Grid item>
-          <Typography className={classes.failureMsg} variant="h5" color="error">
-            {status === "failure"
-              ? "Payment failed"
-              : !askForPayment
-              ? "You have subscribed already!"
-              : null}
-          </Typography>
+          {status === "failure" ? (
+            <Typography
+              className={classes.failureMsg}
+              variant="h5"
+              color="error"
+            >
+              "Payment failed"
+            </Typography>
+          ) : !askForPayment ? (
+            <Typography
+              className={classes.failureMsg}
+              variant="h6"
+              color="success"
+            >
+              You have subscribed already!
+            </Typography>
+          ) : null}
         </Grid>
       </Grid>
 
