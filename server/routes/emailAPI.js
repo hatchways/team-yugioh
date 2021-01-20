@@ -1,49 +1,35 @@
 const express = require("express");
-const db = require("../db/models");
 const auth = require("../middleware/auth");
+const sgMail = require("@sendgrid/mail");
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const router = express.Router();
 
-// CREATE meeting
-router.post("/api/event", auth, (req, res) => {
-  if (req.body.duration) {
-    db.EventType.create({ ...req.body, user_id: req.userId })
-      .then((response) => res.send(response))
-      .catch((error) => {
-        console.log(error);
-        res.status(500).send(error);
-      });
-  } else if (!req.body.duration) {
-    res.status(400).send("Duration is required");
-  }
-});
-
-// GET all meetings for user
-router.get("/api/event", auth, (req, res) => {
-  db.EventType.find({ user_id: req.userId })
-    .then((data) => res.send(data))
+// Send confirmation email
+router.post("/api/email", auth, (req, res) => {
+  const msg = {
+    to: req.body.email,
+    // TODO: make project email/maybe also domain?
+    from: "uesttser@gmail.com",
+    // TODO: add in name and/or email of user, what appountment/event type was booked
+    // TODO: write good copy
+    subject: "Someone Has Booked an Appointment with you",
+    text:
+      "Someone has booked your appointment. Log in to Calendapp to make any updates.",
+    html: `<h1>Someone has booked your appointment</h1> 
+    <p>Log in to Calendapp to make any updates.</p>`,
+  };
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Email sent");
+      res.send("email sent!");
+    })
     .catch((error) => {
-      console.log(error.message);
+      console.error(error);
       res.status(500).send(error);
     });
 });
-
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const msg = {
-  to: "kaylee.nellie.nelson@gmail.com", // Change to your recipient
-  from: "uesttser@gmail.com", // Change to your verified sender
-  subject: "Sending with SendGrid is Fun",
-  text: "and easy to do anywhere, even with Node.js",
-  html: "<strong>and easy to do anywhere, even with Node.js</strong>",
-};
-sgMail
-  .send(msg)
-  .then(() => {
-    console.log("Email sent");
-  })
-  .catch((error) => {
-    console.error(error);
-  });
 
 module.exports = router;
