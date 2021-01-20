@@ -13,13 +13,19 @@ async function getAvailability (auth_token, day){
     const myTimeMin=day+"T23:59:59.000Z";
     const auth=oAuth2Client.setCredentials(auth_token);
     const calendar=google.calendar({version:'v3', auth});
-    const availability= await calendar.freebusy.query({
+    const noAvailability= await calendar.freebusy.query({
         requestBody:{
             "timeMax":myTimeMax,
-            "timeMin":myTimeMin
+            "timeMin":myTimeMin,
+            "items": [
+                {
+                  "id": "primary"
+                }
+              ]
         }
-    })
 
+    })
+        console.log(noAvailability);
     return availability;
 
 }
