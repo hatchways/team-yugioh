@@ -15,6 +15,7 @@ import {
 } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const CheckoutForm = ({
   amount,
@@ -26,6 +27,7 @@ const CheckoutForm = ({
   const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
+  const history = useHistory();
   const submitPayment = (event) => {
     if (!amount || !clientSecret) {
       //edge cases, although unlikely
@@ -48,7 +50,9 @@ const CheckoutForm = ({
         }
       })
       .then(() => {
-        setStatus("success");
+        const encodedAmt = encodeURIComponent(amount);
+        const encodedSecret = encodeURIComponent(clientSecret);
+        history.push(`/checkout/success/${encodedAmt}/${encodedSecret}`);
       })
       .catch(() => {});
   };

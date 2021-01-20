@@ -1,11 +1,12 @@
 import React from "react";
 import { Typography, makeStyles, Grid, Button } from "@material-ui/core";
 import { CheckCircleOutline } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CheckoutSuccess = ({ amount, clientSecret }) => {
+const CheckoutSuccess = () => {
   const classes = useStyles();
+  const { amount, clientSecret } = useParams(); //this allows us to refresh the success page without losing information
   return (
     <div className={classes.root}>
       <Grid

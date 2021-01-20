@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { Route } from "react-router-dom";
 
 import CheckoutForm from "../components/Checkout/CheckoutForm";
 import CheckoutSuccess from "../components/Checkout/CheckoutSuccess";
@@ -44,9 +45,7 @@ const CheckoutPage = () => {
   return (
     <Elements stripe={stripePromise}>
       <Paper className={classes.root} elevation={5}>
-        {status === "success" ? (
-          <CheckoutSuccess amount={amount} clientSecret={clientSecret} />
-        ) : (
+        <Route exact path="/checkout">
           <CheckoutForm
             amount={amount}
             clientSecret={clientSecret}
@@ -54,7 +53,11 @@ const CheckoutPage = () => {
             setStatus={setStatus}
             askForPayment={askForPayment}
           />
-        )}
+        </Route>
+
+        <Route path="/checkout/success/:amount/:clientSecret/">
+          <CheckoutSuccess />
+        </Route>
       </Paper>
     </Elements>
   );
