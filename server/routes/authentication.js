@@ -47,11 +47,11 @@ router.post("/api/authentication/google", async (req, res) => {
             return;
         }
 
-        const app_user = await User.find({ email: userInfo.payload.email });
+        const appUser = await User.find({ email: userInfo.payload.email });
         let claims = null;
-        console.log(app_user.length);
-        if (app_user.length > 0) {
-            claims = { userId: app_user[0]._id, email };
+        console.log(appUser.length);
+        if (appUser.length > 0) {
+            claims = { userId: appUser[0]._id, email };
         } else {
             console.log("creting....");
             const newUser = new User({
@@ -82,10 +82,10 @@ router.post("/api/authentication/google", async (req, res) => {
         const jwtCompact = jwtToken.compact();
 
         //check if authentication record exists in db if it does update it
-        const auth_record = await AuthStore.find({
+        const authRecord = await AuthStore.find({
             email: userInfo.payload.email,
         });
-        if (auth_record) {
+        if (authRecord) {
             await AuthStore.update(
                 { email },
                 {
