@@ -17,19 +17,30 @@ const CheckoutPage = () => {
   const [amount, setAmount] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [status, setStatus] = useState(""); //pending, success, failure
+  const [askForPayment, setAskForPayment] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/checkout").then((res) => {
-      const amount = res.data.amount || undefined;
-      const clientSecret = res.data.clientSecret || undefined;
-      if (amount && clientSecret) {
-        setAmount(amount / 100); //stripe API interpret the last two digits as decimals
-        setClientSecret(clientSecret);
-      } else {
-        throw new Error("Not getting amount or client secret from backend");
+    axios.get("/api/pre-checkout").then((res) => {
+      if (res.data.askForPayment) {
+        setAskForPayment(true);
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (askForPayment) {
+      axios.get("/api/checkout").then((res) => {
+        const amount = res.data.amount || undefined;
+        const clientSecret = res.data.clientSecret || undefined;
+        if (amount && clientSecret) {
+          setAmount(amount / 100); //stripe API interpret the last two digits as decimals
+          setClientSecret(clientSecret);
+        } else {
+          throw new Error("Not getting amount or client secret from backend");
+        }
+      });
+    }
+  }, [askForPayment]);
 
   return (
     <Elements stripe={stripePromise}>
@@ -42,6 +53,7 @@ const CheckoutPage = () => {
             clientSecret={clientSecret}
             status={status}
             setStatus={setStatus}
+            askForPayment={askForPayment}
           />
         )}
       </Paper>

@@ -5,14 +5,15 @@ const dbSubscription = require("../db/models/Subscription");
 const auth = require("../middleware/auth");
 
 router.get("/api/pre-checkout", auth, async (req, res) => {
-  //check if the user is already subscribed
+  // Check if the user is already subscribed. If so, set askForPayment in the response
+  // to false; otherwise set it to true
   const user = await dbSubscription.findOne({
     user_id: req.userId,
   });
   if (user) {
-    res.status(400).send("User has already paid for subscription");
+    res.status(200).send({ askForPayment: false });
   } else {
-    res.status(200).send("OK");
+    res.status(200).json({ askForPayment: true });
   }
 });
 
@@ -47,16 +48,19 @@ router.post("/api/post-checkout", auth, async (req, res) => {
   }
 });
 
-router.get("/api/checkout/test-database", async (req, res) => {
-  //this is for testing purpose
-  const user = await dbSubscription.findOne({
-    _id: "60073b42110ac1321c6b18b5",
-  });
-  if (user && user.subscribed) {
-    res.status(400).send("User has already paid for subscription");
-  } else {
-    res.status(200).send("OK");
-  }
+router.get("/api/checkout/reset", async (req, res) => {
+  // send a get request here to reset the model that store user subscription info
+  // will be deleted down the road but should keep it for development for now
+  const result = await dbSubscription.deleteMany();
+  res.send("OK");
+});
+
+router.get("/api/checkout/view", async (req, res) => {
+  // send a get request here to see the model stores user subscription info
+  // will be deleted down the road but should keep it for development for now
+  const result = await dbSubscription.find();
+  console.log(result);
+  res.send("OK");
 });
 
 module.exports = router;

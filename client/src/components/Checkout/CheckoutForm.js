@@ -14,12 +14,23 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import PropTypes from "prop-types";
+import axios from "axios";
 
-const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
+const CheckoutForm = ({
+  amount,
+  clientSecret,
+  status,
+  setStatus,
+  askForPayment,
+}) => {
   const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
   const submitPayment = (event) => {
+    if (!amount || !clientSecret) {
+      //edge cases, although unlikely
+      throw new Error("amount or clientSecret has not been set");
+    }
     event.preventDefault();
     setStatus("pending");
     stripe
@@ -31,11 +42,15 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
       .then((res) => {
         if (res.error) {
           setStatus("failure");
+          throw new Error("Payment failed");
         } else {
-          //send data to backend to store payment history
-          setStatus("success");
+          return axios.post("/api/post-checkout", { clientSecret });
         }
-      });
+      })
+      .then(() => {
+        setStatus("success");
+      })
+      .catch(() => {});
   };
   return (
     <form className={classes.form} onSubmit={submitPayment}>
@@ -79,28 +94,32 @@ const CheckoutForm = ({ amount, clientSecret, status, setStatus }) => {
           </Grid>
         </Grid>
 
-        {status === "failure" ? (
-          <Grid item>
-            <Typography
-              className={classes.failureMsg}
-              variant="h5"
-              color="error"
-            >
-              Payment failed
-            </Typography>
-          </Grid>
-        ) : null}
+        <Grid item>
+          <Typography className={classes.failureMsg} variant="h5" color="error">
+            {status === "failure"
+              ? "Payment failed"
+              : !askForPayment
+              ? "Payment already received"
+              : null}
+          </Typography>
+        </Grid>
       </Grid>
 
       <Grid container justify="center">
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          className={classes.button}
-        >
-          {status === "pending" ? <CircularProgress /> : `Pay ${amount} CAD$`}
-        </Button>
+        {askForPayment ? (
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            className={classes.button}
+          >
+            {status === "pending" ? (
+              <CircularProgress />
+            ) : amount ? (
+              `Pay ${amount} $CAD`
+            ) : null}
+          </Button>
+        ) : null}
       </Grid>
     </form>
   );
@@ -141,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 CheckoutForm.propTypes = {
-  amount: PropTypes.number,
+  amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   clientSecret: PropTypes.string,
   status: PropTypes.string,
   setStatus: PropTypes.func,
