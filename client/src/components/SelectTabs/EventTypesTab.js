@@ -245,7 +245,11 @@ export default function EventTypesTab() {
         setUnit("min");
 
         axios
-            .post("/api/event", {})
+            .post("/api/event", {
+                ...eventBody,
+                user_id: userId,
+                duration: minutes,
+            })
             .then((res) => {
                 const currentEventTypes = [...userEvents];
                 currentEventTypes.push(res.data);
