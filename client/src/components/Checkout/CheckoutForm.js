@@ -44,7 +44,7 @@ const CheckoutForm = ({
           setStatus("failure");
           throw new Error("Payment failed");
         } else {
-          return axios.post("/api/post-checkout", { clientSecret });
+          return axios.post("/api/subscription/set", { clientSecret });
         }
       })
       .then(() => {
@@ -99,7 +99,7 @@ const CheckoutForm = ({
             {status === "failure"
               ? "Payment failed"
               : !askForPayment
-              ? "Payment already received"
+              ? "You have subscribed already!"
               : null}
           </Typography>
         </Grid>

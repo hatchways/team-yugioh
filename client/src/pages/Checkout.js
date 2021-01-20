@@ -20,16 +20,15 @@ const CheckoutPage = () => {
   const [askForPayment, setAskForPayment] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/pre-checkout").then((res) => {
-      if (res.data.askForPayment) {
-        setAskForPayment(true);
-      }
+    axios.get("/api/subscription/check").then((res) => {
+      const subscribed = res.data.subscribed;
+      setAskForPayment(!subscribed);
     });
   }, []);
 
   useEffect(() => {
     if (askForPayment) {
-      axios.get("/api/checkout").then((res) => {
+      axios.get("/api/subscription/pay").then((res) => {
         const amount = res.data.amount || undefined;
         const clientSecret = res.data.clientSecret || undefined;
         if (amount && clientSecret) {
