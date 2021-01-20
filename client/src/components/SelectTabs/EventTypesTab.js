@@ -245,11 +245,7 @@ export default function EventTypesTab() {
         setUnit("min");
 
         axios
-            .post("/api/event", {
-                ...eventBody,
-                user_id: userId,
-                duration: minutes,
-            })
+            .post("/api/event", {})
             .then((res) => {
                 const currentEventTypes = [...userEvents];
                 currentEventTypes.push(res.data);
@@ -261,6 +257,15 @@ export default function EventTypesTab() {
                     link: "",
                     color: "#FF6A00",
                 });
+            })
+            .catch((err) => console.log(err));
+    }
+
+    function testUser() {
+        axios
+            .post("/api/user", {})
+            .then((res) => {
+                console.log(res);
             })
             .catch((err) => console.log(err));
     }
@@ -296,6 +301,14 @@ export default function EventTypesTab() {
                             onClick={handleClickOpen}
                         >
                             + New Event Type
+                        </Button>
+                        <Button
+                            className={classes.newEventTypeButton}
+                            color="secondary"
+                            variant="outlined"
+                            onClick={testUser}
+                        >
+                            +test user
                         </Button>
                     </Box>
                 </Grid>

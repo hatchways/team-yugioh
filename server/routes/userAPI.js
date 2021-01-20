@@ -1,10 +1,10 @@
 const express = require("express");
-const db = require("../../db/models");
+const db = require("../db/models");
 
 const router = express.Router();
 
 // GET whether id is unique
-router.get("/api/user/:id/is_unique", (req, res) => {
+router.get("/api/user/is_unique", (req, res) => {
     db.User.find({ url: req.query.url })
         .then((data) => {
             if (data.length > 0) {
@@ -20,15 +20,20 @@ router.get("/api/user/:id/is_unique", (req, res) => {
 });
 
 // UPDATE user information
-router.post("/api/user/:id", (req, res) => {
+router.post("/api/user/", (req, res) => {
     // TODO read authentication
 
-    db.User.updateOne({ user_id: req.params.id }, { $set: req.body })
-        .then((response) => res.send(response))
-        .catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
-        });
+    console.log(req.body);
+
+    console.log(req);
+
+    res.end();
+    // db.User.updateOne({ user_id: req.params.id }, { $set: req.body })
+    //     .then((response) => res.send(response))
+    //     .catch((error) => {
+    //         console.log(error);
+    //         res.status(500).send(error);
+    //     });
 });
 
 module.exports = router;
