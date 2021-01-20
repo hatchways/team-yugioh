@@ -10,6 +10,7 @@ import OnBoardingPage from "./pages/OnBoarding/OnBoarding";
 import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
 import Authentication from "./pages/Authentication";
+import UpgradePage from "./pages/UpgradePage";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
