@@ -9,7 +9,6 @@ const router = express.Router();
 router.get("/api/user/is_unique", auth, (req, res) => {
     db.User.find({ URL: req.query.URL })
         .then((data) => {
-            console.log(data);
             if (data.length > 0) {
                 res.status(400).send(new Error("URL is already taken."));
             } else {
