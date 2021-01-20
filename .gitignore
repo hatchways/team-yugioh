@@ -25,3 +25,4 @@ yarn-error.log*
 
 client/debug.log
 client/.eslintcache
+client/debug.log
