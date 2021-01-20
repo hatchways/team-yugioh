@@ -210,7 +210,6 @@ export default function EventTypesTab() {
         axios
             .get("/api/event")
             .then((res) => {
-                console.log(res);
                 setUserEvents([...userEvents, ...res.data]);
             })
             .catch((err) => console.log(err));
