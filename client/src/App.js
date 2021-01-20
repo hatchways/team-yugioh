@@ -17,22 +17,21 @@ import PublicRoute from "./components/Routes/PublicRoute";
 import "./App.css";
 
 function App() {
-    return (
-        <MuiThemeProvider theme={theme}>
-            <BrowserRouter>
-                <Route exact path="/">
-                    <Redirect to="/signup" />
-                </Route>
-                <PublicRoute component={SignUpPage} path="/signup"/>
-                <PublicRoute component={LogInPage} path="/login"/>
-                <PrivateRoute component={OnBoardingPage} path="/onboarding"/>
-                <Route path="/authorized" component={Authentication} />
-                <PrivateRoute component={Scheduler} path="/schedule-meeting"/>
-                <PrivateRoute component={Home} path="/home"/>
-                <PrivateRoute component={UpgradePage} path="/upgrade"/>
-            </BrowserRouter>
-        </MuiThemeProvider>
-    );
+  return (
+    <MuiThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Route exact path="/">
+          <Redirect to="/signup" />
+        </Route>
+        <PublicRoute Component={SignUpPage} path="/signup" />
+        <PublicRoute Component={LogInPage} path="/login" />
+        <PrivateRoute Component={OnBoardingPage} path="/onboarding" />
+        <Route path="/authorized" component={Authentication} />
+        <PrivateRoute Component={Scheduler} path="/schedule-meeting" />
+        <PrivateRoute Component={Home} path="/home" />
+      </BrowserRouter>
+    </MuiThemeProvider>
+  );
 }
 
 export default App;
