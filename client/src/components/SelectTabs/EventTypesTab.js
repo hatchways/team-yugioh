@@ -261,22 +261,6 @@ export default function EventTypesTab() {
             .catch((err) => console.log(err));
     }
 
-    function testUser() {
-        axios
-            .post("/api/user", { URL: "fool" })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => console.log(err));
-
-        // axios
-        //     .get("/api/user/is_unique?URL=fodo")
-        //     .then((res) => {
-        //         console.log(res);
-        //     })
-        //     .catch((err) => console.log(err));
-    }
-
     /* USER PROFILE + NEW EVENT TYPE BTN */
     return (
         <>
@@ -308,14 +292,6 @@ export default function EventTypesTab() {
                             onClick={handleClickOpen}
                         >
                             + New Event Type
-                        </Button>
-                        <Button
-                            className={classes.newEventTypeButton}
-                            color="secondary"
-                            variant="outlined"
-                            onClick={testUser}
-                        >
-                            +test user
                         </Button>
                     </Box>
                 </Grid>
