@@ -23,7 +23,7 @@ router.get("/api/user/is-unique", auth, (req, res) => {
 
 // UPDATE user information
 router.post("/api/user/", auth, (req, res) => {
-    db.User.updateOne({ _id: req.user_id }, { $set: req.body })
+    db.User.updateOne({ _id: req.userId }, { $set: req.body })
         .then((response) => res.send(response))
         .catch((error) => {
             console.log(error);

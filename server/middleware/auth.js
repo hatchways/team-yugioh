@@ -12,8 +12,8 @@ const auth = (req, res, next) => {
             return;
         } else {
             const decodedToken = jwt(jwtToken);
-            const { user_id } = decodedToken;
-            req.user_id = user_id;
+            const { userId } = decodedToken;
+            req.userId = userId;
             next();
         }
     });

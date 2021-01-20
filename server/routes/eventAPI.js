@@ -7,7 +7,7 @@ const router = express.Router();
 // CREATE meeting
 router.post("/api/event", auth, (req, res) => {
     if (req.body.duration) {
-        db.EventType.create({ ...req.body, user_id: req.userId })
+        db.EventType.create({ ...req.body, userId: req.userId })
             .then((response) => res.send(response))
             .catch((error) => {
                 console.log(error);
@@ -20,7 +20,7 @@ router.post("/api/event", auth, (req, res) => {
 
 // GET all meetings for user
 router.get("/api/event", auth, (req, res) => {
-    db.EventType.find({ user_id: req.user_id })
+    db.EventType.find({ userId: req.userId })
         .then((data) => res.send(data))
         .catch((error) => {
             console.log(error.message);
