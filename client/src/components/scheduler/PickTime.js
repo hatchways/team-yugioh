@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 import { format } from "date-fns";
+import PropTypes from "prop-types";
 
 const PickTime = (props) => {
   const classes = useStyles();
@@ -86,5 +87,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(15),
   },
 }));
+
+PickTime.propTypes = {
+  selectedDate: PropTypes.object,
+};
 
 export default PickTime;
