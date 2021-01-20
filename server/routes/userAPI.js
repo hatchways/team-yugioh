@@ -7,7 +7,6 @@ const router = express.Router();
 
 // GET whether id is unique
 router.get("/api/user/is_unique", (req, res) => {
-    console.log(req.query.URL);
 
     db.User.find({ URL: req.query.URL })
         .then((data) => {
