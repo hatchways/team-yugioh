@@ -25,7 +25,7 @@ router.post("/api/user/", (req, res) => {
 
     console.log(req.body);
 
-    console.log(req);
+    console.log(req.userId);
 
     res.end();
     // db.User.updateOne({ user_id: req.params.id }, { $set: req.body })
