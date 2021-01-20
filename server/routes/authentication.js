@@ -76,10 +76,10 @@ router.post("/api/authentication/google", async (req, res) => {
             }
         }
         //create JWT token for route auth
-        const jwt_token = jwt.create(claims, process.env.JWT_SECRET);
+        const jwtToken = jwt.create(claims, process.env.JWT_SECRET);
         //token valid for 24h
-        jwt_token.setExpiration(new Date().getTime() + 24 * 60 * 60 * 1000);
-        const jwt_compact = jwt_token.compact();
+        jwtToken.setExpiration(new Date().getTime() + 24 * 60 * 60 * 1000);
+        const jwtCompact = jwtToken.compact();
 
         //check if authentication record exists in db if it does update it
         const auth_record = await AuthStore.find({
@@ -93,8 +93,8 @@ router.post("/api/authentication/google", async (req, res) => {
                     refreshToken: tokens.refresh_token,
                 }
             );
-            res.cookie("app_auth_token", jwt_compact, { httpOnly: true });
-            res.status(201).send(jwt_compact);
+            res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
+            res.status(201).send(jwtCompact);
             return;
         }
         //save authentication tokens
@@ -111,8 +111,8 @@ router.post("/api/authentication/google", async (req, res) => {
             return;
         }
 
-        res.cookie("app_auth_token", jwt_compact, { httpOnly: true });
-        res.status(201).send(jwt_compact);
+        res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
+        res.status(201).send(jwtCompact);
     });
 });
 
