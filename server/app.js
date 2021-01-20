@@ -22,7 +22,7 @@ app.use(require("./routes/appointmentAPI"));
 app.use(require("./routes/eventAPI"));
 app.use(require("./routes/authentication"));
 app.use(require("./routes/userAPI"));
-
+app.use(require("./routes/imageUpload"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));

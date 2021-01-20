@@ -46,7 +46,7 @@ export default function UploadDialog(props) {
     formData.append('file', file);
 
     try {
-      const res = await axios.post('/image-upload', formData, {
+      const res = await axios.post('/api/image-upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

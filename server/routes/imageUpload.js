@@ -25,6 +25,7 @@ const upload = multer({
 // Sends Storage Object to S3 Bucket
 router.post('/api/image-upload', upload.single('file'), (req, res) => {
   res.status(200).send('Image was uploaded to your AWS S3 Bucket!');
+  console.log('Profile photo was uploaded to S3!')
 });
 
 module.exports = router;
