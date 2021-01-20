@@ -11,6 +11,8 @@ import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
 import Authentication from "./pages/Authentication";
 import UpgradePage from "./pages/UpgradePage";
+import PrivateRoute from "./components/Routes/PrivateRoute";
+import PublicRoute from "./components/Routes/PublicRoute";
 
 import "./App.css";
 
@@ -21,13 +23,13 @@ function App() {
                 <Route exact path="/">
                     <Redirect to="/signup" />
                 </Route>
-                <Route path="/signup" component={SignUpPage} />
-                <Route path="/login" component={LogInPage} />
-                <Route path="/onboarding" component={OnBoardingPage} />
+                <PublicRoute component={SignUpPage} path="/signup"/>
+                <PublicRoute component={LogInPage} path="/login"/>
+                <PrivateRoute component={OnBoardingPage} path="/onboarding"/>
                 <Route path="/authorized" component={Authentication} />
-                <Route path="/schedule-meeting" component={Scheduler} />
-                <Route path="/home" component={Home} />
-                <Route path="/upgrade" component={UpgradePage}/>
+                <PrivateRoute component={Scheduler} path="/schedule-meeting"/>
+                <PrivateRoute component={Home} path="/home"/>
+                <PrivateRoute component={UpgradePage} path="/upgrade"/>
             </BrowserRouter>
         </MuiThemeProvider>
     );
