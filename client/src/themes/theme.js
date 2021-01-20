@@ -23,6 +23,11 @@ export const theme = createMuiTheme({
       fontWeight: 600,
       fontSize: "0.7rem",
     },
+    body2: {
+      fontWeight: 400,
+      fontSize: 16,
+      color:"grey"
+    },
   },
   palette: {
     primary: {
