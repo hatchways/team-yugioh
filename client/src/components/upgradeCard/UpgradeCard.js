@@ -69,7 +69,6 @@ const useStyles = makeStyles(theme => ({
 const UpgradeCard = ({ title, titleColor, featuresList, price, selected }) => {
   const classes = useStyles();
   const elevation=selected?20:8;
-  console.log(featuresList)
 
   return (
     <Paper elevation={elevation} className={selected?`${classes.paper} ${classes.border}`:classes.paper}>
@@ -90,7 +89,7 @@ const UpgradeCard = ({ title, titleColor, featuresList, price, selected }) => {
       <Divider />
       <div className={`${classes.root} ${classes.listContainer}`}>
         <List>
-          {featuresList.map(item=>(<PlanListItem itemText={item}/>))}
+          {featuresList.map((item, idx)=>(<PlanListItem itemText={item} key={idx}/>))}
         </List>
       </div>
     </Paper>
