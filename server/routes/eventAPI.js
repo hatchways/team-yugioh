@@ -20,7 +20,7 @@ router.post("/api/event", auth, (req, res) => {
 
 // GET all meetings for user
 router.get("/api/event", auth, (req, res) => {
-    db.EventType.find({ user_id: req.userId })
+    db.EventType.find({ user_id: req.user_id })
         .then((data) => res.send(data))
         .catch((error) => {
             console.log(error.message);
