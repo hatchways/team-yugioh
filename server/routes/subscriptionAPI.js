@@ -48,14 +48,17 @@ router.post("/api/subscription/set", auth, async (req, res) => {
   }
 });
 
-router.get("/api/subscription/reset-everything", async (req, res) => {
-  // send a get request here to reset the model that store user subscription info
-  // will be deleted down the road but should keep it for development for now
-  const result = await dbSubscription.deleteMany();
-  res.send("OK");
-});
+router.get(
+  "/api/subscription/development/reset-everything",
+  async (req, res) => {
+    // send a get request here to reset the model that store user subscription info
+    // will be deleted down the road but should keep it for development for now
+    const result = await dbSubscription.deleteMany();
+    res.send("OK");
+  }
+);
 
-router.get("/api/subscription/view", async (req, res) => {
+router.get("/api/subscription/development/view", async (req, res) => {
   // send a get request here to see the model stores user subscription info
   // will be deleted down the road but should keep it for development for now
   const result = await dbSubscription.find();
