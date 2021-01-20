@@ -1,7 +1,7 @@
 const nJwt = require("njwt");
 const jwt = require("jwt-decode");
 
-//This middleware validate the incoming JWT token. Extracts the user_id.
+//This middleware validate the incoming JWT token. Extracts the userId.
 //and add them to the request body.
 const auth = (req, res, next) => {
     const jwtToken = req.cookies.app_auth_token;
