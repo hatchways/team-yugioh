@@ -24,7 +24,7 @@ router.post("/api/email", auth, (req, res) => {
     .send(msg)
     .then(() => {
       console.log("Email sent");
-      res.send("email sent!");
+      res.send("Email sent!");
     })
     .catch((error) => {
       console.error(error);
