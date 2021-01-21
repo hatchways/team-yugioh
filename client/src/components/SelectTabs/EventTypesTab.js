@@ -14,6 +14,7 @@ import {
   Box,
   RadioGroup,
   Radio,
+  TextField,
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   descriptionLabel: {
-    marginTop: "13%",
+    // marginTop: "20%",
     fontWeight: "bold",
     fontSize: "0.9rem",
     color: "rgba(0, 0, 0, 0.8)",
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     color: "lightgrey",
     borderRight: "1px solid lightgrey",
     textAlign: "center",
-    marginLeft: "2%",
+    // marginLeft: "2%",
   },
   singleInput: {
     border: "1px solid lightgray",
@@ -104,10 +105,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
   },
   textArea: {
-    border: "none",
-    width: "100%",
-    maxWidth: "100%",
-    minWidth: "100%",
     "&::placeholder": {
       fontSize: ".8rem",
       fontWeight: "500",
@@ -120,6 +117,16 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     width: "100%",
     margin: 0,
+    "&:hover": {
+      borderColor: "black",
+    },
+    "&:focus-within": {
+      borderColor: theme.palette.primary.main,
+      borderWidth: "2px",
+      "& > *": {
+        margin: "-1px 0",
+      },
+    },
   },
   color: {
     borderRadius: "50%",
@@ -151,8 +158,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#808080",
   },
   "@global": {
-    ".MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded": {
-      overflowX: "hidden",
+    ".MuiFormControl-marginNormal": {
+      marginTop: "8px",
     },
     "div[class*='PrivateRadioButtonIcon'] svg": {
       opacity: 0,
@@ -289,15 +296,15 @@ export default function EventTypesTab() {
               alignItems="center"
               container
               justify="flex-start"
-              className={classes.inputRow}
             >
               <Grid xs="2" item>
                 <InputLabel className={classes.label}>Name</InputLabel>
               </Grid>
 
-              <Grid xs="10" className={classes.singleInput} item>
-                <Input
-                  label="Name"
+              <Grid xs="10" item>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
                   name="name"
                   type="text"
                   onChange={handleFormChange}
@@ -312,7 +319,6 @@ export default function EventTypesTab() {
               alignItems="center"
               container
               justify="flex-start"
-              className={classes.inputRow}
             >
               <Grid xs="2" item>
                 <InputLabel className={classes.label}>Duration</InputLabel>
@@ -322,7 +328,7 @@ export default function EventTypesTab() {
                 <Grid
                   container
                   direction="row"
-                  alignItems="baseline"
+                  alignItems="center"
                   justify="flex-start"
                   wrap="nowrap"
                   spacing="2"
@@ -360,10 +366,9 @@ export default function EventTypesTab() {
             </Grid>
             <Grid
               direction="row"
-              alignItems="flex-start"
+              alignItems="center"
               container
               justify="flex-start"
-              className={classes.inputRow}
             >
               <Grid xs="2" item>
                 <InputLabel className={classes.descriptionLabel}>
@@ -371,11 +376,14 @@ export default function EventTypesTab() {
                 </InputLabel>
               </Grid>
 
-              <Grid xs="10" className={classes.singleInput} item>
-                <TextareaAutosize
-                  rowsMax={6}
+              <Grid xs="10" item>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
                   name="description"
+                  multiline
                   onChange={handleFormChange}
+                  fullWidth
                   value={eventBody.description}
                   placeholder={`Write a summary and details about your event.
                                     
@@ -416,6 +424,7 @@ export default function EventTypesTab() {
                       name="link"
                       value={eventBody.link}
                       type="text"
+                      className={classes.link}
                       onChange={handleFormChange}
                       disableUnderline
                       fullWidth
