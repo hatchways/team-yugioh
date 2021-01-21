@@ -9,10 +9,10 @@ import {
 } from "@material-ui/core";
 import { Route, Switch, Link, Redirect, useRouteMatch } from "react-router-dom";
 
-import SetTimezoneUrl from "./SetTimezoneUrl";
-import ConnectGoogleCalendar from "./ConnectGoogleCalendar";
-import SetAvailability from "./SetAvailability";
-import ProgressBar from "./smallComponents/ProgressBar";
+import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
+import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
+import SetAvailability from "../components/onboarding/SetAvailability";
+import ProgressBar from "../components/onboarding/ProgressBar";
 
 const OnBoarding = () => {
   const classes = useStyles();

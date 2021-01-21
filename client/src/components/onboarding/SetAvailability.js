@@ -3,8 +3,8 @@ import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import AvailableHours from "./smallComponents/AvailableHoursButton";
-import AvailableDays from "./smallComponents/AvailableDays";
+import AvailableHours from "./AvailableHoursButton";
+import AvailableDays from "./AvailableDays";
 
 const SetAvailability = (props) => {
   const classes = useStyles();
