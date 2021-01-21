@@ -48,11 +48,4 @@ export const testAuth = async () => {
   else return false;
 };
 
-export const testCalendar=async ()=>{
-  console.log(".....testing calendar......")
-  const response = await axios.get("http://localhost:3001/api/calendar/availability", {
-    withCredentials: true
-  });
 
-  console.log(response);
-}

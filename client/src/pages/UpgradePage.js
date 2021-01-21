@@ -5,7 +5,6 @@ import NavBar from "../components/Header/NavBar";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import UpgradeCard from "../components/upgradeCard/UpgradeCard";
-import {testCalendar} from "../utils/googleAuth";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,7 +33,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UpgradePage = () => {
-  useEffect(() => testCalendar(), []);
   const classes = useStyles();
   const plan= "free basic";
   const basicPlanFeatures=["Unlimited event types", "Group meetings"];

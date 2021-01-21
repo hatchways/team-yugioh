@@ -1,10 +1,10 @@
 const express = require("express");
-const db = require("../../db/models");
+const db = require("../db/models");
 const { google } = require("googleapis");
-const User = require("../../db/models/User");
-const AuthStore = require("../../db/models/AuthenticationStore");
-const auth = require("../../middleware/auth");
-const getAvailability= require("../../utils/googleCalendarUtils");
+const User = require("../db/models/User");
+const AuthStore = require("../db/models/AuthenticationStore");
+const auth = require("../middleware/auth");
+const getAvailability= require("../utils/googleCalendarUtils");
 
 const router = new express.Router();
 
@@ -16,10 +16,10 @@ router.get("/api/calendar/availability",auth, async (req, res) => {
     const usr=await db.User.findById(req.userId);
     const tokenStore=await db.AuthStore.findOne({email:usr.email});
     const authToken=tokenStore.googleAuthToken;
-    const today=new Date();
 
-    await getAvailability(authToken, today.setHours(0,0,0,0));
-    res.send();
+    const availability= await getAvailability(authToken, day);
+    console.log(availability);
+    res.status(200).send({availability});
 
 });
 
