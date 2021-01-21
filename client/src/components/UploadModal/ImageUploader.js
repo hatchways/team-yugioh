@@ -5,6 +5,9 @@ import Avatar from '@material-ui/core/Avatar';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { orange } from '@material-ui/core/colors';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 
 import axios from 'axios';
 import FormData from 'form-data';
@@ -20,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(22),
     margin: '2rem 5rem',
   },
+  input: {
+    display: 'none',
+  },
+  button: {
+    marginBottom: theme.spacing(3) 
+  }
 }));
 
 export default function UploadDialog(props) {
@@ -55,8 +64,12 @@ export default function UploadDialog(props) {
       const { fileName, filePath } = res.data;
 
       setUploadedFile({ fileName, filePath });
-
       console.log('File Uploaded');
+      setMessage(true)
+      await setTimeout(()=>{
+        setMessage(false)
+        handleClose();
+        }, 2000);
     } catch (err) {
       if (err.response.status === 500) {
         console.log('There was a problem with the server');
@@ -73,28 +86,43 @@ export default function UploadDialog(props) {
       aria-labelledby='simple-dialog-title'
       open={open}
     >
-      <DialogTitle id='simple-dialog-title'>Profile photo</DialogTitle>
+      <DialogTitle id='simple-dialog-title'>Update profile photo</DialogTitle>
+
+      {message && <Alert>Your profile photo was updated!</Alert>}
 
       <Avatar className={classes.avatar} />
-      {/* REACT FORM SUBMIT */}
+
       <form onSubmit={onSubmit}>
-        <div className='custom-file mb-4'>
+        <Box display="flex" justifyContent="space-around">
+        <span className={classes.button}>
           <input
             type='file'
-            className='custom-file-input'
-            id='customFile'
+            accept='image/*'
+            className={classes.input}
+            id='upload-button-file'
+            multiple
             onChange={onChange}
           />
-          <label className='custom-file-label' htmlFor='customFile'>
-            {filename}
+          <label htmlFor='upload-button-file'>
+            <Button variant='contained' color='secondary' component='span'>
+              + Upload
+            </Button>
           </label>
-        </div>
-
-        <input
-          type='submit'
-          value='Upload'
-          className='btn btn-primary btn-block mt-4'
-        />
+        </span>
+        <span className={classes.button}>
+          <input
+            type='submit'
+            className={classes.input}
+            value='Upload'
+            id='submit-button-file'
+          />
+          <label htmlFor='submit-button-file'>
+            <Button variant='outlined' component='span'>
+              Save Changes
+            </Button>
+          </label>
+        </span>
+        </Box>
       </form>
     </Dialog>
   );
