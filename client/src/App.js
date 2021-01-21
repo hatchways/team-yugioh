@@ -25,10 +25,19 @@ function App() {
         </Route>
         <PublicRoute Component={SignUpPage} path="/signup" />
         <PublicRoute Component={LogInPage} path="/login" />
-        <PrivateRoute Component={OnBoardingPage} path="/onboarding" />
         <Route path="/authorized" component={Authentication} />
-        <PrivateRoute Component={Scheduler} path="/schedule-meeting" />
-        <PrivateRoute Component={Home} path="/home" />
+
+        <PrivateRoute path="/schedule-meeting">
+          <Scheduler />
+        </PrivateRoute>
+
+        <PrivateRoute path="/home">
+          <Home />
+        </PrivateRoute>
+
+        <PrivateRoute path="/onboarding">
+          <OnBoardingPage />
+        </PrivateRoute>
       </BrowserRouter>
     </MuiThemeProvider>
   );
