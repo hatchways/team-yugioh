@@ -15,7 +15,7 @@ router.get("/api/calendar/availability",auth, async (req, res) => {
     const day=req.param('day');
     const usr=await db.User.findById(req.userId);
     const tokenStore=await db.AuthStore.findOne({email:usr.email});
-    const authToken=tokenStore.authenticationTokenGoogle;
+    const authToken=tokenStore.googleAuthToken;
     await getAvailability(authToken);
     res.send();
 

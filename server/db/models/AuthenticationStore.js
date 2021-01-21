@@ -17,7 +17,7 @@ const schema = new Schema({
         ],
     },
     //token used for api access and google auth
-    authenticationTokenGoogle: {
+    googleAuthToken: {
         type: Schema.Types.Mixed,
     },
     refreshToken: {
