@@ -5,10 +5,14 @@ const jwt = require("jwt-decode");
 //and add them to the request body.
 const auth = (req, res, next) => {
   const jwtToken = req.cookies.app_auth_token;
+  console.log(jwtToken)
 
   nJwt.verify(jwtToken, process.env.JWT_SECRET, function (err, verifiedJwt) {
     if (err) {
+        console.log("error here")
+        console.log(err)
       res.status(401).send("Invalid or expired token");
+      
       return;
     } else {
       const decodedToken = jwt(jwtToken);

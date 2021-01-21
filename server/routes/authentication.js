@@ -34,6 +34,7 @@ router.post("/api/authentication/google", async (req, res) => {
 
     //check if google id_token is valid
     if (!userInfo.payload.email_verified || !userInfo) {
+      console.log("error");
       res.status(401).send({ error: "Authentication error" });
       return;
     }
