@@ -6,7 +6,7 @@ import { theme } from "./themes/theme";
 
 import Home from "./pages/Home";
 import LogInPage from "./pages/Login";
-import OnBoardingPage from "./pages/OnBoarding/OnBoarding";
+import OnBoardingPage from "./pages/OnBoarding";
 import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
 import Authentication from "./pages/Authentication";
