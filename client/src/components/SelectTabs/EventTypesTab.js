@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
   inputRow: {
-    marginBottom: "4%",
+    marginBottom: ".9rem",
   },
   colorRow: {
     marginTop: "6%",
@@ -97,7 +97,14 @@ const useStyles = makeStyles((theme) => ({
     color: "lightgrey",
     borderRight: "1px solid lightgrey",
     textAlign: "center",
-    // marginLeft: "2%",
+  },
+  link: {
+    "& > * > * > input": {
+      padding: "0",
+    },
+    "& > * > * > fieldset": {
+      border: "none",
+    },
   },
   singleInput: {
     border: "1px solid lightgray",
@@ -174,6 +181,12 @@ const useStyles = makeStyles((theme) => ({
       left: "-1px",
       backgroundSize: "contain",
       filter: `drop-shadow(1px 1px 1px #80808050)`,
+    },
+    "#linkGroup": {
+      padding: "6.84px 4px",
+    },
+    "#durationGroup": {
+      padding: "3.01px 0",
     },
   },
 }));
@@ -296,6 +309,7 @@ export default function EventTypesTab() {
               alignItems="center"
               container
               justify="flex-start"
+              className={classes.inputRow}
             >
               <Grid xs="2" item>
                 <InputLabel className={classes.label}>Name</InputLabel>
@@ -319,6 +333,7 @@ export default function EventTypesTab() {
               alignItems="center"
               container
               justify="flex-start"
+              className={classes.inputRow}
             >
               <Grid xs="2" item>
                 <InputLabel className={classes.label}>Duration</InputLabel>
@@ -333,6 +348,7 @@ export default function EventTypesTab() {
                   wrap="nowrap"
                   spacing="2"
                   className={classes.groupedInput}
+                  id="durationGroup"
                 >
                   <Grid xs="4" item>
                     <Input
@@ -369,6 +385,7 @@ export default function EventTypesTab() {
               alignItems="center"
               container
               justify="flex-start"
+              className={classes.inputRow}
             >
               <Grid xs="2" item>
                 <InputLabel className={classes.descriptionLabel}>
@@ -408,25 +425,24 @@ export default function EventTypesTab() {
                 <Grid
                   container
                   direction="row"
-                  alignItems="baseline"
+                  alignItems="center"
                   justify="flex-start"
                   spacing="2"
                   wrap="nowrap"
+                  id="linkGroup"
                   className={classes.groupedInput}
                 >
                   {/* TODO: pass in user link prefix */}
                   <Grid xs="5" className={classes.prefix} item>
                     calendapp.com/john-doe/
                   </Grid>
-                  <Grid item>
-                    <Input
-                      label="Link"
+                  <Grid className={classes.link} xs="7" item>
+                    <TextField
                       name="link"
+                      variant="outlined"
                       value={eventBody.link}
                       type="text"
-                      className={classes.link}
                       onChange={handleFormChange}
-                      disableUnderline
                       fullWidth
                     />
                   </Grid>
