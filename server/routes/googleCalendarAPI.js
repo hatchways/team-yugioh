@@ -18,7 +18,6 @@ router.get("/api/calendar/availability",auth, async (req, res) => {
     const authToken=tokenStore.googleAuthToken;
 
     const availability= await getAvailability(authToken, day);
-    console.log(availability);
     res.status(200).send({availability});
 
 });
