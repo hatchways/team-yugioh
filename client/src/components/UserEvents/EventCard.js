@@ -37,7 +37,7 @@ export default function EventCard({ name, duration, color, link }) {
     function addAppointment() {
         axios
             .post("/api/appointment", {
-                meeting_id: "5fff33d12c19a10000b2ed68",
+                meetingId: "5fff33d12c19a10000b2ed68",
                 name: "test user",
                 email: "test@test.com",
                 time: new Date(),
