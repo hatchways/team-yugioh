@@ -9,6 +9,18 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 
+//authorise google api
+function authorize(token) {
+  const oAuth2Client = new google.auth.OAuth2(
+    process.env.AUTH_CREDENTIALS,
+    process.env.AUTH_SECRET,
+    process.env.AUTH_REDIRECT_PATH
+  );
+
+  oAuth2Client.setCredentials(token);
+  return oAuth2Client;
+}
+
 
  function generateAuthUrl(){
     const authUrl = oAuth2Client.generateAuthUrl({
@@ -25,4 +37,4 @@ function getAccessToken( code) {
       });
 }
 
-module.exports={generateAuthUrl, getAccessToken};
+module.exports={generateAuthUrl, getAccessToken, authorize};
