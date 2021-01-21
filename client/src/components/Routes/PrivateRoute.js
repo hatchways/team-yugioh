@@ -13,7 +13,7 @@ const PrivateRoute = ({ children, ...rest }) => {
         setAuthenticated(res);
       })
       .catch(() => {
-        history.push("/signup");
+        history.push("/login");
       });
   }, []);
 
