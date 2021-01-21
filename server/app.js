@@ -23,6 +23,7 @@ app.use(require("./routes/eventAPI"));
 app.use(require("./routes/authentication"));
 app.use(require("./routes/userAPI"));
 app.use(require("./routes/imageUpload"));
+app.use(require("./routes/emailAPI"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));
