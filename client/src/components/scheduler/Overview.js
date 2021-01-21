@@ -1,6 +1,7 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { AccessTime } from "@material-ui/icons";
 import React from "react";
+import PropTypes from "prop-types";
 
 const Overview = (props) => {
   const classes = useStyles();
@@ -36,5 +37,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
 }));
+
+Overview.propTypes = {
+  name: PropTypes.string,
+  duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
 
 export default Overview;

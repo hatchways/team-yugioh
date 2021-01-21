@@ -6,8 +6,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 
 // GET whether id is unique
-router.get("/api/user/is_unique", (req, res) => {
-
+router.get("/api/user/is-unique", auth, (req, res) => {
     db.User.find({ URL: req.query.URL })
         .then((data) => {
             if (data.length > 0) {

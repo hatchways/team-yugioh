@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    event_id: {
+    eventId: {
         type: mongoose.Schema.Types.ObjectId,
     },
     name: {

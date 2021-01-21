@@ -10,9 +10,9 @@ const { generateAuthUrl, getAccessToken } = require("../utils/googleAuthUtils");
 const router = new express.Router();
 
 const oAuthClient = new google.auth.OAuth2(
-  process.env.AUTH_CREDENTIALS,
-  process.env.AUTH_SECRET,
-  process.env.AUTH_REDIRECT_PATH
+    process.env.AUTH_CREDENTIALS,
+    process.env.AUTH_SECRET,
+    process.env.AUTH_REDIRECT_PATH
 );
 
 // login with googleAuth
@@ -30,7 +30,7 @@ router.post("/api/authentication/google", async (req, res) => {
       audience: process.env.AUTH_CREDENTIALS,
     });
 
-    const email = userInfo.payload.email;
+        const email = userInfo.payload.email;
 
     //check if google id_token is valid
     // if (!userInfo.payload.email_verified || !userInfo) {
@@ -93,18 +93,18 @@ router.post("/api/authentication/google", async (req, res) => {
       return;
     }
 
-    res.cookie("app_auth_token", jwt_compact, { httpOnly: true });
-    res.status(201).send(jwt_compact);
-  });
+        res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
+        res.status(201).send(jwtCompact);
+    });
 });
 
 router.get("/api/authentication/test", auth, (req, res) => {
-  res.status(200).send("successfull auth");
+    res.status(200).send("successfull auth");
 });
 
 router.get("/api/authentication/geturl", (req, res) => {
-  const url = generateAuthUrl();
-  res.status(200).send({ url });
+    const url = generateAuthUrl();
+    res.status(200).send({ url });
 });
 
 module.exports = router;
