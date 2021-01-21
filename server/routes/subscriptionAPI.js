@@ -44,7 +44,16 @@ router.post("/api/subscription/set", auth, async (req, res) => {
     });
     res.status(200).send("OK");
   } catch (error) {
-    res.status(400).send("Error occurred in /api/post-checkout\n", error);
+    res.status(500).send("Error occurred in /api/post-checkout\n", error);
+  }
+});
+
+router.get("/api/subscription/cancel", auth, async (req, res) => {
+  try {
+    await dbSubscription.deleteOne({ userId: req.userId });
+    res.status(200).send("Subscription has been canceled");
+  } catch (error) {
+    res.status(500).send("Error occurred cancelling subscription");
   }
 });
 
