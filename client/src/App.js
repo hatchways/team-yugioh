@@ -6,7 +6,7 @@ import { theme } from "./themes/theme";
 
 import Home from "./pages/Home";
 import LogInPage from "./pages/Login";
-import OnBoardingPage from "./pages/OnBoarding";
+// import OnBoardingPage from "./pages/OnBoarding";
 import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
 import Authentication from "./pages/Authentication";
@@ -26,9 +26,7 @@ function App() {
         <PublicRoute Component={SignUpPage} path="/signup" />
         <PublicRoute Component={LogInPage} path="/login" />
         <Route path="/authorized" component={Authentication} />
-        <PrivateRoute path="/onboarding">
-          <OnBoardingPage />
-        </PrivateRoute>
+       
         <PrivateRoute path="/schedule-meeting">
           <Scheduler />
         </PrivateRoute>
