@@ -1,4 +1,4 @@
-const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"];
+const SCOPES = ["https://www.googleapis.com/auth/userinfo.email", "openid", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/calendar.readonly"];
 
 const { google } = require("googleapis");
 
@@ -8,6 +8,18 @@ const oAuth2Client = new google.auth.OAuth2(
   process.env.AUTH_REDIRECT_PATH
 );
 
+
+//authorise google api
+function authorize(token) {
+  const oAuth2Client = new google.auth.OAuth2(
+    process.env.AUTH_CREDENTIALS,
+    process.env.AUTH_SECRET,
+    process.env.AUTH_REDIRECT_PATH
+  );
+
+  oAuth2Client.setCredentials(token);
+  return oAuth2Client;
+}
 
 
  function generateAuthUrl(){
@@ -25,4 +37,4 @@ function getAccessToken( code) {
       });
 }
 
-module.exports={generateAuthUrl, getAccessToken};
+module.exports={generateAuthUrl, getAccessToken, authorize};
