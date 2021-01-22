@@ -191,6 +191,8 @@ export default function EventTypesTab() {
   const classes = useStyles();
   const [userEvents, setUserEvents] = useState([]);
   const [openNewEvent, setOpenNewEvent] = useState(false);
+  const [userURL, setUserURL] = useState();
+
   const [eventBody, setEventBody] = useState({
     name: "",
     duration: "",
@@ -205,6 +207,12 @@ export default function EventTypesTab() {
       .get("/api/event")
       .then((res) => {
         setUserEvents([...res.data]);
+      })
+      .catch((err) => console.log(err));
+    axios
+      .get("/api/user/get_url")
+      .then((res) => {
+        setUserURL(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -239,6 +247,7 @@ export default function EventTypesTab() {
       .post("/api/event", {
         ...eventBody,
         duration: minutes,
+        link: `${userURL}/${eventBody.link}`,
       })
       .then((res) => {
         const currentEventTypes = [...userEvents];

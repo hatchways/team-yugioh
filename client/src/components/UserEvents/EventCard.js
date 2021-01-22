@@ -54,7 +54,7 @@ export default function EventCard({ name, duration, color, link, url }) {
           alignItems="center"
         >
           <Typography variant="subtitle2">{duration} min</Typography>
-          <a href={"http://localhost:3000/appt/" + url + "/" + link}>
+          <a href={"http://localhost:3000/appt/" + link}>
             <Button
               item
               variant="outlined"

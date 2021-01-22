@@ -34,7 +34,6 @@ export default function Home() {
       .then((res) => {
         setAuthenticated(res);
         axios.get("/api/user/get_url").then((res) => {
-          console.log(res.data, "checking");
           res.data === "" ? setOnboarded(false) : setOnboarded(true);
         });
       })
