@@ -18,8 +18,6 @@ import axios from "axios";
 
 import "./App.css";
 
-export const UserContext = createContext();
-
 function App() {
   const setAuthenticated = useSetAuthenticated();
   useEffect(() => {
