@@ -47,17 +47,6 @@ const ConnectGoogleCalendar = () => {
       </Grid>
 
       <Divider />
-      <Grid container justify="center">
-        <Button
-          className={classes.continueButton}
-          color="primary"
-          variant="contained"
-        >
-          <Link to="/onboarding/3" className={classes.link}>
-            Continue
-          </Link>
-        </Button>
-      </Grid>
     </div>
   );
 };

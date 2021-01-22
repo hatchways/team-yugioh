@@ -63,18 +63,6 @@ const SetTimezoneUrl = (props) => {
           })}
         </TextField>
       </Grid>
-
-      <Grid container justify="center">
-        <Button
-          color="primary"
-          variant="contained"
-          className={classes.continueButton}
-        >
-          <Link to="/onboarding/2" className={classes.link}>
-            Continue
-          </Link>
-        </Button>
-      </Grid>
     </div>
   );
 };

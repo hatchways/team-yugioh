@@ -13,12 +13,13 @@ import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
 import SetAvailability from "../components/onboarding/SetAvailability";
 import ProgressBar from "../components/onboarding/ProgressBar";
+const axios = require("axios");
 
 const OnBoarding = () => {
   const classes = useStyles();
 
-  const match = useRouteMatch({ path: "/onboarding/:page" });
-  const page = match ? match.params.page : 0;
+  // const match = useRouteMatch({ path: "/onboarding/:page" });
+  const [page, setPage] = useState(1);
 
   const [url, setUrl] = useState("john-doe");
   const [timezone, setTimezone] = useState("");
@@ -26,9 +27,12 @@ const OnBoarding = () => {
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
 
-  const submitIfOnLastPage = () => {
+  const handleButtonClick = () => {
+    setPage(page + 1);
     if (page === 3) {
-      //send request to back end
+      axios
+        .post("/api/user/", { URL: url, timezone: timezone })
+        .then((res) => console.log(res));
     }
   };
 
@@ -44,55 +48,43 @@ const OnBoarding = () => {
           className={classes.topContent}
         >
           <Typography variant="h5">
-            {page === "1"
+            {page === 1
               ? "Welcome to CalendApp!"
-              : page === "2"
+              : page === 2
               ? "Your Google calendar is connected!"
               : "Set your availability"}
           </Typography>
           <ProgressBar start={page - 1} />
         </Grid>
         <Divider />
-        <Switch>
-          <Route path="/onboarding/1">
-            <SetTimezoneUrl
-              url={url}
-              setUrl={setUrl}
-              timezone={timezone}
-              setTimezone={setTimezone}
-            />
-          </Route>
-          <Route path="/onboarding/2">
-            <ConnectGoogleCalendar />
-          </Route>
-          <Route path="/onboarding/3">
-            <SetAvailability
-              startHour={startHour}
-              setStartHour={setStartHour}
-              finishHour={finishHour}
-              setFinishHour={setFinishHour}
-              days={days}
-              setDays={setDays}
-            />
-          </Route>
-          <Route>
-            <Redirect to="/onboarding/1" />
-          </Route>
-        </Switch>
-
+        {page === 1 && (
+          <SetTimezoneUrl
+            url={url}
+            setUrl={setUrl}
+            timezone={timezone}
+            setTimezone={setTimezone}
+          />
+        )}
+        {page === 2 && <ConnectGoogleCalendar />}
+        {page === 3 && (
+          <SetAvailability
+            startHour={startHour}
+            setStartHour={setStartHour}
+            finishHour={finishHour}
+            setFinishHour={setFinishHour}
+            days={days}
+            setDays={setDays}
+          />
+        )}
+        {page === 4 && <Redirect to="/home" />}
         <Grid container justify="center">
           <Button
             color="primary"
             variant="contained"
             className={classes.button}
-            onClick={submitIfOnLastPage}
+            onClick={handleButtonClick}
           >
-            <Link
-              to={page === "3" ? "/" : `/onboarding/${parseInt(page) + 1}`}
-              className={classes.link}
-            >
-              {page === "3" ? "Finish" : "Continue"}
-            </Link>
+            {page === 3 ? "Finish" : "Continue"}
           </Button>
         </Grid>
       </div>
