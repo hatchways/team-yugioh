@@ -23,6 +23,9 @@ const Overview = ({ name, duration, description }) => {
         <AccessTime />
         <Typography variant="caption">{duration} minute</Typography>
       </Grid>
+      <Grid item>
+        <Typography variant="p">{description}</Typography>
+      </Grid>
     </Grid>
   );
 };

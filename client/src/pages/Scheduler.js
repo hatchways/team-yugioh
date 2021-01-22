@@ -31,7 +31,6 @@ const Scheduler = () => {
         description: event.description,
         duration: event.duration,
       });
-      console.log(eventDetails);
     });
   }, []);
 
