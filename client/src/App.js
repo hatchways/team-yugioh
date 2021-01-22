@@ -23,21 +23,21 @@ function App() {
         <Route exact path="/">
           <Redirect to="/signup" />
         </Route>
-        <PublicRoute Component={SignUpPage} path="/signup" />
-        <PublicRoute Component={LogInPage} path="/login" />
-        <Route path="/authorized" component={Authentication} />
-        <PrivateRoute path="/onboarding">
+        <Route path="/signup" /><SignUpPage/></Route>
+        <Route path="/login"><LogInPage/></Route>
+        <Route path="/authorized"><Authentication/></Route>
+        <Route path="/onboarding">
           <OnBoardingPage />
-        </PrivateRoute>
-        <PrivateRoute path="/schedule-meeting">
+        </Route>
+        <Route path="/schedule-meeting">
           <Scheduler />
-        </PrivateRoute>
-        <PrivateRoute path="/home">
+        </Route>
+        <Route path="/home">
           <Home />
-        </PrivateRoute>
-        <PrivateRoute path="/upgrade">
+        </Route>
+        <Route path="/upgrade">
           <UpgradePage />
-        </PrivateRoute>
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );
