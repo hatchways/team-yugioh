@@ -20,25 +20,29 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
+        <Route path="/appt">
+          <Scheduler />
+        </Route>
         <Route exact path="/">
           <Redirect to="/signup" />
         </Route>
-        <PublicRoute Component={SignUpPage} path="/signup" />
-        <PublicRoute Component={LogInPage} path="/login" />
         <Route path="/authorized" component={Authentication} />
-        {/* TODO: make onboarding private again */}
+        {/* TODO: make routes public/private again */}
+        <Route path="/signup">
+          <SignUpPage />
+        </Route>
+        <Route path="/login">
+          <LogInPage />
+        </Route>
         <Route path="/onboarding">
           <OnBoardingPage />
         </Route>
-        <PrivateRoute path="/schedule-meeting">
-          <Scheduler />
-        </PrivateRoute>
-        <PrivateRoute path="/home">
+        <Route path="/home">
           <Home />
-        </PrivateRoute>
-        <PrivateRoute path="/upgrade">
+        </Route>
+        <Route path="/upgrade">
           <UpgradePage />
-        </PrivateRoute>
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Route, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
 import SelectTabs from "../components/SelectTabs/SelectTabs";
 import NavBar from "./../components/Header/NavBar";
 import GetStartedButton from "../components/Buttons/GetStartedButton";
+import { testAuth } from "../utils/googleAuth";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,25 +24,48 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [onboarded, setOnboarded] = useState(true);
   const classes = useStyles();
 
+  useEffect(() => {
+    testAuth()
+      .then((res) => {
+        setAuthenticated(res);
+        axios.get("/api/user/get_url").then((res) => {
+          console.log(res.data, "checking");
+          res.data === "" ? setOnboarded(false) : setOnboarded(true);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <div className={classes.root}>
-      <NavBar />
+    <>
+      {onboarded ? (
+        <div className={classes.root}>
+          <NavBar />
 
-      <Typography className={classes.title} variant="h5">
-        My CalendApp
-      </Typography>
+          <Typography className={classes.title} variant="h5">
+            My CalendApp
+          </Typography>
 
-      <SelectTabs />
+          <SelectTabs />
 
-      <Box
-        className={classes.getStartedButton}
-        display="flex"
-        justifyContent="flex-end"
-      >
-        <GetStartedButton />
-      </Box>
-    </div>
+          <Box
+            className={classes.getStartedButton}
+            display="flex"
+            justifyContent="flex-end"
+          >
+            <GetStartedButton />
+          </Box>
+        </div>
+      ) : (
+        <Redirect to="/onboarding" />
+      )}
+    </>
   );
 }
