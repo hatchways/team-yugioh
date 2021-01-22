@@ -4,7 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import googleLogo from "../assets/googlesvg1.svg";
 import { sendToken } from "../utils/googleAuth";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
+import { useAuth, useSetAuthenticated } from "../providers/AuthProvider";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -25,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GoogleLoginButton = ({ variant }) => {
+  const setAuthenticated = useSetAuthenticated();
+  const authenticated = useAuth();
   const classes = useStyles();
 
   //handle response from googlAuth
@@ -38,18 +42,31 @@ const GoogleLoginButton = ({ variant }) => {
       credentials: "same-origin",
     });
     const content = await response.json();
-    const popUpWindow = window.open(content.url);
+    window.open(content.url);
+
+    const idSetInterval = setInterval(() => {
+      axios
+        .get("/api/authentication/test", { withCredential: true })
+        .then(() => {
+          setAuthenticated(true);
+          clearInterval(idSetInterval);
+        })
+        .catch();
+    }, 1000);
   };
+  if (authenticated) {
+    return <Redirect to="/home" />;
+  } else {
+    return (
+      <Button size="large" className={classes.button} onClick={initGoogleLogin}>
+        <span className={classes.btnTxt}>
+          <img src={googleLogo} className={classes.img} alt="google logo" />
 
-  return (
-    <Button size="large" className={classes.button} onClick={initGoogleLogin}>
-      <span className={classes.btnTxt}>
-        <img src={googleLogo} className={classes.img} alt="google logo" />
-
-        {variant === "login" ? `Login with Google` : `Signup with Google`}
-      </span>
-    </Button>
-  );
+          {variant === "login" ? `Login with Google` : `Signup with Google`}
+        </span>
+      </Button>
+    );
+  }
 };
 
 export default GoogleLoginButton;
