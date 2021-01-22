@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Grid,
@@ -13,7 +13,6 @@ import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
 import SetAvailability from "../components/onboarding/SetAvailability";
 import ProgressBar from "../components/onboarding/ProgressBar";
-import { UserContext } from "../App";
 const axios = require("axios");
 
 const OnBoarding = () => {
@@ -28,6 +27,14 @@ const OnBoarding = () => {
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
+
+  useEffect(() => {
+    axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
+      if (res.data !== "") {
+        setOnboarded(true);
+      }
+    });
+  }, []);
 
   const handleButtonClick = () => {
     setPage(page + 1);
