@@ -21,8 +21,8 @@ router.get("/api/user/is_unique", auth, (req, res) => {
     });
 });
 
-// GET whether onboarded
-router.get("/api/user/is_onboarded", auth, (req, res) => {
+// GET user's URL
+router.get("/api/user/get_url", auth, (req, res) => {
   db.User.find({ _id: req.userId })
     .then((data) => {
       res.send(data[0].URL);

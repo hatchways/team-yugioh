@@ -9,9 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import { deepOrange } from "@material-ui/core/colors";
-import axios from "axios";
 
-export default function EventCard({ name, duration, color, link }) {
+export default function EventCard({ name, duration, color, link, url }) {
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -55,15 +54,17 @@ export default function EventCard({ name, duration, color, link }) {
           alignItems="center"
         >
           <Typography variant="subtitle2">{duration} min</Typography>
-          <Button
-            item
-            variant="outlined"
-            color="secondary"
-            size="small"
-            style={{ textTransform: "none" }}
-          >
-            Copy Link
-          </Button>
+          <a href={"http://localhost:3000/" + url + "/" + link}>
+            <Button
+              item
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ textTransform: "none" }}
+            >
+              Copy Link
+            </Button>
+          </a>
         </Grid>
       </CardActions>
     </Card>

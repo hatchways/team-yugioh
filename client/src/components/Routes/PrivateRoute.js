@@ -12,7 +12,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     testAuth()
       .then((res) => {
         setAuthenticated(res);
-        axios.get("/api/user/is_onboarded").then((res) => {
+        axios.get("/api/user/get_url").then((res) => {
           res.data === "" ? setOnboarded(false) : setOnboarded(true);
         });
       })

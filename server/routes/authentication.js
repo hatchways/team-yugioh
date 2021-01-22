@@ -66,7 +66,7 @@ router.post("/api/authentication/google", async (req, res) => {
           name: "",
           duration: 60,
           description: "",
-          link: "",
+          link: "60-min",
           color: "#FF6A00",
         });
       } catch (err) {
