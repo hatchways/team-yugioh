@@ -22,6 +22,7 @@ app.use(require("./routes/appointmentAPI"));
 app.use(require("./routes/eventAPI"));
 app.use(require("./routes/authentication"));
 app.use(require("./routes/userAPI"));
+app.use(require("./routes/googleCalendarAPI"));
 app.use(require("./routes/emailAPI"));
 app.use(require("./routes/subscriptionAPI"));
 

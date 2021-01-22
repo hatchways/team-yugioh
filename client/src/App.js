@@ -27,17 +27,17 @@ function App() {
         <PublicRoute Component={SignUpPage} path="/signup" />
         <PublicRoute Component={LogInPage} path="/login" />
         <Route path="/authorized" component={Authentication} />
-
+        <PrivateRoute path="/onboarding">
+          <OnBoardingPage />
+        </PrivateRoute>
         <PrivateRoute path="/schedule-meeting">
           <Scheduler />
         </PrivateRoute>
-
         <PrivateRoute path="/home">
           <Home />
         </PrivateRoute>
-
-        <PrivateRoute path="/onboarding">
-          <OnBoardingPage />
+        <PrivateRoute path="/upgrade">
+          <UpgradePage />
         </PrivateRoute>
         <PrivateRoute path="/checkout">
           <Checkout />
