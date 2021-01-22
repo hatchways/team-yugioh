@@ -23,9 +23,15 @@ function App() {
         <Route exact path="/">
           <Redirect to="/signup" />
         </Route>
-        <Route path="/signup" /><SignUpPage/></Route>
-        <Route path="/login"><LogInPage/></Route>
-        <Route path="/authorized"><Authentication/></Route>
+        <Route path="/signup">
+          <SignUpPage />
+        </Route>
+        <Route path="/login">
+          <LogInPage />
+        </Route>
+        <Route path="/authorized">
+          <Authentication />
+        </Route>
         <Route path="/onboarding">
           <OnBoardingPage />
         </Route>
