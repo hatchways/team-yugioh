@@ -27,19 +27,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   button: {
-    marginBottom: theme.spacing(3) 
-  }
+    marginBottom: theme.spacing(3),
+  },
 }));
 
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Choose File');
   const [uploadedFile, setUploadedFile] = useState({});
   const [message, setMessage] = useState('');
 
-  const [selectedFile, setSelectedFile] = useState()
-  const [preview, setPreview] = useState()
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
 
   const classes = useStyles();
 
@@ -47,42 +46,33 @@ export default function UploadDialog(props) {
     onClose();
   };
 
+  // create a preview as a side effect, whenever selected file is changed
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
 
   const onChange = (e) => {
-    setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
-
     if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined)
-      return
-  }
-  // I've kept this example simple by using the first image instead of multiple
-    setSelectedFile(e.target.files[0])
+      setSelectedFile(undefined);
+      return;
+    }
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0]);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
-
-    
-
-    // create a preview as a side effect, whenever selected file is changed
-    useEffect(() => {
-        if (!selectedFile) {
-            setPreview(undefined)
-            return
-        }
-
-        const objectUrl = URL.createObjectURL(selectedFile)
-        setPreview(objectUrl)
-
-        // free memory when ever this component is unmounted
-        return () => URL.revokeObjectURL(objectUrl)
-    }, [selectedFile])
-
-    
-
 
     try {
       const res = await axios.post('/api/image-upload', formData, {
@@ -95,11 +85,11 @@ export default function UploadDialog(props) {
 
       setUploadedFile({ fileName, filePath });
       console.log('File Uploaded');
-      setMessage(true)
-      await setTimeout(()=>{
-        setMessage(false)
+      setMessage(true);
+      await setTimeout(() => {
+        setMessage(false);
         handleClose();
-        }, 2000);
+      }, 2000);
     } catch (err) {
       if (err.response.status === 500) {
         console.log('There was a problem with the server');
@@ -120,38 +110,38 @@ export default function UploadDialog(props) {
 
       {message && <Alert>Your profile photo was updated!</Alert>}
 
-      <Avatar className={classes.avatar} src={preview}/>
+      <Avatar className={classes.avatar} src={preview} />
 
       <form onSubmit={onSubmit}>
-        <Box display="flex" justifyContent="space-around">
-        <span className={classes.button}>
-          <input
-            type='file'
-            accept='image/*'
-            className={classes.input}
-            id='upload-button-file'
-            multiple
-            onChange={onChange}
-          />
-          <label htmlFor='upload-button-file'>
-            <Button variant='contained' color='secondary' component='span'>
-              + Upload
-            </Button>
-          </label>
-        </span>
-        <span className={classes.button}>
-          <input
-            type='submit'
-            className={classes.input}
-            value='Upload'
-            id='submit-button-file'
-          />
-          <label htmlFor='submit-button-file'>
-            <Button variant='outlined' component='span'>
-              Save Changes
-            </Button>
-          </label>
-        </span>
+        <Box display='flex' justifyContent='space-around'>
+          <span className={classes.button}>
+            <input
+              type='file'
+              accept='image/*'
+              className={classes.input}
+              id='upload-button-file'
+              multiple
+              onChange={onChange}
+            />
+            <label htmlFor='upload-button-file'>
+              <Button variant='contained' color='secondary' component='span'>
+                + Upload
+              </Button>
+            </label>
+          </span>
+          <span className={classes.button}>
+            <input
+              type='submit'
+              className={classes.input}
+              value='Upload'
+              id='submit-button-file'
+            />
+            <label htmlFor='submit-button-file'>
+              <Button variant='outlined' component='span'>
+                Save Changes
+              </Button>
+            </label>
+          </span>
         </Box>
       </form>
     </Dialog>

@@ -26,17 +26,15 @@ const upload = multer({
 router.post('/api/image-upload', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
-      res.status(500).send('There was a server error with the upload')
+      res.status(500).send('There was a server error with the upload');
     } else {
       if (req.file == undefined) {
-        res.status(400).send('There was a error with your upload paramaters')
+        res.status(400).send('There was a error with your upload paramaters');
       } else {
-        res.status(200).send('Your image was uploaded sucessfully')
+        res.status(200).send('Your image was uploaded sucessfully');
       }
     }
-  
-  })
-  
+  });
 });
 
 module.exports = router;
