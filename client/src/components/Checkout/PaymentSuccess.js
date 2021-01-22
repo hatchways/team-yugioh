@@ -18,13 +18,11 @@ const PaymentSuccess = () => {
         spacing={4}
       >
         <Grid item>
-          <Typography variant="h5">
-            Your payment of {amount}$CAD is completed
-          </Typography>
+          <Typography variant="h5">Thanks for your subscription</Typography>
         </Grid>
         <Grid item>
           <Typography variant="subtitle2">Keep your reference:</Typography>
-          <Typography variant="subtitle2">{clientSecret}</Typography>
+          <Typography variant="subtitle2">{reference}</Typography>
         </Grid>
         <Grid item>
           <CheckCircleOutline className={classes.checkCircle} />
@@ -32,7 +30,7 @@ const PaymentSuccess = () => {
       </Grid>
       <Grid container justify="center">
         <Button color="primary" variant="contained" className={classes.button}>
-          <Link to="/" className={classes.link}>
+          <Link to="/home" className={classes.link}>
             Return to home page
           </Link>
         </Button>

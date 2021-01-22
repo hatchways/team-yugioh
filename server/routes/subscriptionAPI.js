@@ -1,7 +1,7 @@
-const stripe = require("stripe");
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const router = require("express").Router();
-const stripeSecret = process.env.STRIPE_SECRET;
 const dbUser = require("../db/models/User");
+const auth = require("../middleware/auth");
 
 router.get("/api/subscription/check", auth, async (req, res) => {
   const userId = req.userId;
@@ -46,3 +46,5 @@ router.post("/api/subscription/create-subscription", auth, async (req, res) => {
 
   res.send(subscription);
 });
+
+module.exports = router;

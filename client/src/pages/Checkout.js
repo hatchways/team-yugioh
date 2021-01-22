@@ -6,7 +6,7 @@ import axios from "axios";
 import { Route } from "react-router-dom";
 
 import CollectPayment from "../components/Checkout/CollectPayment";
-import PaymentSucceeds from "../components/Checkout/PaymentSucceeds";
+import PaymentSuccess from "../components/Checkout/PaymentSuccess";
 
 const stripePromise = loadStripe(
   "pk_test_51IAF0CHUsZNgCog2HKJ6N7blSBXlpTbMyPOsW4bXMVHlrWEPAbvhkcLtHxrcLdB7Git73G7i4eU2I4kovKAfBhvY00gbMjxWER"
@@ -37,7 +37,7 @@ const CheckoutPage = () => {
         </Route>
 
         <Route path="/checkout/success/:reference">
-          <PaymentSucceeds />
+          <PaymentSuccess />
         </Route>
       </Paper>
     </Elements>

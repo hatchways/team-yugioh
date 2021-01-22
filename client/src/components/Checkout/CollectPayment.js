@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   makeStyles,
@@ -31,16 +31,11 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
   useEffect(() => {
     axios.post("/api/subscription/create-customer").then((res) => {
       const id = res.data.customer.id;
-      console.log("customer Id:", id);
       setCustomerId(id);
     });
-  }, [askForPayment, customerId]);
+  }, [askForPayment]);
 
   const submitPayment = (event) => {
-    if (!amount || !clientSecret) {
-      //edge cases, although unlikely
-      throw new Error("amount or clientSecret has not been set");
-    }
     event.preventDefault();
     setStatus("pending");
     stripe
