@@ -55,7 +55,7 @@ const GoogleLoginButton = ({ variant }) => {
     }, 1000);
   };
   if (authenticated) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/onboarding" />;
   } else {
     return (
       <Button size="large" className={classes.button} onClick={initGoogleLogin}>
