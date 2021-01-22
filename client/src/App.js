@@ -13,6 +13,7 @@ import Authentication from "./pages/Authentication";
 import UpgradePage from "./pages/UpgradePage";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
+import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/AuthProvider";
 import axios from "axios";
 
@@ -54,6 +55,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/upgrade">
           <UpgradePage />
+        </PrivateRoute>
+        <PrivateRoute path="/checkout">
+          <Checkout />
         </PrivateRoute>
       </BrowserRouter>
     </MuiThemeProvider>
