@@ -56,7 +56,6 @@ export default function EventCard({ name, duration, color, link, url }) {
           <Typography variant="subtitle2">{duration} min</Typography>
           <a href={"http://localhost:3000/appt/" + link}>
             <Button
-              item
               variant="outlined"
               color="secondary"
               size="small"

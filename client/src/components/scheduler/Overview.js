@@ -24,7 +24,7 @@ const Overview = ({ name, duration, description }) => {
         <Typography variant="caption">{duration} minute</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="p">{description}</Typography>
+        <Typography variant="body1">{description}</Typography>
       </Grid>
     </Grid>
   );
