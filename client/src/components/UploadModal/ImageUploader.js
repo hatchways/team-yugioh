@@ -31,10 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const BUCKET = 'cal-app-user-imgs'
+
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState('');
-  const [uploadedFile, setUploadedFile] = useState({});
+  const [filename, setFilename] = useState(null)
+  const [url, setUrl] = useState('');
   const [message, setMessage] = useState('');
 
   const [selectedFile, setSelectedFile] = useState();
@@ -42,9 +45,16 @@ export default function UploadDialog(props) {
 
   const classes = useStyles();
 
+ 
+
   const handleClose = () => {
     onClose();
   };
+  useEffect(()=>{
+    //get the url and call setUrl(<url>)
+    setUrl(`https://${BUCKET}.s3.amazonaws.com/${filename}`)
+    console.log(url)
+  }, [])
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -82,9 +92,10 @@ export default function UploadDialog(props) {
         },
       });
 
-      const { fileName, filePath } = res.data;
+      const { fileName } = res.data;
+      console.log(fileName)
+      setFilename(fileName)
 
-      setUploadedFile({ fileName, filePath });
       console.log('File Uploaded');
       setMessage(true);
       await setTimeout(() => {
