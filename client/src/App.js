@@ -27,7 +27,6 @@ function App() {
           <Redirect to="/signup" />
         </Route>
         <Route path="/authorized" component={Authentication} />
-        {/* TODO: make routes public/private again */}
         <Route path="/signup">
           <SignUpPage />
         </Route>

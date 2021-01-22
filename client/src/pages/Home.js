@@ -39,12 +39,13 @@ export default function Home() {
         });
       })
       .catch((err) => {
-        console.log(err);
+        setRedirect(true);
       });
   }, []);
 
   return (
     <>
+      {redirect ? <Redirect to="/login" /> : null}
       {onboarded ? (
         <div className={classes.root}>
           <NavBar />

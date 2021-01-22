@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +10,8 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { Button } from "@material-ui/core";
+import { testAuth } from "../utils/googleAuth";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +72,18 @@ const LogInPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    testAuth()
+      .then((res) => {
+        setAuthenticated(res);
+      })
+      .catch((err) => {
+        setRedirect(true);
+      });
+  }, []);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -83,71 +98,74 @@ const LogInPage = () => {
   };
 
   return (
-    <Container
-      maxWidth="sm"
-      classes={{
-        root: classes.root,
-      }}
-    >
-      <img src={logo} alt="company logo" className={classes.logo} />
-      <Paper elevation={5} className={classes.paper}>
-        <form className={classes.formMain} onSubmit={handleClick}>
-          <Typography variant="h5">
-            {welcomeMsg ? (
-              <span
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  textAlign: "center",
-                }}
-              >
-                <span>{`Welcome back,`}</span>
-                <span>{email}</span>
-              </span>
-            ) : (
-              `Log into your account`
+    <>
+      {authenticated ? <Redirect to="/home" /> : null}
+      <Container
+        maxWidth="sm"
+        classes={{
+          root: classes.root,
+        }}
+      >
+        <img src={logo} alt="company logo" className={classes.logo} />
+        <Paper elevation={5} className={classes.paper}>
+          <form className={classes.formMain} onSubmit={handleClick}>
+            <Typography variant="h5">
+              {welcomeMsg ? (
+                <span
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textAlign: "center",
+                  }}
+                >
+                  <span>{`Welcome back,`}</span>
+                  <span>{email}</span>
+                </span>
+              ) : (
+                `Log into your account`
+              )}
+            </Typography>
+            {welcomeMsg ? null : (
+              <div className={classes.formInput}>
+                <Typography variant="h6" className={classes.formLabel}>
+                  Enter your E-mail to get started:
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="E-mail address"
+                  autoFocus
+                  style={{ textAlign: "center" }}
+                  inputProps={{ min: 0, style: { textAlign: "center" } }}
+                  onChange={handleChange}
+                />
+              </div>
             )}
-          </Typography>
-          {welcomeMsg ? null : (
-            <div className={classes.formInput}>
-              <Typography variant="h6" className={classes.formLabel}>
-                Enter your E-mail to get started:
-              </Typography>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                name="email"
-                autoComplete="email"
-                placeholder="E-mail address"
-                autoFocus
-                style={{ textAlign: "center" }}
-                inputProps={{ min: 0, style: { textAlign: "center" } }}
-                onChange={handleChange}
-              />
-            </div>
-          )}
-          {welcomeMsg ? (
-            <GoogleLoginButton variant={"login"} />
-          ) : (
-            <Button className={classes.button} type="submit">
-              <span style={{ marginLeft: "20px" }}>Continue</span>
-            </Button>
-          )}
-        </form>
-        <Divider />
-        <div className={classes.footer}>
-          <Typography variant="h6">
-            {`Don't have an account?`}
-            <Link className={classes.link} to="signup">
-              Sign up
-            </Link>
-          </Typography>
-        </div>
-      </Paper>
-    </Container>
+            {welcomeMsg ? (
+              <GoogleLoginButton variant={"login"} />
+            ) : (
+              <Button className={classes.button} type="submit">
+                <span style={{ marginLeft: "20px" }}>Continue</span>
+              </Button>
+            )}
+          </form>
+          <Divider />
+          <div className={classes.footer}>
+            <Typography variant="h6">
+              {`Don't have an account?`}
+              <Link className={classes.link} to="signup">
+                Sign up
+              </Link>
+            </Typography>
+          </div>
+        </Paper>
+      </Container>
+    </>
   );
 };
 
