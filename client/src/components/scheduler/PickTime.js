@@ -3,16 +3,23 @@ import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const PickTime = (props) => {
   const classes = useStyles();
   const selectedDate = props.selectedDate;
   const date = format(selectedDate, "EEEE, LLL do");
+  let isoDate=new Date(selectedDate);
+  isoDate.setHours(0,0,0,0);
+  isoDate=isoDate.toISOString();
 
   const [timeSlots, setTimeSlots] = useState([]);
+  const [availability, setAvailability]=useState([]);
   useEffect(() => {
     //fetch from backend
-
+    axios.get(`/api/calendar/availability?day=${isoDate}`, {
+      withCredentials: true
+    }).then(res=>setAvailability(res.data)).catch(err=>console.log(err))
     setTimeSlots([
       "16:30",
       "17:00",
@@ -24,6 +31,8 @@ const PickTime = (props) => {
       "20:00",
     ]);
   }, [date]);
+
+  console.log(availability);
 
   return (
     <Grid
