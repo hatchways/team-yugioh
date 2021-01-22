@@ -3,14 +3,7 @@ import { useLocation } from "react-router-dom";
 import { sendCode } from "../utils/googleAuth";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-const useStyles = makeStyles(theme => ({
-  spinner: {
-    position: "fixed",
-    top: "50%",
-    left: "50%"
-  }
-}));
+import axios from "axios";
 
 const Authentication = () => {
   const classes = useStyles();
@@ -18,15 +11,14 @@ const Authentication = () => {
 
   useEffect(() => {
     const code = new URLSearchParams(search).get("code");
-
-    sendCode(code);
+    return axios
+      .post("/api/authentication/google", { code }, { withCredentials: true })
+      .then(() => {
+        window.close();
+      });
   }, []);
 
-  return (
-    <div className={classes.spinner}>
-      <CircularProgress />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Authentication;
