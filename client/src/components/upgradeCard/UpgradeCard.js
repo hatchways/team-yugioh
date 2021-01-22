@@ -7,6 +7,7 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import PlanListItem from "./UpgradeListItem";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -112,7 +113,7 @@ const UpgradeCard = ({
             disabled={selected}
             onClick={upgradeOrCancelSubscription}
           >
-            {selected ? "Active" : "Upgrade"}
+            {selected ? "Active" : "Select"}
           </Button>
         </div>
         <Divider />
