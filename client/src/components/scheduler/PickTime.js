@@ -4,6 +4,7 @@ import { Brightness1 } from "@material-ui/icons";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
 import axios from "axios";
+import {getTimeSlots} from "../../utils/calendarUtils"
 
 const PickTime = (props) => {
   const classes = useStyles();
@@ -19,7 +20,8 @@ const PickTime = (props) => {
     //fetch from backend
     axios.get(`/api/calendar/availability?day=${isoDate}`, {
       withCredentials: true
-    }).then(res=>setAvailability(res.data)).catch(err=>console.log(err))
+    }).then(res=>setAvailability(res.data.availability)).catch(err=>console.log(err))
+
     setTimeSlots([
       "16:30",
       "17:00",
@@ -33,6 +35,8 @@ const PickTime = (props) => {
   }, [date]);
 
   console.log(availability);
+  getTimeSlots(availability, 60)
+
 
   return (
     <Grid
