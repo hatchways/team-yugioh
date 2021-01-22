@@ -6,7 +6,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
 const Authentication = () => {
-  const classes = useStyles();
   const search = useLocation().search;
 
   useEffect(() => {
