@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box";
 
 import Logo from "./../../img/logo.png";
 import ProfileImage from "./../../img/user-image.png";
-import ImageUploader from '../UploadModal/ImageUploader'
+import ImageUploader from "../UploadModal/ImageUploader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     "&:hover": {
       opacity: 0.8,
-
-  },
+    },
   },
 }));
 
@@ -67,6 +66,7 @@ export default function NavBar() {
           variant="subtitle1"
           onClick={preventDefault}
           className={classes.link}
+          to="/home"
         >
           Home
         </Link>
@@ -81,16 +81,17 @@ export default function NavBar() {
           variant="subtitle1"
           onClick={preventDefault}
           className={classes.linkToUpgrade}
+          to="/upgrade"
         >
           Upgrade account
         </Link>
         <Box>
-        <Avatar
-          className={classes.profileImg}
-          src={ProfileImage}
-          alt="User image"
-          onClick={handleClickOpen}
-        />
+          <Avatar
+            className={classes.profileImg}
+            src={ProfileImage}
+            alt="User image"
+            onClick={handleClickOpen}
+          />
         </Box>
 
         <Link
