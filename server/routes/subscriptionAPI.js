@@ -40,10 +40,11 @@ router.post("/api/subscription/create-subscription", auth, async (req, res) => {
 
   const subscription = await stripe.subscriptions.create({
     customer: req.body.customerId,
-    items: [{ price: 800 }],
+    items: [{ price: 8 }],
     expand: ["latest_invoice.payment_intent"],
   });
-
+  console.log("hi");
+  await dbUser.updateOne({ _id: req.userId }, { subscribed: true });
   res.send(subscription);
 });
 
