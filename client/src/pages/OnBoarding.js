@@ -17,8 +17,7 @@ import { UserContext } from "../App";
 const axios = require("axios");
 
 const OnBoarding = () => {
-  const { onboarded } = useContext(UserContext)[0];
-  const setUserState = useContext(UserContext)[1];
+  const [onboarded, setOnboarded] = useState(false);
   const classes = useStyles();
 
   // const match = useRouteMatch({ path: "/onboarding/:page" });
@@ -35,7 +34,7 @@ const OnBoarding = () => {
     if (page === 3) {
       axios
         .post("/api/user/", { URL: url, timezone: timezone })
-        .then((res) => setUserState({ loggedIn: true, onboarded: true }));
+        .then((res) => setOnboarded(true));
     }
   };
 
