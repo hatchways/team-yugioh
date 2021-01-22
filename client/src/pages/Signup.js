@@ -103,82 +103,76 @@ const SignUpPage = () => {
   };
 
   return (
-    <>
-      {loggedIn || hasCookie ? (
-        <Redirect to="/home" />
-      ) : (
-        <Container
-          maxWidth="sm"
-          classes={{
-            root: classes.root,
-          }}
-        >
-          <img src={logo} alt="company logo" className={classes.logo} />
-          <Paper elevation={5} className={classes.paper}>
-            <form className={classes.formMain} onSubmit={handleClick}>
-              <Typography variant="h5">
-                {welcomeMsg ? (
-                  <span
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      textAlign: "center",
-                    }}
-                  >{`Hi ${email}!`}</span>
-                ) : (
-                  `Sign up with CalendApp`
-                )}
+    <Container
+      maxWidth="sm"
+      classes={{
+        root: classes.root,
+      }}
+    >
+      <img src={logo} alt="company logo" className={classes.logo} />
+      <Paper elevation={5} className={classes.paper}>
+        <form className={classes.formMain} onSubmit={handleClick}>
+          <Typography variant="h5">
+            {welcomeMsg ? (
+              <span
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  textAlign: "center",
+                }}
+              >{`Hi ${email}!`}</span>
+            ) : (
+              `Sign up with CalendApp`
+            )}
+          </Typography>
+          {welcomeMsg ? (
+            <Typography className={classes.paragraphText} variant="body1">
+              The easiest way for you to sign up is with google. This will
+              automaticaly connect your google calendar so you can start using
+              the app right away!
+            </Typography>
+          ) : (
+            <div className={classes.formInput}>
+              <Typography variant="h6" className={classes.formLabel}>
+                Enter your E-mail to get started:
               </Typography>
-              {welcomeMsg ? (
-                <Typography className={classes.paragraphText} variant="body1">
-                  The easiest way for you to sign up is with google. This will
-                  automaticaly connect your google calendar so you can start
-                  using the app right away!
-                </Typography>
-              ) : (
-                <div className={classes.formInput}>
-                  <Typography variant="h6" className={classes.formLabel}>
-                    Enter your E-mail to get started:
-                  </Typography>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="E-mail address"
-                    autoFocus
-                    style={{ textAlign: "center" }}
-                    inputProps={{ min: 0, style: { textAlign: "center" } }}
-                    onChange={handleChange}
-                  />
-                </div>
-              )}
-              {welcomeMsg ? (
-                <GoogleLoginButton variant={"signup"} />
-              ) : (
-                <Button className={classes.button} size="large" type="submit">
-                  <span style={{ marginLeft: "20px" }}>Get started</span>
-                </Button>
-              )}
-            </form>
-            <Divider />
-            <div className={classes.footer}>
-              <Typography variant="h6">
-                {welcomeMsg
-                  ? `Prefer to create an account with a password?`
-                  : `Already have an account?`}
-                <Link className={classes.link} to={welcomeMsg ? "#" : "/login"}>
-                  {welcomeMsg ? "Click here" : "Login"}
-                </Link>
-              </Typography>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                name="email"
+                autoComplete="email"
+                placeholder="E-mail address"
+                autoFocus
+                style={{ textAlign: "center" }}
+                inputProps={{ min: 0, style: { textAlign: "center" } }}
+                onChange={handleChange}
+              />
             </div>
-          </Paper>
-        </Container>
-      )}
-    </>
+          )}
+          {welcomeMsg ? (
+            <GoogleLoginButton variant={"signup"} />
+          ) : (
+            <Button className={classes.button} size="large" type="submit">
+              <span style={{ marginLeft: "20px" }}>Get started</span>
+            </Button>
+          )}
+        </form>
+        <Divider />
+        <div className={classes.footer}>
+          <Typography variant="h6">
+            {welcomeMsg
+              ? `Prefer to create an account with a password?`
+              : `Already have an account?`}
+            <Link className={classes.link} to={welcomeMsg ? "#" : "/login"}>
+              {welcomeMsg ? "Click here" : "Login"}
+            </Link>
+          </Typography>
+        </div>
+      </Paper>
+    </Container>
   );
 };
 
