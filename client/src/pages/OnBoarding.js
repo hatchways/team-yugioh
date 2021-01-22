@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     height: "6em",
   },
   paper: {
-    margin: "auto",
+    margin: "8% auto",
     width: "30em",
   },
   gridForMainContent: {
