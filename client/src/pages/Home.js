@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -6,8 +6,7 @@ import Box from "@material-ui/core/Box";
 import SelectTabs from "../components/SelectTabs/SelectTabs";
 import NavBar from "./../components/Header/NavBar";
 import GetStartedButton from "../components/Buttons/GetStartedButton";
-import { testAuth } from "../utils/googleAuth";
-import axios from "axios";
+import { UserContext } from "../App";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,27 +23,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [redirect, setRedirect] = useState(false);
-  const [onboarded, setOnboarded] = useState(true);
+  const { loggedIn, onboarded } = useContext(UserContext);
   const classes = useStyles();
-
-  useEffect(() => {
-    testAuth()
-      .then((res) => {
-        setAuthenticated(res);
-        axios.get("/api/user/get_url").then((res) => {
-          res.data === "" ? setOnboarded(false) : setOnboarded(true);
-        });
-      })
-      .catch((err) => {
-        setRedirect(true);
-      });
-  }, []);
 
   return (
     <>
-      {redirect ? <Redirect to="/login" /> : null}
+      {loggedIn ? null : <Redirect to="/login" />}
       {onboarded ? (
         <div className={classes.root}>
           <NavBar />
