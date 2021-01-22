@@ -18,7 +18,7 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 const price = 8;
-const priceId = "prod_IngdayIOUK0C6B";
+const priceId = "price_1IC5FsHUsZNgCog2YBPpMJ4j";
 
 const CollectPayment = ({ status, setStatus, askForPayment }) => {
   const classes = useStyles();
