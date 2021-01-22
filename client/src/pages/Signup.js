@@ -10,7 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
-import { UserContext } from "../App";
 import { testAuth } from "../utils/googleAuth";
 
 const useStyles = makeStyles((theme) => ({
@@ -77,8 +76,6 @@ const SignUpPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
-  const { loggedIn } = useContext(UserContext)[0];
-  const [userState, setUserState] = useContext(UserContext);
   const [hasCookie, setHasCookie] = useState(false);
   const handleClick = (event) => {
     event.preventDefault();

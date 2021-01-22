@@ -6,7 +6,6 @@ import Box from "@material-ui/core/Box";
 import SelectTabs from "../components/SelectTabs/SelectTabs";
 import NavBar from "./../components/Header/NavBar";
 import GetStartedButton from "../components/Buttons/GetStartedButton";
-import { UserContext } from "../App";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,37 +22,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
-  const { loggedIn, onboarded } = useContext(UserContext)[0];
   const classes = useStyles();
 
   console.log(document.cookie);
   return (
-    <>
-      {loggedIn ? (
-        onboarded ? (
-          <div className={classes.root}>
-            <NavBar />
+    <div className={classes.root}>
+      <NavBar />
 
-            <Typography className={classes.title} variant="h5">
-              My CalendApp
-            </Typography>
+      <Typography className={classes.title} variant="h5">
+        My CalendApp
+      </Typography>
 
-            <SelectTabs />
+      <SelectTabs />
 
-            <Box
-              className={classes.getStartedButton}
-              display="flex"
-              justifyContent="flex-end"
-            >
-              <GetStartedButton />
-            </Box>
-          </div>
-        ) : (
-          <Redirect to="/onboarding" />
-        )
-      ) : (
-        <Redirect to="/login" />
-      )}
-    </>
+      <Box
+        className={classes.getStartedButton}
+        display="flex"
+        justifyContent="flex-end"
+      >
+        <GetStartedButton />
+      </Box>
+    </div>
   );
 }
