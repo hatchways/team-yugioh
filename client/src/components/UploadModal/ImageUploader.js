@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -33,26 +33,56 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UploadDialog(props) {
   const { onClose, open } = props;
+  const [file, setFile] = useState('');
+  const [filename, setFilename] = useState('Choose File');
+  const [uploadedFile, setUploadedFile] = useState({});
+  const [message, setMessage] = useState('');
+
+  const [selectedFile, setSelectedFile] = useState()
+  const [preview, setPreview] = useState()
+
   const classes = useStyles();
 
   const handleClose = () => {
     onClose();
   };
 
-  const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Choose File');
-  const [uploadedFile, setUploadedFile] = useState({});
-  const [message, setMessage] = useState('');
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
     setFilename(e.target.files[0].name);
+
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined)
+      return
+  }
+  // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile(e.target.files[0])
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
+
+    
+
+    // create a preview as a side effect, whenever selected file is changed
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview(undefined)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(selectedFile)
+        setPreview(objectUrl)
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [selectedFile])
+
+    
+
 
     try {
       const res = await axios.post('/api/image-upload', formData, {
@@ -90,7 +120,7 @@ export default function UploadDialog(props) {
 
       {message && <Alert>Your profile photo was updated!</Alert>}
 
-      <Avatar className={classes.avatar} />
+      <Avatar className={classes.avatar} src={preview}/>
 
       <form onSubmit={onSubmit}>
         <Box display="flex" justifyContent="space-around">
