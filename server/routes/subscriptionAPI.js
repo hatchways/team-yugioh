@@ -43,9 +43,23 @@ router.post("/api/subscription/create-subscription", auth, async (req, res) => {
     items: [{ price: req.body.priceId }],
     expand: ["latest_invoice.payment_intent"],
   });
-  console.log("hi");
-  await dbUser.updateOne({ _id: req.userId }, { subscribed: true });
+
+  await dbUser.updateOne(
+    { _id: req.userId },
+    { subscribed: true, subscriptionId: subscription.id }
+  );
   res.send(subscription);
+});
+
+router.get("/api/subscription/cancel", auth, async (req, res) => {
+  const subscriptionId = (await dbUser.findOne({ _id: req.userId }))
+    .subscriptionId;
+  const subscription = await stripe.subscriptions.del(subscriptionId);
+  await dbUser.updateOne(
+    { _id: req.userId },
+    { subscribed: false, subscriptionId: "" }
+  );
+  res.status(200).send("Subscription cancelled");
 });
 
 module.exports = router;

@@ -35,6 +35,9 @@ const schema = new Schema({
   stripeId: {
     type: String,
   },
+  subscriptionId: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", schema);
