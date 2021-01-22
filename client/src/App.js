@@ -18,6 +18,8 @@ import axios from "axios";
 
 import "./App.css";
 
+export const UserContext = createContext();
+
 function App() {
   const setAuthenticated = useSetAuthenticated();
   useEffect(() => {
@@ -31,8 +33,8 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route exact path="/">
-          <Redirect to="/signup" />
+        <Route path="/appt">
+          <Scheduler />
         </Route>
         <Route path="/signup">
           <SignUpPage />
