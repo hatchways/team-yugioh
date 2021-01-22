@@ -40,7 +40,7 @@ router.post("/api/subscription/create-subscription", auth, async (req, res) => {
 
   const subscription = await stripe.subscriptions.create({
     customer: req.body.customerId,
-    items: [{ price: 8 }],
+    items: [{ price: req.body.priceId }],
     expand: ["latest_invoice.payment_intent"],
   });
   console.log("hi");
