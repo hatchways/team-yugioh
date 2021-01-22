@@ -7,6 +7,7 @@ const auth = (req, res, next) => {
   const jwtToken = req.cookies.app_auth_token || undefined;
   if (!jwtToken) {
     res.status(401).send("Authentication token not included in cookies");
+    return;
   }
 
   nJwt.verify(jwtToken, process.env.JWT_SECRET, function (err, verifiedJwt) {
