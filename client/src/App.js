@@ -43,18 +43,18 @@ function App() {
         <Route path="/authorized">
           <Authentication />
         </Route>
-        <Route path="/onboarding">
+        <PrivateRoute path="/onboarding">
           <OnBoardingPage />
-        </Route>
+        </PrivateRoute>
         <Route path="/schedule-meeting">
           <Scheduler />
         </Route>
-        <Route path="/home">
+        <PrivateRoute path="/home">
           <Home />
-        </Route>
-        <Route path="/upgrade">
+        </PrivateRoute>
+        <PrivateRoute path="/upgrade">
           <UpgradePage />
-        </Route>
+        </PrivateRoute>
       </BrowserRouter>
     </MuiThemeProvider>
   );
