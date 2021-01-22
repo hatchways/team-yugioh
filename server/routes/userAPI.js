@@ -25,7 +25,7 @@ router.get("/api/user/is_unique", auth, (req, res) => {
 router.get("/api/user/is_onboarded", auth, (req, res) => {
   db.User.find({ _id: req.userId })
     .then((data) => {
-      res.send(data[0].URL)
+      res.send(data[0].URL);
     })
     .catch((error) => {
       console.log(error.message);

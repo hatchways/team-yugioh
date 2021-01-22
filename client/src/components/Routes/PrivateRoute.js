@@ -12,9 +12,9 @@ const PrivateRoute = ({ children, ...rest }) => {
     testAuth()
       .then((res) => {
         setAuthenticated(res);
-        axios.get("/api/user/is_onboarded").then(res => {
+        axios.get("/api/user/is_onboarded").then((res) => {
           res.data === "" ? setOnboarded(false) : setOnboarded(true);
-        })
+        });
       })
       .catch(() => {
         setRedirect(true);
@@ -22,8 +22,8 @@ const PrivateRoute = ({ children, ...rest }) => {
   }, []);
   if (redirect) {
     return <Redirect to="/login" />;
-  } else if (!onboarded){
-      return <Redirect to="/onboarding" />;
+  } else if (!onboarded) {
+    return <Redirect to="/onboarding" />;
   } else {
     return authenticated && <Route {...rest}>{children}</Route>;
   }

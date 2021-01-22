@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
-  dialog: {
-    overflowX: "hidden",
-  },
   profileAndNewTypeBox: {
     marginBottom: theme.spacing(5),
   },
@@ -86,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   descriptionLabel: {
-    // marginTop: "20%",
     fontWeight: "bold",
     fontSize: "0.9rem",
     color: "rgba(0, 0, 0, 0.8)",
