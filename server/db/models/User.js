@@ -29,6 +29,12 @@ const schema = new Schema({
   URL: {
     type: String,
   },
+  subscribed: {
+    type: Boolean,
+  },
+  stripeId: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", schema);
