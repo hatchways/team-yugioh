@@ -48,22 +48,22 @@ function App() {
         <Route path="/appt">
           <Scheduler />
         </Route>
-        <UserContext.Provider value={userState}>
+        <UserContext.Provider value={[userState, setUserState]}>
           <Route exact path="/">
             {userState.loggedIn ? <Home /> : <SignUpPage />}
           </Route>
           <Route path="/authorized" component={Authentication} />
           <Route path="/signup">
-            {userState.loggedIn ? <Home /> : <SignUpPage />}
+            <SignUpPage />
           </Route>
           <Route path="/login">
-            {userState.loggedIn ? <Home /> : <LogInPage />}
+            <LogInPage />
           </Route>
           <Route path="/onboarding">
             <OnBoardingPage />
           </Route>
           <Route path="/home">
-            {userState.loggedIn ? (
+            {/* {userState.loggedIn ? (
               userState.onboarded ? (
                 <Home />
               ) : (
@@ -71,7 +71,8 @@ function App() {
               )
             ) : (
               <SignUpPage />
-            )}
+            )} */}
+            <Home />
           </Route>
           <Route path="/upgrade">
             <UpgradePage />

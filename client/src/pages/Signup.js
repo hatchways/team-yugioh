@@ -1,9 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  useCookieWatcher,
-  useCookie,
-} from "@fcannizzaro/react-use-cookie-watcher";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
@@ -15,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { UserContext } from "../App";
+import { testAuth } from "../utils/googleAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,7 +77,9 @@ const SignUpPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
-  const { loggedIn } = useContext(UserContext);
+  const { loggedIn } = useContext(UserContext)[0];
+  const [userState, setUserState] = useContext(UserContext);
+  const [hasCookie, setHasCookie] = useState(false);
   const handleClick = (event) => {
     event.preventDefault();
     //cehck if user has entered an email
@@ -88,9 +87,19 @@ const SignUpPage = () => {
       showWelcome(true);
     }
   };
-
-  const isNotExpired = useCookieWatcher("app_auth_token", 500);
-  console.log(isNotExpired);
+  useEffect(() => {
+    console.log(document.cookie);
+    const interval = setInterval(() => {
+      if (document.cookie.match(/calendapp=true/g)) {
+        console.log("read cookie");
+        setHasCookie(true);
+        testAuth().then((res) => {
+          setUserState({ ...userState, loggedIn: true });
+          clearInterval(interval);
+        });
+      }
+    }, 100);
+  }, []);
 
   const handleChange = (event) => {
     setEmail(event.target.value);
@@ -98,7 +107,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      {loggedIn ? (
+      {loggedIn || hasCookie ? (
         <Redirect to="/home" />
       ) : (
         <Container

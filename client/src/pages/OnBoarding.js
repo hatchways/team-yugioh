@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Paper,
   Grid,
@@ -13,9 +13,12 @@ import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
 import SetAvailability from "../components/onboarding/SetAvailability";
 import ProgressBar from "../components/onboarding/ProgressBar";
+import { UserContext } from "../App";
 const axios = require("axios");
 
 const OnBoarding = () => {
+  const { onboarded } = useContext(UserContext)[0];
+  const setUserState = useContext(UserContext)[1];
   const classes = useStyles();
 
   // const match = useRouteMatch({ path: "/onboarding/:page" });
@@ -32,63 +35,69 @@ const OnBoarding = () => {
     if (page === 3) {
       axios
         .post("/api/user/", { URL: url, timezone: timezone })
-        .then((res) => console.log(res));
+        .then((res) => setUserState({ loggedIn: true, onboarded: true }));
     }
   };
 
   return (
-    <Paper elevation={5} className={classes.paper}>
-      <div className={classes.root}>
-        <Grid
-          container
-          item
-          wrap="nowrap"
-          alignItems="center"
-          justify="space-between"
-          className={classes.topContent}
-        >
-          <Typography variant="h5">
-            {page === 1
-              ? "Welcome to CalendApp!"
-              : page === 2
-              ? "Your Google calendar is connected!"
-              : "Set your availability"}
-          </Typography>
-          <ProgressBar start={page - 1} />
-        </Grid>
-        <Divider />
-        {page === 1 && (
-          <SetTimezoneUrl
-            url={url}
-            setUrl={setUrl}
-            timezone={timezone}
-            setTimezone={setTimezone}
-          />
-        )}
-        {page === 2 && <ConnectGoogleCalendar />}
-        {page === 3 && (
-          <SetAvailability
-            startHour={startHour}
-            setStartHour={setStartHour}
-            finishHour={finishHour}
-            setFinishHour={setFinishHour}
-            days={days}
-            setDays={setDays}
-          />
-        )}
-        {page === 4 && <Redirect to="/home" />}
-        <Grid container justify="center">
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-            onClick={handleButtonClick}
-          >
-            {page === 3 ? "Finish" : "Continue"}
-          </Button>
-        </Grid>
-      </div>
-    </Paper>
+    <>
+      {onboarded ? (
+        <Redirect to="/home" />
+      ) : (
+        <Paper elevation={5} className={classes.paper}>
+          <div className={classes.root}>
+            <Grid
+              container
+              item
+              wrap="nowrap"
+              alignItems="center"
+              justify="space-between"
+              className={classes.topContent}
+            >
+              <Typography variant="h5">
+                {page === 1
+                  ? "Welcome to CalendApp!"
+                  : page === 2
+                  ? "Your Google calendar is connected!"
+                  : "Set your availability"}
+              </Typography>
+              <ProgressBar start={page - 1} />
+            </Grid>
+            <Divider />
+            {page === 1 && (
+              <SetTimezoneUrl
+                url={url}
+                setUrl={setUrl}
+                timezone={timezone}
+                setTimezone={setTimezone}
+              />
+            )}
+            {page === 2 && <ConnectGoogleCalendar />}
+            {page === 3 && (
+              <SetAvailability
+                startHour={startHour}
+                setStartHour={setStartHour}
+                finishHour={finishHour}
+                setFinishHour={setFinishHour}
+                days={days}
+                setDays={setDays}
+              />
+            )}
+            {page === 4 && <Redirect to="/home" />}
+            <Grid container justify="center">
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.button}
+                onClick={handleButtonClick}
+              >
+                {page === 3 ? "Finish" : "Continue"}
+              </Button>
+            </Grid>
+          </div>
+        </Paper>
+      )}
+    </>
   );
 };
 

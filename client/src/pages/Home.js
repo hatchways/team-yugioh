@@ -23,32 +23,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
-  const { loggedIn, onboarded } = useContext(UserContext);
+  const { loggedIn, onboarded } = useContext(UserContext)[0];
   const classes = useStyles();
 
+  console.log(document.cookie);
   return (
     <>
-      {loggedIn ? null : <Redirect to="/login" />}
-      {onboarded ? (
-        <div className={classes.root}>
-          <NavBar />
+      {loggedIn ? (
+        onboarded ? (
+          <div className={classes.root}>
+            <NavBar />
 
-          <Typography className={classes.title} variant="h5">
-            My CalendApp
-          </Typography>
+            <Typography className={classes.title} variant="h5">
+              My CalendApp
+            </Typography>
 
-          <SelectTabs />
+            <SelectTabs />
 
-          <Box
-            className={classes.getStartedButton}
-            display="flex"
-            justifyContent="flex-end"
-          >
-            <GetStartedButton />
-          </Box>
-        </div>
+            <Box
+              className={classes.getStartedButton}
+              display="flex"
+              justifyContent="flex-end"
+            >
+              <GetStartedButton />
+            </Box>
+          </div>
+        ) : (
+          <Redirect to="/onboarding" />
+        )
       ) : (
-        <Redirect to="/onboarding" />
+        <Redirect to="/login" />
       )}
     </>
   );
