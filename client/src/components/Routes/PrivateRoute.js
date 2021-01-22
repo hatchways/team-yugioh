@@ -4,12 +4,7 @@ import { useAuth } from "../../providers/AuthProvider";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const authenticated = useAuth();
-
-  if (authenticated) {
-    return <Route {...rest}>{children}</Route>;
-  } else {
-    return <Redirect to="/login" />;
-  }
+  return authenticated && <Route {...rest}>{children}</Route>;
 };
 
 export default PrivateRoute;
