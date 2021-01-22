@@ -4,9 +4,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
 
 import Logo from "./../../img/logo.png";
 import ProfileImage from "./../../img/user-image.png";
+import ImageUploader from '../UploadModal/ImageUploader'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,11 +33,26 @@ const useStyles = makeStyles((theme) => ({
   },
   profileImg: {
     marginRight: theme.spacing(2),
-    marginLef: theme.spacing(4),
+    marginLeft: theme.spacing(1),
+    cursor: "pointer",
+    "&:hover": {
+      opacity: 0.8,
+
+  },
   },
 }));
 
 export default function NavBar() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
@@ -46,7 +63,11 @@ export default function NavBar() {
           <img width="110rem" src={Logo} alt="CalendApp logo" />
         </span>
 
-        <Link variant="subtitle1" href="/home" className={classes.link}>
+        <Link
+          variant="subtitle1"
+          onClick={preventDefault}
+          className={classes.link}
+        >
           Home
         </Link>
         <Link
@@ -58,17 +79,19 @@ export default function NavBar() {
         </Link>
         <Link
           variant="subtitle1"
-          href="/upgrade"
+          onClick={preventDefault}
           className={classes.linkToUpgrade}
         >
           Upgrade account
         </Link>
-
+        <Box>
         <Avatar
           className={classes.profileImg}
           src={ProfileImage}
           alt="User image"
+          onClick={handleClickOpen}
         />
+        </Box>
 
         <Link
           variant="subtitle1"
@@ -78,6 +101,7 @@ export default function NavBar() {
           John Doe
         </Link>
       </Toolbar>
+      <ImageUploader open={open} onClose={handleClose} />
     </AppBar>
   );
 }
