@@ -61,6 +61,7 @@ export default function UploadDialog(props) {
   }, [selectedFile]);
 
   const onChange = (e) => {
+    setFile(e.target.files[0]);
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
