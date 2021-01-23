@@ -16,26 +16,17 @@ const PickTime = (props) => {
 
   const [timeSlots, setTimeSlots] = useState([]);
   const [availability, setAvailability]=useState([]);
+
+  console.log("date:", isoDate)
+  const interval=60
   useEffect(() => {
     //fetch from backend
     axios.get(`/api/calendar/availability?day=${isoDate}`, {
       withCredentials: true
     }).then(res=>setAvailability(res.data.availability)).catch(err=>console.log(err))
 
-    setTimeSlots([
-      "16:30",
-      "17:00",
-      "17:30",
-      "18:00",
-      "18:30",
-      "19:00",
-      "19:30",
-      "20:00",
-    ]);
+    setTimeSlots(getTimeSlots(availability, interval));
   }, [date]);
-
-  console.log(availability);
-  getTimeSlots(availability, 60)
 
 
   return (
