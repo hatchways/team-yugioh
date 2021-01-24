@@ -2,21 +2,18 @@ import React, { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 export const UserContext = createContext();
-export const UserUpdateContext = createContext();
 
 export function UserContextProvider(props) {
   const [url, setUrl] = useState('');
 
-  const updateUser = (newUrl) => {
-    console.log('Hi')
-    setUrl(newUrl)
+  const value = {
+    updateUrl: setUrl,
+    url: url
   }
 
   return (
-    <UserContext.Provider value={url}>
-      <UserUpdateContext.Provider value={updateUser}>
+    <UserContext.Provider value={value}>
         {props.children}
-      </UserUpdateContext.Provider>
     </UserContext.Provider>
   );
 }

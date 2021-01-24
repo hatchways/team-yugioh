@@ -34,9 +34,9 @@ export default function Home() {
       <Typography className={classes.title} variant='h5'>
         My CalendApp
       </Typography>
-
+      <UserContextProvider>
       <SelectTabs />
-
+      </UserContextProvider>
       <Box
         className={classes.getStartedButton}
         display='flex'

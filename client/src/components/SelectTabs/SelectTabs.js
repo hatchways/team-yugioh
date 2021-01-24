@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 
 import EventTypesTab from './EventTypesTab';
-import { UserContextProvider } from '../../context/UserContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -99,9 +98,7 @@ export default function SelectTabs() {
         </Tabs>
       </div>
       <TabPanel value={value} index={0}>
-        <UserContextProvider>
           <EventTypesTab />
-        </UserContextProvider>
       </TabPanel>
       <TabPanel value={value} index={1}>
         You currently have no scheduled events...

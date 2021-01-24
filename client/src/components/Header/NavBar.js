@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const [open, setOpen] = React.useState(false);
 
-  const url = useContext(UserContext)
+  const { url } = useContext(UserContext)
   
   console.log(url)
   const handleClickOpen = () => {
