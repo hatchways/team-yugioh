@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
@@ -22,6 +22,9 @@ import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
 import ProfileImage from "./../../img/user-image.png";
 import Checkmark from "../../assets/check.png";
+
+import { UserContext } from '../../context/UserContext'
+
 
 import axios from "axios";
 
@@ -204,6 +207,17 @@ export default function EventTypesTab() {
   });
   const [unit, setUnit] = useState("min");
 
+  const url = useContext(UserContext)
+  // console.log(photoUrl)
+  // const [url, setUrl] = useState("");
+
+  // useEffect(() => {
+  
+  // setUrl(photoUrl)
+    
+  // },[url]);  
+
+
   useEffect(() => {
     axios
       .get("/api/event")
@@ -267,7 +281,7 @@ export default function EventTypesTab() {
           <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
-              src={ProfileImage}
+              src={url}
               alt="User image"
             />
             <Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,6 +9,8 @@ import Box from "@material-ui/core/Box";
 import Logo from "./../../img/logo.png";
 import ProfileImage from "./../../img/user-image.png";
 import ImageUploader from '../UploadModal/ImageUploader'
+
+import { UserContext } from '../../context/UserContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const [open, setOpen] = React.useState(false);
 
+  const url = useContext(UserContext)
+  
+  console.log(url)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -87,7 +92,7 @@ export default function NavBar() {
         <Box>
         <Avatar
           className={classes.profileImg}
-          src={ProfileImage}
+          src={url}
           alt="User image"
           onClick={handleClickOpen}
         />

@@ -1,19 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 
-import EventTypesTab from "./EventTypesTab";
+import EventTypesTab from './EventTypesTab';
+import { UserContextProvider } from '../../context/UserContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
@@ -37,7 +38,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -60,12 +61,12 @@ const StyledTab = withStyles((theme) => ({
     minWidth: 72,
     fontWeight: theme.typography.fontWeightRegular,
     marginRight: theme.spacing(4),
-    fontSize: "1rem",
-    "&:hover": {
-      color: "orange",
+    fontSize: '1rem',
+    '&:hover': {
+      color: 'orange',
       opacity: 1,
     },
-    "&$selected": {
+    '&$selected': {
       color: theme.palette.secondary.main,
       fontWeight: theme.typography.fontWeightMedium,
     },
@@ -82,26 +83,28 @@ export default function SelectTabs() {
   };
 
   return (
-    <Container className={classes.root} maxWidth="xl">
-      <div position="static">
+    <Container className={classes.root} maxWidth='xl'>
+      <div position='static'>
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="simple tabs example"
+          aria-label='simple tabs example'
         >
-          <StyledTab label="Event Types" {...a11yProps(0)} />
+          <StyledTab label='Event Types' {...a11yProps(0)} />
           <StyledTab
             classes={classes.tab}
-            label="Scheduled Events"
+            label='Scheduled Events'
             {...a11yProps(1)}
           />
         </Tabs>
       </div>
       <TabPanel value={value} index={0}>
-        <EventTypesTab />
+        <UserContextProvider>
+          <EventTypesTab />
+        </UserContextProvider>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        To be completed...
+        You currently have no scheduled events...
       </TabPanel>
     </Container>
   );

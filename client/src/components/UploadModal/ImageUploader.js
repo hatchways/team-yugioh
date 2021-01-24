@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 //import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,6 +8,8 @@ import { orange } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
+
+import {UserUpdateContext} from '../../context/UserContext'
 
 import axios from 'axios';
 import FormData from 'form-data';
@@ -42,6 +44,8 @@ export default function UploadDialog(props) {
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+
+  const updatePhoto = useContext(UserUpdateContext)
 
   const classes = useStyles();
 
@@ -88,7 +92,7 @@ export default function UploadDialog(props) {
       console.log(fileName);
       
       
-      setUrl(`https://${BUCKET}.s3.amazonaws.com/${fileName}`);
+      updatePhoto(`https://${BUCKET}.s3.amazonaws.com/${fileName}`);
 
       console.log('File Uploaded');
       console.log(res.data.msg)
@@ -159,5 +163,5 @@ export default function UploadDialog(props) {
 // UploadDialog.propTypes = {
 //   onClose: PropTypes.func.isRequired,
 //   open: PropTypes.bool.isRequired,
-//   fileName: PropTypes.string.isRequired,
-// };
+//   fileName: PropTypes.string.isRequired, 
+// ;
