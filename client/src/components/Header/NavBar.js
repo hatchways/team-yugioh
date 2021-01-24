@@ -6,8 +6,8 @@ import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 
-import Logo from "./../../img/logo.png";
-import ProfileImage from "./../../img/user-image.png";
+import Logo from "../../assets/logo.png"
+
 import ImageUploader from '../UploadModal/ImageUploader'
 
 import { UserContext } from '../../context/UserContext'

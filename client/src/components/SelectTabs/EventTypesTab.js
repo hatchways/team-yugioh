@@ -10,7 +10,6 @@ import {
   Grid,
   Input,
   InputLabel,
-  TextareaAutosize,
   Box,
   RadioGroup,
   Radio,
@@ -20,7 +19,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
-import ProfileImage from "./../../img/user-image.png";
 import Checkmark from "../../assets/check.png";
 
 import { UserContext } from '../../context/UserContext'
