@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -31,10 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const BUCKET = 'cal-app-user-imgs';
+
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState('');
-  const [uploadedFile, setUploadedFile] = useState({});
+  const [filename, setFilename] = useState(null);
+  const [url, setUrl] = useState('');
   const [message, setMessage] = useState('');
 
   const [selectedFile, setSelectedFile] = useState();
@@ -81,17 +84,21 @@ export default function UploadDialog(props) {
           'Content-Type': 'multipart/form-data',
         },
       });
+      const { fileName } = res.data;
+      console.log(fileName);
+      
+      
+      setUrl(`https://${BUCKET}.s3.amazonaws.com/${fileName}`);
 
-      const { fileName, filePath } = res.data;
-
-      setUploadedFile({ fileName, filePath });
       console.log('File Uploaded');
+      console.log(res.data.msg)
       setMessage(true);
-      await setTimeout(() => {
+      setTimeout(() => {
         setMessage(false);
         handleClose();
       }, 2000);
     } catch (err) {
+      console.log(err)
       if (err.response.status === 500) {
         console.log('There was a problem with the server');
       } else {
@@ -149,7 +156,8 @@ export default function UploadDialog(props) {
   );
 }
 
-UploadDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-};
+// UploadDialog.propTypes = {
+//   onClose: PropTypes.func.isRequired,
+//   open: PropTypes.bool.isRequired,
+//   fileName: PropTypes.string.isRequired,
+// };

@@ -10,14 +10,14 @@ AWS.config.update({ region: process.env.AWS_REGION });
 
 // Create S3 service object
 const s3 = new AWS.S3();
-
+const FN = Date.now().toString() + '.png'
 // AWS Params put into storage using Multer S3
 const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: process.env.AWS_BUCKET_NAME,
     key: function (req, file, cb) {
-      cb(null, Date.now().toString() + '.png');
+      cb(null, FN);
     },
   }),
 }).single('file');
@@ -31,7 +31,7 @@ router.post('/api/image-upload', (req, res) => {
       if (req.file == undefined) {
         res.status(400).send('There was a error with your upload paramaters');
       } else {
-        res.status(200).send('Your image was uploaded sucessfully');
+        res.status(200).send({msg:'Your image was uploaded sucessfully', fileName : req.file.key});
       }
     }
   });
