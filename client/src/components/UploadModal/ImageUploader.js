@@ -43,7 +43,7 @@ export default function UploadDialog(props) {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
 
-  const {updateUrl} = useContext(UserContext)
+  const {setPhotoUrl} = useContext(UserContext)
 
   const classes = useStyles();
 
@@ -90,7 +90,7 @@ export default function UploadDialog(props) {
       console.log(fileName);
       
       
-      updateUrl(`https://${BUCKET}.s3.amazonaws.com/${fileName}`);
+      setPhotoUrl(`https://${BUCKET}.s3.amazonaws.com/${fileName}`);
 
       console.log('File Uploaded');
       console.log(res.data.msg)

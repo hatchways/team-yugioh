@@ -20,6 +20,7 @@ import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
 import Checkmark from "../../assets/check.png";
+import AddIcon from '@material-ui/icons/Add';
 
 import axios from "axios";
 
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     color: "gray",
   },
   newEventTypeButton: {
-    padding: ".5rem 2rem",
+    padding: ".3rem 2rem",
     textTransform: "none",
     marginBotton: theme.spacing(4),
   },
@@ -282,7 +283,7 @@ export default function EventTypesTab() {
               variant="outlined"
               onClick={handleClickOpen}
             >
-              + New Event Type
+              <AddIcon style={{fontSize: '1rem' }}/> New Event Type
             </Button>
           </Box>
         </Grid>

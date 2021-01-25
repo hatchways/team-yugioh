@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 export const UserContext = createContext();
 
 export function UserContextProvider(props) {
-  const [url, setUrl] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
 
   const value = {
-    updateUrl: setUrl,
-    url: url
+    photoUrl, setPhotoUrl
   }
 
   return (

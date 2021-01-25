@@ -47,9 +47,8 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const [open, setOpen] = React.useState(false);
 
-  const { url } = useContext(UserContext)
+  const { photoUrl } = useContext(UserContext)
   
-  console.log(url)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -92,7 +91,7 @@ export default function NavBar() {
         <Box>
         <Avatar
           className={classes.profileImg}
-          src={url}
+          src={photoUrl}
           alt="User image"
           onClick={handleClickOpen}
         />
