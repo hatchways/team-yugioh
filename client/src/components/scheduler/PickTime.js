@@ -4,7 +4,11 @@ import { Brightness1 } from "@material-ui/icons";
 import { format, parse } from "date-fns";
 import PropTypes from "prop-types";
 
-const PickTime = ({ selectedDate, setAppointmentTime }) => {
+const PickTime = ({
+  selectedDate,
+  appointmentDetails,
+  setAppointmentDetails,
+}) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
 
@@ -52,9 +56,14 @@ const PickTime = ({ selectedDate, setAppointmentTime }) => {
               className={classes.listItem}
               button
               onClick={() =>
-                setAppointmentTime(
-                  parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
-                )
+                setAppointmentDetails({
+                  ...appointmentDetails,
+                  time: parse(
+                    date + " " + slot,
+                    "EEEE, LLL do HH:mm",
+                    new Date()
+                  ),
+                })
               }
             >
               <Grid

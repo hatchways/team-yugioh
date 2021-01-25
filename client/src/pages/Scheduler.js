@@ -22,14 +22,19 @@ const Scheduler = () => {
     details: "",
     duration: "",
   });
-  const [appointmentTime, setAppointmentTime] = useState(false);
-  const [bookerDetails, setBookerDetails] = useState({
+  const [appointmentDetails, setAppointmentDetails] = useState({
     name: "",
     email: "",
     notes: "",
+    time: false,
+    timezone: "UTC",
   });
 
-  const handleFormChange = () => {};
+  const handleFormChange = (event) => {
+    const { name, value } = event.target;
+    setAppointmentDetails({ ...appointmentDetails, [name]: value });
+    console.log(appointmentDetails);
+  };
 
   useEffect(() => {
     let queryURL = `/api/event_details/${window.location.pathname.slice(6)}`;
@@ -48,7 +53,10 @@ const Scheduler = () => {
     <Paper className={classes.root} elevation={5}>
       <Grid container direction="row" wrap="nowrap" className={classes.grid}>
         <Grid item xs={4}>
-          <Overview {...eventDetails} appointmentTime={appointmentTime} />
+          <Overview
+            {...eventDetails}
+            appointmentTime={appointmentDetails.time}
+          />
         </Grid>
         <Divider orientation="vertical" flexItem={true} />
 
@@ -61,9 +69,15 @@ const Scheduler = () => {
           wrap="nowrap"
           spacing={2}
         >
-          {appointmentTime ? (
+          {appointmentDetails.time ? (
             <>
-              <Button onClick={() => setAppointmentTime(false)}>Back</Button>
+              <Button
+                onClick={() =>
+                  setAppointmentDetails({ ...appointmentDetails, time: false })
+                }
+              >
+                Back
+              </Button>
               <Grid
                 direction="row"
                 alignItems="center"
@@ -82,9 +96,8 @@ const Scheduler = () => {
                     name="name"
                     type="text"
                     onChange={handleFormChange}
-                    disableUnderline
                     fullWidth
-                    value={bookerDetails.name}
+                    value={appointmentDetails.name}
                   />
                 </Grid>
               </Grid>
@@ -106,9 +119,8 @@ const Scheduler = () => {
                     name="email"
                     type="text"
                     onChange={handleFormChange}
-                    disableUnderline
                     fullWidth
-                    value={bookerDetails.email}
+                    value={appointmentDetails.email}
                   />
                 </Grid>
               </Grid>
@@ -129,11 +141,11 @@ const Scheduler = () => {
                   <TextField
                     variant="outlined"
                     margin="normal"
-                    name="description"
+                    name="notes"
                     multiline
                     onChange={handleFormChange}
                     fullWidth
-                    value={bookerDetails.description}
+                    value={appointmentDetails.notes}
                     placeholder={`Write any details that will help prepare for our meeting.
                                     
                                     
@@ -164,7 +176,8 @@ const Scheduler = () => {
                 <Grid item xs={5}>
                   <PickTime
                     selectedDate={selectedDate}
-                    setAppointmentTime={setAppointmentTime}
+                    appointmentDetails={appointmentDetails}
+                    setAppointmentDetails={setAppointmentDetails}
                     setSelectedDate={setSelectedDate}
                   />
                 </Grid>
