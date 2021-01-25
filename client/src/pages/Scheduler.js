@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
 import {
   makeStyles,
   Paper,
@@ -7,6 +6,8 @@ import {
   Divider,
   Typography,
   Button,
+  TextField,
+  InputLabel,
 } from "@material-ui/core";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
@@ -21,8 +22,14 @@ const Scheduler = () => {
     details: "",
     duration: "",
   });
-  const [confirmState, setConfirmState] = useState(false);
   const [appointmentTime, setAppointmentTime] = useState(false);
+  const [bookerDetails, setBookerDetails] = useState({
+    name: "",
+    email: "",
+    notes: "",
+  });
+
+  const handleFormChange = () => {};
 
   useEffect(() => {
     let queryURL = `/api/event_details/${window.location.pathname.slice(6)}`;
@@ -41,7 +48,7 @@ const Scheduler = () => {
     <Paper className={classes.root} elevation={5}>
       <Grid container direction="row" wrap="nowrap" className={classes.grid}>
         <Grid item xs={4}>
-          <Overview {...eventDetails} />
+          <Overview {...eventDetails} appointmentTime={appointmentTime} />
         </Grid>
         <Divider orientation="vertical" flexItem={true} />
 
@@ -57,7 +64,88 @@ const Scheduler = () => {
           {appointmentTime ? (
             <>
               <Button onClick={() => setAppointmentTime(false)}>Back</Button>
-              <p>{JSON.stringify(appointmentTime)}</p>
+              <Grid
+                direction="row"
+                alignItems="center"
+                container
+                justify="flex-start"
+                className={classes.inputRow}
+              >
+                <Grid xs="2" item>
+                  <InputLabel className={classes.label}>Name</InputLabel>
+                </Grid>
+
+                <Grid xs="10" item>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    name="name"
+                    type="text"
+                    onChange={handleFormChange}
+                    disableUnderline
+                    fullWidth
+                    value={bookerDetails.name}
+                  />
+                </Grid>
+              </Grid>
+              <Grid
+                direction="row"
+                alignItems="center"
+                container
+                justify="flex-start"
+                className={classes.inputRow}
+              >
+                <Grid xs="2" item>
+                  <InputLabel className={classes.label}>Email</InputLabel>
+                </Grid>
+
+                <Grid xs="10" item>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    name="email"
+                    type="text"
+                    onChange={handleFormChange}
+                    disableUnderline
+                    fullWidth
+                    value={bookerDetails.email}
+                  />
+                </Grid>
+              </Grid>
+              <Grid
+                direction="row"
+                alignItems="center"
+                container
+                justify="flex-start"
+                className={classes.inputRow}
+              >
+                <Grid xs="2" item>
+                  <InputLabel className={classes.descriptionLabel}>
+                    Notes
+                  </InputLabel>
+                </Grid>
+
+                <Grid xs="10" item>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    name="description"
+                    multiline
+                    onChange={handleFormChange}
+                    fullWidth
+                    value={bookerDetails.description}
+                    placeholder={`Write any details that will help prepare for our meeting.
+                                    
+                                    
+                                    `}
+                    className={classes.textArea}
+                  />
+                </Grid>
+              </Grid>
+
+              <Button color="primary" className={classes.button}>
+                Schedule Event
+              </Button>
             </>
           ) : (
             <>
