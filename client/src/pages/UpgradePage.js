@@ -47,7 +47,6 @@ const UpgradePage = () => {
   useEffect(() => {
     axios.get("/api/subscription/check").then((res) => {
       setSubscribed(res.data.subscribed);
-      console.log("subscribed?", res.data.subscribed);
     });
   });
 
