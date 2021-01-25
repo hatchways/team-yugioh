@@ -6,29 +6,28 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import {getTimeSlots} from "../../utils/calendarUtils"
 
-const PickTime = (props) => {
+const PickTime = ({selectedDate, interval, availabilityTimes}) => {
   const classes = useStyles();
-  const selectedDate = props.selectedDate;
   const date = format(selectedDate, "EEEE, LLL do");
   let isoDate=new Date(selectedDate);
   isoDate.setHours(0,0,0,0);
   isoDate=isoDate.toISOString();
 
+
   const [timeSlots, setTimeSlots] = useState([]);
 
   //appointment length
-  const interval=60
   useEffect(() => {
     //fetch from backend
     axios.get(`/api/calendar/availability?day=${isoDate}`, {
       withCredentials: true
     }).then(res=>{
-      setTimeSlots(getTimeSlots(res.data.availability, interval))
+      setTimeSlots(getTimeSlots(res.data.availability, interval, availabilityTimes))
       }).catch(err=>console.log(err))
     
   }, [date]);
 
-  console.log(timeSlots)
+
 
 
 

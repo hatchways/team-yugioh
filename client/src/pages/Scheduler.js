@@ -13,9 +13,16 @@ import { getNextAvailableDate } from "../utils/calendarUtils";
 
 const Scheduler = () => {
   const classes = useStyles();
+
   //this will be fetched from the server
-  const availDates = [ 2, 3, 4, 5];
+  const availTimes={start:"09:00", end:"17:00"}
+  const availDates = [1, 2, 3, 4, 5];
+  //this will be set when picking event type --> pulled from context?
+  const interval="60";
+
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  //this needs to be done here rather than the date picker otherwise get pseudo race condition
   if (!availDates.includes(selectedDate.getDay())) {
     //set next available day of the week
     setSelectedDate(getNextAvailableDate(selectedDate, availDates));
@@ -49,13 +56,14 @@ const Scheduler = () => {
               <PickDate
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
+                availability={availDates}
               />
               <Typography variant="subtitle2">
                 Coordinated Universal Time
               </Typography>
             </Grid>
             <Grid item xs={5}>
-              <PickTime selectedDate={selectedDate} />
+              <PickTime selectedDate={selectedDate} interval={interval} availabilityTimes={availTimes} />
             </Grid>
           </Grid>
         </Grid>
