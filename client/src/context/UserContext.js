@@ -5,14 +5,10 @@ export const UserContext = createContext();
 
 export function UserContextProvider(props) {
   const [photoUrl, setPhotoUrl] = useState('');
-
-  const value = {
-    photoUrl, setPhotoUrl
-  }
-
+  
   return (
-    <UserContext.Provider value={value}>
-        {props.children}
+    <UserContext.Provider value={{ photoUrl, setPhotoUrl }}>
+      {props.children}
     </UserContext.Provider>
   );
 }
