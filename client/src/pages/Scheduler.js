@@ -23,6 +23,7 @@ const Scheduler = () => {
     duration: "",
   });
   const [appointmentDetails, setAppointmentDetails] = useState({
+    eventId: "",
     name: "",
     email: "",
     notes: "",
@@ -36,9 +37,23 @@ const Scheduler = () => {
     console.log(appointmentDetails);
   };
 
+  const createAppointment = () => {
+    axios.post("/api/appointment", appointmentDetails).then((res) => {
+      setAppointmentDetails({
+        eventId: "",
+        name: "",
+        email: "",
+        notes: "",
+        time: false,
+        timezone: "UTC",
+      });
+    });
+  };
+
   useEffect(() => {
     let queryURL = `/api/event_details/${window.location.pathname.slice(6)}`;
     axios.get(queryURL).then((res) => {
+      console.log(res);
       // TODO: redirect to 404 page on no event found?
       let event = res.data[0];
       setEventDetails({
@@ -46,6 +61,7 @@ const Scheduler = () => {
         description: event.description,
         duration: event.duration,
       });
+      setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
     });
   }, []);
 
@@ -155,7 +171,11 @@ const Scheduler = () => {
                 </Grid>
               </Grid>
 
-              <Button color="primary" className={classes.button}>
+              <Button
+                color="primary"
+                className={classes.button}
+                onClick={createAppointment}
+              >
                 Schedule Event
               </Button>
             </>
