@@ -16,7 +16,7 @@ const PickDate = (props) => {
 };
 
 const DisplayCalendar = ({ selectedDate, setSelectedDate }) => {
-  console.log(typeof selectedDate);
+  
   const disableDate = (date) => {
     //check against the availability to determine which dates to grey out
     if (date.getDay() === 0 || date.getDay() === 6) {
