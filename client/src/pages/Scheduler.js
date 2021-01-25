@@ -4,15 +4,23 @@ import {
   Paper,
   Grid,
   Divider,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
+import { getNextAvailableDate } from "../utils/calendarUtils";
 
 const Scheduler = () => {
   const classes = useStyles();
+  //this will be fetched from the server
+  const availDates = [ 2, 3, 4, 5];
   const [selectedDate, setSelectedDate] = useState(new Date());
+  if (!availDates.includes(selectedDate.getDay())) {
+    //set next available day of the week
+    setSelectedDate(getNextAvailableDate(selectedDate, availDates));
+  }
+
   return (
     <Paper className={classes.root} elevation={5}>
       <Grid container direction="row" wrap="nowrap" className={classes.grid}>
@@ -56,20 +64,20 @@ const Scheduler = () => {
   );
 };
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(theme => {
   return {
     root: {
       height: theme.spacing(60),
       width: theme.spacing(100),
-      margin: `${theme.spacing(10)}px auto`,
+      margin: `${theme.spacing(10)}px auto`
     },
     grid: {
-      height: "100%",
+      height: "100%"
     },
     title: {},
     dateTimeSelect: {
-      padding: theme.spacing(3),
-    },
+      padding: theme.spacing(3)
+    }
   };
 });
 

@@ -30,3 +30,12 @@ const breakUpTimes = (timeslot, meetingLength) => {
   }
   return intervals;
 };
+
+export const getNextAvailableDate = (date, availDates) => {
+  const dateMomement = moment(date);
+  while (!availDates.includes(date.getDay())) {
+    dateMomement.add(1, "day");
+    date = dateMomement.toDate();
+  }
+  return dateMomement.toDate();
+};
