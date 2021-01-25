@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
 
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/Context'
 
 import axios from 'axios';
 import FormData from 'form-data';

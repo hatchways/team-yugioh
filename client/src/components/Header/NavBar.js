@@ -10,7 +10,7 @@ import Logo from "../../assets/logo.png"
 
 import ImageUploader from '../UploadModal/ImageUploader'
 
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/Context'
 
 const useStyles = makeStyles((theme) => ({
   root: {

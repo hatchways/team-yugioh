@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import SelectTabs from '../components/SelectTabs/SelectTabs';
 import NavBar from './../components/Header/NavBar';
 import GetStartedButton from '../components/Buttons/GetStartedButton';
-import { UserContextProvider } from '../context/UserContext';
+import { UserContextProvider } from '../context/Context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
