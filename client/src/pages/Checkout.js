@@ -5,8 +5,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { Route } from "react-router-dom";
 
-import CheckoutForm from "../components/Checkout/CheckoutForm";
-import CheckoutSuccess from "../components/Checkout/CheckoutSuccess";
+import CollectPayment from "../components/Checkout/CollectPayment";
+import PaymentSuccess from "../components/Checkout/PaymentSuccess";
 
 const stripePromise = loadStripe(
   "pk_test_51IAF0CHUsZNgCog2HKJ6N7blSBXlpTbMyPOsW4bXMVHlrWEPAbvhkcLtHxrcLdB7Git73G7i4eU2I4kovKAfBhvY00gbMjxWER"
@@ -15,9 +15,7 @@ const stripePromise = loadStripe(
 const CheckoutPage = () => {
   const classes = useStyles();
 
-  const [amount, setAmount] = useState("");
-  const [clientSecret, setClientSecret] = useState("");
-  const [status, setStatus] = useState(""); //pending, success, failure
+  const [status, setStatus] = useState(""); //pending, failure
   const [askForPayment, setAskForPayment] = useState(false);
 
   useEffect(() => {
@@ -27,36 +25,19 @@ const CheckoutPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (askForPayment) {
-      axios.get("/api/subscription/pay").then((res) => {
-        const amount = res.data.amount || undefined;
-        const clientSecret = res.data.clientSecret || undefined;
-        if (amount && clientSecret) {
-          setAmount(amount / 100); //stripe API interpret the last two digits as decimals
-          setClientSecret(clientSecret);
-        } else {
-          throw new Error("Not getting amount or client secret from backend");
-        }
-      });
-    }
-  }, [askForPayment]);
-
   return (
     <Elements stripe={stripePromise}>
       <Paper className={classes.root} elevation={5}>
         <Route exact path="/checkout">
-          <CheckoutForm
-            amount={amount}
-            clientSecret={clientSecret}
+          <CollectPayment
             status={status}
             setStatus={setStatus}
             askForPayment={askForPayment}
           />
         </Route>
 
-        <Route path="/checkout/success/:amount/:clientSecret/">
-          <CheckoutSuccess />
+        <Route path="/checkout/success/:reference">
+          <PaymentSuccess />
         </Route>
       </Paper>
     </Elements>

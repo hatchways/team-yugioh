@@ -4,9 +4,9 @@ import { CheckCircleOutline } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const CheckoutSuccess = () => {
+const PaymentSuccess = () => {
   const classes = useStyles();
-  const { amount, clientSecret } = useParams(); //this allows us to refresh the success page without losing information
+  const { reference } = useParams(); //this allows us to refresh the success page without losing information
   return (
     <div className={classes.root}>
       <Grid
@@ -18,13 +18,11 @@ const CheckoutSuccess = () => {
         spacing={4}
       >
         <Grid item>
-          <Typography variant="h5">
-            Your payment of {amount}$CAD is completed
-          </Typography>
+          <Typography variant="h5">Thanks for your subscription</Typography>
         </Grid>
         <Grid item>
           <Typography variant="subtitle2">Keep your reference:</Typography>
-          <Typography variant="subtitle2">{clientSecret}</Typography>
+          <Typography variant="subtitle2">{reference}</Typography>
         </Grid>
         <Grid item>
           <CheckCircleOutline className={classes.checkCircle} />
@@ -32,7 +30,7 @@ const CheckoutSuccess = () => {
       </Grid>
       <Grid container justify="center">
         <Button color="primary" variant="contained" className={classes.button}>
-          <Link to="/" className={classes.link}>
+          <Link to="/home" className={classes.link}>
             Return to home page
           </Link>
         </Button>
@@ -67,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-CheckoutSuccess.propTypes = {
+PaymentSuccess.propTypes = {
   amount: PropTypes.number,
   clientSecret: PropTypes.string,
 };
 
-export default CheckoutSuccess;
+export default PaymentSuccess;
