@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import PropTypes from "prop-types";
 
-const PickTime = (props) => {
+const PickTime = ({ selectedDate, setAppointmentTime }) => {
   const classes = useStyles();
-  const selectedDate = props.selectedDate;
   const date = format(selectedDate, "EEEE, LLL do");
 
   const [timeSlots, setTimeSlots] = useState([]);
@@ -48,7 +47,16 @@ const PickTime = (props) => {
       >
         {timeSlots.length !== 0 &&
           timeSlots.map((slot, i) => (
-            <ListItem key={i} className={classes.listItem} button>
+            <ListItem
+              key={i}
+              className={classes.listItem}
+              button
+              onClick={() =>
+                setAppointmentTime(
+                  parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
+                )
+              }
+            >
               <Grid
                 container
                 direction="row"

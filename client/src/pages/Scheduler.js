@@ -6,6 +6,7 @@ import {
   Grid,
   Divider,
   Typography,
+  Button,
 } from "@material-ui/core";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
@@ -20,6 +21,8 @@ const Scheduler = () => {
     details: "",
     duration: "",
   });
+  const [confirmState, setConfirmState] = useState(false);
+  const [appointmentTime, setAppointmentTime] = useState(false);
 
   useEffect(() => {
     let queryURL = `/api/event_details/${window.location.pathname.slice(6)}`;
@@ -51,26 +54,35 @@ const Scheduler = () => {
           wrap="nowrap"
           spacing={2}
         >
-          <Grid item>
-            <Typography variant="h5" className={classes.title}>
-              Select a Date {"&"} Time
-            </Typography>
-          </Grid>
-
-          <Grid item container spacing={2}>
-            <Grid item xs={7}>
-              <PickDate
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-              />
-              <Typography variant="subtitle2">
-                Coordinated Universal Time
-              </Typography>
-            </Grid>
-            <Grid item xs={5}>
-              <PickTime selectedDate={selectedDate} />
-            </Grid>
-          </Grid>
+          {appointmentTime ? (
+            <>
+              <Button onClick={() => setAppointmentTime(false)}>Back</Button>
+              <p>{JSON.stringify(appointmentTime)}</p>
+            </>
+          ) : (
+            <>
+              <Grid item>
+                <Typography variant="h5" className={classes.title}>
+                  Select a Date {"&"} Time
+                </Typography>
+              </Grid>
+              <Grid item container spacing={2}>
+                <Grid item xs={7}>
+                  <PickDate selectedDate={selectedDate} />
+                  <Typography variant="subtitle2">
+                    Coordinated Universal Time
+                  </Typography>
+                </Grid>
+                <Grid item xs={5}>
+                  <PickTime
+                    selectedDate={selectedDate}
+                    setAppointmentTime={setAppointmentTime}
+                    setSelectedDate={setSelectedDate}
+                  />
+                </Grid>
+              </Grid>
+            </>
+          )}
         </Grid>
       </Grid>
     </Paper>
