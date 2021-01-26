@@ -1,7 +1,11 @@
 import React from "react";
-import { Grid, makeStyles } from "@material-ui/core";
-import { MuiPickersUtilsProvider, Calendar } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import {
+  Grid,
+  Button,
+  TextField,
+  InputLabel,
+  makeStyles,
+} from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const ConfirmAppointment = ({ appointmentDetails, setAppointmentDetails }) => {
@@ -123,9 +127,9 @@ const useStyles = makeStyles(() => ({
   root: { height: "100%", overflow: "hidden" },
 }));
 
-DisplayCalendar.propTypes = {
-  selectedDate: PropTypes.object,
-  setSelectedDate: PropTypes.func,
+ConfirmAppointment.propTypes = {
+  appointmentDetails: PropTypes.object,
+  setAppointmentDetails: PropTypes.func,
 };
 
 export default ConfirmAppointment;
