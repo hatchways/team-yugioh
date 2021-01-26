@@ -1,8 +1,7 @@
-// rfc snippet
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
 import EventCard from "./EventCard";
 
@@ -19,13 +18,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EventGrid({ userEvents }) {
   const classes = useStyles();
+  const [userURL, setUserURL] = useState();
+
+  useEffect(() => {
+    axios.get("/api/user/get_url").then((res) => {
+      setUserURL(res.data);
+    });
+  }, []);
 
   return (
     <div className={classes.root}>
       <Grid container spacing={10} justify="center">
         {userEvents.map((event, i) => (
           <Grid key={i} item>
-            <EventCard {...event} />
+            <EventCard {...event} url={userURL} />
           </Grid>
         ))}
       </Grid>

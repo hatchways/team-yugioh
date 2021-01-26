@@ -24,17 +24,25 @@ router.post("/api/authentication/google", async (req, res) => {
       res.status(500).send("Authentication error.");
       return;
     }
+    const accessToken = {
+      token: token.access_token,
+      exp: token.expiry_date,
+    };
+    const tokens = {
+      id_token: token.id_token,
+      access_token: accessToken,
+      refresh_token: token.refresh_token,
+    };
 
     const userInfo = await oAuthClient.verifyIdToken({
-      idToken: token.id_token,
-      audience: process.env.AUTH_CREDENTIALS
+      idToken: tokens.id_token,
+      audience: process.env.AUTH_CREDENTIALS,
     });
 
     const email = userInfo.payload.email;
 
     //check if google id_token is valid
     if (!userInfo.payload.email_verified || !userInfo) {
-      console.log("error");
       res.status(401).send({ error: "Authentication error" });
       return;
     }
@@ -46,7 +54,7 @@ router.post("/api/authentication/google", async (req, res) => {
     } else {
       const newUser = new User({
         email: userInfo.payload.email,
-        name: userInfo.payload.name
+        name: userInfo.payload.name,
       });
       try {
         await newUser.save();
@@ -56,8 +64,8 @@ router.post("/api/authentication/google", async (req, res) => {
           name: "",
           duration: 60,
           description: "",
-          link: "",
-          color: "#FF6A00"
+          link: "60-min",
+          color: "#FF6A00",
         });
       } catch (err) {
         console.log(err);
@@ -73,9 +81,16 @@ router.post("/api/authentication/google", async (req, res) => {
 
     //check if authentication record exists in db if it does update it
     const authRecord = await AuthStore.find({
-      email: userInfo.payload.email
+      email: userInfo.payload.email,
     });
-    if (authRecord.length > 0) {
+    if (authRecord) {
+      await AuthStore.update(
+        { email },
+        {
+          authenticationTokenGoogle: tokens.access_token,
+          refreshToken: tokens.refresh_token,
+        }
+      );
       res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
       res.status(201).send(jwtCompact);
       return;
@@ -83,7 +98,8 @@ router.post("/api/authentication/google", async (req, res) => {
     //save authentication tokens
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
-      googleAuthToken: token
+      authenticationTokenGoogle: tokens.access_token,
+      refreshToken: tokens.refresh_token,
     });
 
     try {

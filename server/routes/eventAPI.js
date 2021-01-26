@@ -28,4 +28,16 @@ router.get("/api/event", auth, (req, res) => {
     });
 });
 
+// GET event details
+router.get("/api/event_details/:pref/:suf", (req, res) => {
+  db.EventType.find({ link: `${req.params.pref}/${req.params.suf}` })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
+});
+
 module.exports = router;

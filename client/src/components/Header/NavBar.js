@@ -71,6 +71,7 @@ export default function NavBar() {
           variant="subtitle1"
           onClick={preventDefault}
           className={classes.link}
+          to="/home"
         >
           Home
         </Link>
@@ -85,6 +86,7 @@ export default function NavBar() {
           variant="subtitle1"
           onClick={preventDefault}
           className={classes.linkToUpgrade}
+          to="/upgrade"
         >
           Upgrade account
         </Link>
