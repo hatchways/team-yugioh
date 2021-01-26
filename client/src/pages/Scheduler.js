@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Route, useLocation } from "react-router";
 import {
   makeStyles,
   Paper,
   Grid,
   Divider,
   Typography,
-  Button,
-  TextField,
-  InputLabel,
 } from "@material-ui/core";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
@@ -17,11 +15,13 @@ import axios from "axios";
 
 const Scheduler = () => {
   const classes = useStyles();
+  const [path, setPath] = useState(useLocation().pathname);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventDetails, setEventDetails] = useState({
     name: "",
     details: "",
     duration: "",
+    link: "",
   });
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventId: "",
@@ -33,15 +33,15 @@ const Scheduler = () => {
   });
 
   useEffect(() => {
-    let queryURL = `/api/event_details/${window.location.pathname.slice(6)}`;
+    let queryURL = `/api/event_details/${path.slice(6)}`;
     axios.get(queryURL).then((res) => {
-      console.log(res);
       // TODO: redirect to 404 page on no event found?
       let event = res.data[0];
       setEventDetails({
         name: event.name,
         description: event.description,
         duration: event.duration,
+        link: event.link,
       });
       setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
     });
@@ -68,10 +68,15 @@ const Scheduler = () => {
           spacing={2}
         >
           {appointmentDetails.time ? (
-            <ConfirmAppointment
-              appointmentDetails={appointmentDetails}
-              setAppointmentDetails={setAppointmentDetails}
-            />
+            <Route
+              to={`${eventDetails.link}/${encodeURI(appointmentDetails.time)}`}
+            >
+              <ConfirmAppointment
+                appointmentDetails={appointmentDetails}
+                setAppointmentDetails={setAppointmentDetails}
+                path={path}
+              />
+            </Route>
           ) : (
             <>
               <Grid item>
@@ -95,6 +100,7 @@ const Scheduler = () => {
                     appointmentDetails={appointmentDetails}
                     setAppointmentDetails={setAppointmentDetails}
                     setSelectedDate={setSelectedDate}
+                    eventLink={eventDetails.link}
                   />
                 </Grid>
               </Grid>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Grid,
   Button,
@@ -7,13 +8,17 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
+import axios from "axios";
 
-const ConfirmAppointment = ({ appointmentDetails, setAppointmentDetails }) => {
+const ConfirmAppointment = ({
+  appointmentDetails,
+  setAppointmentDetails,
+  path,
+}) => {
   const classes = useStyles();
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setAppointmentDetails({ ...appointmentDetails, [name]: value });
-    console.log(appointmentDetails);
   };
 
   const createAppointment = () => {
@@ -30,13 +35,15 @@ const ConfirmAppointment = ({ appointmentDetails, setAppointmentDetails }) => {
   };
   return (
     <>
-      <Button
-        onClick={() =>
-          setAppointmentDetails({ ...appointmentDetails, time: false })
-        }
-      >
-        Back
-      </Button>
+      <Link to={`${path}`}>
+        <Button
+          onClick={() =>
+            setAppointmentDetails({ ...appointmentDetails, time: false })
+          }
+        >
+          Back
+        </Button>
+      </Link>
       <Grid
         direction="row"
         alignItems="center"
