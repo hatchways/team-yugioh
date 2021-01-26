@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 
-// import { useSetUserUpdatedContext } from "../../providers/Context";
+ import { useSetUserHasUpdated } from "../../providers/Context";
 
 import axios from "axios";
 import FormData from "form-data";
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const BUCKET = 'cal-app-user-imgs'
 
 export default function UploadDialog(props) {
   const { onClose, open } = props;
@@ -43,6 +44,8 @@ export default function UploadDialog(props) {
   const [preview, setPreview] = useState();
 
   const classes = useStyles();
+
+  const userHasUpdated = useSetUserHasUpdated()
 
   const handleClose = () => {
     onClose();
@@ -86,13 +89,16 @@ export default function UploadDialog(props) {
      
       console.log(res.data.msg);
       setMessage(true);
-      // // Updates Context
-      // useSetUserUpdatedContext(true)
-
+      
+      // const {fileName} = res.data
+      // const newPhotoUrl = `https://${BUCKET}.s3.amazonaws.com/${fileName}`
+  
       setTimeout(() => {
         setMessage(false);
         handleClose();
       }, 2000);
+      // Updates Context
+    userHasUpdated(true)
     } catch (err) {
       console.log(err);
       if (err.response.status === 500) {
@@ -101,6 +107,7 @@ export default function UploadDialog(props) {
         console.log(err.response.data.msg);
       }
     }
+    
   };
 
   return (
