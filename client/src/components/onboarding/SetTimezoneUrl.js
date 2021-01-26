@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Grid,
   Typography,
@@ -13,6 +13,7 @@ import axios from "axios";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
+import {debounce} from "../../utils/utils";
 
 const SetTimezoneUrl = props => {
   const classes = useStyles();
@@ -20,11 +21,13 @@ const SetTimezoneUrl = props => {
   const { url, setUrl, timezone, setTimezone } = props;
 
   const [unique, setUnique] = useState(true);
-  const handleChange = async e => {
-    setUrl(e.target.value);
+
+  
+
+  const checkUnique=async (linkVal)=>{
     try {
       const response = await axios.get(
-        `/api/user/is_unique?URL=${e.target.value}`
+        `/api/user/is_unique?URL=${linkVal}`
       );
       console.log(response.status);
       console.log(unique);
@@ -34,7 +37,16 @@ const SetTimezoneUrl = props => {
       console.log(err);
       setUnique(false);
     }
+  }
+
+  const debounceHandleChange= useCallback(debounce(checkUnique, 500), []);
+
+  const handleChange = e => {
+    
+    setUrl(e.target.value);
+    debounceHandleChange(e.target.value)
   };
+
 
   return (
     <div className={classes.root}>
