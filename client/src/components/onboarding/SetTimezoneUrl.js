@@ -13,7 +13,7 @@ import axios from "axios";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
-import {debounce} from "../../utils/utils";
+import { debounce } from "../../utils/utils";
 
 const SetTimezoneUrl = props => {
   const classes = useStyles();
@@ -22,29 +22,23 @@ const SetTimezoneUrl = props => {
 
   const [unique, setUnique] = useState(true);
 
-  
-
-  const checkUnique=async (linkVal)=>{
+  const checkUnique = async linkVal => {
     try {
-      const response = await axios.get(
-        `/api/user/is_unique?URL=${linkVal}`
-      );
+      const response = await axios.get(`/api/user/is_unique?URL=${linkVal}`);
       if (response.status === 200);
       setUnique(true);
     } catch (err) {
       console.log(err);
       setUnique(false);
     }
-  }
-
-  const debounceHandleChange= useCallback(debounce(checkUnique, 500), []);
-
-  const handleChange = e => {
-    
-    setUrl(e.target.value);
-    debounceHandleChange(e.target.value)
   };
 
+  const debounceCheckUnique = useCallback(debounce(checkUnique, 500), []);
+
+  const handleChange = e => {
+    setUrl(e.target.value);
+    debounceCheckUnique(e.target.value);
+  };
 
   return (
     <div className={classes.root}>
@@ -84,10 +78,25 @@ const SetTimezoneUrl = props => {
               value={url}
               type="text"
               className={classes.urlText}
-              onChange={(e) => {
-                setUrl(e.target.value);
-              }}
+              onChange={handleChange}
               fullWidth
+              error={!unique}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment
+                    position="start"
+                    classes={{ positionStart: classes.endAdornment }}
+                  >
+                    {url.length > 0 ? (
+                      unique ? (
+                        <DoneIcon className={classes.validIcon} />
+                      ) : (
+                        <ClearIcon className={classes.invalidIcon} />
+                      )
+                    ) : null}
+                  </InputAdornment>
+                )
+              }}
             />
           </Grid>
         </Grid>
@@ -129,10 +138,10 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     height: "20em",
     width: "90%",
-    margin: "0 auto",
+    margin: "0 auto"
   },
   entry: {
-    margin: "1.5em 0",
+    margin: "1.5em 0"
   },
   urlPrefixInput: {
     width: "8em",
@@ -175,51 +184,50 @@ const useStyles = makeStyles(theme => ({
     color: "red",
     fontSize: 16
   },
-  noBorder:{
-    bordre:"none"
+  noBorder: {
+    bordre: "none"
   },
   link: {
     border: "1px solid lightgray",
     borderRadius: "4px",
-    marginLeft:3,
+    marginLeft: 3,
     "& > *": {
-        margin: "-1px 0",
-      },
+      margin: "-1px 0"
+    },
     "&:hover": {
-      borderColor: "black",
+      borderColor: "black"
     },
     "&:focus-within": {
       borderColor: theme.palette.primary.main,
-      borderWidth: "2px",
-      
+      borderWidth: "2px"
     },
     "& > * > * > input": {
-      padding: "8px",
+      padding: "8px"
     },
     "& > * > * > fieldset": {
-      border: "none",
-    },
+      border: "none"
+    }
   },
   endAdornment: {
-    marginRight:-10
+    marginRight: -10
   },
   prefix: {
     fontSize: ".75rem",
     fontWeight: "600",
     color: "lightgrey",
     borderRight: "1px solid lightgrey",
-    textAlign: "center",
+    textAlign: "center"
   },
   url: {
     "& > * > * > input": {
-      padding: "0",
+      padding: "0"
     },
     "& > * > * > fieldset": {
-      border: "none",
-    },
+      border: "none"
+    }
   },
   urlText: {
-    marginTop: ".2rem",
+    marginTop: ".2rem"
   },
   groupedInput: {
     border: "1px solid lightgray",
@@ -228,16 +236,16 @@ const useStyles = makeStyles(theme => ({
     width: "50%",
     margin: 0,
     "&:hover": {
-      borderColor: "black",
+      borderColor: "black"
     },
     "&:focus-within": {
       borderColor: theme.palette.primary.main,
       borderWidth: "2px",
       "& > *": {
-        margin: "-1px 0",
-      },
-    },
-  },
+        margin: "-1px 0"
+      }
+    }
+  }
 }));
 
 SetTimezoneUrl.propTypes = {
