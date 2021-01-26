@@ -5,6 +5,7 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core";
+import { Brightness1 } from "@material-ui/icons";
 import React from "react";
 
 const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
@@ -18,21 +19,41 @@ const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
     setTeamMembers(filteredList);
   };
   return (
-    <div className={classes.root}>
+    <Grid
+      container
+      className={classes.root}
+      direction="column"
+      wrap="nowrap"
+      spacing={3}
+    >
       {teamMemberNotEmpty &&
         teamMembers.map((member, index) => (
-          <Grid container key={index}>
-            <Typography>{member.email}</Typography>
-            <Button onClick={removeEmailFromInvitedList(member)}>Remove</Button>
+          <Grid item container key={index} alignItems="center">
+            <Grid item xs={2}>
+              <Brightness1 color="primary" className={classes.icon} />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography>{member.email}</Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Button onClick={removeEmailFromInvitedList(member)}>
+                Remove
+              </Button>
+            </Grid>
           </Grid>
         ))}
-    </div>
+    </Grid>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: theme.spacing(20),
+    width: theme.spacing(20),
+  },
+  icon: {
+    width: theme.spacing(1.4),
+    height: theme.spacing(1.4),
   },
 }));
 
