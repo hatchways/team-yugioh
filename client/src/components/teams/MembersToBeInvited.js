@@ -10,9 +10,11 @@ import React from "react";
 const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
   const classes = useStyles();
   const teamMemberNotEmpty = teamMembers.length !== 0;
-  const removeEmailFromInvitedList = (email) => () => {
+  const removeEmailFromInvitedList = (memberToRemove) => () => {
     // Caveat: each email must be unique in the list for this to work
-    const filteredList = teamMembers.filter((member) => member !== email);
+    const filteredList = teamMembers.filter(
+      (member) => member.email !== memberToRemove.email
+    );
     setTeamMembers(filteredList);
   };
   return (
@@ -20,7 +22,7 @@ const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
       {teamMemberNotEmpty &&
         teamMembers.map((member, index) => (
           <Grid container key={index}>
-            <Typography>{member}</Typography>
+            <Typography>{member.email}</Typography>
             <Button onClick={removeEmailFromInvitedList(member)}>Remove</Button>
           </Grid>
         ))}
