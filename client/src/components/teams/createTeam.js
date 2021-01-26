@@ -9,6 +9,7 @@ import {
   DialogActions,
   InputLabel,
   TextField,
+  Grid,
 } from "@material-ui/core";
 
 import InviteMembers from "./InviteMembers";
@@ -36,23 +37,43 @@ const CreateTeam = ({ open, closeDialog }) => {
   const [teamMembers, setTeamMembers] = useState([]);
 
   return (
-    <Dialog open={open} onClose={closeDialog}>
+    <Dialog open={open} onClose={closeDialog} fullWidth>
       <DialogTitle variant="h5">Create your team here</DialogTitle>
       <DialogContent>
-        <InputLabel>Team name</InputLabel>
-        <TextField value={teamName} onChange={handleTeamNameChange} />
-        <InputLabel>Team description</InputLabel>
-        <TextField value={teamDescription} onChange={handleDescriptionChange} />
-        <InputLabel>Invite members with their emails</InputLabel>
-        <InviteMembers
-          setTeamMembers={setTeamMembers}
-          teamMembers={teamMembers}
-        />
-        <MembersToBeInvited
-          teamMembers={teamMembers}
-          setTeamMembers={setTeamMembers}
-        />
+        <Grid container direction="column" spacing={2}>
+          <Grid item container>
+            <Grid item xs={5}>
+              <InputLabel>Team name</InputLabel>
+            </Grid>
+            <TextField value={teamName} onChange={handleTeamNameChange} />
+          </Grid>
+
+          <Grid item container>
+            <Grid item xs={5}>
+              <InputLabel>Team description</InputLabel>
+            </Grid>
+            <TextField
+              value={teamDescription}
+              onChange={handleDescriptionChange}
+            />
+          </Grid>
+
+          <Grid item>
+            <InviteMembers
+              setTeamMembers={setTeamMembers}
+              teamMembers={teamMembers}
+            />
+          </Grid>
+
+          <Grid item container>
+            <MembersToBeInvited
+              teamMembers={teamMembers}
+              setTeamMembers={setTeamMembers}
+            />
+          </Grid>
+        </Grid>
       </DialogContent>
+
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
         <Button onClick={createTeam}>Create your team</Button>
