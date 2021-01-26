@@ -33,7 +33,9 @@ const Scheduler = () => {
   });
 
   useEffect(() => {
-    let queryURL = `/api/event_details/${path.slice(6)}`;
+    const regex = /\/.*\/.*\//g;
+    let searchUrl = path.match(regex)[0].slice(6);
+    const queryURL = `/api/event_details/${searchUrl}`;
     axios.get(queryURL).then((res) => {
       // TODO: redirect to 404 page on no event found?
       let event = res.data[0];
