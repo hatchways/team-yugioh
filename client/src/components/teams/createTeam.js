@@ -43,7 +43,7 @@ const CreateTeam = ({ open, closeDialog }) => {
         <Grid container direction="column" spacing={2}>
           <Grid item container alignItems="center">
             <Grid item xs={5}>
-              <InputLabel>Team name</InputLabel>
+              <InputLabel className={classes.label}>Team name</InputLabel>
             </Grid>
             <Grid item xs={7}>
               <TextField
@@ -58,7 +58,9 @@ const CreateTeam = ({ open, closeDialog }) => {
 
           <Grid item container alignItems="center">
             <Grid item xs={5}>
-              <InputLabel>Team description</InputLabel>
+              <InputLabel className={classes.label}>
+                Team description
+              </InputLabel>
             </Grid>
             <Grid item xs={7}>
               <TextField
@@ -100,6 +102,11 @@ const CreateTeam = ({ open, closeDialog }) => {
 const useStyles = makeStyles((theme) => ({
   descriptionInput: {
     height: theme.spacing(20),
+  },
+  label: {
+    fontWeight: "bold",
+    fontSize: "0.9rem",
+    color: "rgba(0, 0, 0, 0.8)",
   },
 }));
 

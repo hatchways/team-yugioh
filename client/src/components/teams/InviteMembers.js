@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 
-import { Button, Grid, InputLabel, TextField } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  InputLabel,
+  TextField,
+  makeStyles,
+} from "@material-ui/core";
 
 const InviteMembers = ({ setTeamMembers, teamMembers }) => {
+  const classes = useStyles();
   const [email, setEmail] = useState();
   const handleEmailChange = (event) => {
     event.preventDefault();
@@ -14,7 +21,9 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   return (
     <Grid container alignItems="center">
       <Grid item xs={5}>
-        <InputLabel>Invite members with their email</InputLabel>
+        <InputLabel className={classes.label}>
+          Invite members with their email
+        </InputLabel>
       </Grid>
       <Grid item xs={5}>
         <TextField
@@ -31,5 +40,13 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
     </Grid>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  label: {
+    fontWeight: "bold",
+    fontSize: "0.9rem",
+    color: "rgba(0, 0, 0, 0.8)",
+  },
+}));
 
 export default InviteMembers;
