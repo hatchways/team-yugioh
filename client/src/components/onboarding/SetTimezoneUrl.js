@@ -23,7 +23,7 @@ const SetTimezoneUrl = (props) => {
         wrap="nowrap"
         alignItems="center"
         justify="flex-start"
-        spacing="2"
+        spacing={2}
         className={classes.entry}
       >
         <Grid item>
@@ -37,7 +37,7 @@ const SetTimezoneUrl = (props) => {
           direction="row"
           alignItems="center"
           justify="flex-start"
-          spacing="2"
+          spacing={2}
           wrap="nowrap"
           item
           className={classes.groupedInput}
@@ -66,7 +66,7 @@ const SetTimezoneUrl = (props) => {
         container
         item
         alignItems="center"
-        spacing="2"
+        spacing={2}
         className={classes.entry}
       >
         <Grid item>

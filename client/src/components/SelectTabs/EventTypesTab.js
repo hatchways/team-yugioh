@@ -316,18 +316,17 @@ export default function EventTypesTab() {
               justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs="2" item>
+              <Grid xs={2} item>
                 <InputLabel className={classes.label}>Name</InputLabel>
               </Grid>
 
-              <Grid xs="10" item>
+              <Grid xs={10} item>
                 <TextField
                   variant="outlined"
                   margin="normal"
                   name="name"
                   type="text"
                   onChange={handleFormChange}
-                  disableUnderline
                   fullWidth
                   value={eventBody.name}
                 />
@@ -340,22 +339,22 @@ export default function EventTypesTab() {
               justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs="2" item>
+              <Grid xs={2} item>
                 <InputLabel className={classes.label}>Duration</InputLabel>
               </Grid>
 
-              <Grid xs="6" item>
+              <Grid xs={6} item>
                 <Grid
                   container
                   direction="row"
                   alignItems="center"
                   justify="flex-start"
                   wrap="nowrap"
-                  spacing="2"
+                  spacing={2}
                   className={classes.groupedInput}
                   id="durationGroup"
                 >
-                  <Grid xs="4" item>
+                  <Grid xs={4} item>
                     <Input
                       label="Duration"
                       name="duration"
@@ -370,7 +369,7 @@ export default function EventTypesTab() {
                       fullWidth
                     />
                   </Grid>
-                  <Grid xs="8" item>
+                  <Grid xs={8} item>
                     <Select
                       value={unit}
                       onChange={handleUnitChange}
@@ -392,13 +391,13 @@ export default function EventTypesTab() {
               justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs="2" item>
+              <Grid xs={2} item>
                 <InputLabel className={classes.descriptionLabel}>
                   Desciption
                 </InputLabel>
               </Grid>
 
-              <Grid xs="10" item>
+              <Grid xs={10} item>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -422,26 +421,26 @@ export default function EventTypesTab() {
               justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs="2" item>
+              <Grid xs={2} item>
                 <InputLabel className={classes.label}>Link</InputLabel>
               </Grid>
 
-              <Grid xs="10" item>
+              <Grid xs={10} item>
                 <Grid
                   container
                   direction="row"
                   alignItems="center"
                   justify="flex-start"
-                  spacing="2"
+                  spacing={2}
                   wrap="nowrap"
                   id="linkGroup"
                   className={classes.groupedInput}
                 >
                   {/* TODO: pass in user link prefix */}
-                  <Grid xs="5" className={classes.prefix} item>
+                  <Grid xs={5} className={classes.prefix} item>
                     calendapp.com/john-doe/
                   </Grid>
-                  <Grid className={classes.link} xs="7" item>
+                  <Grid className={classes.link} xs={7} item>
                     <TextField
                       name="link"
                       variant="outlined"
@@ -461,11 +460,11 @@ export default function EventTypesTab() {
               justify="flex-start"
               className={classes.colorRow}
             >
-              <Grid xs="2" item>
+              <Grid xs={2} item>
                 <InputLabel className={classes.label}>Color</InputLabel>
               </Grid>
 
-              <Grid xs="10" item>
+              <Grid xs={10} item>
                 <RadioGroup
                   aria-label="color"
                   name="color"
@@ -477,7 +476,7 @@ export default function EventTypesTab() {
                     alignItems="baseline"
                     container
                     justify="flex-start"
-                    spacing="2"
+                    spacing={2}
                   >
                     {[
                       { name: "purple", hex: "#7900FF" },
