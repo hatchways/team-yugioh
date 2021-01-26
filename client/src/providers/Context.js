@@ -2,7 +2,7 @@ import React, { useState, useContext, createContext, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-// USER  CONTEXT
+// CREATE USER CONTEXT
 export const UserContext = createContext();
 
 //CUSTOM HOOKS
@@ -21,28 +21,46 @@ export const useSetAuthenticated = () => {
   const setAuthenticated = useContext(UserContext).setAuthenticated;
   return setAuthenticated;
 };
-// Get user Data
+// Get User Data
 export const useUserContext = () => {
   return useContext(UserContext).userData;
+};
+// Set User Data has Updated
+export const useSetUserUpdatedContext = () => {
+  return useContext(UserContext).setUserUpdated;
 };
 
 // CONTEXT PROVIDER SET UP
 export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
+  const [userUpdated, setUserUpdated] = useState(false);
 
+  // Gets User Data from DB
   useEffect(() => {
     axios
       .get('/api/user/data')
       .then((res) => {
-        console.log(res.data);
         setUserData(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('/api/user/data')
+      .then((res) => {
+        setUserData(res.data);
+      })
+      .catch((err) => console.log(err));
+    setUserUpdated(false);
+  }, [userUpdated]);
+
   return (
-    <UserContext.Provider value={{userData, authenticated, setAuthenticated}}>{children}</UserContext.Provider>
+    <UserContext.Provider
+      value={{ userData, setUserUpdated, authenticated, setAuthenticated }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 
