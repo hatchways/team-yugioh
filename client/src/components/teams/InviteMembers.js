@@ -12,12 +12,18 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
     setTeamMembers([...teamMembers, email]);
   };
   return (
-    <Grid container>
+    <Grid container alignItems="center">
       <Grid item xs={5}>
         <InputLabel>Invite members with their email</InputLabel>
       </Grid>
       <Grid item xs={5}>
-        <TextField value={email} onChange={handleEmailChange} />
+        <TextField
+          fullwidth
+          variant="outlined"
+          value={email}
+          onChange={handleEmailChange}
+          margin="normal"
+        />
       </Grid>
       <Grid item xs={2}>
         <Button onClick={addEmailToInvitedList}>Invite</Button>

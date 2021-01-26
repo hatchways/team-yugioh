@@ -30,7 +30,7 @@ const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "10em",
+    height: theme.spacing(20),
   },
 }));
 

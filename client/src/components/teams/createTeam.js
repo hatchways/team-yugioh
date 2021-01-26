@@ -41,21 +41,36 @@ const CreateTeam = ({ open, closeDialog }) => {
       <DialogTitle variant="h5">Create your team here</DialogTitle>
       <DialogContent>
         <Grid container direction="column" spacing={2}>
-          <Grid item container>
+          <Grid item container alignItems="center">
             <Grid item xs={5}>
               <InputLabel>Team name</InputLabel>
             </Grid>
-            <TextField value={teamName} onChange={handleTeamNameChange} />
+            <Grid item xs={7}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                value={teamName}
+                onChange={handleTeamNameChange}
+              />
+            </Grid>
           </Grid>
 
-          <Grid item container>
+          <Grid item container alignItems="center">
             <Grid item xs={5}>
               <InputLabel>Team description</InputLabel>
             </Grid>
-            <TextField
-              value={teamDescription}
-              onChange={handleDescriptionChange}
-            />
+            <Grid item xs={7}>
+              <TextField
+                value={teamDescription}
+                onChange={handleDescriptionChange}
+                variant="outlined"
+                multiline
+                margin="normal"
+                fullWidth
+                InputProps={{ className: classes.descriptionInput }}
+              />
+            </Grid>
           </Grid>
 
           <Grid item>
@@ -65,7 +80,7 @@ const CreateTeam = ({ open, closeDialog }) => {
             />
           </Grid>
 
-          <Grid item container>
+          <Grid item>
             <MembersToBeInvited
               teamMembers={teamMembers}
               setTeamMembers={setTeamMembers}
@@ -82,6 +97,10 @@ const CreateTeam = ({ open, closeDialog }) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  descriptionInput: {
+    height: theme.spacing(20),
+  },
+}));
 
 export default CreateTeam;
