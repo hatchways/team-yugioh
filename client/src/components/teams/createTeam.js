@@ -1,8 +1,12 @@
 import React from "react";
 import { Dialog } from "@material-ui/core";
 
-const createTeam = () => {
-  return <Dialog>Create your team here</Dialog>;
+const CreateTeam = ({ open, closeDialog }) => {
+  return (
+    <Dialog open={open} onClose={closeDialog}>
+      Create your team here
+    </Dialog>
+  );
 };
 
-export default createTeam;
+export default CreateTeam;
