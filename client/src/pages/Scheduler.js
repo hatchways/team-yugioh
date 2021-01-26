@@ -78,7 +78,7 @@ const Scheduler = () => {
               </Grid>
               <Grid item container spacing={2}>
                 <Grid item xs={7}>
-                  <PickDate selectedDate={selectedDate} />
+                  <PickDate selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                   <Typography variant="subtitle2">
                     Coordinated Universal Time
                   </Typography>
