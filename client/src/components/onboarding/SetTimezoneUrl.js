@@ -53,42 +53,56 @@ const SetTimezoneUrl = props => {
         item
         wrap="nowrap"
         alignItems="center"
+        justify="flex-start"
+        spacing="2"
         className={classes.entry}
       >
-        <Typography variant="subtitle1">Create your CalendApp URL:</Typography>
-        <div className={classes.link}>
-        <TextField
-          className={classes.urlPrefixInput}
-          disabled
-          variant="outlined"
-          defaultValue="calendapp.com/"
-          size="small"
-        />
-        <TextField
-          className={classes.urlInput}
-          required
-          variant="outlined"
-          size="small"
-          value={url}
-          onChange={handleChange}
-          error={!unique}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="start" classes={{positionStart:classes.endAdornment}} >
-                {url.length>0 ? unique? (
-                  <DoneIcon className={classes.validIcon} />
-                ) : (
-                  <ClearIcon className={classes.invalidIcon} />
-                ):null}
-              </InputAdornment>
-            )
-          }}
-        />
-        </div>
+        <Grid item>
+          <Typography variant="subtitle1">
+            Create your CalendApp URL:
+          </Typography>
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="flex-start"
+          spacing="2"
+          wrap="nowrap"
+          item
+          className={classes.groupedInput}
+        >
+          {/* TODO: pass in user link prefix */}
+          <Grid className={classes.prefix} item>
+            calendapp.com/
+          </Grid>
+          <Grid className={classes.url} item>
+            <TextField
+              name="link"
+              variant="outlined"
+              value={url}
+              type="text"
+              className={classes.urlText}
+              onChange={(e) => {
+                setUrl(e.target.value);
+              }}
+              fullWidth
+            />
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid container item alignItems="center" className={classes.entry}>
-        <Typography variant="subtitle1">Select your time zone</Typography>
+      <Grid
+        container
+        item
+        alignItems="center"
+        spacing="2"
+        className={classes.entry}
+      >
+        <Grid item>
+          <Typography variant="subtitle1">Select your time zone</Typography>
+        </Grid>
         <TextField
           select
           value={timezone}
@@ -106,18 +120,6 @@ const SetTimezoneUrl = props => {
           })}
         </TextField>
       </Grid>
-
-      <Grid container justify="center">
-        <Button
-          color="primary"
-          variant="contained"
-          className={classes.continueButton}
-        >
-          <Link to="/onboarding/2" className={classes.link}>
-            Continue
-          </Link>
-        </Button>
-      </Grid>
     </div>
   );
 };
@@ -125,10 +127,12 @@ const SetTimezoneUrl = props => {
 const useStyles = makeStyles(theme => ({
   root: {
     position: "relative",
-    height: "20em"
+    height: "20em",
+    width: "90%",
+    margin: "0 auto",
   },
   entry: {
-    margin: "1.5em 2em"
+    margin: "1.5em 0",
   },
   urlPrefixInput: {
     width: "8em",
@@ -198,7 +202,42 @@ const useStyles = makeStyles(theme => ({
   },
   endAdornment: {
     marginRight:-10
-  }
+  },
+  prefix: {
+    fontSize: ".75rem",
+    fontWeight: "600",
+    color: "lightgrey",
+    borderRight: "1px solid lightgrey",
+    textAlign: "center",
+  },
+  url: {
+    "& > * > * > input": {
+      padding: "0",
+    },
+    "& > * > * > fieldset": {
+      border: "none",
+    },
+  },
+  urlText: {
+    marginTop: ".2rem",
+  },
+  groupedInput: {
+    border: "1px solid lightgray",
+    borderRadius: "4px",
+    height: "3rem",
+    width: "50%",
+    margin: 0,
+    "&:hover": {
+      borderColor: "black",
+    },
+    "&:focus-within": {
+      borderColor: theme.palette.primary.main,
+      borderWidth: "2px",
+      "& > *": {
+        margin: "-1px 0",
+      },
+    },
+  },
 }));
 
 SetTimezoneUrl.propTypes = {

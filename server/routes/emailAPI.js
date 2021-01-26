@@ -23,7 +23,6 @@ router.post("/api/email", auth, (req, res) => {
   sgMail
     .send(msg)
     .then(() => {
-      console.log("Email sent");
       res.send("Email sent!");
     })
     .catch((error) => {

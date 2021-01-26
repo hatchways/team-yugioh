@@ -33,9 +33,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper
   },
-  dialog: {
-    overflowX: "hidden"
-  },
   profileAndNewTypeBox: {
     marginBottom: theme.spacing(5)
   },
@@ -89,7 +86,6 @@ const useStyles = makeStyles(theme => ({
     textAlign: "left"
   },
   descriptionLabel: {
-    // marginTop: "20%",
     fontWeight: "bold",
     fontSize: "0.9rem",
     color: "rgba(0, 0, 0, 0.8)"
@@ -213,6 +209,8 @@ export default function EventTypesTab() {
   const [userEvents, setUserEvents] = useState([]);
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [unique, setUnique] = useState(true);
+  const [userURL, setUserURL] = useState();
+
   const [eventBody, setEventBody] = useState({
     name: "",
     duration: "",
@@ -228,7 +226,13 @@ export default function EventTypesTab() {
       .then(res => {
         setUserEvents([...res.data]);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
+    axios
+      .get("/api/user/get_url")
+      .then((res) => {
+        setUserURL(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleClickOpen = () => {
@@ -288,7 +292,8 @@ export default function EventTypesTab() {
     axios
       .post("/api/event", {
         ...eventBody,
-        duration: minutes
+        duration: minutes,
+        link: `${userURL}/${eventBody.link}`,
       })
       .then(res => {
         const currentEventTypes = [...userEvents];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Grid,
@@ -13,12 +13,13 @@ import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
 import SetAvailability from "../components/onboarding/SetAvailability";
 import ProgressBar from "../components/onboarding/ProgressBar";
+const axios = require("axios");
 
 const OnBoarding = () => {
+  const [onboarded, setOnboarded] = useState(false);
   const classes = useStyles();
 
-  const match = useRouteMatch({ path: "/onboarding/:page" });
-  const page = match ? match.params.page : 0;
+  const [page, setPage] = useState(1);
 
   const [url, setUrl] = useState("");
   const [timezone, setTimezone] = useState("");
@@ -27,77 +28,82 @@ const OnBoarding = () => {
   const [days, setDays] = useState({});
   
 
-  const submitIfOnLastPage = () => {
+  useEffect(() => {
+    axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
+      if (res.data !== "") {
+        setOnboarded(true);
+      }
+    });
+  }, []);
+
+  const handleButtonClick = () => {
+    setPage(page + 1);
     if (page === 3) {
-      //send request to back end
+      axios
+        .post("/api/user/", { URL: url, timezone: timezone })
+        .then((res) => setOnboarded(true));
     }
   };
 
   return (
-    <Paper elevation={5} className={classes.paper}>
-      <div className={classes.root}>
-        <Grid
-          container
-          item
-          wrap="nowrap"
-          alignItems="center"
-          justify="space-between"
-          className={classes.topContent}
-        >
-          <Typography variant="h5">
-            {page === "1"
-              ? "Welcome to CalendApp!"
-              : page === "2"
-              ? "Your Google calendar is connected!"
-              : "Set your availability"}
-          </Typography>
-          <ProgressBar start={page - 1} />
-        </Grid>
-        <Divider />
-        <Switch>
-          <Route path="/onboarding/1">
-            <SetTimezoneUrl
-              url={url}
-              setUrl={setUrl}
-              timezone={timezone}
-              setTimezone={setTimezone}
-            />
-          </Route>
-          <Route path="/onboarding/2">
-            <ConnectGoogleCalendar />
-          </Route>
-          <Route path="/onboarding/3">
-            <SetAvailability
-              startHour={startHour}
-              setStartHour={setStartHour}
-              finishHour={finishHour}
-              setFinishHour={setFinishHour}
-              days={days}
-              setDays={setDays}
-            />
-          </Route>
-          <Route>
-            <Redirect to="/onboarding/1" />
-          </Route>
-        </Switch>
-
-        <Grid container justify="center">
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.button}
-            onClick={submitIfOnLastPage}
-          >
-            <Link
-              to={page === "3" ? "/" : `/onboarding/${parseInt(page) + 1}`}
-              className={classes.link}
+    <>
+      {onboarded ? (
+        <Redirect to="/home" />
+      ) : (
+        <Paper elevation={5} className={classes.paper}>
+          <div className={classes.root}>
+            <Grid
+              container
+              item
+              wrap="nowrap"
+              alignItems="center"
+              justify="space-between"
+              className={classes.topContent}
             >
-              {page === "3" ? "Finish" : "Continue"}
-            </Link>
-          </Button>
-        </Grid>
-      </div>
-    </Paper>
+              <Typography variant="h5">
+                {page === 1
+                  ? "Welcome to CalendApp!"
+                  : page === 2
+                  ? "Your Google calendar is connected!"
+                  : "Set your availability"}
+              </Typography>
+              <ProgressBar start={page - 1} />
+            </Grid>
+            <Divider />
+            {page === 1 && (
+              <SetTimezoneUrl
+                url={url}
+                setUrl={setUrl}
+                timezone={timezone}
+                setTimezone={setTimezone}
+              />
+            )}
+            {page === 2 && <ConnectGoogleCalendar />}
+            {page === 3 && (
+              <SetAvailability
+                startHour={startHour}
+                setStartHour={setStartHour}
+                finishHour={finishHour}
+                setFinishHour={setFinishHour}
+                days={days}
+                setDays={setDays}
+              />
+            )}
+            {page === 4 && <Redirect to="/home" />}
+            <Grid container justify="center">
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.button}
+                onClick={handleButtonClick}
+              >
+                {page === 3 ? "Finish" : "Continue"}
+              </Button>
+            </Grid>
+          </div>
+        </Paper>
+      )}
+    </>
   );
 };
 
@@ -110,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     height: "6em",
   },
   paper: {
-    margin: "auto",
+    margin: "8% auto",
     width: "30em",
   },
   gridForMainContent: {

@@ -44,18 +44,6 @@ const SetAvailability = (props) => {
           <AvailableDays days={days} setDays={setDays} />
         </Grid>
       </Grid>
-
-      <Grid container justify="center">
-        <Button
-          color="primary"
-          variant="contained"
-          className={classes.finishButton}
-        >
-          <Link to="/onboarding/3" className={classes.link}>
-            Finish
-          </Link>
-        </Button>
-      </Grid>
     </div>
   );
 };
