@@ -51,7 +51,6 @@ export default function UploadDialog(props) {
   useEffect(() => {
     //get the url and call setUrl(<url>)
     setUrl(`https://${BUCKET}.s3.amazonaws.com/${filename}`);
-    console.log(url);
   }, []);
 
   // create a preview as a side effect, whenever selected file is changed
@@ -93,7 +92,6 @@ export default function UploadDialog(props) {
       const { fileName } = res.data;
       setFilename(fileName);
 
-      console.log("File Uploaded");
       setMessage(true);
       await setTimeout(() => {
         setMessage(false);
