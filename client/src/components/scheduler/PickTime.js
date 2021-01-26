@@ -25,7 +25,7 @@ const PickTime = ({selectedDate, interval, availabilityTimes}) => {
       setTimeSlots(getTimeSlots(res.data.availability, interval, availabilityTimes))
       }).catch(err=>console.log(err))
     
-  }, [date]);
+  }, []);
 
 
 

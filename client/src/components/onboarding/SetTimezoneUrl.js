@@ -5,12 +5,12 @@ import {
   TextField,
   MenuItem,
   makeStyles,
-  Button,
+  Button
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const SetTimezoneUrl = (props) => {
+const SetTimezoneUrl = props => {
   const classes = useStyles();
 
   const { url, setUrl, timezone, setTimezone } = props;
@@ -53,7 +53,7 @@ const SetTimezoneUrl = (props) => {
               value={url}
               type="text"
               className={classes.urlText}
-              onChange={(e) => {
+              onChange={e => {
                 setUrl(e.target.value);
               }}
               fullWidth
@@ -75,7 +75,7 @@ const SetTimezoneUrl = (props) => {
         <TextField
           select
           value={timezone}
-          onChange={(e) => {
+          onChange={e => {
             setTimezone(e.target.value);
           }}
           className={classes.timezoneMenu}
@@ -93,36 +93,36 @@ const SetTimezoneUrl = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     position: "relative",
     height: "20em",
     width: "90%",
-    margin: "0 auto",
+    margin: "0 auto"
   },
   entry: {
-    margin: "1.5em 0",
+    margin: "1.5em 0"
   },
   urlPrefixInput: {
     width: "8em",
     lineHeight: "1.2em",
-    margin: "0 0 0 1em",
+    margin: "0 0 0 1em"
   },
   urlInput: {
     margin: "0",
     width: "6em",
-    lineHeight: "1.2em",
+    lineHeight: "1.2em"
   },
   urlInputTextFormat: {
-    fontWeight: 600,
+    fontWeight: 600
   },
   timezoneMenu: {
     width: "5em",
-    margin: "0 1em",
+    margin: "0 1em"
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   continueButton: {
     background: theme.palette.primary.button,
@@ -130,25 +130,25 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 50px 15px 50px",
     position: "absolute",
     bottom: "2em",
-    width: "3em",
+    width: "3em"
   },
   prefix: {
     fontSize: ".75rem",
     fontWeight: "600",
     color: "lightgrey",
     borderRight: "1px solid lightgrey",
-    textAlign: "center",
+    textAlign: "center"
   },
   url: {
     "& > * > * > input": {
-      padding: "0",
+      padding: "0"
     },
     "& > * > * > fieldset": {
-      border: "none",
-    },
+      border: "none"
+    }
   },
   urlText: {
-    marginTop: ".2rem",
+    marginTop: ".2rem"
   },
   groupedInput: {
     border: "1px solid lightgray",
@@ -157,23 +157,23 @@ const useStyles = makeStyles((theme) => ({
     width: "50%",
     margin: 0,
     "&:hover": {
-      borderColor: "black",
+      borderColor: "black"
     },
     "&:focus-within": {
       borderColor: theme.palette.primary.main,
       borderWidth: "2px",
       "& > *": {
-        margin: "-1px 0",
-      },
-    },
-  },
+        margin: "-1px 0"
+      }
+    }
+  }
 }));
 
 SetTimezoneUrl.propTypes = {
   url: PropTypes.string,
   setUrl: PropTypes.func,
   timezone: PropTypes.string,
-  setTimezone: PropTypes.func,
+  setTimezone: PropTypes.func
 };
 
 export default SetTimezoneUrl;
