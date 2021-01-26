@@ -21,6 +21,18 @@ router.get("/api/user/is_unique", auth, (req, res) => {
     });
 });
 
+// GET user's URL
+router.get("/api/user/get_url", auth, (req, res) => {
+  db.User.find({ _id: req.userId })
+    .then((data) => {
+      res.send(data[0].URL);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
+});
+
 // UPDATE user information
 router.post("/api/user/", auth, (req, res) => {
   db.User.updateOne({ _id: req.userId }, { $set: req.body })

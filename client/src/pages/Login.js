@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +10,8 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { Button } from "@material-ui/core";
+import { testAuth } from "../utils/googleAuth";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +72,20 @@ const LogInPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
+
+  const [hasCookie, setHasCookie] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (document.cookie.match(/calendapp=true/g)) {
+        setHasCookie(true);
+        testAuth().then((res) => {
+          setUserState({ ...userState, loggedIn: true });
+          clearInterval(interval);
+        });
+      }
+    }, 100);
+  }, []);
 
   const handleClick = (event) => {
     event.preventDefault();
