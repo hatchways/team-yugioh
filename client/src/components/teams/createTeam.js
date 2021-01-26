@@ -44,7 +44,10 @@ const CreateTeam = ({ open, closeDialog }) => {
         <InputLabel>Team description</InputLabel>
         <TextField value={teamDescription} onChange={handleDescriptionChange} />
         <InputLabel>Invite members with their emails</InputLabel>
-        <InviteMembers setTeamMembers={setTeamMembers} />
+        <InviteMembers
+          setTeamMembers={setTeamMembers}
+          teamMembers={teamMembers}
+        />
         <MembersToBeInvited
           teamMembers={teamMembers}
           setTeamMembers={setTeamMembers}
