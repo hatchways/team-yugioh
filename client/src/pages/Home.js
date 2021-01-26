@@ -28,14 +28,12 @@ export default function Home() {
 
   return (
     <div className={classes.root}>
-      <UserContextProvider>
-        <NavBar />
-        <Typography className={classes.title} variant='h5'>
-          My CalendApp
-        </Typography>
+      <NavBar />
+      <Typography className={classes.title} variant='h5'>
+        My CalendApp
+      </Typography>
 
-        <SelectTabs />
-      </UserContextProvider>
+      <SelectTabs />
 
       <Box
         className={classes.getStartedButton}

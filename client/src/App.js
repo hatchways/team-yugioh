@@ -14,7 +14,7 @@ import UpgradePage from "./pages/UpgradePage";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
-import { useSetAuthenticated } from "./providers/AuthProvider";
+import { useSetAuthenticated } from "./providers/Context";
 import axios from "axios";
 
 import "./App.css";
@@ -31,6 +31,7 @@ function App() {
   }, []);
   return (
     <MuiThemeProvider theme={theme}>
+
       <BrowserRouter>
         <Route path="/appt">
           <Scheduler />

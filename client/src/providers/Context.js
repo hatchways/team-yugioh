@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 // USER  CONTEXT
-const UserContext = createContext();
+export const UserContext = createContext();
 
 //CUSTOM HOOKS
 // Get Auth
