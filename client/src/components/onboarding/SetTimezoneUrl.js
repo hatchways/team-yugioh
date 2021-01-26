@@ -64,7 +64,7 @@ const SetTimezoneUrl = props => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="start" className={classes.endAdornment}>
-                {unique ? (
+                {unique && url.length>0 ? (
                   <DoneIcon className={classes.validIcon} />
                 ) : (
                   <ClearIcon className={classes.invalidIcon} />

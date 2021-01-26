@@ -28,4 +28,20 @@ router.get("/api/event", auth, (req, res) => {
     });
 });
 
+// GET whether event url is unique
+router.get("/api/event/is_unique", auth, (req, res) => {
+  db.EventType.find({ URL: req.query.URL, userId: req.userId })
+    .then((data) => {
+      if (data.length > 0) {
+        res.status(400).send(new Error("URL is already taken."));
+      } else {
+        res.status(200).send("URL is available!");
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
+});
+
 module.exports = router;
