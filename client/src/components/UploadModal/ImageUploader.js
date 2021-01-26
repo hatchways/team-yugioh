@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 
-//import { useUserUpdatedContext } from "../../context/Context";
+// import { useSetUserUpdatedContext } from "../../providers/Context";
 
 import axios from "axios";
 import FormData from "form-data";
@@ -87,7 +87,7 @@ export default function UploadDialog(props) {
       console.log(res.data.msg);
       setMessage(true);
       // // Updates Context
-      // useUserUpdatedContext(true)
+      // useSetUserUpdatedContext(true)
 
       setTimeout(() => {
         setMessage(false);
