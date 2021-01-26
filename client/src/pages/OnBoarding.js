@@ -25,6 +25,7 @@ const OnBoarding = () => {
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
+  
 
   const submitIfOnLastPage = () => {
     if (page === 3) {
