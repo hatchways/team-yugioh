@@ -23,6 +23,9 @@ import Avatar from "@material-ui/core/Avatar";
 import ProfileImage from "./../../img/user-image.png";
 import Checkmark from "../../assets/check.png";
 
+import { useUserContext } from '../../providers/Context'
+
+
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -204,6 +207,9 @@ export default function EventTypesTab() {
   });
   const [unit, setUnit] = useState("min");
 
+  const user = useUserContext()
+  const { photoUrl } = user;
+
   useEffect(() => {
     axios
       .get("/api/event")
@@ -267,7 +273,7 @@ export default function EventTypesTab() {
           <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
-              src={ProfileImage}
+              src={photoUrl}
               alt="User image"
             />
             <Box>

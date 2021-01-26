@@ -8,6 +8,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Logo from "./../../img/logo.png";
 import ProfileImage from "./../../img/user-image.png";
 
+import { useUserContext } from '../../providers/Context'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
+
+  const user = useUserContext()
+  const { photoUrl } = user
 
   return (
     <AppBar className={classes.root} position="static">
@@ -70,7 +75,7 @@ export default function NavBar() {
 
         <Avatar
           className={classes.profileImg}
-          src={ProfileImage}
+          src={photoUrl}
           alt="User image"
         />
 
