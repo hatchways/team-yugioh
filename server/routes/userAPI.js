@@ -31,4 +31,14 @@ router.post("/api/user/", auth, (req, res) => {
     });
 });
 
+// GET user data from DB
+router.get("/api/user/data", auth, (req, res) => {
+  db.User.updateOne({ _id: req.userId })
+    .then((response) => res.send(response))
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    })
+});
+
 module.exports = router;
