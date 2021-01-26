@@ -10,6 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange } from "@material-ui/core/colors";
+import Snackbar from "@material-ui/core/Snackbar";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function EventCard({ name, duration, color, link, url }) {
@@ -45,42 +46,49 @@ export default function EventCard({ name, duration, color, link, url }) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader className={classes.colorBar}></CardHeader>
+    <>
+      <Card className={classes.root}>
+        <CardHeader className={classes.colorBar}></CardHeader>
 
-      <CardContent>
-        <Typography variant="h5">
-          {name || duration + " minute meeting"}
-        </Typography>
+        <CardContent>
+          <Typography variant="h5">
+            {name || duration + " minute meeting"}
+          </Typography>
 
-        <Typography variant="subtitle2" color="textSecondary">
-          One-on-One
-        </Typography>
-      </CardContent>
-      <Divider />
-      <CardActions>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle2">{duration} min</Typography>
-          <CopyToClipboard
-            text={"http://localhost:3000/appt/" + link}
-            onCopy={whenCopiedToClipboard}
+          <Typography variant="subtitle2" color="textSecondary">
+            One-on-One
+          </Typography>
+        </CardContent>
+        <Divider />
+        <CardActions>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
-            <Button
-              variant={copied ? "contained" : "outlined"}
-              color="secondary"
-              size="small"
-              className={classes.button}
+            <Typography variant="subtitle2">{duration} min</Typography>
+            <CopyToClipboard
+              text={"http://localhost:3000/appt/" + link}
+              onCopy={whenCopiedToClipboard}
             >
-              {copied ? <DoneOutlined /> : "Copy link"}
-            </Button>
-          </CopyToClipboard>
-        </Grid>
-      </CardActions>
-    </Card>
+              <Button
+                variant={copied ? "contained" : "outlined"}
+                color="secondary"
+                size="small"
+                className={classes.button}
+              >
+                {copied ? <DoneOutlined /> : "Copy link"}
+              </Button>
+            </CopyToClipboard>
+          </Grid>
+        </CardActions>
+      </Card>
+      <Snackbar
+        open={copied}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        message="Invitation link copied to clipboard"
+      />
+    </>
   );
 }
