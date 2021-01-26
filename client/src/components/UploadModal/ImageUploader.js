@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -8,6 +8,8 @@ import { orange } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
+
+//import { useUserUpdatedContext } from "../../context/Context";
 
 import axios from "axios";
 import FormData from "form-data";
@@ -31,13 +33,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BUCKET = "cal-app-user-imgs";
 
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState("");
-  const [filename, setFilename] = useState(null);
-  const [url, setUrl] = useState("");
   const [message, setMessage] = useState("");
 
   const [selectedFile, setSelectedFile] = useState();
@@ -48,10 +47,6 @@ export default function UploadDialog(props) {
   const handleClose = () => {
     onClose();
   };
-  useEffect(() => {
-    //get the url and call setUrl(<url>)
-    setUrl(`https://${BUCKET}.s3.amazonaws.com/${filename}`);
-  }, []);
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -88,16 +83,18 @@ export default function UploadDialog(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      const { fileName } = res.data;
-      setFilename(fileName);
-
+     
+      console.log(res.data.msg);
       setMessage(true);
-      await setTimeout(() => {
+      // // Updates Context
+      // useUserUpdatedContext(true)
+
+      setTimeout(() => {
         setMessage(false);
         handleClose();
       }, 2000);
     } catch (err) {
+      console.log(err);
       if (err.response.status === 500) {
         console.log("There was a problem with the server");
       } else {
@@ -158,4 +155,5 @@ export default function UploadDialog(props) {
 UploadDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  fileName: PropTypes.string.isRequired,
 };
