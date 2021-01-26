@@ -7,8 +7,6 @@ import SelectTabs from '../components/SelectTabs/SelectTabs';
 import NavBar from './../components/Header/NavBar';
 import GetStartedButton from '../components/Buttons/GetStartedButton';
 
-import { UserContextProvider } from '../providers/Context';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
