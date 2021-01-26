@@ -29,8 +29,6 @@ const SetTimezoneUrl = props => {
       const response = await axios.get(
         `/api/user/is_unique?URL=${linkVal}`
       );
-      console.log(response.status);
-      console.log(unique);
       if (response.status === 200);
       setUnique(true);
     } catch (err) {

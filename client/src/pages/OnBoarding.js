@@ -20,7 +20,7 @@ const OnBoarding = () => {
   const match = useRouteMatch({ path: "/onboarding/:page" });
   const page = match ? match.params.page : 0;
 
-  const [url, setUrl] = useState("john-doe");
+  const [url, setUrl] = useState("");
   const [timezone, setTimezone] = useState("");
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");

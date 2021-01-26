@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
@@ -245,7 +245,7 @@ export default function EventTypesTab() {
     setEventBody({ ...eventBody, [name]: value });
   };
 
-  async function checkUnique(event){
+  const checkUnique=async (event)=>{
     try {
       const response = await axios.get(
         `/api/event/is_unique?URL=${event.target.value}`, {
@@ -262,7 +262,7 @@ export default function EventTypesTab() {
   }
 
 
-  const debounceCheckUnique= React.useCallback(debounce(checkUnique, 500), []);
+  const debounceCheckUnique= useCallback(debounce(checkUnique, 500), []);
 
 
   const handleLinkChange = async event => {
