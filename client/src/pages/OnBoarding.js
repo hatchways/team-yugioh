@@ -19,7 +19,6 @@ const OnBoarding = () => {
   const [onboarded, setOnboarded] = useState(false);
   const classes = useStyles();
 
-  // const match = useRouteMatch({ path: "/onboarding/:page" });
   const [page, setPage] = useState(1);
 
   const [url, setUrl] = useState("john-doe");
