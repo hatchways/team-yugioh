@@ -35,6 +35,7 @@ const CreateTeam = ({ open, closeDialog }) => {
   };
 
   const [teamMembers, setTeamMembers] = useState([]);
+  // Data structure: teamMembers = [{name: <name>, email: <email>}, {}]
 
   return (
     <Dialog open={open} onClose={closeDialog} fullWidth>
