@@ -51,11 +51,11 @@ const ConfirmAppointment = ({
         justify="flex-start"
         className={classes.inputRow}
       >
-        <Grid xs="2" item>
+        <Grid xs={2} item>
           <InputLabel className={classes.label}>Name</InputLabel>
         </Grid>
 
-        <Grid xs="10" item>
+        <Grid xs={10} item>
           <TextField
             variant="outlined"
             margin="normal"
@@ -74,11 +74,11 @@ const ConfirmAppointment = ({
         justify="flex-start"
         className={classes.inputRow}
       >
-        <Grid xs="2" item>
+        <Grid xs={2} item>
           <InputLabel className={classes.label}>Email</InputLabel>
         </Grid>
 
-        <Grid xs="10" item>
+        <Grid xs={10} item>
           <TextField
             variant="outlined"
             margin="normal"
@@ -97,11 +97,11 @@ const ConfirmAppointment = ({
         justify="flex-start"
         className={classes.inputRow}
       >
-        <Grid xs="2" item>
+        <Grid xs={2} item>
           <InputLabel className={classes.descriptionLabel}>Notes</InputLabel>
         </Grid>
 
-        <Grid xs="10" item>
+        <Grid xs={10} item>
           <TextField
             variant="outlined"
             margin="normal"

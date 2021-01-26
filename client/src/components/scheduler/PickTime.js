@@ -58,9 +58,9 @@ const PickTime = ({
                 parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
               )}`}
               className={classes.schedLink}
+              key={i}
             >
               <ListItem
-                key={i}
                 className={classes.listItem}
                 button
                 onClick={() =>
