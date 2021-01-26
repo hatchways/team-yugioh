@@ -2,35 +2,34 @@ import React, { useState, useContext, createContext, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+// USER  CONTEXT
+const UserContext = createContext();
 
-// AUTH CONTEXT
-export const AuthContext = createContext();
-
+//CUSTOM HOOKS
+// Get Auth
 export const useAuth = () => {
   // Usage:
   // const authenticated = useAuth();
-  const authenticated = useContext(AuthContext).authenticated;
+  const authenticated = useContext(UserContext).authenticated;
   return authenticated;
 };
-
+// Set Auth
 export const useSetAuthenticated = () => {
   // Usage:
   // const setAuthenticated = useSetAuthenticated();
   // setAuthenticated(true) OR setAuthenticated(false);
-  const setAuthenticated = useContext(AuthContext).setAuthenticated;
+  const setAuthenticated = useContext(UserContext).setAuthenticated;
   return setAuthenticated;
 };
-
-// USER DATA CONTEXT
-export const UserContext = createContext();
-
-// custom hook
+// Get user Data
 export const useUserContext = () => {
-  return useContext(UserContext);
+  return useContext(UserContext).userData;
 };
 
+// CONTEXT PROVIDER SET UP
 export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     axios
@@ -43,7 +42,7 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={userData}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{userData, authenticated, setAuthenticated}}>{children}</UserContext.Provider>
   );
 };
 
