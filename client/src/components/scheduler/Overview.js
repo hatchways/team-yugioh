@@ -3,11 +3,8 @@ import { AccessTime } from "@material-ui/icons";
 import React from "react";
 import PropTypes from "prop-types";
 
-const Overview = (props) => {
+const Overview = ({ name, duration, description }) => {
   const classes = useStyles();
-
-  const name = props.name || "John Doe";
-  const duration = props.duration || "60";
 
   return (
     <Grid className={classes.root} spacing={1} container direction="column">
@@ -18,11 +15,16 @@ const Overview = (props) => {
       </Grid>
 
       <Grid item>
-        <Typography variant="h6">{duration} minute meeting</Typography>
+        <Typography variant="h6">
+          {`${name}` || `${duration} minute meeting`}
+        </Typography>
       </Grid>
       <Grid container item alignItems="center" className={classes.iconWrapper}>
         <AccessTime />
         <Typography variant="caption">{duration} minute</Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="body1">{description}</Typography>
       </Grid>
     </Grid>
   );

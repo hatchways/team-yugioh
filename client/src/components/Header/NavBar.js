@@ -4,9 +4,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
 
-import Logo from "./../../img/logo.png";
-import ProfileImage from "./../../img/user-image.png";
+import Logo from "../../assets/logo.png";
+import ImageUploader from "../UploadModal/ImageUploader";
 
 import { useUserContext } from '../../providers/Context'
 
@@ -33,16 +34,29 @@ const useStyles = makeStyles((theme) => ({
   },
   profileImg: {
     marginRight: theme.spacing(2),
-    marginLef: theme.spacing(4),
+    marginLeft: theme.spacing(1),
+    cursor: "pointer",
+    "&:hover": {
+      opacity: 0.8,
+    },
   },
 }));
 
 export default function NavBar() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
-  const user = useUserContext()
-  const { name, photoUrl } = user
+  const { name, photoUrl } = useUserContext()
 
   return (
     <AppBar className={classes.root} position="static">
@@ -55,6 +69,7 @@ export default function NavBar() {
           variant="subtitle1"
           onClick={preventDefault}
           className={classes.link}
+          to="/home"
         >
           Home
         </Link>
@@ -69,15 +84,19 @@ export default function NavBar() {
           variant="subtitle1"
           onClick={preventDefault}
           className={classes.linkToUpgrade}
+          to="/upgrade"
         >
           Upgrade account
         </Link>
 
-        <Avatar
-          className={classes.profileImg}
-          src={photoUrl}
-          alt="User image"
-        />
+        <Box>
+          <Avatar
+            className={classes.profileImg}
+            src={photoUrl}
+            alt="User image"
+            onClick={handleClickOpen}
+          />
+        </Box>
 
         <Link
           variant="subtitle1"
@@ -87,6 +106,7 @@ export default function NavBar() {
           {name}
         </Link>
       </Toolbar>
+      <ImageUploader open={open} onClose={handleClose} />
     </AppBar>
   );
 }
