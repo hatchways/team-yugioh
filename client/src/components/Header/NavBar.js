@@ -42,7 +42,7 @@ export default function NavBar() {
   const preventDefault = (event) => event.preventDefault();
 
   const user = useUserContext()
-  const { photoUrl } = user
+  const { name, photoUrl } = user
 
   return (
     <AppBar className={classes.root} position="static">
@@ -84,7 +84,7 @@ export default function NavBar() {
           onClick={preventDefault}
           className={classes.link}
         >
-          John Doe
+          {name}
         </Link>
       </Toolbar>
     </AppBar>
