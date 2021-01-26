@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
 
-  console.log(document.cookie);
   return (
     <div className={classes.root}>
       <NavBar />

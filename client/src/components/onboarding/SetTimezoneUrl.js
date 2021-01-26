@@ -32,23 +32,6 @@ const SetTimezoneUrl = (props) => {
           </Typography>
         </Grid>
 
-        {/* <TextField
-          className={classes.urlPrefixInput}
-          disabled
-          variant="outlined"
-          defaultValue="calendapp.com/"
-          size="small"
-        /> */}
-        {/* <TextField
-          className={classes.urlInput}
-          required
-          variant="outlined"
-          size="small"
-          value={url}
-          onChange={(e) => {
-            setUrl(e.target.value);
-          }}
-        /> */}
         <Grid
           container
           direction="row"

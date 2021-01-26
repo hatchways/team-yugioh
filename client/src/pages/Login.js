@@ -76,10 +76,8 @@ const LogInPage = () => {
   const [hasCookie, setHasCookie] = useState(false);
 
   useEffect(() => {
-    console.log(document.cookie);
     const interval = setInterval(() => {
       if (document.cookie.match(/calendapp=true/g)) {
-        console.log("read cookie");
         setHasCookie(true);
         testAuth().then((res) => {
           setUserState({ ...userState, loggedIn: true });

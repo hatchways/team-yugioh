@@ -27,6 +27,8 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
 
   const [customerId, setCustomerId] = useState();
   const [redirectToSuccess, setRedirectToSuccess] = useState(false);
+  const showFailureText = status === "failure";
+  const userHasSubscribed = status !== "failure" && !askForPayment;
 
   useEffect(() => {
     axios.post("/api/subscription/create-customer").then((res) => {
@@ -51,7 +53,6 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
           setStatus("failure");
           throw new Error("payment failure");
         } else {
-          setRedirectToSuccess(true);
           return axios.post("/api/subscription/create-subscription", {
             customerId,
             paymentMethodId: result.paymentMethod.id,
@@ -117,7 +118,7 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
           </Grid>
 
           <Grid item>
-            {status === "failure" ? (
+            {showFailureText && (
               <Typography
                 className={classes.failureMsg}
                 variant="h5"
@@ -125,7 +126,9 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
               >
                 "Payment failed"
               </Typography>
-            ) : !askForPayment ? (
+            )}
+
+            {userHasSubscribed && (
               <Typography
                 className={classes.failureMsg}
                 variant="h6"
@@ -133,7 +136,7 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
               >
                 You have subscribed already!
               </Typography>
-            ) : null}
+            )}
           </Grid>
         </Grid>
 
