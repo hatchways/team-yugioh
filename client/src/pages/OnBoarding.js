@@ -21,11 +21,12 @@ const OnBoarding = () => {
 
   const [page, setPage] = useState(1);
 
-  const [url, setUrl] = useState("john-doe");
+  const [url, setUrl] = useState("");
   const [timezone, setTimezone] = useState("");
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
+  
 
   useEffect(() => {
     axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {

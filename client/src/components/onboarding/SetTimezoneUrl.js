@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import {
   Grid,
   Typography,
@@ -9,11 +9,36 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import axios from "axios";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import DoneIcon from "@material-ui/icons/Done";
+import ClearIcon from "@material-ui/icons/Clear";
+import { debounce } from "../../utils/utils";
 
 const SetTimezoneUrl = props => {
   const classes = useStyles();
 
   const { url, setUrl, timezone, setTimezone } = props;
+
+  const [unique, setUnique] = useState(true);
+
+  const checkUnique = async linkVal => {
+    try {
+      const response = await axios.get(`/api/user/is_unique?URL=${linkVal}`);
+      if (response.status === 200);
+      setUnique(true);
+    } catch (err) {
+      console.log(err);
+      setUnique(false);
+    }
+  };
+
+  const debounceCheckUnique = useCallback(debounce(checkUnique, 500), []);
+
+  const handleChange = e => {
+    setUrl(e.target.value);
+    debounceCheckUnique(e.target.value);
+  };
 
   return (
     <div className={classes.root}>
@@ -53,10 +78,25 @@ const SetTimezoneUrl = props => {
               value={url}
               type="text"
               className={classes.urlText}
-              onChange={e => {
-                setUrl(e.target.value);
-              }}
+              onChange={handleChange}
               fullWidth
+              error={!unique}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment
+                    position="start"
+                    classes={{ positionStart: classes.endAdornment }}
+                  >
+                    {url.length > 0 ? (
+                      unique ? (
+                        <DoneIcon className={classes.validIcon} />
+                      ) : (
+                        <ClearIcon className={classes.invalidIcon} />
+                      )
+                    ) : null}
+                  </InputAdornment>
+                )
+              }}
             />
           </Grid>
         </Grid>
@@ -131,6 +171,45 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     bottom: "2em",
     width: "3em"
+  },
+  endAdornment: {
+    position: "absolute",
+    left: 100
+  },
+  validIcon: {
+    color: "green",
+    fontSize: 16
+  },
+  invalidIcon: {
+    color: "red",
+    fontSize: 16
+  },
+  noBorder: {
+    bordre: "none"
+  },
+  link: {
+    border: "1px solid lightgray",
+    borderRadius: "4px",
+    marginLeft: 3,
+    "& > *": {
+      margin: "-1px 0"
+    },
+    "&:hover": {
+      borderColor: "black"
+    },
+    "&:focus-within": {
+      borderColor: theme.palette.primary.main,
+      borderWidth: "2px"
+    },
+    "& > * > * > input": {
+      padding: "8px"
+    },
+    "& > * > * > fieldset": {
+      border: "none"
+    }
+  },
+  endAdornment: {
+    marginRight: -10
   },
   prefix: {
     fontSize: ".75rem",
