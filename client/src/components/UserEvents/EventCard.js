@@ -36,6 +36,7 @@ export default function EventCard({ name, duration, color, link, url }) {
   });
   const classes = useStyles();
 
+  const invitationLink = "http://localhost:3000/appt/" + link; // needs improvement
   const [copied, setCopied] = useState(false);
   const whenCopiedToClipboard = () => {
     setCopied(true);
@@ -69,7 +70,7 @@ export default function EventCard({ name, duration, color, link, url }) {
           >
             <Typography variant="subtitle2">{duration} min</Typography>
             <CopyToClipboard
-              text={"http://localhost:3000/appt/" + link}
+              text={invitationLink}
               onCopy={whenCopiedToClipboard}
             >
               <Button
