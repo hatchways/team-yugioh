@@ -49,11 +49,9 @@ router.post("/api/authentication/google", async (req, res) => {
 
     const appUser = await User.find({ email: userInfo.payload.email });
     let claims = null;
-    console.log(appUser.length);
     if (appUser.length > 0) {
       claims = { userId: appUser[0]._id, email };
     } else {
-      console.log("creting....");
       const newUser = new User({
         email: userInfo.payload.email,
         name: userInfo.payload.name,
