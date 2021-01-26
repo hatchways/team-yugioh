@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
   Grid,
   Typography,
@@ -46,6 +46,7 @@ const SetTimezoneUrl = props => {
         className={classes.entry}
       >
         <Typography variant="subtitle1">Create your CalendApp URL:</Typography>
+        <div className={classes.link}>
         <TextField
           className={classes.urlPrefixInput}
           disabled
@@ -63,16 +64,17 @@ const SetTimezoneUrl = props => {
           error={!unique}
           InputProps={{
             endAdornment: (
-              <InputAdornment position="start" className={classes.endAdornment}>
-                {unique && url.length>0 ? (
+              <InputAdornment position="start" classes={{positionStart:classes.endAdornment}} >
+                {url.length>0 ? unique? (
                   <DoneIcon className={classes.validIcon} />
                 ) : (
                   <ClearIcon className={classes.invalidIcon} />
-                )}
+                ):null}
               </InputAdornment>
             )
           }}
         />
+        </div>
       </Grid>
 
       <Grid container item alignItems="center" className={classes.entry}>
@@ -158,6 +160,34 @@ const useStyles = makeStyles(theme => ({
   invalidIcon: {
     color: "red",
     fontSize: 16
+  },
+  noBorder:{
+    bordre:"none"
+  },
+  link: {
+    border: "1px solid lightgray",
+    borderRadius: "4px",
+    marginLeft:3,
+    "& > *": {
+        margin: "-1px 0",
+      },
+    "&:hover": {
+      borderColor: "black",
+    },
+    "&:focus-within": {
+      borderColor: theme.palette.primary.main,
+      borderWidth: "2px",
+      
+    },
+    "& > * > * > input": {
+      padding: "8px",
+    },
+    "& > * > * > fieldset": {
+      border: "none",
+    },
+  },
+  endAdornment: {
+    marginRight:-10
   }
 }));
 
