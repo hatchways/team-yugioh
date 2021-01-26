@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouteMatch } from "react-router-dom";
 import {
   makeStyles,
   Paper,
@@ -10,6 +11,7 @@ import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
 import { getNextAvailableDate } from "../utils/calendarUtils";
+import axios from "axios";
 
 const Scheduler = () => {
   const classes = useStyles();
@@ -27,12 +29,30 @@ const Scheduler = () => {
     //set next available day of the week
     setSelectedDate(getNextAvailableDate(selectedDate, availDates));
   }
+  const [eventDetails, setEventDetails] = useState({
+    name: "",
+    details: "",
+    duration: "",
+  });
+
+  useEffect(() => {
+    let queryURL = `/api/event_details/${window.location.pathname.slice(6)}`;
+    axios.get(queryURL).then((res) => {
+      // TODO: redirect to 404 page on no event found?
+      let event = res.data[0];
+      setEventDetails({
+        name: event.name,
+        description: event.description,
+        duration: event.duration,
+      });
+    });
+  }, []);
 
   return (
     <Paper className={classes.root} elevation={5}>
       <Grid container direction="row" wrap="nowrap" className={classes.grid}>
         <Grid item xs={4}>
-          <Overview />
+          <Overview {...eventDetails} />
         </Grid>
         <Divider orientation="vertical" flexItem={true} />
 

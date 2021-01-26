@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Route, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
 import SelectTabs from "../components/SelectTabs/SelectTabs";
 import NavBar from "./../components/Header/NavBar";
 import GetStartedButton from "../components/Buttons/GetStartedButton";
