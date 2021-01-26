@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,7 +8,9 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange } from "@material-ui/core/colors";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function EventCard({ name, duration, color, link, url }) {
   const useStyles = makeStyles({
@@ -26,11 +28,21 @@ export default function EventCard({ name, duration, color, link, url }) {
       padding: 4,
     },
     button: {
-      border: "none",
-      backgroundColor: "transparent",
+      textTransform: "none",
+      height: 32,
+      width: 80,
     },
   });
   const classes = useStyles();
+
+  const [copied, setCopied] = useState(false);
+  const whenCopiedToClipboard = () => {
+    setCopied(true);
+    setTimeout(() => {
+      // such that the copied state doesn't linger forever
+      setCopied(false);
+    }, 3000);
+  };
 
   return (
     <Card className={classes.root}>
@@ -54,16 +66,19 @@ export default function EventCard({ name, duration, color, link, url }) {
           alignItems="center"
         >
           <Typography variant="subtitle2">{duration} min</Typography>
-          <a href={"http://localhost:3000/appt/" + link}>
+          <CopyToClipboard
+            text={"http://localhost:3000/appt/" + link}
+            onCopy={whenCopiedToClipboard}
+          >
             <Button
-              variant="outlined"
+              variant={copied ? "contained" : "outlined"}
               color="secondary"
               size="small"
-              style={{ textTransform: "none" }}
+              className={classes.button}
             >
-              Copy Link
+              {copied ? <DoneOutlined /> : "Copy link"}
             </Button>
-          </a>
+          </CopyToClipboard>
         </Grid>
       </CardActions>
     </Card>
