@@ -30,7 +30,9 @@ router.get("/api/event", auth, (req, res) => {
 
 // GET whether event url is unique
 router.get("/api/event/is_unique", auth, (req, res) => {
-  db.EventType.find({ URL: req.query.URL, userId: req.userId })
+  console.log(req.userId)
+  console.log(req.query.URL)
+  db.EventType.find({ link: req.query.URL, userId: req.userId })
     .then((data) => {
       if (data.length > 0) {
         res.status(400).send(new Error("URL is already taken."));

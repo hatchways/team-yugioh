@@ -22,6 +22,9 @@ import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
 import ProfileImage from "./../../img/user-image.png";
 import Checkmark from "../../assets/check.png";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import DoneIcon from "@material-ui/icons/Done";
+import ClearIcon from "@material-ui/icons/Clear";
 
 import axios from "axios";
 
@@ -164,6 +167,20 @@ const useStyles = makeStyles((theme) => ({
   grey: {
     backgroundColor: "#808080",
   },
+  endAdornment: {
+    marginRight:-22
+  },
+  validIcon: {
+    color: "green",
+    fontSize: 16
+  },
+  invalidIcon: {
+    color: "red",
+    fontSize: 16
+  },
+  borderRed:{
+    border: "2px solid red !important"
+  },
   "@global": {
     ".MuiFormControl-marginNormal": {
       marginTop: "8px",
@@ -195,6 +212,7 @@ export default function EventTypesTab() {
   const classes = useStyles();
   const [userEvents, setUserEvents] = useState([]);
   const [openNewEvent, setOpenNewEvent] = useState(false);
+  const [unique, setUnique] = useState(true);
   const [eventBody, setEventBody] = useState({
     name: "",
     duration: "",
@@ -226,6 +244,24 @@ export default function EventTypesTab() {
     const { name, value } = event.target;
     setEventBody({ ...eventBody, [name]: value });
   };
+
+  const handleLinkChange= async (event)=>{
+    handleFormChange(event);
+    try {
+      const response = await axios.get(
+        `/api/event/is_unique?URL=${event.target.value}`, {
+          withCredentials: true
+        }
+      );
+      console.log(response.status);
+      console.log(unique);
+      if (response.status === 200);
+      setUnique(true);
+    } catch (err) {
+      console.log(err);
+      setUnique(false);
+    }
+  }
 
   function createNewEventType() {
     handleClose();
@@ -430,7 +466,7 @@ export default function EventTypesTab() {
                   spacing="2"
                   wrap="nowrap"
                   id="linkGroup"
-                  className={classes.groupedInput}
+                  className={!unique && eventBody.link.length>0?`${classes.groupedInput} ${classes.borderRed}`:classes.groupedInput}
                 >
                   {/* TODO: pass in user link prefix */}
                   <Grid xs="5" className={classes.prefix} item>
@@ -442,8 +478,19 @@ export default function EventTypesTab() {
                       variant="outlined"
                       value={eventBody.link}
                       type="text"
-                      onChange={handleFormChange}
+                      onChange={handleLinkChange}
                       fullWidth
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start" classes={{positionStart:classes.endAdornment}}>
+                            {eventBody.link.length>0?unique ? (
+                              <DoneIcon className={classes.validIcon} />
+                            ) : (
+                              <ClearIcon className={classes.invalidIcon} />
+                            ):null}
+                          </InputAdornment>
+                        )
+                      }}
                     />
                   </Grid>
                 </Grid>
