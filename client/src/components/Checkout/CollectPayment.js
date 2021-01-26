@@ -51,7 +51,6 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
           setStatus("failure");
           throw new Error("payment failure");
         } else {
-          setRedirectToSuccess(true);
           return axios.post("/api/subscription/create-subscription", {
             customerId,
             paymentMethodId: result.paymentMethod.id,
