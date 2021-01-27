@@ -16,13 +16,14 @@ const BUCKET = process.env.AWS_BUCKET_NAME;
 
 // Create S3 service object
 const s3 = new AWS.S3();
-const FN = Date.now().toString() + ".png";
+
 // AWS Params put into storage using Multer S3
 const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: BUCKET,
     key: function (req, file, cb) {
+      const FN = Date.now().toString() + ".png";
       cb(null, FN);
     },
   }),
