@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import axios from "axios";
 
 import { theme } from "./themes/theme";
-
 import Home from "./pages/Home";
 import LogInPage from "./pages/Login";
 import OnBoardingPage from "./pages/OnBoarding";
@@ -15,8 +15,8 @@ import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/AuthProvider";
-import axios from "axios";
-
+import CancelEvent from "./pages/CancelEvent";
+import RescheduleEvent from "./pages/RescheduleEvent";
 import "./App.css";
 
 function App() {
@@ -59,6 +59,12 @@ function App() {
         <PrivateRoute path="/checkout">
           <Checkout />
         </PrivateRoute>
+        <Route path="/reschedule/:eventId">
+          <RescheduleEvent />
+        </Route>
+        <Route path="/cancel/:eventId">
+          <CancelEvent />
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );
