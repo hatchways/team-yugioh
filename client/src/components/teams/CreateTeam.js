@@ -61,9 +61,9 @@ const CreateTeam = ({ open, closeDialog }) => {
             </Grid>
           </Grid>
 
-          <Grid item container alignItems="center">
+          <Grid item container>
             <Grid item xs={3}>
-              <InputLabel className={classes.label}>
+              <InputLabel className={classes.descriptionLabel}>
                 Team description
               </InputLabel>
             </Grid>
@@ -127,6 +127,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "0.9rem",
     color: "rgba(0, 0, 0, 0.8)",
+  },
+  descriptionLabel: {
+    fontWeight: "bold",
+    fontSize: "0.9rem",
+    color: "rgba(0, 0, 0, 0.8)",
+    marginTop: theme.spacing(3),
   },
   createButton: {
     color: "white",
