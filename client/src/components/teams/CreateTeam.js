@@ -74,6 +74,7 @@ const CreateTeam = ({ open, closeDialog }) => {
                 fullWidth
                 variant="outlined"
                 multiline
+                rows={4}
                 margin="normal"
               />
             </Grid>
