@@ -23,7 +23,7 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
         <AccessTime />
         <Typography variant="caption">{duration} minute</Typography>
       </Grid>
-      {appointmentTime ? (
+      {appointmentTime && (
         <Grid
           container
           item
@@ -34,7 +34,7 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
             {JSON.stringify(appointmentTime)}
           </Typography>
         </Grid>
-      ) : null}
+      ) }
       <Grid item>
         <Typography variant="body1">{description}</Typography>
       </Grid>
