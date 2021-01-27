@@ -43,13 +43,12 @@ router.post("/api/image-upload", auth, (req, res) => {
           fileName: req.file.key,
         });
         const AwsUrl = `https://${BUCKET}.s3.amazonaws.com/${req.file.key}`;
-        db.User.updateOne({ _id: req.userId }, { $set: { photoUrl: AwsUrl } })
-          .then((response) => {
-            res.send(response);
-          })
-          .catch((error) => {
-            res.status(500).send(error);
-          });
+        db.User.updateOne(
+          { _id: req.userId },
+          { $set: { photoUrl: AwsUrl } }
+        ).catch((error) => {
+          res.send(error);
+        });
       }
     }
   });
