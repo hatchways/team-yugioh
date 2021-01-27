@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 
-import { useUpdateData } from "../../providers/Context";
+import { useUserData, useSetUserData } from "../../providers/Context";
 
 import axios from "axios";
 import FormData from "form-data";
@@ -43,7 +43,9 @@ export default function UploadDialog(props) {
 
   const classes = useStyles();
 
-  const updateData = useUpdateData();
+  // Assigns Context Hooks to vars
+  const setUserData = useSetUserData();
+  const userData = useUserData();
 
   const handleClose = () => {
     onClose();
@@ -84,18 +86,20 @@ export default function UploadDialog(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(res.data.msg); // left in to prevent an error
       setMessage(true);
+      const {fileName} =res.data
+      const BUCKET = 'cal-app-user-imgs'
+      const photoUrl =  `https://${BUCKET}.s3.amazonaws.com/${fileName}`
+      console.log(userData)
+      setUserData({...userData, photoUrl })
 
-      setTimeout(() => {
-        setMessage(false);
-        handleClose();
-      }, 2000);
-      // Updates Context
-      updateData();
     } catch (err) {
-      console.log(err.response.data.msg);
+      console.log(err);
     }
+    setTimeout(() => {
+      setMessage(false);
+      handleClose();
+    }, 2000);
   };
 
   return (

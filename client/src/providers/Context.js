@@ -23,26 +23,24 @@ export const useSetAuthenticated = () => {
 };
 // Get User Data
 export const useUserData = () => {
-  // Usage: 
-// const userData = useUserData(); 
-// {_id, email, name, googleCredentials, photoUrl, URL, stripeId, subscribed, subscriptionId, ...}
+  // Usage:
+  // const userData = useUserData();
+  // {_id, email, name, googleCredentials, photoUrl, URL, stripeId, subscribed, subscriptionId, ...}
   return useContext(UserContext).userData;
 };
-// Set User Data has Updated
-export const useUpdateData = () => {
-   // Usage: 
-  // const updateData = useUpdateData()
-  // updateData()
-  const setUserHasUpdated = useContext(UserContext).setUserHasUpdated;
-  const updateData = () => {setUserHasUpdated(true)}
-  return updateData
+
+// Set User Data
+export const useSetUserData = () => {
+  // Usage:
+  // const setUserData = useSetUserData();
+  // setUserData({...current, <updatedkey>})
+  return useContext(UserContext).setUserData;
 };
 
 // CONTEXT PROVIDER SET UP
 export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
-  const [userHasUpdated, setUserHasUpdated] = useState(false);
 
   // Gets User Data from DB
   useEffect(() => {
@@ -52,12 +50,11 @@ export const UserContextProvider = ({ children }) => {
         setUserData(res.data);
       })
       .catch((err) => console.log(err));
-    setUserHasUpdated(false);
-  }, [userHasUpdated]);
+  }, []);
 
   return (
     <UserContext.Provider
-      value={{ userData, setUserHasUpdated, authenticated, setAuthenticated }}
+      value={{ userData, setUserData, authenticated, setAuthenticated }}
     >
       {children}
     </UserContext.Provider>
