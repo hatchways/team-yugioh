@@ -4,7 +4,7 @@ import {
   makeStyles,
   Button,
   DialogContent,
-  DialogTitle,
+  Typography,
   DialogActions,
   InputLabel,
   TextField,
@@ -39,85 +39,89 @@ const CreateTeam = ({ open, closeDialog }) => {
       className={classes.root}
       fullWidth
     >
-      <DialogTitle variant="h5">Create your team here</DialogTitle>
-      <DialogContent>
-        <Grid container direction="column" spacing={2}>
-          <Grid item container alignItems="center">
-            <Grid item xs={3}>
-              <InputLabel className={classes.label}>Team name</InputLabel>
+      <div className={classes.dialogPadding}>
+        <DialogContent>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Typography variant="h5">Create your team here</Typography>
             </Grid>
-            <Grid item xs={9}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                value={teamName}
-                onChange={handleTeamNameChange}
+            <Grid item container alignItems="center">
+              <Grid item xs={2}>
+                <InputLabel className={classes.label}>Name</InputLabel>
+              </Grid>
+              <Grid item xs={10}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  value={teamName}
+                  onChange={handleTeamNameChange}
+                />
+              </Grid>
+            </Grid>
+
+            <Grid item container>
+              <Grid item xs={2}>
+                <InputLabel className={classes.descriptionLabel}>
+                  Description
+                </InputLabel>
+              </Grid>
+              <Grid item xs={10}>
+                <TextField
+                  value={teamDescription}
+                  onChange={handleDescriptionChange}
+                  fullWidth
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  margin="normal"
+                />
+              </Grid>
+            </Grid>
+
+            <Grid item>
+              <InviteMembers
+                setTeamMembers={setTeamMembers}
+                teamMembers={teamMembers}
+              />
+            </Grid>
+
+            <Grid item>
+              <MembersToBeInvited
+                teamMembers={teamMembers}
+                setTeamMembers={setTeamMembers}
               />
             </Grid>
           </Grid>
+        </DialogContent>
 
-          <Grid item container>
-            <Grid item xs={3}>
-              <InputLabel className={classes.descriptionLabel}>
-                Team description
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <TextField
-                value={teamDescription}
-                onChange={handleDescriptionChange}
-                fullWidth
-                variant="outlined"
-                multiline
-                rows={4}
-                margin="normal"
-              />
-            </Grid>
-          </Grid>
-
-          <Grid item>
-            <InviteMembers
-              setTeamMembers={setTeamMembers}
-              teamMembers={teamMembers}
-            />
-          </Grid>
-
-          <Grid item>
-            <MembersToBeInvited
-              teamMembers={teamMembers}
-              setTeamMembers={setTeamMembers}
-            />
-          </Grid>
-        </Grid>
-      </DialogContent>
-
-      <DialogActions>
-        <Button onClick={closeDialog} className={classes.cancelButton}>
-          Cancel
-        </Button>
-        <Button
-          onClick={createTeam}
-          color="primary"
-          variant="contained"
-          className={classes.createButton}
-        >
-          Create your team
-        </Button>
-      </DialogActions>
+        <DialogActions>
+          <Button onClick={closeDialog} className={classes.cancelButton}>
+            Cancel
+          </Button>
+          <Button
+            onClick={createTeam}
+            color="primary"
+            variant="contained"
+            className={classes.createButton}
+          >
+            Create your team
+          </Button>
+        </DialogActions>
+      </div>
     </Dialog>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxHeight: theme.spacing(100),
+    maxHeight: "47em",
+    marginTop: "6em",
   },
-  setDialogWidth: {
-    width: "40em",
-  },
-  descriptionInput: {
-    height: theme.spacing(20),
+  dialogPadding: {
+    paddingTop: "1em",
+    paddingLeft: "2em",
+    paddingRight: "2em",
   },
   label: {
     fontWeight: "bold",
@@ -131,10 +135,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   createButton: {
-    color: "white",
+    background: theme.palette.primary.button,
     fontSize: ".8rem",
+    color: "white",
     padding: "2% 5%",
-    margin: "1em",
+    margin: "5% -2% 2% 0",
   },
   cancelButton: {
     color: "#9e9e9e",

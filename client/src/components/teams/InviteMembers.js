@@ -29,16 +29,15 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   };
   return (
     <Grid container alignItems="center">
-      <Grid item xs={3}>
-        <InputLabel className={classes.label}>Invite members</InputLabel>
+      <Grid item xs={2}>
+        <InputLabel className={classes.label}>Members</InputLabel>
       </Grid>
-      <Grid item xs={5}>
+      <Grid item xs={8}>
         <TextField
           variant="outlined"
           fullWidth
           value={email}
           onChange={handleEmailChange}
-          margin="normal"
           placeholder="Email address"
         />
       </Grid>
