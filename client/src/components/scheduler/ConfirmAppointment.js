@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Grid,
@@ -6,9 +6,11 @@ import {
   TextField,
   InputLabel,
   makeStyles,
+  Typography
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import axios from "axios";
+import BackArrow from "../../assets/back.svg";
 
 const ConfirmAppointment = ({
   appointmentDetails,
@@ -35,15 +37,27 @@ const ConfirmAppointment = ({
   };
   return (
     <>
-      <Link to={`${path}`}>
-        <Button
-          onClick={() =>
-            setAppointmentDetails({ ...appointmentDetails, time: false })
-          }
-        >
-          Back
-        </Button>
-      </Link>
+    <Grid
+        direction="row"
+        alignItems="center"
+        container
+        justify="flex-start"
+      >
+        <Link 
+          className={classes.back} to={`${path}`}>
+            <Button
+            className={classes.backButton}
+              onClick={() =>
+                setAppointmentDetails({ ...appointmentDetails, time: false })
+              }
+            >
+              Back
+            </Button>
+        </Link>
+        <Typography className={classes.formLabel} variant="h5">
+            Enter Details
+        </Typography>
+      </Grid>
       <Grid
         direction="row"
         alignItems="center"
@@ -55,7 +69,7 @@ const ConfirmAppointment = ({
           <InputLabel className={classes.label}>Name</InputLabel>
         </Grid>
 
-        <Grid xs={10} item>
+        <Grid xs={10}  item>
           <TextField
             variant="outlined"
             margin="normal"
@@ -64,6 +78,7 @@ const ConfirmAppointment = ({
             onChange={handleFormChange}
             fullWidth
             value={appointmentDetails.name}
+            size="small"
           />
         </Grid>
       </Grid>
@@ -86,6 +101,7 @@ const ConfirmAppointment = ({
             type="text"
             onChange={handleFormChange}
             fullWidth
+            size="small"
             value={appointmentDetails.email}
           />
         </Grid>
@@ -130,8 +146,49 @@ const ConfirmAppointment = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: { height: "100%", overflow: "hidden" },
+  button: {
+    background: theme.palette.primary.button,
+    fontSize: ".8rem",
+    color: "white",
+    padding: "2% 5%",
+    margin: "5% 0 0 17%",
+    width: "33%"
+  },
+  back: {
+    background: "white",
+    fontSize: ".8rem",
+    color: theme.palette.primary.main,
+    textDecoration: "none",
+    margin: "5% 0",
+    padding: "0",
+    width: "10%",
+    height: "2.3rem",
+    border: "1px solid lightgray",
+    borderRadius: "4px",
+    display: "flex",
+    alignItems: "center"
+  }, 
+  backButton : {
+    width: "100%",
+    height: "100%",
+    textIndent: "-9999px",
+    backgroundImage: `url(${BackArrow})`,
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "30%",
+    minWidth: "0"
+  },
+  formLabel: {
+    margin: "0 6%",
+    textAlign: "left",
+    fontWeight: "700"
+  },
+  inputRow: {
+    marginBottom: ".5rem"
+  },
 }));
 
 ConfirmAppointment.propTypes = {
