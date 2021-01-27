@@ -14,7 +14,6 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(false);
   const handleEmailChange = (event) => {
-    event.preventDefault();
     //validation could probably be done better
     const typedEmail = event.target.value;
     if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {

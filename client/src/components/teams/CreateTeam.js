@@ -17,19 +17,15 @@ import MembersToBeInvited from "./MembersToBeInvited";
 const CreateTeam = ({ open, closeDialog }) => {
   const classes = useStyles();
 
-  const createTeam = (event) => {
-    event.preventDefault();
-  };
+  const createTeam = (event) => {};
 
   const [teamName, setTeamName] = useState("");
   const handleTeamNameChange = (event) => {
-    event.preventDefault();
     setTeamName(event.target.value);
   };
 
   const [teamDescription, setDescription] = useState("");
   const handleDescriptionChange = (event) => {
-    event.preventDefault();
     setDescription(event.target.value);
   };
 
