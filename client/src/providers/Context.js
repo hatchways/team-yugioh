@@ -29,10 +29,13 @@ export const useUserData = () => {
   return useContext(UserContext).userData;
 };
 // Set User Data has Updated
-export const useSetUserHasUpdated = () => {
-   // Usage: `
+export const useUpdateData = () => {
+   // Usage: 
+  // const updateData = useUpdateData()
+  // updateData()
   const setUserHasUpdated = useContext(UserContext).setUserHasUpdated;
-  return setUserHasUpdated;
+  const updateData = () => {setUserHasUpdated(true)}
+  return updateData
 };
 
 // CONTEXT PROVIDER SET UP

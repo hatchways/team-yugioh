@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 
- import { useSetUserHasUpdated } from "../../providers/Context";
+ import { useUpdateData } from "../../providers/Context";
 
 import axios from "axios";
 import FormData from "form-data";
@@ -45,7 +45,7 @@ export default function UploadDialog(props) {
 
   const classes = useStyles();
 
-  const userHasUpdated = useSetUserHasUpdated()
+  const updateData = useUpdateData()
 
   const handleClose = () => {
     onClose();
@@ -98,7 +98,7 @@ export default function UploadDialog(props) {
         handleClose();
       }, 2000);
       // Updates Context
-    userHasUpdated(true)
+      updateData()
     } catch (err) {
       console.log(err);
       if (err.response.status === 500) {
