@@ -38,7 +38,12 @@ const CreateTeam = ({ open, closeDialog }) => {
   // Data structure: teamMembers = [{name: <name>, email: <email>}, {}]
 
   return (
-    <Dialog open={open} onClose={closeDialog} fullWidth>
+    <Dialog
+      open={open}
+      onClose={closeDialog}
+      className={classes.root}
+      fullWidth
+    >
       <DialogTitle variant="h5">Create your team here</DialogTitle>
       <DialogContent>
         <Grid container direction="column" spacing={2}>
@@ -67,10 +72,10 @@ const CreateTeam = ({ open, closeDialog }) => {
               <TextField
                 value={teamDescription}
                 onChange={handleDescriptionChange}
+                fullWidth
                 variant="outlined"
                 multiline
                 margin="normal"
-                fullWidth
                 InputProps={{ className: classes.descriptionInput }}
               />
             </Grid>
@@ -110,6 +115,12 @@ const CreateTeam = ({ open, closeDialog }) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    maxHeight: theme.spacing(100),
+  },
+  setDialogWidth: {
+    width: "40em",
+  },
   descriptionInput: {
     height: theme.spacing(20),
   },

@@ -37,12 +37,10 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
       </Grid>
       <Grid item xs={5}>
         <TextField
-          fullwidth
           variant="outlined"
           value={email}
           onChange={handleEmailChange}
           margin="normal"
-          required
         />
       </Grid>
       <Grid item xs={2}>

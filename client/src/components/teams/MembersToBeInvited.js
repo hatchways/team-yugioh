@@ -50,7 +50,7 @@ const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: theme.spacing(20),
+    minHeight: theme.spacing(20),
     marginTop: theme.spacing(1),
   },
   icon: {
