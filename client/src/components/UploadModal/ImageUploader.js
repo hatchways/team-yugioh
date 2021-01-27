@@ -84,7 +84,7 @@ export default function UploadDialog(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(res.data.msg) // left in to prevent an error
+      console.log(res.data.msg); // left in to prevent an error
       setMessage(true);
 
       setTimeout(() => {

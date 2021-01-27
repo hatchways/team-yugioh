@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogContent,
@@ -14,16 +14,16 @@ import {
   RadioGroup,
   Radio,
   TextField,
-} from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import EventGrid from '../UserEvents/EventGrid';
-import Avatar from '@material-ui/core/Avatar';
-import Checkmark from '../../assets/check.png';
+} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import EventGrid from "../UserEvents/EventGrid";
+import Avatar from "@material-ui/core/Avatar";
+import Checkmark from "../../assets/check.png";
 
-import { useUserData } from '../../providers/Context';
+import { useUserData } from "../../providers/Context";
 
-import axios from 'axios';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   dialog: {
-    overflowX: 'hidden',
+    overflowX: "hidden",
   },
   profileAndNewTypeBox: {
     marginBottom: theme.spacing(5),
@@ -44,128 +44,128 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
   userUrl: {
-    color: 'gray',
+    color: "gray",
   },
   newEventTypeButton: {
-    padding: '.5rem 2rem',
-    textTransform: 'none',
+    padding: ".5rem 2rem",
+    textTransform: "none",
     marginBotton: theme.spacing(4),
   },
   cancel: {
     margin: theme.spacing(3, 0, 2),
-    fontSize: '.8rem',
-    color: '#9e9e9e',
+    fontSize: ".8rem",
+    color: "#9e9e9e",
   },
   label: {
-    fontWeight: 'bold',
-    fontSize: '0.9rem',
-    color: 'rgba(0, 0, 0, 0.8)',
+    fontWeight: "bold",
+    fontSize: "0.9rem",
+    color: "rgba(0, 0, 0, 0.8)",
   },
   button: {
     background: theme.palette.primary.button,
-    fontSize: '.8rem',
-    color: 'white',
-    padding: '2% 5%',
-    margin: '5% -2% 2% 0',
+    fontSize: ".8rem",
+    color: "white",
+    padding: "2% 5%",
+    margin: "5% -2% 2% 0",
   },
   box: {
-    padding: '0 3%',
-    width: '90%',
-    minWidth: '90%',
-    maxWidth: '90%',
-    margin: 'auto',
+    padding: "0 3%",
+    width: "90%",
+    minWidth: "90%",
+    maxWidth: "90%",
+    margin: "auto",
   },
   inputRow: {
-    marginBottom: '.9rem',
+    marginBottom: ".9rem",
   },
   colorRow: {
-    marginTop: '6%',
+    marginTop: "6%",
   },
   formLabel: {
-    margin: '7% 4% 4% 3%',
-    textAlign: 'left',
+    margin: "7% 4% 4% 3%",
+    textAlign: "left",
   },
   descriptionLabel: {
-    fontWeight: 'bold',
-    fontSize: '0.9rem',
-    color: 'rgba(0, 0, 0, 0.8)',
+    fontWeight: "bold",
+    fontSize: "0.9rem",
+    color: "rgba(0, 0, 0, 0.8)",
   },
   prefix: {
-    fontSize: '.75rem',
-    fontWeight: '600',
-    color: 'lightgrey',
-    borderRight: '1px solid lightgrey',
-    textAlign: 'center',
+    fontSize: ".75rem",
+    fontWeight: "600",
+    color: "lightgrey",
+    borderRight: "1px solid lightgrey",
+    textAlign: "center",
   },
   link: {
-    '& > * > * > input': {
-      padding: '0',
+    "& > * > * > input": {
+      padding: "0",
     },
-    '& > * > * > fieldset': {
-      border: 'none',
+    "& > * > * > fieldset": {
+      border: "none",
     },
   },
   singleInput: {
-    border: '1px solid lightgray',
-    padding: '7px 3%',
-    borderRadius: '4px',
+    border: "1px solid lightgray",
+    padding: "7px 3%",
+    borderRadius: "4px",
   },
   textArea: {
-    '&::placeholder': {
-      fontSize: '.8rem',
-      fontWeight: '500',
-      color: 'lightgrey',
-      fontFamily: 'sans-serif',
+    "&::placeholder": {
+      fontSize: ".8rem",
+      fontWeight: "500",
+      color: "lightgrey",
+      fontFamily: "sans-serif",
     },
   },
   groupedInput: {
-    border: '1px solid lightgray',
-    borderRadius: '4px',
-    width: '100%',
+    border: "1px solid lightgray",
+    borderRadius: "4px",
+    width: "100%",
     margin: 0,
-    '&:hover': {
-      borderColor: 'black',
+    "&:hover": {
+      borderColor: "black",
     },
-    '&:focus-within': {
+    "&:focus-within": {
       borderColor: theme.palette.primary.main,
-      borderWidth: '2px',
-      '& > *': {
-        margin: '-1px 0',
+      borderWidth: "2px",
+      "& > *": {
+        margin: "-1px 0",
       },
     },
   },
   color: {
-    borderRadius: '50%',
-    border: '1px solid #d3d3d345',
-    width: '1rem',
-    height: '1rem',
+    borderRadius: "50%",
+    border: "1px solid #d3d3d345",
+    width: "1rem",
+    height: "1rem",
   },
   colorButton: {
-    textIndent: '-9999px',
-    backgroundColor: 'transparent',
-    border: 'none',
+    textIndent: "-9999px",
+    backgroundColor: "transparent",
+    border: "none",
   },
   purple: {
-    backgroundColor: '#7900FF',
+    backgroundColor: "#7900FF",
   },
   orange: {
-    backgroundColor: '#FF6A00',
+    backgroundColor: "#FF6A00",
   },
   green: {
-    backgroundColor: '#66CC33',
+    backgroundColor: "#66CC33",
   },
   blue: {
-    backgroundColor: '#00AAFF',
+    backgroundColor: "#00AAFF",
   },
   yellow: {
-    backgroundColor: '#FFFF00',
+    backgroundColor: "#FFFF00",
   },
   grey: {
-    backgroundColor: '#808080',
+    backgroundColor: "#808080",
   },
-  '@global': {
-    '.MuiFormControl-marginNormal': {
-      marginTop: '8px',
+  "@global": {
+    ".MuiFormControl-marginNormal": {
+      marginTop: "8px",
     },
     "div[class*='PrivateRadioButtonIcon'] svg": {
       opacity: 0,
@@ -173,19 +173,19 @@ const useStyles = makeStyles((theme) => ({
     "div[class*='PrivateRadioButtonIcon-checked-']:after": {
       content: "''",
       backgroundImage: `url("${Checkmark}")`,
-      width: '1.5rem',
-      height: '1.5rem',
-      position: 'absolute',
-      top: '-1px',
-      left: '-1px',
-      backgroundSize: 'contain',
+      width: "1.5rem",
+      height: "1.5rem",
+      position: "absolute",
+      top: "-1px",
+      left: "-1px",
+      backgroundSize: "contain",
       filter: `drop-shadow(1px 1px 1px #80808050)`,
     },
-    '#linkGroup': {
-      padding: '6.84px 4px',
+    "#linkGroup": {
+      padding: "6.84px 4px",
     },
-    '#durationGroup': {
-      padding: '3.01px 0',
+    "#durationGroup": {
+      padding: "3.01px 0",
     },
   },
 }));
@@ -197,19 +197,19 @@ export default function EventTypesTab() {
   const [userURL, setUserURL] = useState();
 
   const [eventBody, setEventBody] = useState({
-    name: '',
-    duration: '',
-    description: '',
-    link: '',
-    color: '#FF6A00',
+    name: "",
+    duration: "",
+    description: "",
+    link: "",
+    color: "#FF6A00",
   });
-  const [unit, setUnit] = useState('min');
+  const [unit, setUnit] = useState("min");
 
   const { name, photoUrl } = useUserData();
 
   useEffect(() => {
     axios
-      .get('/api/event')
+      .get("/api/event")
       .then((res) => {
         setUserEvents([...res.data]);
       })
@@ -241,15 +241,15 @@ export default function EventTypesTab() {
 
     // TODO: make card titles change to xx hours xx mins for time > 60?
     let minutes;
-    if (unit === 'hour') {
+    if (unit === "hour") {
       minutes = Math.floor(eventBody.duration * 60);
     } else {
       minutes = Math.floor(eventBody.duration);
     }
-    setUnit('min');
+    setUnit("min");
 
     axios
-      .post('/api/event', {
+      .post("/api/event", {
         ...eventBody,
         duration: minutes,
         link: `${userURL}/${eventBody.link}`,
@@ -259,11 +259,11 @@ export default function EventTypesTab() {
         currentEventTypes.push(res.data);
         setUserEvents(currentEventTypes);
         setEventBody({
-          name: '',
-          duration: '',
-          description: '',
-          link: '',
-          color: '#FF6A00',
+          name: "",
+          duration: "",
+          description: "",
+          link: "",
+          color: "#FF6A00",
         });
       })
       .catch((err) => console.log(err));
@@ -273,12 +273,12 @@ export default function EventTypesTab() {
   return (
     <>
       <Container>
-        <Grid container direction='row' justify='space-between'>
-          <Box display='flex' className={classes.profileAndNewTypeBox}>
+        <Grid container direction="row" justify="space-between">
+          <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
               src={photoUrl}
-              alt='User image'
+              alt="User image"
             />
             <Box>
               <Typography className={classes.name}>{name}</Typography>
@@ -290,8 +290,8 @@ export default function EventTypesTab() {
           <Box>
             <Button
               className={classes.newEventTypeButton}
-              color='secondary'
-              variant='outlined'
+              color="secondary"
+              variant="outlined"
               onClick={handleClickOpen}
             >
               + New Event Type
@@ -304,33 +304,33 @@ export default function EventTypesTab() {
       <Dialog
         open={openNewEvent}
         onClose={handleClose}
-        aria-labelledby='form-dialog-title'
+        aria-labelledby="form-dialog-title"
         classes={classes.dialog}
         fullWidth
-        maxWidth='sm'
+        maxWidth="sm"
       >
         <Box className={classes.box}>
-          <Typography className={classes.formLabel} variant='h5'>
+          <Typography className={classes.formLabel} variant="h5">
             What event is this?
           </Typography>
           <DialogContent>
             <Grid
-              direction='row'
-              alignItems='center'
+              direction="row"
+              alignItems="center"
               container
-              justify='flex-start'
+              justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs='2' item>
+              <Grid xs="2" item>
                 <InputLabel className={classes.label}>Name</InputLabel>
               </Grid>
 
-              <Grid xs='10' item>
+              <Grid xs="10" item>
                 <TextField
-                  variant='outlined'
-                  margin='normal'
-                  name='name'
-                  type='text'
+                  variant="outlined"
+                  margin="normal"
+                  name="name"
+                  type="text"
                   onChange={handleFormChange}
                   disableUnderline
                   fullWidth
@@ -339,75 +339,75 @@ export default function EventTypesTab() {
               </Grid>
             </Grid>
             <Grid
-              direction='row'
-              alignItems='center'
+              direction="row"
+              alignItems="center"
               container
-              justify='flex-start'
+              justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs='2' item>
+              <Grid xs="2" item>
                 <InputLabel className={classes.label}>Duration</InputLabel>
               </Grid>
 
-              <Grid xs='6' item>
+              <Grid xs="6" item>
                 <Grid
                   container
-                  direction='row'
-                  alignItems='center'
-                  justify='flex-start'
-                  wrap='nowrap'
-                  spacing='2'
+                  direction="row"
+                  alignItems="center"
+                  justify="flex-start"
+                  wrap="nowrap"
+                  spacing="2"
                   className={classes.groupedInput}
-                  id='durationGroup'
+                  id="durationGroup"
                 >
-                  <Grid xs='4' item>
+                  <Grid xs="4" item>
                     <Input
-                      label='Duration'
-                      name='duration'
-                      type='number'
+                      label="Duration"
+                      name="duration"
+                      type="number"
                       value={eventBody.duration}
                       onChange={handleFormChange}
                       disableUnderline
                       inputProps={{
-                        min: '1',
-                        style: { textAlign: 'center' },
+                        min: "1",
+                        style: { textAlign: "center" },
                       }}
                       fullWidth
                     />
                   </Grid>
-                  <Grid xs='8' item>
+                  <Grid xs="8" item>
                     <Select
                       value={unit}
                       onChange={handleUnitChange}
-                      label='Units'
+                      label="Units"
                       disableUnderline
                       fullWidth
                     >
-                      <MenuItem value={'min'}>minutes</MenuItem>
-                      <MenuItem value={'hour'}>hours</MenuItem>
+                      <MenuItem value={"min"}>minutes</MenuItem>
+                      <MenuItem value={"hour"}>hours</MenuItem>
                     </Select>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
             <Grid
-              direction='row'
-              alignItems='center'
+              direction="row"
+              alignItems="center"
               container
-              justify='flex-start'
+              justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs='2' item>
+              <Grid xs="2" item>
                 <InputLabel className={classes.descriptionLabel}>
                   Desciption
                 </InputLabel>
               </Grid>
 
-              <Grid xs='10' item>
+              <Grid xs="10" item>
                 <TextField
-                  variant='outlined'
-                  margin='normal'
-                  name='description'
+                  variant="outlined"
+                  margin="normal"
+                  name="description"
                   multiline
                   onChange={handleFormChange}
                   fullWidth
@@ -421,37 +421,37 @@ export default function EventTypesTab() {
               </Grid>
             </Grid>
             <Grid
-              direction='row'
-              alignItems='center'
+              direction="row"
+              alignItems="center"
               container
-              justify='flex-start'
+              justify="flex-start"
               className={classes.inputRow}
             >
-              <Grid xs='2' item>
+              <Grid xs="2" item>
                 <InputLabel className={classes.label}>Link</InputLabel>
               </Grid>
 
-              <Grid xs='10' item>
+              <Grid xs="10" item>
                 <Grid
                   container
-                  direction='row'
-                  alignItems='center'
-                  justify='flex-start'
-                  spacing='2'
-                  wrap='nowrap'
-                  id='linkGroup'
+                  direction="row"
+                  alignItems="center"
+                  justify="flex-start"
+                  spacing="2"
+                  wrap="nowrap"
+                  id="linkGroup"
                   className={classes.groupedInput}
                 >
                   {/* TODO: pass in user link prefix */}
-                  <Grid xs='5' className={classes.prefix} item>
+                  <Grid xs="5" className={classes.prefix} item>
                     calendapp.com/john-doe/
                   </Grid>
-                  <Grid className={classes.link} xs='7' item>
+                  <Grid className={classes.link} xs="7" item>
                     <TextField
-                      name='link'
-                      variant='outlined'
+                      name="link"
+                      variant="outlined"
                       value={eventBody.link}
-                      type='text'
+                      type="text"
                       onChange={handleFormChange}
                       fullWidth
                     />
@@ -460,37 +460,37 @@ export default function EventTypesTab() {
               </Grid>
             </Grid>
             <Grid
-              direction='row'
-              alignItems='center'
+              direction="row"
+              alignItems="center"
               container
-              justify='flex-start'
+              justify="flex-start"
               className={classes.colorRow}
             >
-              <Grid xs='2' item>
+              <Grid xs="2" item>
                 <InputLabel className={classes.label}>Color</InputLabel>
               </Grid>
 
-              <Grid xs='10' item>
+              <Grid xs="10" item>
                 <RadioGroup
-                  aria-label='color'
-                  name='color'
+                  aria-label="color"
+                  name="color"
                   onChange={handleFormChange}
                   value={eventBody.color}
                 >
                   <Grid
-                    direction='row'
-                    alignItems='baseline'
+                    direction="row"
+                    alignItems="baseline"
                     container
-                    justify='flex-start'
-                    spacing='2'
+                    justify="flex-start"
+                    spacing="2"
                   >
                     {[
-                      { name: 'purple', hex: '#7900FF' },
-                      { name: 'blue', hex: '#00AAFF' },
-                      { name: 'green', hex: '#66CC33' },
-                      { name: 'yellow', hex: '#FFFF00' },
-                      { name: 'orange', hex: '#FF6A00' },
-                      { name: 'grey', hex: '#808080' },
+                      { name: "purple", hex: "#7900FF" },
+                      { name: "blue", hex: "#00AAFF" },
+                      { name: "green", hex: "#66CC33" },
+                      { name: "yellow", hex: "#FFFF00" },
+                      { name: "orange", hex: "#FF6A00" },
+                      { name: "grey", hex: "#808080" },
                     ].map((color) => (
                       <Grid key={color.name} item>
                         <Radio
@@ -505,17 +505,17 @@ export default function EventTypesTab() {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Grid container alignItems='baseline' justify='flex-end'>
+            <Grid container alignItems="baseline" justify="flex-end">
               <Button
                 onClick={handleClose}
-                color='primary'
+                color="primary"
                 className={classes.cancel}
               >
                 Cancel
               </Button>
               <Button
                 onClick={createNewEventType}
-                color='primary'
+                color="primary"
                 className={classes.button}
               >
                 Create New Event Type
