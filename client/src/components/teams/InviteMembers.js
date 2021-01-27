@@ -11,7 +11,7 @@ import {
 const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   const classes = useStyles();
 
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(false);
   const handleEmailChange = (event) => {
     event.preventDefault();

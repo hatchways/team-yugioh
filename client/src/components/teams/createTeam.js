@@ -22,13 +22,13 @@ const CreateTeam = ({ open, closeDialog }) => {
     event.preventDefault();
   };
 
-  const [teamName, setTeamName] = useState();
+  const [teamName, setTeamName] = useState("");
   const handleTeamNameChange = (event) => {
     event.preventDefault();
     setTeamName(event.target.value);
   };
 
-  const [teamDescription, setDescription] = useState();
+  const [teamDescription, setDescription] = useState("");
   const handleDescriptionChange = (event) => {
     event.preventDefault();
     setDescription(event.target.value);
