@@ -16,18 +16,17 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   const handleEmailChange = (event) => {
     event.preventDefault();
     //validation could probably be done better
-    const email = event.target.value;
-    if (!email) {
-      setEmailValid(false);
-    }
-    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+    const typedEmail = event.target.value;
+    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
       setEmailValid(true);
     }
-    setEmail(event.target.value);
+    setEmail(typedEmail);
   };
 
   const addEmailToInvitedList = () => {
     setTeamMembers([...teamMembers, { email }]);
+    setEmail("");
+    setEmailValid(false);
   };
   return (
     <Grid container alignItems="center">
