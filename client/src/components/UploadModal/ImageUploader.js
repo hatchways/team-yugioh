@@ -40,6 +40,7 @@ export default function UploadDialog(props) {
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+  const [saveDisabled, setSaveDisabled] = useState(true);
 
   const classes = useStyles();
 
@@ -49,6 +50,7 @@ export default function UploadDialog(props) {
 
   const handleClose = () => {
     onClose();
+    setSaveDisabled(true)
   };
 
   // create a preview as a side effect, whenever selected file is changed
@@ -69,14 +71,20 @@ export default function UploadDialog(props) {
     setFile(e.target.files[0]);
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
+      
       return;
     }
+    setSaveDisabled(false);
     // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(e.target.files[0]);
+    
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (saveDisabled) {
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
 
@@ -90,7 +98,6 @@ export default function UploadDialog(props) {
       const {fileName} =res.data
       const BUCKET = 'cal-app-user-imgs'
       const photoUrl =  `https://${BUCKET}.s3.amazonaws.com/${fileName}`
-      console.log(userData)
       setUserData({...userData, photoUrl })
 
     } catch (err) {
@@ -140,7 +147,7 @@ export default function UploadDialog(props) {
               id="submit-button-file"
             />
             <label htmlFor="submit-button-file">
-              <Button variant="outlined" component="span">
+              <Button variant="outlined" component="span" disabled={saveDisabled}>
                 Save Changes
               </Button>
             </label>
