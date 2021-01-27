@@ -21,7 +21,7 @@ import EventGrid from '../UserEvents/EventGrid';
 import Avatar from '@material-ui/core/Avatar';
 import Checkmark from '../../assets/check.png';
 
-import { useUserContext } from '../../providers/Context';
+import { useUserData } from '../../providers/Context';
 
 import axios from 'axios';
 
@@ -205,7 +205,7 @@ export default function EventTypesTab() {
   });
   const [unit, setUnit] = useState('min');
 
-  const { name, photoUrl } = useUserContext();
+  const { name, photoUrl } = useUserData();
 
   useEffect(() => {
     axios

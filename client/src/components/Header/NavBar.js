@@ -9,7 +9,7 @@ import Box from "@material-ui/core/Box";
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
 
-import { useUserContext } from '../../providers/Context'
+import { useUserData } from '../../providers/Context'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +56,7 @@ export default function NavBar() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
-  const { name, photoUrl } = useUserContext()
+  const { name, photoUrl } = useUserData()
 
   return (
     <AppBar className={classes.root} position="static">

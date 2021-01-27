@@ -22,11 +22,15 @@ export const useSetAuthenticated = () => {
   return setAuthenticated;
 };
 // Get User Data
-export const useUserContext = () => {
+export const useUserData = () => {
+  // Usage: 
+// const userData = useUserData(); 
+// {_id, email, name, googleCredentials, photoUrl, URL, stripeId, subscribed, subscriptionId, ...}
   return useContext(UserContext).userData;
 };
 // Set User Data has Updated
 export const useSetUserHasUpdated = () => {
+   // Usage: `
   const setUserHasUpdated = useContext(UserContext).setUserHasUpdated;
   return setUserHasUpdated;
 };
