@@ -29,6 +29,9 @@ const SelectAnOpeningSlot = () => {
               availability={availDates}
             />
           </Grid>
+          <Grid item xs={5}>
+            <PickTime />
+          </Grid>
         </Grid>
       </Grid>
     </div>
