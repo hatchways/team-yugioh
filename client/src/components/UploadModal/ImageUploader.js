@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 
- import { useUpdateData } from "../../providers/Context";
+import { useUpdateData } from "../../providers/Context";
 
 import axios from "axios";
 import FormData from "form-data";
@@ -33,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BUCKET = 'cal-app-user-imgs'
-
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState("");
@@ -45,7 +43,7 @@ export default function UploadDialog(props) {
 
   const classes = useStyles();
 
-  const updateData = useUpdateData()
+  const updateData = useUpdateData();
 
   const handleClose = () => {
     onClose();
@@ -86,28 +84,18 @@ export default function UploadDialog(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-     
-      console.log(res.data.msg);
+      console.log(res.data.msg) // left in to prevent an error
       setMessage(true);
-      
-      // const {fileName} = res.data
-      // const newPhotoUrl = `https://${BUCKET}.s3.amazonaws.com/${fileName}`
-  
+
       setTimeout(() => {
         setMessage(false);
         handleClose();
       }, 2000);
       // Updates Context
-      updateData()
+      updateData();
     } catch (err) {
-      console.log(err);
-      if (err.response.status === 500) {
-        console.log("There was a problem with the server");
-      } else {
-        console.log(err.response.data.msg);
-      }
+      console.log(err.response.data.msg);
     }
-    
   };
 
   return (
