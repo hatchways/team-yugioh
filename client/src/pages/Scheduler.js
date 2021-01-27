@@ -69,7 +69,10 @@ const Scheduler = () => {
       <Grid container direction="row" wrap="nowrap" className={classes.grid}>
         {appointmentConfirmed ? (
           <Route to={`${eventDetails.link}/${appointmentConfirmed.id}`}>
-            <Confirmation />
+            <Confirmation
+              appointmentDetails={appointmentDetails}
+              eventDetails={eventDetails}
+            />
           </Route>
         ) : (
           <>

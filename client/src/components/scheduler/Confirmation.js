@@ -12,14 +12,49 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import BackArrow from "../../assets/back.svg";
 
-const Confirmation = () => {
+const Confirmation = ({ eventDetails, appointmentDetails }) => {
   const classes = useStyles();
 
-  return <>Appointment made!</>;
+  return (
+    <Grid
+      className={classes.root}
+      align="center"
+      justify="center"
+      spacing={2}
+      container
+      direction="column"
+    >
+      <Grid item>
+        <Typography variant="h3" color="textSecondary">
+          Confirmed
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="h5" color="textSecondary">
+          Thank you, {appointmentDetails.name}!
+        </Typography>
+      </Grid>
+
+      <Grid item>
+        <Typography variant="h6">
+          You are scheduled for{" "}
+          {`${eventDetails.name}` || `a ${duration} minute meeting`}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="body1">At {appointmentDetails.time}</Typography>
+      </Grid>
+    </Grid>
+  );
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: { height: "100%", overflow: "hidden" },
+  root: {
+    width: "50%",
+    height: "100%",
+    overflow: "hidden",
+    margin: "-10% auto 0 auto",
+  },
   button: {
     background: theme.palette.primary.button,
     fontSize: ".8rem",
