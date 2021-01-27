@@ -93,8 +93,17 @@ const CreateTeam = ({ open, closeDialog }) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={closeDialog}>Cancel</Button>
-        <Button onClick={createTeam}>Create your team</Button>
+        <Button onClick={closeDialog} className={classes.cancelButton}>
+          Cancel
+        </Button>
+        <Button
+          onClick={createTeam}
+          color="primary"
+          variant="contained"
+          className={classes.createButton}
+        >
+          Create your team
+        </Button>
       </DialogActions>
     </Dialog>
   );
@@ -108,6 +117,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "0.9rem",
     color: "rgba(0, 0, 0, 0.8)",
+  },
+  createButton: {
+    color: "white",
+    fontSize: ".8rem",
+    padding: "2% 5%",
+    margin: "1em",
+  },
+  cancelButton: {
+    color: "#9e9e9e",
   },
 }));
 
