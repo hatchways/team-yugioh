@@ -44,6 +44,11 @@ const Confirmation = ({ eventDetails, appointmentDetails }) => {
       <Grid item>
         <Typography variant="body1">At {appointmentDetails.time}</Typography>
       </Grid>
+      <Grid item>
+        <Typography variant="h6">
+          An invitation has been sent to your email!
+        </Typography>
+      </Grid>
     </Grid>
   );
 };

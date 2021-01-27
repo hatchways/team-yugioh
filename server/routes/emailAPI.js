@@ -7,7 +7,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const router = express.Router();
 
 // Send confirmation email
-router.post("/api/email", auth, (req, res) => {
+router.post("/api/email", (req, res) => {
   const msg = {
     to: req.body.email,
     // TODO: make project email/maybe also domain?
