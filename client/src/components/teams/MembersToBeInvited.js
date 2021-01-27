@@ -27,8 +27,14 @@ const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
       </Grid>
       <Grid item container direction="column" wrap="nowrap">
         {teamMemberNotEmpty &&
-          teamMembers.map((member, index) => (
-            <Grid item container key={index} alignItems="center" spacing={3}>
+          teamMembers.map((member) => (
+            <Grid
+              item
+              container
+              key={member.email}
+              alignItems="center"
+              spacing={3}
+            >
               <Grid item xs={1}>
                 <Brightness1 color="primary" className={classes.icon} />
               </Grid>
