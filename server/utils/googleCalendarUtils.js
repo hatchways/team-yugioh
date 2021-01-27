@@ -5,7 +5,7 @@ const {authorize} =require("../utils/googleAuthUtils")
 async function getAvailability(auth_token, day) {
   const client = authorize(auth_token);
   const bussy = await getBuyssy(client, day);
-  const free = getFreeTimes(bussy);
+  const free = getFreeTimes(bussy, day);
  
   return free;
 }
@@ -35,15 +35,15 @@ async function getBuyssy(auth, day) {
   return bussy.data.calendars.primary.busy;
 }
 
-function getFreeTimes(bussyTimes) {
+function getFreeTimes(bussyTimes, day) {
   const freeTimes = [];
-  const startOfDay = new Date(bussyTimes[0].start);
+  const startOfDay = new Date(day);
   startOfDay.setHours(0, 0, 0, 0);
-  const endOfDay = new Date(bussyTimes[0].start);
+  const endOfDay = new Date(day);
   endOfDay.setHours(23, 59, 59, 999);
 
   //if no booked slots return whole day as free
-  if (bussyTimes.length < 1) return [{ start: startOfDay, end: endOfDay }];
+  if (bussyTimes.length < 1) return [{ start: startOfDay.toISOString(), end: endOfDay.toISOString() }];
 
   //if the first meeting doesnt start at start of day add free interval between start of day and first meeting
   if (Date.parse(startOfDay) < Date.parse(bussyTimes[0].start))
