@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {getTimeSlots} from "../../utils/calendarUtils"
 
-const PickTime = ({selectedDate, interval, availabilityTimes}) => {
+const PickTime = ({
+  selectedDate,
+  appointmentDetails,
+  setAppointmentDetails,
+  eventLink,
+  interval, 
+  availabilityTimes
+}) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
   let isoDate=new Date(selectedDate);
@@ -54,17 +62,38 @@ const PickTime = ({selectedDate, interval, availabilityTimes}) => {
       >
         {timeSlots.length !== 0 &&
           timeSlots.map((slot, i) => (
-            <ListItem key={i} className={classes.listItem} button>
-              <Grid
-                container
-                direction="row"
-                justify="space-around"
-                alignItems="center"
+            <Link
+              to={`/appt/${eventLink}/${encodeURI(
+                parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
+              )}`}
+              className={classes.schedLink}
+              key={i}
+            >
+              <ListItem
+                className={classes.listItem}
+                button
+                onClick={() =>
+                  setAppointmentDetails({
+                    ...appointmentDetails,
+                    time: parse(
+                      date + " " + slot,
+                      "EEEE, LLL do HH:mm",
+                      new Date()
+                    ),
+                  })
+                }
               >
-                <Brightness1 color="primary" className={classes.icon} />
-                <Typography>{slot}</Typography>
-              </Grid>
-            </ListItem>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-around"
+                  alignItems="center"
+                >
+                  <Brightness1 color="primary" className={classes.icon} />
+                  <Typography>{slot}</Typography>
+                </Grid>
+              </ListItem>
+            </Link>
           ))}
       </Grid>
     </Grid>
@@ -91,6 +120,10 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(5),
     margin: `${theme.spacing(0.5)}px 0`,
     width: theme.spacing(15),
+  },
+  schedLink: {
+    textDecoration: "none",
+    color: "inherit",
   },
 }));
 
