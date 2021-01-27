@@ -49,15 +49,6 @@ export const UserContextProvider = ({ children }) => {
         setUserData(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("/api/user/data")
-      .then((res) => {
-        setUserData(res.data);
-      })
-      .catch((err) => console.log(err));
     setUserHasUpdated(false);
   }, [userHasUpdated]);
 
