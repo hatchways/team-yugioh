@@ -16,6 +16,7 @@ import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/AuthProvider";
 import axios from "axios";
+import UserManagementPage from "./pages/UserManagement";
 
 import "./App.css";
 
@@ -59,6 +60,9 @@ function App() {
         <PrivateRoute path="/checkout">
           <Checkout />
         </PrivateRoute>
+        <Route path="/teams">
+          <UserManagementPage/>
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );
