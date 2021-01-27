@@ -47,10 +47,10 @@ const CreateTeam = ({ open, closeDialog }) => {
       <DialogContent>
         <Grid container direction="column" spacing={2}>
           <Grid item container alignItems="center">
-            <Grid item xs={5}>
+            <Grid item xs={3}>
               <InputLabel className={classes.label}>Team name</InputLabel>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={9}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -62,12 +62,12 @@ const CreateTeam = ({ open, closeDialog }) => {
           </Grid>
 
           <Grid item container alignItems="center">
-            <Grid item xs={5}>
+            <Grid item xs={3}>
               <InputLabel className={classes.label}>
                 Team description
               </InputLabel>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={9}>
               <TextField
                 value={teamDescription}
                 onChange={handleDescriptionChange}
@@ -75,7 +75,6 @@ const CreateTeam = ({ open, closeDialog }) => {
                 variant="outlined"
                 multiline
                 margin="normal"
-                InputProps={{ className: classes.descriptionInput }}
               />
             </Grid>
           </Grid>

@@ -30,17 +30,17 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   };
   return (
     <Grid container alignItems="center">
-      <Grid item xs={5}>
-        <InputLabel className={classes.label}>
-          Invite members with their email
-        </InputLabel>
+      <Grid item xs={3}>
+        <InputLabel className={classes.label}>Invite members</InputLabel>
       </Grid>
       <Grid item xs={5}>
         <TextField
           variant="outlined"
+          fullWidth
           value={email}
           onChange={handleEmailChange}
           margin="normal"
+          placeholder="Email address"
         />
       </Grid>
       <Grid item xs={2}>
@@ -49,6 +49,7 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
           disabled={!emailValid}
           variant="contained"
           color="primary"
+          className={classes.button}
         >
           Invite
         </Button>
@@ -62,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "0.9rem",
     color: "rgba(0, 0, 0, 0.8)",
+  },
+  button: {
+    marginLeft: "1em",
+    color: "white",
   },
 }));
 
