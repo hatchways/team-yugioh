@@ -4,8 +4,15 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-
+import {
+  Paper,
+  Grid,
+  Typography,
+  Divider,
+  Button,
+  Container
+} from "@material-ui/core";
+import ActiveTab from "../UserManagment/ActiveTab";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -19,9 +26,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
           <div>{children}</div>
-        </Box>
       )}
     </div>
   );
@@ -30,30 +35,36 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(5),
+    paddingBottom: theme.spacing(5)
   },
   avatar: {
     marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(4)
   },
+  noPadding:{
+      padding:0
+  }
 }));
 
-const StyledTab = withStyles((theme) => ({
+const StyledTab = withStyles(theme => ({
+  noPadding: {
+    padding: 0
+  },
   root: {
     minWidth: 72,
     fontWeight: theme.typography.fontWeightRegular,
@@ -61,15 +72,15 @@ const StyledTab = withStyles((theme) => ({
     fontSize: "1rem",
     "&:hover": {
       color: "orange",
-      opacity: 1,
+      opacity: 1
     },
     "&$selected": {
       color: theme.palette.secondary.main,
-      fontWeight: theme.typography.fontWeightMedium,
-    },
+      fontWeight: theme.typography.fontWeightMedium
+    }
   },
-  selected: {},
-}))((props) => <Tab disableRipple {...props} />);
+  selected: {}
+}))(props => <Tab disableRipple {...props} />);
 
 export default function UserManagementTabs() {
   const classes = useStyles();
@@ -80,7 +91,7 @@ export default function UserManagementTabs() {
   };
 
   return (
-    <Container className={classes.root} maxWidth="xl">
+    <>
       <div position="static">
         <Tabs
           value={value}
@@ -88,11 +99,7 @@ export default function UserManagementTabs() {
           aria-label="simple tabs example"
         >
           <StyledTab label="Active" {...a11yProps(0)} />
-          <StyledTab
-            classes={classes.tab}
-            label="Pending"
-            {...a11yProps(1)}
-          />
+          <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1)} />
           <StyledTab
             classes={classes.tab}
             label="Templates"
@@ -100,8 +107,9 @@ export default function UserManagementTabs() {
           />
         </Tabs>
       </div>
+      <Divider variant="fullWidth" />
       <TabPanel value={value} index={0}>
-        To be completed...
+        <ActiveTab/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         To be completed...
@@ -109,6 +117,6 @@ export default function UserManagementTabs() {
       <TabPanel value={value} index={2}>
         To be completed...
       </TabPanel>
-    </Container>
+    </>
   );
 }

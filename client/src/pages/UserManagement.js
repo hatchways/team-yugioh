@@ -49,9 +49,9 @@ const UserManagementPage = () => {
         <div className={classes.heading}>
           <Header/>
         </div>
-        <Grid container spacing={6} className={classes.cardContainer}>
-        <UserManagementTabs/>
-        </Grid>
+       
+          <UserManagementTabs/>
+    
       </Container>
     </div>
   );

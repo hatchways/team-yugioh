@@ -1,12 +1,8 @@
 import React from "react";
 import {
-    Paper,
-    Grid,
     makeStyles,
     Typography,
-    Divider,
     Button,
-    Container
   } from "@material-ui/core";
   import AddIcon from '@material-ui/icons/Add';
 
@@ -24,6 +20,7 @@ import {
        padding:"9px 16px",
        fontSize:16,
        fontWeight:"normal"
+
    }
   }));
 
@@ -34,7 +31,7 @@ const Header=()=>{
     return(
        <div className={classes.header}>
            <Typography variant="h1" className={classes.headerText}>Users</Typography>
-           <Button variant="outlined" startIcon={<AddIcon/>} className={classes.newUbutton}>New User</Button>
+           <Button variant="outlined" startIcon={<AddIcon/> } className={classes.newUbutton} color="primary">New User</Button>
        </div>
     )
 }
