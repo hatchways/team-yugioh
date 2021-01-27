@@ -15,10 +15,11 @@ const PickDate = (props) => {
   );
 };
 
-const DisplayCalendar = ({ selectedDate, setSelectedDate }) => {
+const DisplayCalendar = ({ selectedDate, setSelectedDate, availability }) => {
+  
   const disableDate = (date) => {
     //check against the availability to determine which dates to grey out
-    if (date.getDay() === 0 || date.getDay() === 6) {
+    if (!availability.includes(date.getDay())) {
       return true;
     }
   };
