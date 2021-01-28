@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const RescheduleCancel = ({ variant, appointmentId, eventUrl }) => {
+const RescheduleCancelAppointment = ({ variant, appointmentId, eventUrl }) => {
   const reschedule = variant === "reschedule";
   const cancel = variant === "cancel";
   const classes = useStyles();
@@ -69,4 +69,4 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
-export default RescheduleCancel;
+export default RescheduleCancelAppointment;

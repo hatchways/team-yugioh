@@ -15,7 +15,7 @@ import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/AuthProvider";
-import RescheduleOrCancelEvent from "./pages/reschedule/RescheduleOrCancelEvent";
+import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
 import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
 import "./App.css";
 
@@ -57,10 +57,10 @@ function App() {
           <Checkout />
         </PrivateRoute>
         <Route path="/reschedule/:appointmentId">
-          <RescheduleOrCancelEvent variant="reschedule" />
+          <RescheduleOrCancelAppointmentPage variant="reschedule" />
         </Route>
         <Route path="/cancel/:appointmentId">
-          <RescheduleOrCancelEvent variant="cancel" />
+          <RescheduleOrCancelAppointmentPage variant="cancel" />
         </Route>
         <Route path="/appointment/cancelled">
           <AppointmentDoesNotExistOrCancelled variant="cancelled" />

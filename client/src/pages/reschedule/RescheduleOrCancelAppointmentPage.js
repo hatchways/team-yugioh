@@ -4,7 +4,7 @@ import { Grid, makeStyles, Paper, Divider } from "@material-ui/core";
 import axios from "axios";
 
 import Overview from "../../components/scheduler/Overview";
-import RescheduleCancel from "../../components/scheduler/RescheduleCancel";
+import RescheduleCancelAppointment from "../../components/scheduler/RescheduleCancelAppointment";
 
 const RescheduleOrCancelAppointmentPage = ({ variant }) => {
   const { appointmentId } = useParams();
@@ -51,7 +51,7 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
           <Divider orientation="vertical" flexItem={true} />
 
           <Grid item xs={8}>
-            <RescheduleCancel
+            <RescheduleCancelAppointment
               variant={variant}
               appointmentId={appointmentId}
               eventUrl={appointmentDetails.eventUrl}
