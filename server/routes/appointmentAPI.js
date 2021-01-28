@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("../db/models");
 const auth = require("../middleware/auth");
 
-const doesAppointmentExist = require("../middleware/doesAppointmentExist");
+const ensureAppointmentExists = require("../middleware/ensureAppointmentExists");
 
 const router = express.Router();
 
@@ -29,9 +29,43 @@ router.get("/api/appointment", auth, (req, res) => {
 });
 
 router.delete(
-  "/api/appointment/cancel/:eventId",
-  doesAppointmentExist,
-  (req, res) => {}
+  "/api/appointment/cancel/:appointmentId",
+  ensureAppointmentExists,
+  async (req, res) => {
+    const { appointmentId } = req.params;
+    await db.deleteOne({ _id: appointmentId });
+    res.send("Appointment successfully deleted. ID:", appointmentId);
+  }
+);
+
+router.get(
+  "/api/appointment/detail/:appointmentId",
+  ensureAppointmentExists,
+  async (req, res) => {
+    const { appointmentId } = req.params;
+
+    //make this less verbose before opening a PR!
+    const appointmentDetails = await db.Appointment.findOne({
+      _id: appointmentId,
+    });
+    const { eventId, name: attendeeName, time } = appointmentDetails;
+    const eventTypeDetails = await db.EventType.findOne({ _id: eventId });
+    const {
+      link: eventUrl,
+      duration,
+      name: eventName,
+      description: eventDescription,
+    } = eventTypeDetails; // renaming for proper nomenclature
+
+    res.send({
+      eventUrl,
+      duration,
+      attendeeName,
+      eventName,
+      time,
+      eventDescription,
+    });
+  }
 );
 
 module.exports = router;

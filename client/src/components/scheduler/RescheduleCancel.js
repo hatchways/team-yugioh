@@ -7,18 +7,22 @@ import {
   Button,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const RescheduleCancel = ({ reschedule }) => {
+const RescheduleCancel = ({ reschedule, appointmentId, eventUrl }) => {
   const classes = useStyles();
-  const cancelEvent = (event) => {
-    console.log("hi");
+  const cancelAppointment = (event) => {
+    axios.delete(`/api/appointment/cancel/${appointmentId}`);
   };
+
+  const linkToReschedule = `/schedule-meeting/${eventUrl}`;
+  const linkToSuccessfulCancellation = "/successful-cancellation";
   return (
     <div className={classes.gridContainer}>
-      <Grid container direction="column" spacing={4}>
+      <Grid container direction="column" spacing={reschedule ? 1 : 4}>
         <Grid item>
           <Typography variant="h5">
-            Cancel event {reschedule && " and reschedule?"}
+            Cancel appointment {reschedule && " and reschedule?"}
           </Typography>
         </Grid>
         <Grid item>
@@ -33,13 +37,13 @@ const RescheduleCancel = ({ reschedule }) => {
           )}
         </Grid>
         <Grid item>
-          <Button className={classes.button} onClick={cancelEvent}>
-            {reschedule && (
-              <Link className={classes.link} to="/schedule-meeting">
-                Reschedule
-              </Link>
-            )}
-            {!reschedule && "Cancel event"}
+          <Button className={classes.button} onClick={cancelAppointment}>
+            <Link
+              className={classes.link}
+              to={reschedule ? linkToReschedule : linkToSuccessfulCancellation}
+            >
+              Confirm
+            </Link>
           </Button>
         </Grid>
       </Grid>

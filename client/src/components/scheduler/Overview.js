@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 const Overview = ({ name, duration, description, appointmentTime }) => {
   const classes = useStyles();
-
   return (
     <Grid className={classes.root} spacing={1} container direction="column">
       <Grid item>
@@ -34,7 +33,7 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
             {JSON.stringify(appointmentTime)}
           </Typography>
         </Grid>
-      ) }
+      )}
       <Grid item>
         <Typography variant="body1">{description}</Typography>
       </Grid>

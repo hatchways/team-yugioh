@@ -31,7 +31,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route path="/appt">
+        <Route path="/appt/:hostName/:eventName">
           <Scheduler />
         </Route>
         <Route path="/signup">
@@ -46,9 +46,6 @@ function App() {
         <PrivateRoute path="/onboarding">
           <OnBoardingPage />
         </PrivateRoute>
-        <Route path="/schedule-meeting">
-          <Scheduler />
-        </Route>
         <PrivateRoute path="/home">
           <Home />
         </PrivateRoute>
@@ -58,10 +55,10 @@ function App() {
         <PrivateRoute path="/checkout">
           <Checkout />
         </PrivateRoute>
-        <Route path="/reschedule/:eventId">
+        <Route path="/reschedule/:appointmentId">
           <RescheduleOrCancelEvent reschedule={true} />
         </Route>
-        <Route path="/cancel/:eventId">
+        <Route path="/cancel/:appointmentId">
           <RescheduleOrCancelEvent reschedule={false} />
         </Route>
       </BrowserRouter>
