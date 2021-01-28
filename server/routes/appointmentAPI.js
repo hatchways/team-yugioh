@@ -44,7 +44,6 @@ router.get(
   async (req, res) => {
     const { appointmentId } = req.params;
 
-    //make this less verbose before opening a PR!
     const appointmentDetails = await db.Appointment.findOne({
       _id: appointmentId,
     });
