@@ -54,7 +54,7 @@ router.delete("/api/team-event/:id", (req, res) => {
 
 // 4 - Update an event type
 router.post("/api/team-event/:id", (req, res) => {
-  db.EventType.updateOne({ _id: req.params.id }, { $push: { $set: req.body } })
+  db.EventType.updateOne({ _id: req.params.id }, { $set: req.body })
     .then((eventType) => {
       if (!eventType) {
         res.status(404).send();
