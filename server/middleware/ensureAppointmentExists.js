@@ -16,6 +16,9 @@ const ensureAppointmentExists = async (req, res, next) => {
   if (result) {
     next();
   } else {
+    console.log(
+      "Appointment does not exist (ensureAppointmentExists middleware)"
+    );
     res.status(400).send("No appointment found for the provided ID.");
   }
 };

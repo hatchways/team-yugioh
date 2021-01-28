@@ -17,8 +17,8 @@ const RescheduleCancel = ({ reschedule, appointmentId, eventUrl }) => {
     });
   };
 
-  const linkToReschedule = `/schedule-meeting/${eventUrl}`;
-  const linkToSuccessfulCancellation = "/successful-cancellation";
+  const linkToReschedule = `/appt/${eventUrl}`;
+  const linkToSuccessfulCancellation = "/appointment/cancelled";
   return (
     <div className={classes.gridContainer}>
       <Grid container direction="column" spacing={reschedule ? 1 : 4}>

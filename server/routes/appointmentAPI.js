@@ -33,8 +33,8 @@ router.delete(
   ensureAppointmentExists,
   async (req, res) => {
     const { appointmentId } = req.params;
-    await db.deleteOne({ _id: appointmentId });
-    res.send("Appointment successfully deleted. ID:", appointmentId);
+    await db.Appointment.deleteOne({ _id: appointmentId });
+    res.send("Appointment successfully deleted. ID:" + appointmentId);
   }
 );
 
