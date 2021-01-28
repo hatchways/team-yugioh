@@ -9,7 +9,9 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const RescheduleCancel = ({ reschedule, appointmentId, eventUrl }) => {
+const RescheduleCancel = ({ variant, appointmentId, eventUrl }) => {
+  const reschedule = variant === "reschedule";
+  const cancel = variant === "cancel";
   const classes = useStyles();
   const cancelAppointment = (event) => {
     axios.delete(`/api/appointment/cancel/${appointmentId}`).then(() => {
@@ -24,11 +26,12 @@ const RescheduleCancel = ({ reschedule, appointmentId, eventUrl }) => {
       <Grid container direction="column" spacing={reschedule ? 1 : 4}>
         <Grid item>
           <Typography variant="h5">
-            Cancel appointment {reschedule && " and reschedule?"}
+            {reschedule && "Cancel appointment and reschedule?"}
+            {cancel && "Cancel appointment?"}
           </Typography>
         </Grid>
         <Grid item>
-          {!reschedule && (
+          {cancel && (
             <TextField
               label="Reason for canceling"
               multiline

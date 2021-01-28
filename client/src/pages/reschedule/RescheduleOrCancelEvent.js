@@ -6,7 +6,7 @@ import axios from "axios";
 import Overview from "../../components/scheduler/Overview";
 import RescheduleCancel from "../../components/scheduler/RescheduleCancel";
 
-const RescheduleOrCancelAppointmentPage = ({ reschedule }) => {
+const RescheduleOrCancelAppointmentPage = ({ variant }) => {
   const { appointmentId } = useParams();
   const classes = useStyles();
 
@@ -52,7 +52,7 @@ const RescheduleOrCancelAppointmentPage = ({ reschedule }) => {
 
           <Grid item xs={8}>
             <RescheduleCancel
-              reschedule={reschedule}
+              variant={variant}
               appointmentId={appointmentId}
               eventUrl={appointmentDetails.eventUrl}
               setAppointmentCancelled={setAppointmentCancelled}

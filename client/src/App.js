@@ -57,10 +57,10 @@ function App() {
           <Checkout />
         </PrivateRoute>
         <Route path="/reschedule/:appointmentId">
-          <RescheduleOrCancelEvent reschedule={true} />
+          <RescheduleOrCancelEvent variant="reschedule" />
         </Route>
         <Route path="/cancel/:appointmentId">
-          <RescheduleOrCancelEvent reschedule={false} />
+          <RescheduleOrCancelEvent variant="cancel" />
         </Route>
         <Route path="/appointment/cancelled">
           <AppointmentDoesNotExistOrCancelled variant="cancelled" />
