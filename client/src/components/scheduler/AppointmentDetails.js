@@ -32,7 +32,14 @@ const AppointmentDetails = ({
     } catch (err) {
       console.log(err);
     }
-    axios.post("/api/email", { email: appointmentDetails.email });
+    let email;
+    try {
+      email = axios.post("/api/email", { email: appointmentDetails.email });
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log(email);
     setAppointmentConfirmed({ id: res.data._id });
 
     history.push(`${path}${res.data._id}`);
