@@ -3,8 +3,8 @@ import { useParams, Redirect } from "react-router-dom";
 import { Grid, makeStyles, Paper, Divider } from "@material-ui/core";
 import axios from "axios";
 
-import Overview from "../components/scheduler/Overview";
-import RescheduleCancel from "../components/scheduler/RescheduleCancel";
+import Overview from "../../components/scheduler/Overview";
+import RescheduleCancel from "../../components/scheduler/RescheduleCancel";
 
 const RescheduleOrCancelAppointmentPage = ({ reschedule }) => {
   const { appointmentId } = useParams();
@@ -35,8 +35,8 @@ const RescheduleOrCancelAppointmentPage = ({ reschedule }) => {
 
   return (
     <>
-      {appointmentCancelled && <Redirect to="/appointment-cancelled" />}
-      {appointmentDoesNotExist && <Redirect to="/appointment-does-not-exist" />}
+      {appointmentCancelled && <Redirect to="/appointment/cancelled" />}
+      {appointmentDoesNotExist && <Redirect to="/appointment/does-not-exist" />}
       <Paper className={classes.root} elevation={5}>
         <Grid container direction="row" wrap="nowrap" className={classes.grid}>
           <Grid item xs={4}>
