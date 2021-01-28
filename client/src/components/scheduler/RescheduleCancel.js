@@ -12,7 +12,9 @@ import axios from "axios";
 const RescheduleCancel = ({ reschedule, appointmentId, eventUrl }) => {
   const classes = useStyles();
   const cancelAppointment = (event) => {
-    axios.delete(`/api/appointment/cancel/${appointmentId}`);
+    axios.delete(`/api/appointment/cancel/${appointmentId}`).then(() => {
+      setAppointmentCancelled(true);
+    });
   };
 
   const linkToReschedule = `/schedule-meeting/${eventUrl}`;

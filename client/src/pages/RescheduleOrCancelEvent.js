@@ -10,7 +10,8 @@ const RescheduleOrCancelAppointmentPage = ({ reschedule }) => {
   const { appointmentId } = useParams();
   const classes = useStyles();
 
-  const [appointmentExists, setAppointmentExists] = useState(true);
+  const [appointmentDoesNotExist, setAppointmentDoesNotExist] = useState(false);
+  const [appointmentCancelled, setAppointmentCancelled] = useState(false);
 
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventName: "",
@@ -28,33 +29,38 @@ const RescheduleOrCancelAppointmentPage = ({ reschedule }) => {
         setAppointmentDetails(res.data);
       })
       .catch(() => {
-        setAppointmentExists(false);
+        setAppointmentDoesNotExist(true);
       });
   }, [appointmentId]);
 
   return (
-    <Paper className={classes.root} elevation={5}>
-      <Grid container direction="row" wrap="nowrap" className={classes.grid}>
-        <Grid item xs={4}>
-          <Overview
-            name={appointmentDetails.eventName}
-            duration={appointmentDetails.duration}
-            description={appointmentDetails.eventDescription}
-            appointmentTime={appointmentDetails.appointmentTime}
-          />
-        </Grid>
+    <>
+      {appointmentCancelled && <Redirect to="/appointment-cancelled" />}
+      {appointmentDoesNotExist && <Redirect to="/appointment-does-not-exist" />}
+      <Paper className={classes.root} elevation={5}>
+        <Grid container direction="row" wrap="nowrap" className={classes.grid}>
+          <Grid item xs={4}>
+            <Overview
+              name={appointmentDetails.eventName}
+              duration={appointmentDetails.duration}
+              description={appointmentDetails.eventDescription}
+              appointmentTime={appointmentDetails.appointmentTime}
+            />
+          </Grid>
 
-        <Divider orientation="vertical" flexItem={true} />
+          <Divider orientation="vertical" flexItem={true} />
 
-        <Grid item xs={8}>
-          <RescheduleCancel
-            reschedule={reschedule}
-            appointmentId={appointmentId}
-            eventUrl={appointmentDetails.eventUrl}
-          />
+          <Grid item xs={8}>
+            <RescheduleCancel
+              reschedule={reschedule}
+              appointmentId={appointmentId}
+              eventUrl={appointmentDetails.eventUrl}
+              setAppointmentCancelled={setAppointmentCancelled}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </>
   );
 };
 
