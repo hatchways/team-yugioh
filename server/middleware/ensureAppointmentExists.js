@@ -12,14 +12,21 @@ const ensureAppointmentExists = async (req, res, next) => {
   // `/api/appointment/reschedule/:appointmentId`
 
   const { appointmentId } = req.params;
-  const result = await dbAppointment.findOne({ _id: appointmentId });
-  if (result) {
-    next();
-  } else {
-    console.log(
-      "Appointment does not exist (ensureAppointmentExists middleware)"
-    );
-    res.status(400).send("No appointment found for the provided ID.");
+  try {
+    const result = await dbAppointment.findOne({ _id: appointmentId });
+    if (result) {
+      //result will return undefined when appointmentId is a valid format but does not exist in database
+      next();
+    } else {
+      throw new Error();
+    }
+  } catch (error) {
+    // the await statement will fail if the appointmentId is in a non-valid format
+    res
+      .status(400)
+      .send(
+        "No appointment found for the provided ID (Error in ensureAppointmentExists mdidleware"
+      );
   }
 };
 
