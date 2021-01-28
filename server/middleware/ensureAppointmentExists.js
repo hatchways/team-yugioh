@@ -13,9 +13,9 @@ const ensureAppointmentExists = async (req, res, next) => {
 
   const { appointmentId } = req.params;
   try {
+    //result will return undefined when appointmentId is a valid format but does not exist in database
     const result = await dbAppointment.findOne({ _id: appointmentId });
     if (result) {
-      //result will return undefined when appointmentId is a valid format but does not exist in database
       next();
     } else {
       throw new Error();
