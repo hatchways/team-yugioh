@@ -7,7 +7,7 @@ export default function NotFound() {
     <div>
       <Typography variant="h2">Whoops!</Typography>
       <Typography variant="h3">{"This page doesn't exist"}</Typography>
-      <Link to="/">Take me home!</Link>
+      <Link to="/home">Take me home!</Link>
     </div>
   );
 }
