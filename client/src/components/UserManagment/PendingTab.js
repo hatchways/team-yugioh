@@ -6,13 +6,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import UserInfoDisplay from "./UserInfoDisplay";
-import { Link } from "react-router-dom";
 import UserActionsMenue from "./UserActionsMenue";
-import LockIcon from '@material-ui/icons/Lock';
-import ClearIcon from '@material-ui/icons/Clear';
 import { Clear } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
+import RemoveModal from "./RemoveModal";
 
 
 const useStyles = makeStyles({
@@ -91,13 +88,14 @@ export default function PendingTab() {
               </TableCell>
               <TableCell align="center">
                 <UserActionsMenue>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     startIcon={<Clear/>}
                     classes={{ root: classes.popoverButton }}
                   >
                     Remove
-                  </Button>
+                  </Button> */}
+                  <RemoveModal variant="remove_invite" email={row.email}/>
                 </UserActionsMenue>
               </TableCell>
             </TableRow>

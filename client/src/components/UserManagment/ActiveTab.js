@@ -10,8 +10,7 @@ import UserInfoDisplay from "./UserInfoDisplay";
 import { Link } from "react-router-dom";
 import UserActionsMenue from "./UserActionsMenue";
 import ChangeRoleModal from "./ChangeRoleModal";
-import { Clear } from "@material-ui/icons";
-import Button from "@material-ui/core/Button";
+import RemoveModal from "./RemoveModal";
 
 
 const useStyles = makeStyles({
@@ -29,13 +28,6 @@ const useStyles = makeStyles({
     color: "#00a2ff",
     fontSize: 14
   },
-popoverButton:{
-    borderRadius:0,
-    borderBottom:"none"
-},
-clearIcon:{
-  marginLeft:"-20px"
-}
 });
 
 function createData(name, email, role, appPage, dateAdded) {
@@ -100,13 +92,7 @@ export default function ActiveTab() {
               <TableCell align="center">
                 <UserActionsMenue>
                   <ChangeRoleModal userName={row.name}/>
-                  <Button
-                    variant="outlined"
-                    startIcon={<Clear className={classes.clearIcon} />}
-                    classes={{ root: classes.popoverButton }}
-                  >
-                    Remove
-                  </Button>
+                  <RemoveModal variant="remove_user" userName={row.name}/>
                 </UserActionsMenue>
               </TableCell>
             </TableRow>

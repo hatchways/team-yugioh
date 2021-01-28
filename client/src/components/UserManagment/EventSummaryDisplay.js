@@ -4,6 +4,7 @@ import UserActionsMenue from "./UserActionsMenue";
 import LockIcon from "@material-ui/icons/Lock";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
+import RemoveModal from "./RemoveModal";
 
 const useStyles = makeStyles({
   root: {
@@ -72,13 +73,7 @@ export default function EventSummaryDisplay(props) {
         >
           Edit
         </Button>
-        <Button
-          variant="outlined"
-          startIcon={<DeleteOutlineIcon/>}
-          classes={{ root: classes.popoverButton }}
-        >
-          Remove
-        </Button>
+        <RemoveModal variant="remove_template"/>
       </UserActionsMenue>
     </div>
   );
