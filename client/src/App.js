@@ -15,8 +15,7 @@ import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/AuthProvider";
-import CancelEvent from "./pages/CancelEvent";
-import RescheduleEvent from "./pages/RescheduleEvent";
+import RescheduleOrCancelEvent from "./pages/RescheduleOrCancelEvent";
 import "./App.css";
 
 function App() {
@@ -60,10 +59,10 @@ function App() {
           <Checkout />
         </PrivateRoute>
         <Route path="/reschedule/:eventId">
-          <RescheduleEvent />
+          <RescheduleOrCancelEvent reschedule={true} />
         </Route>
         <Route path="/cancel/:eventId">
-          <CancelEvent />
+          <RescheduleOrCancelEvent reschedule={false} />
         </Route>
       </BrowserRouter>
     </MuiThemeProvider>

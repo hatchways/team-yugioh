@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { useParams, Route } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Grid, makeStyles, Paper, Divider } from "@material-ui/core";
 
 import Overview from "../components/scheduler/Overview";
-import SelectAnOpeningSlot from "../components/scheduler/SelectAnOpeningSlot";
-import ConfirmAppointment from "../components/scheduler/ConfirmAppointment";
+import RescheduleCancel from "../components/scheduler/RescheduleCancel";
 
-const RescheduleEvent = () => {
-  const classes = useStyles();
+const RescheduleOrCancelEvent = ({ reschedule }) => {
   const { eventId } = useParams();
-  console.log("event id", eventId);
+  const classes = useStyles();
+
   const [eventDetails, setEventDetails] = useState({
     name: "",
     details: "",
@@ -28,12 +27,7 @@ const RescheduleEvent = () => {
         <Divider orientation="vertical" flexItem={true} />
 
         <Grid item xs={8}>
-          <Route exact path="/reschedule/:eventId">
-            <SelectAnOpeningSlot />
-          </Route>
-          <Route path="/reschedule/:eventId/confirm">
-            <ConfirmAppointment />
-          </Route>
+          <RescheduleCancel reschedule={reschedule} />
         </Grid>
       </Grid>
     </Paper>
@@ -51,4 +45,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default RescheduleEvent;
+export default RescheduleOrCancelEvent;

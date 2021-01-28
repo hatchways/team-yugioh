@@ -2,6 +2,8 @@ const express = require("express");
 const db = require("../db/models");
 const auth = require("../middleware/auth");
 
+const doesAppointmentExist = require("../middleware/doesAppointmentExist");
+
 const router = express.Router();
 
 // CREATE appointment
@@ -25,5 +27,11 @@ router.get("/api/appointment", auth, (req, res) => {
       res.status(500).send(error);
     });
 });
+
+router.delete(
+  "/api/appointment/cancel/:eventId",
+  doesAppointmentExist,
+  (req, res) => {}
+);
 
 module.exports = router;
