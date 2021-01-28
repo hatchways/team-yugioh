@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import UserInfoDisplay from "./UserInfoDisplay";
 import { Link } from "react-router-dom";
-import UserActionsButton from "./UserActionsButton";
+import UserActionsMenue from "./UserActionsMenue";
 import LockIcon from '@material-ui/icons/Lock';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Clear } from "@material-ui/icons";
@@ -18,7 +18,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
-    marginTop: 50
+    marginTop: 30
   },
   tableHeading: {
     fontWeight: "normal",
@@ -90,7 +90,7 @@ export default function PendingTab() {
                     {row.dateInvited}
               </TableCell>
               <TableCell align="center">
-                <UserActionsButton>
+                <UserActionsMenue>
                   <Button
                     variant="outlined"
                     startIcon={<Clear/>}
@@ -98,7 +98,7 @@ export default function PendingTab() {
                   >
                     Remove
                   </Button>
-                </UserActionsButton>
+                </UserActionsMenue>
               </TableCell>
             </TableRow>
           ))}

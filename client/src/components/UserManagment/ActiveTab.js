@@ -8,9 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import UserInfoDisplay from "./UserInfoDisplay";
 import { Link } from "react-router-dom";
-import UserActionsButton from "./UserActionsButton";
-import LockIcon from '@material-ui/icons/Lock';
-import ClearIcon from '@material-ui/icons/Clear';
+import UserActionsMenue from "./UserActionsMenue";
+import ChangeRoleModal from "./ChangeRoleModal";
 import { Clear } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 
@@ -18,7 +17,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
-    marginTop: 50
+    marginTop: 30
   },
   tableHeading: {
     fontWeight: "normal",
@@ -66,7 +65,7 @@ export default function ActiveTab() {
   return (
     <TableContainer>
       <Table className={classes.table} aria-label="simple table">
-        <TableHead style={{}}>
+        <TableHead>
           <TableRow>
             <TableCell classes={{ head: classes.tableHeading }}>Name</TableCell>
             <TableCell align="center" classes={{ head: classes.tableHeading }}>
@@ -85,7 +84,8 @@ export default function ActiveTab() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
+          {rows.map(row => {
+            return (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
                 <UserInfoDisplay name={row.name} email={row.email} />
@@ -98,14 +98,8 @@ export default function ActiveTab() {
               </TableCell>
               <TableCell align="center">{row.dateAdded}</TableCell>
               <TableCell align="center">
-                <UserActionsButton>
-                  <Button
-                    variant="outlined"
-                    startIcon={<LockIcon />}
-                    classes={{ root: classes.popoverButton }}
-                  >
-                    Change role
-                  </Button>
+                <UserActionsMenue>
+                  <ChangeRoleModal userName={row.name}/>
                   <Button
                     variant="outlined"
                     startIcon={<Clear className={classes.clearIcon} />}
@@ -113,10 +107,10 @@ export default function ActiveTab() {
                   >
                     Remove
                   </Button>
-                </UserActionsButton>
+                </UserActionsMenue>
               </TableCell>
             </TableRow>
-          ))}
+          )})}
         </TableBody>
       </Table>
     </TableContainer>

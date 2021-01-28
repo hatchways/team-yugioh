@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import ActiveTab from "../UserManagment/ActiveTab";
 import PendingTab from "../UserManagment/PendingTab";
+import TemplatesTab from "../UserManagment/TemplatesTab";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -116,7 +117,7 @@ export default function UserManagementTabs() {
         <PendingTab/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        To be completed...
+        <TemplatesTab/>
       </TabPanel>
     </>
   );

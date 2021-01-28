@@ -18,12 +18,12 @@ import { Clear } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#FFF",
+    backgroundColor: "transparent",
     transition: "none",
     border: `1px solid rgba(0, 0, 0, 0);`,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: "#FFF",
+      backgroundColor: "transparent",
       border: `1px solid ${theme.palette.primary.main}`
     }
   },
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function UserActionsButton({children}) {
+export default function UserActionsMenue({children}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
