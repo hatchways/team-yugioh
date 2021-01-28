@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
-import LockIcon from "@material-ui/icons/LockOutlined";
 import { Clear } from "@material-ui/icons";
 
 const useStyles = makeStyles({
@@ -59,8 +58,6 @@ function Modal(props) {
   const handleClose = () => {
     onClose();
   };
-
-  console.log(props);
 
   const handleSubmit = () => {
     //api call here
@@ -181,7 +178,7 @@ export default function RemoveModal({ userName, email, variant }) {
       <div>
         <Button
           variant="outlined"
-          startIcon={<Clear />}
+          startIcon={<Clear className={variant==="remove_user"?classes.clearIcon:null}/>}
           classes={{ root: classes.popoverButton }}
           onClick={handleClickOpen}
         >

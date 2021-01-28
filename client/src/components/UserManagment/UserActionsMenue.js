@@ -1,20 +1,12 @@
 import React from "react";
 import {
-  Paper,
-  Grid,
   makeStyles,
-  Typography,
-  Divider,
   Button,
-  Container
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Popover from "@material-ui/core/Popover";
-import LockIcon from '@material-ui/icons/Lock';
-import ClearIcon from '@material-ui/icons/Clear';
-import { Clear } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   root: {

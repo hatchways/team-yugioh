@@ -1,8 +1,6 @@
 import React from "react";
-import { Typography, Button, makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import UserActionsMenue from "./UserActionsMenue";
-import LockIcon from "@material-ui/icons/Lock";
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveModal from "./RemoveModal";
 

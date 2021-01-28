@@ -88,13 +88,6 @@ export default function PendingTab() {
               </TableCell>
               <TableCell align="center">
                 <UserActionsMenue>
-                  {/* <Button
-                    variant="outlined"
-                    startIcon={<Clear/>}
-                    classes={{ root: classes.popoverButton }}
-                  >
-                    Remove
-                  </Button> */}
                   <RemoveModal variant="remove_invite" email={row.email}/>
                 </UserActionsMenue>
               </TableCell>
