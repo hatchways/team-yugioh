@@ -56,10 +56,10 @@ function App() {
         <PrivateRoute path="/checkout">
           <Checkout />
         </PrivateRoute>
-        <Route path="/reschedule/:appointmentId">
+        <Route path="/appointment/reschedule/:appointmentId">
           <RescheduleOrCancelAppointmentPage variant="reschedule" />
         </Route>
-        <Route path="/cancel/:appointmentId">
+        <Route path="/appointment/cancel/:appointmentId">
           <RescheduleOrCancelAppointmentPage variant="cancel" />
         </Route>
         <Route path="/appointment/cancelled">
