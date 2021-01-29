@@ -47,6 +47,7 @@ export default function UploadDialog(props) {
   // Assigns Context Hooks to vars
   const setUserData = useSetUserData();
   const userData = useUserData();
+  const {photoUrl} = userData
 
   const handleClose = () => {
     onClose();
@@ -118,7 +119,7 @@ export default function UploadDialog(props) {
 
       {message && <Alert>Your profile photo was updated!</Alert>}
 
-      <Avatar className={classes.avatar} src={preview} />
+      <Avatar className={classes.avatar} src={preview ? preview : photoUrl} />
 
       <form onSubmit={onSubmit}>
         <Box display="flex" justifyContent="space-around">
