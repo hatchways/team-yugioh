@@ -38,10 +38,9 @@ router.post("/api/image-upload", auth, (req, res) => {
       if (req.file == undefined) {
         res.status(400).send("There was a error with your upload paramaters");
       } else {
-        const uploadRes = res;
         const awsUrl = `https://${BUCKET}.s3.amazonaws.com/${req.file.key}`;
         db.User.updateOne({ _id: req.userId }, { $set: { photoUrl: awsUrl } })
-          .then(() => uploadRes.status(200).send({ awsUrl }))
+          .then(() => res.status(200).send({ awsUrl }))
           .catch((error) => {
             res.send(error);
           });
