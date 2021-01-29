@@ -65,26 +65,16 @@ export default function NavBar() {
           <img width="110rem" src={Logo} alt="CalendApp logo" />
         </span>
 
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-          to="/home"
-        >
+        <Link variant="subtitle1" className={classes.link} href="/home">
           Home
         </Link>
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
+        <Link variant="subtitle1" className={classes.link}>
           Integration
         </Link>
         <Link
           variant="subtitle1"
-          onClick={preventDefault}
           className={classes.linkToUpgrade}
-          to="/upgrade"
+          href="/upgrade"
         >
           Upgrade account
         </Link>
