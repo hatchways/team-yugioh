@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/api/team-event", auth, (req, res) => {
   if (req.body.duration) {
     //
-    db.EventType.create({ ...req.body, teamId: req.teamId })
+    db.EventType.create({ ...req.body })
       .then((response) => res.send(response))
       .catch((error) => {
         console.log(error);
@@ -21,10 +21,11 @@ router.post("/api/team-event", auth, (req, res) => {
 
 // 2 - Add or remove members from an event type
 // an updated team member object is passed to DB to update added and removed members
-router.post("/api/team/:id", (req, res) => {
+router.put("/api/team/:id", (req, res) => {
   db.Team.updateOne(
     { _id: req.params.id },
-    { $push: { teamMembers: req.body.memberId } }
+    { teamMembers : req.body.members},
+    { overwrite: true }
   )
     .then((team) => {
       if (!team.teamMembers) {
