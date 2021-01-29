@@ -133,8 +133,8 @@ export default function UploadDialog(props) {
               onChange={onChange}
             />
             <label htmlFor="upload-button-file">
-              <Button variant="contained" color="secondary" component="span">
-                + Upload
+              <Button variant="contained" component="span">
+                Select a photo
               </Button>
             </label>
           </span>
@@ -147,11 +147,12 @@ export default function UploadDialog(props) {
             />
             <label htmlFor="submit-button-file">
               <Button
+                color="primary"
                 variant="outlined"
                 component="span"
                 disabled={saveDisabled}
               >
-                Save Changes
+                Set as profile photo
               </Button>
             </label>
           </span>
