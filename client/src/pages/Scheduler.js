@@ -7,6 +7,7 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
@@ -19,6 +20,19 @@ const Scheduler = () => {
   const classes = useStyles();
   const [path, setPath] = useState(useLocation().pathname);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const { hostName, eventName } = useParams();
+
+  //this will be fetched from the server
+  const availTimes = { start: "09:00", end: "17:00" };
+  const availDates = [1, 2, 3, 4, 5];
+  //this will be set when picking event type --> pulled from context?
+  const interval = "60";
+
+  //this needs to be done here rather than the date picker otherwise get pseudo race condition
+  if (!availDates.includes(selectedDate.getDay())) {
+    //set next available day of the week
+    setSelectedDate(getNextAvailableDate(selectedDate, availDates));
+  }
   const [eventDetails, setEventDetails] = useState({
     name: "",
     details: "",
@@ -105,6 +119,10 @@ const Scheduler = () => {
                     path={path}
                     appointmentConfirmed={appointmentConfirmed}
                     setAppointmentConfirmed={setAppointmentConfirmed}
+                    setSelectedDate={setSelectedDate}
+                    eventLink={eventDetails.link}
+                    interval={interval}
+                    availabilityTimes={availTimes}
                   />
                 </Route>
               ) : (
