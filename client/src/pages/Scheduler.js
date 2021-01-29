@@ -22,17 +22,6 @@ const Scheduler = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { hostName, eventName } = useParams();
 
-  //this will be fetched from the server
-  const availTimes = { start: "09:00", end: "17:00" };
-  const availDates = [1, 2, 3, 4, 5];
-  //this will be set when picking event type --> pulled from context?
-  const interval = "60";
-
-  //this needs to be done here rather than the date picker otherwise get pseudo race condition
-  if (!availDates.includes(selectedDate.getDay())) {
-    //set next available day of the week
-    setSelectedDate(getNextAvailableDate(selectedDate, availDates));
-  }
   const [eventDetails, setEventDetails] = useState({
     name: "",
     details: "",
@@ -62,7 +51,7 @@ const Scheduler = () => {
   }
 
   useEffect(() => {
-// Matching only the first two params so /hostname/eventname/datelinks will still work correctly
+    // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
     const regex = /appt\/([0-9a-z-]*\/[0-9a-z-]*)/g;
     let searchUrl = path.match(regex)[0].slice(5);
     const queryURL = `/api/event_details/${searchUrl}`;
