@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Switch , Redirect} from "react-router-dom";
-import axios from "axios";
 
 import { theme } from "./themes/theme";
 import Home from "./pages/Home";
@@ -15,9 +14,11 @@ import PageNotFound from "./pages/PageNotFound";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
-import { useSetAuthenticated } from "./providers/AuthProvider";
+import { useSetAuthenticated } from "./providers/Context";
 import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
 import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
+import axios from "axios";
+
 import "./App.css";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
   }, []);
   return (
     <MuiThemeProvider theme={theme}>
+
       <BrowserRouter>
       <Switch>        
         <Route path="/appt/:hostName/:eventName">
