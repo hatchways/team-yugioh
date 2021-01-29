@@ -39,7 +39,6 @@ const AppointmentDetails = ({
       console.log(err);
     }
 
-    console.log(email);
     setAppointmentConfirmed({ id: res.data._id });
 
     history.push(`${path}${res.data._id}`);
