@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const NotFound = () => {
+export default function PageNotFound() {
   const classes = useStyles();
 
   return (
@@ -92,5 +92,3 @@ const NotFound = () => {
     </>
   );
 };
-
-export default NotFound;

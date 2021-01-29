@@ -11,7 +11,7 @@ import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
 import Authentication from "./pages/Authentication";
 import UpgradePage from "./pages/UpgradePage";
-import NotFound from "./pages/NotFound";
+import PageNotFound from "./pages/PageNotFound";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
@@ -61,7 +61,7 @@ function App() {
           <Checkout />
         </PrivateRoute>
         <PublicRoute path="/404">
-          <NotFound  />
+          <PageNotFound  />
         </PublicRoute>
       </BrowserRouter>
     </MuiThemeProvider>
