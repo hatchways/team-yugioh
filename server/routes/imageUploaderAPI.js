@@ -23,8 +23,8 @@ const upload = multer({
     s3: s3,
     bucket: BUCKET,
     key: function (req, file, cb) {
-      const FN = Date.now().toString() + ".png";
-      cb(null, FN);
+      const fileName = Date.now().toString() + ".png";
+      cb(null, fileName);
     },
   }),
 }).single("file");
