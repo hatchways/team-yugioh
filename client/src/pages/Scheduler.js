@@ -49,12 +49,10 @@ const Scheduler = () => {
   });
 
   useEffect(() => {
-    console.log("name", hostName, eventName);
     const queryURL = `/api/event_details/${hostName}/${eventName}`;
     axios.get(queryURL).then((res) => {
       // TODO: redirect to 404 page on no event found?
       let event = res.data[0];
-      console.log(event);
       setEventDetails({
         name: event.name,
         description: event.description,
