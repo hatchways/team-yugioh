@@ -62,6 +62,7 @@ const Scheduler = () => {
   }
 
   useEffect(() => {
+// Matching only the first two params so /hostname/eventname/datelinks will still work correctly
     const regex = /appt\/([0-9a-z-]*\/[0-9a-z-]*)/g;
     let searchUrl = path.match(regex)[0].slice(5);
     const queryURL = `/api/event_details/${searchUrl}`;
