@@ -32,7 +32,7 @@ router.delete(
   "/api/appointment/cancel/:appointmentId",
   ensureAppointmentExists,
   async (req, res) => {
-    const { appointmentId } = req.params;
+    const appointmentId = req.appointmentId;
     await db.Appointment.deleteOne({ _id: appointmentId });
     res.send("Appointment successfully deleted. ID:" + appointmentId);
   }
@@ -42,7 +42,7 @@ router.get(
   "/api/appointment/detail/:appointmentId",
   ensureAppointmentExists,
   async (req, res) => {
-    const { appointmentId } = req.params;
+    const appointmentId = req.appointmentId;
 
     const appointmentDetails = await db.Appointment.findOne({
       _id: appointmentId,
