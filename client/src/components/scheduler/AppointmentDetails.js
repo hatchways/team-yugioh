@@ -195,6 +195,7 @@ const useStyles = makeStyles((theme) => ({
 AppointmentDetails.propTypes = {
   appointmentDetails: PropTypes.object,
   setAppointmentDetails: PropTypes.func,
+  path: PropTypes.string,
 };
 
 export default AppointmentDetails;

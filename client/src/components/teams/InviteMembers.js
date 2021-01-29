@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import PropTypes from "prop-types";
 import {
   Button,
   Grid,
@@ -58,7 +58,7 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   label: {
     fontWeight: "bold",
     fontSize: "0.9rem",
@@ -69,5 +69,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
+
+InviteMembers.PropTypes = {
+  setTeamMembers: PropTypes.func,
+  teamMembers: PropTypes.array,
+};
 
 export default InviteMembers;

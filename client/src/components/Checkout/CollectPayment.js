@@ -124,7 +124,7 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
                 variant="h5"
                 color="error"
               >
-                "Payment failed"
+                Payment failed
               </Typography>
             )}
 
@@ -195,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-CollectPayment.propTypes = {
+CollectPayment.PropTypes = {
   amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   clientSecret: PropTypes.string,
   status: PropTypes.string,

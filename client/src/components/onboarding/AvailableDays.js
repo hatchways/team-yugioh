@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-AvailableDays.propTypes = {
+AvailableDays.PropTypes = {
   days: PropTypes.object,
   setDays: PropTypes.func,
 };

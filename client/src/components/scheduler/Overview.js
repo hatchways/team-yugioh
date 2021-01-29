@@ -51,9 +51,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-Overview.propTypes = {
+Overview.PropTypes = {
   name: PropTypes.string,
   duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  description: PropTypes.string,
+  appointmentTime: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
 export default Overview;

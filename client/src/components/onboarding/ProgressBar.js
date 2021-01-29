@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-ProgressBar.propTypes = {
+ProgressBar.PropTypes = {
   start: PropTypes.number,
 };
 

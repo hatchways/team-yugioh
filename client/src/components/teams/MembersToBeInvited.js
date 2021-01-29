@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 import React from "react";
+import PropTypes from "prop-types";
 
 const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
   const classes = useStyles();
@@ -69,5 +70,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
+
+MembersToBeInvited.PropTypes = {
+  setTeamMembers: PropTypes.func,
+  teamMembers: PropTypes.array,
+};
 
 export default MembersToBeInvited;

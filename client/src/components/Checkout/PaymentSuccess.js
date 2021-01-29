@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-PaymentSuccess.propTypes = {
+PaymentSuccess.PropTypes = {
   amount: PropTypes.number,
   clientSecret: PropTypes.string,
 };

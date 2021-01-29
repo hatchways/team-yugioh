@@ -29,8 +29,8 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
+TabPanel.PropTypes = {
+  children: PropTypes.any,
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
 };

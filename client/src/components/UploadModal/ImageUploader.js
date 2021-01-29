@@ -162,7 +162,7 @@ export default function UploadDialog(props) {
   );
 }
 
-UploadDialog.propTypes = {
+UploadDialog.PropTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   fileName: PropTypes.string.isRequired,

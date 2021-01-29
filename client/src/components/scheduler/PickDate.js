@@ -16,7 +16,6 @@ const PickDate = (props) => {
 };
 
 const DisplayCalendar = ({ selectedDate, setSelectedDate, availability }) => {
-  
   const disableDate = (date) => {
     //check against the availability to determine which dates to grey out
     if (!availability.includes(date.getDay())) {
@@ -36,9 +35,10 @@ const useStyles = makeStyles(() => ({
   root: { height: "100%", overflow: "hidden" },
 }));
 
-DisplayCalendar.propTypes = {
+DisplayCalendar.PropTypes = {
   selectedDate: PropTypes.object,
   setSelectedDate: PropTypes.func,
+  availability: PropTypes.array,
 };
 
 export default PickDate;

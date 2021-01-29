@@ -126,8 +126,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-PickTime.propTypes = {
+PickTime.PropTypes = {
   selectedDate: PropTypes.object,
+  appointmentDetails: PropTypes.object,
+  setAppointmentDetails: PropTypes.func,
+  eventLink: PropTypes.string,
+  interval: PropTypes.string,
+  availabilityTimes: PropTypes.object,
 };
 
 export default PickTime;

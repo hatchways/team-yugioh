@@ -18,7 +18,7 @@ import axios from "axios";
 
 const Scheduler = () => {
   const classes = useStyles();
-  const [path, setPath] = useState(useLocation().pathname);
+  const [path] = useState(useLocation().pathname);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { hostName, eventName } = useParams();
 

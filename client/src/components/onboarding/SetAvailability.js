@@ -1,6 +1,5 @@
 import React from "react";
-import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Grid, Typography, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import AvailableHours from "./AvailableHoursButton";
@@ -84,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-SetAvailability.propTypes = {
+SetAvailability.PropTypes = {
   startHour: PropTypes.string,
   setStartHour: PropTypes.func,
   finishHour: PropTypes.string,
