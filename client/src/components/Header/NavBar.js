@@ -6,9 +6,10 @@ import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 
-import Logo from "./../../img/logo.png";
-import ProfileImage from "./../../img/user-image.png";
+import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
+
+import { useUserData } from '../../providers/Context'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,8 @@ export default function NavBar() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
+  const { name, photoUrl } = useUserData()
+
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
@@ -85,10 +88,11 @@ export default function NavBar() {
         >
           Upgrade account
         </Link>
+
         <Box>
           <Avatar
             className={classes.profileImg}
-            src={ProfileImage}
+            src={photoUrl}
             alt="User image"
             onClick={handleClickOpen}
           />
@@ -99,7 +103,7 @@ export default function NavBar() {
           onClick={preventDefault}
           className={classes.link}
         >
-          John Doe
+          {name}
         </Link>
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />

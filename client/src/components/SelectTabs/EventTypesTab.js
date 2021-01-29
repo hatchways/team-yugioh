@@ -19,18 +19,22 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
-import ProfileImage from "./../../img/user-image.png";
 import Checkmark from "../../assets/check.png";
+
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 import { debounce } from "../../utils/utils";
 import axios from "axios";
+import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+  },
+  dialog: {
+    overflowX: "hidden",
   },
   profileAndNewTypeBox: {
     marginBottom: theme.spacing(5),
@@ -219,6 +223,8 @@ export default function EventTypesTab() {
   });
   const [unit, setUnit] = useState("min");
 
+  const { name, photoUrl } = useUserData();
+
   useEffect(() => {
     axios
       .get("/api/event")
@@ -312,11 +318,11 @@ export default function EventTypesTab() {
           <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
-              src={ProfileImage}
+              src={photoUrl}
               alt="User image"
             />
             <Box>
-              <Typography className={classes.name}>John Doe</Typography>
+              <Typography className={classes.name}>{name}</Typography>
               <Typography className={classes.userUrl}>
                 calendapp.com/john-doe
               </Typography>
@@ -448,7 +454,7 @@ export default function EventTypesTab() {
                   value={eventBody.description}
                   placeholder={`Write a summary and details about your event.
                                     
-                                    
+                     
                                     `}
                   className={classes.textArea}
                 />
