@@ -40,7 +40,13 @@ const schema = new Schema({
   },
   photoUrl: {
     type: String,
-  }
+  },
+  isAdmin: {
+    type: Boolean,
+  },
+  teamId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
 });
 
 const User = mongoose.model("User", schema);
