@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
+import { useAuth } from "../../providers/Context";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const authenticated = useAuth();
