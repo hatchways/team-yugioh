@@ -348,7 +348,7 @@ export default function EventTypesTab() {
         open={openNewEvent}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        classes={classes.dialog}
+        className={classes.dialog}
         fullWidth
         maxWidth="sm"
       >

@@ -36,7 +36,7 @@ const PickTime = ({
         );
       })
       .catch((err) => console.log(err));
-  }, [availabilityTimes, interval, selectedDate]);
+  }, []);
 
   return (
     <Grid
