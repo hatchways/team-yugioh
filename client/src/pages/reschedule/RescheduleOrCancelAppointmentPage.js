@@ -17,7 +17,7 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventName: "",
     duration: "",
-    eventUrl: "",
+    eventUrl: "", //this is the full event url that include host name and event name (the one stored in database);
     appointmentTime: "",
     eventDescription: "",
   });
@@ -38,7 +38,10 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
     <>
       {appointmentCancelled && <Redirect to="/appointment/cancelled" />}
       {appointmentDoesNotExist && <Redirect to="/appointment/does-not-exist" />}
-      {redirectToScheduling && <Redirect to={`/appt/${appointmentDetails.eventUrl}`}/>
+      {redirectToScheduling && (
+        <Redirect to={`/appt/${appointmentDetails.eventUrl}`} />
+      )}
+
       <Paper className={classes.root} elevation={5}>
         <Grid container direction="row" wrap="nowrap" className={classes.grid}>
           <Grid item xs={4}>
@@ -56,8 +59,8 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
             <RescheduleCancelAppointment
               variant={variant}
               appointmentId={appointmentId}
-              eventUrl={appointmentDetails.eventUrl}
               setAppointmentCancelled={setAppointmentCancelled}
+              setRedirectToScheduling={setRedirectToScheduling}
             />
           </Grid>
         </Grid>
