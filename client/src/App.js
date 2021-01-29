@@ -60,9 +60,11 @@ function App() {
         <PrivateRoute path="/checkout">
           <Checkout />
         </PrivateRoute>
-        <PublicRoute path="/404">
-          <PageNotFound  />
-        </PublicRoute>
+        <Route path="/404">
+          <PageNotFound />
+        </Route>
+        <Route exact path="/" component={Home} />
+        {/* <Redirect from="*" to="/404" /> */}
       </BrowserRouter>
     </MuiThemeProvider>
   );
