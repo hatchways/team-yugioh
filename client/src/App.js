@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch , Redirect} from "react-router-dom";
 import axios from "axios";
 
 import { theme } from "./themes/theme";
@@ -11,6 +11,7 @@ import SignUpPage from "./pages/Signup";
 import Scheduler from "./pages/Scheduler";
 import Authentication from "./pages/Authentication";
 import UpgradePage from "./pages/UpgradePage";
+import PageNotFound from "./pages/PageNotFound";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
@@ -32,6 +33,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
+      <Switch>        
         <Route path="/appt/:hostName/:eventName">
           <Scheduler />
         </Route>
@@ -68,6 +70,12 @@ function App() {
         <Route path="/appointment/does-not-exist">
           <AppointmentDoesNotExistOrCancelled variant="doesNotExist" />
         </Route>
+        <Route path="/404">
+          <PageNotFound />
+        </Route>
+        <Route exact path="/" component={Home} />
+        <Route component={PageNotFound} />
+        </Switch>
       </BrowserRouter>
     </MuiThemeProvider>
   );
