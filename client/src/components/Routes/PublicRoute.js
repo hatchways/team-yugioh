@@ -1,18 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 const PublicRoute = ({ children, ...rest }) => {
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
-
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        authenticated ? <Redirect to="/home" /> : <children {...props} />
-      }
-    />
-  );
+  return <Route {...rest} render={<children {...props} />} />;
 };
 
 PublicRoute.propTypes = {

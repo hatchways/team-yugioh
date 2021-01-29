@@ -1,15 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Grid,
-  Button,
-  TextField,
-  InputLabel,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
-import axios from "axios";
 import BackArrow from "../../assets/back.svg";
 
 const Confirmation = ({ eventDetails, appointmentDetails }) => {
@@ -38,7 +29,8 @@ const Confirmation = ({ eventDetails, appointmentDetails }) => {
       <Grid item>
         <Typography variant="h6">
           You are scheduled for{" "}
-          {`${eventDetails.name}` || `a ${duration} minute meeting`}
+          {`${eventDetails.name}` ||
+            `a ${eventDetails.duration} minute meeting`}
         </Typography>
       </Grid>
       <Grid item>
