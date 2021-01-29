@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-SetAvailability.PropTypes = {
+SetAvailability.propTypes = {
   startHour: PropTypes.string,
   setStartHour: PropTypes.func,
   finishHour: PropTypes.string,

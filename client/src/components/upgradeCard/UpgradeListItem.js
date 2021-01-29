@@ -37,7 +37,7 @@ const PlanListItem = ({ itemText }) => {
   );
 };
 
-PlanListItem.PropTypes = {
+PlanListItem.propTypes = {
   itemText: PropTypes.string,
 };
 

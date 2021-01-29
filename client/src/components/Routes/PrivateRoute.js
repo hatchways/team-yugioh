@@ -8,7 +8,7 @@ const PrivateRoute = ({ children, ...rest }) => {
   return authenticated && <Route {...rest}>{children}</Route>;
 };
 
-PrivateRoute.PropTypes = {
+PrivateRoute.propTypes = {
   children: PropTypes.any,
 };
 

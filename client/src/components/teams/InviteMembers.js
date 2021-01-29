@@ -70,7 +70,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-InviteMembers.PropTypes = {
+InviteMembers.propTypes = {
   setTeamMembers: PropTypes.func,
   teamMembers: PropTypes.array,
 };

@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-Overview.PropTypes = {
+Overview.propTypes = {
   name: PropTypes.string,
   duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   description: PropTypes.string,

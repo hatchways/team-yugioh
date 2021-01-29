@@ -40,6 +40,6 @@ export default function EventGrid({ userEvents }) {
   );
 }
 
-EventGrid.PropTypes = {
+EventGrid.propTypes = {
   userEvents: PropTypes.array,
 };

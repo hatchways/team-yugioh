@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
   root: { height: "100%", overflow: "hidden" },
 }));
 
-DisplayCalendar.PropTypes = {
+DisplayCalendar.propTypes = {
   selectedDate: PropTypes.object,
   setSelectedDate: PropTypes.func,
   availability: PropTypes.array,

@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-CreateTeam.PropTypes = {
+CreateTeam.propTypes = {
   open: PropTypes.func,
   closeDialog: PropTypes.func,
 };

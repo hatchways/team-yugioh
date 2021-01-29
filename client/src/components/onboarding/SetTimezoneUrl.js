@@ -242,7 +242,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-SetTimezoneUrl.PropTypes = {
+SetTimezoneUrl.propTypes = {
   url: PropTypes.string,
   setUrl: PropTypes.func,
   timezone: PropTypes.string,

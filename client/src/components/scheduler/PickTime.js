@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-PickTime.PropTypes = {
+PickTime.propTypes = {
   selectedDate: PropTypes.object,
   appointmentDetails: PropTypes.object,
   setAppointmentDetails: PropTypes.func,

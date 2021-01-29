@@ -195,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-CollectPayment.PropTypes = {
+CollectPayment.propTypes = {
   amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   clientSecret: PropTypes.string,
   status: PropTypes.string,

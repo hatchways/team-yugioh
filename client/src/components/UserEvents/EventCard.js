@@ -95,7 +95,7 @@ export default function EventCard({ name, duration, color, link }) {
   );
 }
 
-EventCard.PropTypes = {
+EventCard.propTypes = {
   name: PropTypes.string,
   duration: PropTypes.number,
   color: PropTypes.string,

@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-MembersToBeInvited.PropTypes = {
+MembersToBeInvited.propTypes = {
   setTeamMembers: PropTypes.func,
   teamMembers: PropTypes.array,
 };

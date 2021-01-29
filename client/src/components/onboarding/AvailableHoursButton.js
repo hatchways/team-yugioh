@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-AvailableHoursBtn.PropTypes = {
+AvailableHoursBtn.propTypes = {
   setHour: PropTypes.func,
   hour: PropTypes.string,
 };
