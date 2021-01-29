@@ -17,14 +17,14 @@ const PickTime = ({
 }) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
-  let isoDate = new Date(selectedDate);
-  isoDate.setHours(0, 0, 0, 0);
-  isoDate = isoDate.toISOString();
 
   const [timeSlots, setTimeSlots] = useState([]);
 
   //appointment length
   useEffect(() => {
+    let isoDate = new Date(selectedDate);
+    isoDate.setHours(0, 0, 0, 0);
+    isoDate = isoDate.toISOString();
     //fetch from backend
     axios
       .get(`/api/calendar/availability?day=${isoDate}`, {
@@ -36,7 +36,7 @@ const PickTime = ({
         );
       })
       .catch((err) => console.log(err));
-  }, [availabilityTimes, interval, isoDate]);
+  }, [availabilityTimes, interval, selectedDate]);
 
   return (
     <Grid

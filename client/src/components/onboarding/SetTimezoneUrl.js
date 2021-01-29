@@ -31,7 +31,9 @@ const SetTimezoneUrl = (props) => {
     }
   };
 
-  const debounceCheckUnique = useCallback(debounce(checkUnique, 500), []);
+  const debounceCheckUnique = useCallback(() => {
+    debounce(checkUnique, 500);
+  }, []);
 
   const handleChange = (e) => {
     setUrl(e.target.value);

@@ -119,21 +119,13 @@ const CollectPayment = ({ status, setStatus, askForPayment }) => {
 
           <Grid item>
             {showFailureText && (
-              <Typography
-                className={classes.failureMsg}
-                variant="h5"
-                color="error"
-              >
+              <Typography className={classes.failureMsg} variant="h5">
                 Payment failed
               </Typography>
             )}
 
             {userHasSubscribed && (
-              <Typography
-                className={classes.failureMsg}
-                variant="h6"
-                color="success"
-              >
+              <Typography className={classes.failureMsg} variant="h6">
                 You have subscribed already!
               </Typography>
             )}

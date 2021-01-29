@@ -270,7 +270,9 @@ export default function EventTypesTab() {
     }
   };
 
-  const debounceCheckUnique = useCallback(debounce(checkUnique, 500), []);
+  const debounceCheckUnique = useCallback(() => {
+    debounce(checkUnique, 500);
+  }, []);
 
   const handleLinkChange = async (event) => {
     handleFormChange(event);

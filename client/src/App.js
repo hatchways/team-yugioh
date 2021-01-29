@@ -29,7 +29,7 @@ function App() {
         setAuthenticated(true);
       })
       .catch();
-  }, []);
+  }, [setAuthenticated]);
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
