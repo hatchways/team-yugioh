@@ -488,7 +488,6 @@ export default function EventTypesTab() {
                       : classes.groupedInput
                   }
                 >
-                  {/* TODO: pass in user link prefix */}
                   <Grid xs={5} className={classes.prefix} item>
                     calendapp.com/john-doe/
                   </Grid>
@@ -512,7 +511,9 @@ export default function EventTypesTab() {
                               ) : (
                                 <ClearIcon className={classes.invalidIcon} />
                               )
-                            ) : null}
+                            ) : (
+                              <></>
+                            )}
                           </InputAdornment>
                         ),
                       }}
