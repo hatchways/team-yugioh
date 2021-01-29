@@ -62,7 +62,8 @@ const Scheduler = () => {
       });
       setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
     });
-  }, [appointmentDetails, path]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Paper className={classes.root} elevation={5}>
@@ -95,7 +96,7 @@ const Scheduler = () => {
             >
               {appointmentDetails.time ? (
                 <Route
-                  path={`${eventDetails.link}/${encodeURI(
+                  to={`${eventDetails.link}/${encodeURI(
                     appointmentDetails.time
                   )}`}
                 >

@@ -20,7 +20,6 @@ const PickTime = ({
 
   const [timeSlots, setTimeSlots] = useState([]);
 
-  //appointment length
   useEffect(() => {
     let isoDate = new Date(selectedDate);
     isoDate.setHours(0, 0, 0, 0);

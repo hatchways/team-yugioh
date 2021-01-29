@@ -34,7 +34,9 @@ const Confirmation = ({ eventDetails, appointmentDetails }) => {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="body1">At {appointmentDetails.time}</Typography>
+        <Typography variant="body1">
+          At {appointmentDetails.time.toString()}
+        </Typography>
       </Grid>
       <Grid item>
         <Typography variant="h6">
