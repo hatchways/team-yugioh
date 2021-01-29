@@ -7,7 +7,6 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
-import { useParams } from "react-router-dom";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
@@ -31,7 +30,6 @@ const Scheduler = () => {
     name: "",
     email: "",
     notes: "",
-    time: false,
     timezone: "UTC",
   });
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
@@ -97,7 +95,7 @@ const Scheduler = () => {
             >
               {appointmentDetails.time ? (
                 <Route
-                  to={`${eventDetails.link}/${encodeURI(
+                  path={`${eventDetails.link}/${encodeURI(
                     appointmentDetails.time
                   )}`}
                 >

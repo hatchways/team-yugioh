@@ -79,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     textIndent: "-9999px",
     backgroundImage: `url(${BackArrow})`,
-    backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "30%",

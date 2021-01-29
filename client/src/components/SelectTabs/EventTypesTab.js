@@ -270,6 +270,7 @@ export default function EventTypesTab() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceCheckUnique = useCallback(() => {
     debounce(checkUnique, 500);
   }, []);

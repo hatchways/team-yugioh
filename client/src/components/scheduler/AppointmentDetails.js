@@ -32,9 +32,9 @@ const AppointmentDetails = ({
     } catch (err) {
       console.log(err);
     }
-    let email;
+
     try {
-      email = axios.post("/api/email", { email: appointmentDetails.email });
+      await axios.post("/api/email", { email: appointmentDetails.email });
     } catch (err) {
       console.log(err);
     }
@@ -177,7 +177,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     textIndent: "-9999px",
     backgroundImage: `url(${BackArrow})`,
-    backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "30%",

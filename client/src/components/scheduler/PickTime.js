@@ -36,7 +36,7 @@ const PickTime = ({
         );
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [availabilityTimes, interval, selectedDate]);
 
   return (
     <Grid
@@ -131,7 +131,7 @@ PickTime.propTypes = {
   appointmentDetails: PropTypes.object,
   setAppointmentDetails: PropTypes.func,
   eventLink: PropTypes.string,
-  interval: PropTypes.string,
+  interval: PropTypes.number,
   availabilityTimes: PropTypes.object,
 };
 
