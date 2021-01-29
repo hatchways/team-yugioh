@@ -47,7 +47,7 @@ export default function UploadDialog(props) {
   // Assigns Context Hooks to vars
   const setUserData = useSetUserData();
   const userData = useUserData();
-  const {photoUrl} = userData
+  const { photoUrl } = userData;
 
   const handleClose = () => {
     onClose();
@@ -95,9 +95,9 @@ export default function UploadDialog(props) {
         },
       });
       setMessage(true);
-      
+
       const { awsUrl } = res.data;
-    
+
       setUserData({ ...userData, photoUrl: awsUrl });
     } catch (err) {
       console.log(err);

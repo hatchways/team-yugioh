@@ -12,7 +12,7 @@ const Authentication = () => {
       .then(() => {
         window.close();
       });
-  }, []);
+  }, [search]);
 
   return <div></div>;
 };

@@ -77,7 +77,7 @@ const Scheduler = () => {
       });
       setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
     });
-  }, []);
+  }, [appointmentDetails, SVGClipPathElement]);
 
   return (
     <Paper className={classes.root} elevation={5}>
