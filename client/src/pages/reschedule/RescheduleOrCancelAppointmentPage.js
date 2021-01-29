@@ -12,6 +12,7 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
 
   const [appointmentDoesNotExist, setAppointmentDoesNotExist] = useState(false);
   const [appointmentCancelled, setAppointmentCancelled] = useState(false);
+  const [redirectToScheduling, setRedirectToScheduling] = useState(false);
 
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventName: "",
@@ -37,6 +38,7 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
     <>
       {appointmentCancelled && <Redirect to="/appointment/cancelled" />}
       {appointmentDoesNotExist && <Redirect to="/appointment/does-not-exist" />}
+      {redirectToScheduling && <Redirect to={`/appt/${appointmentDetails.eventUrl}`}/>
       <Paper className={classes.root} elevation={5}>
         <Grid container direction="row" wrap="nowrap" className={classes.grid}>
           <Grid item xs={4}>
