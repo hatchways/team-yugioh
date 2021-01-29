@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 
@@ -33,6 +33,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
+      <Switch>
         <Route path="/appt">
           <Scheduler />
         </Route>
@@ -64,7 +65,8 @@ function App() {
           <PageNotFound />
         </Route>
         <Route exact path="/" component={Home} />
-        {/* <Redirect from="*" to="/404" /> */}
+        <Route component={PageNotFound} />
+        </Switch>
       </BrowserRouter>
     </MuiThemeProvider>
   );
