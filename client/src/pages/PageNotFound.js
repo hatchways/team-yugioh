@@ -58,7 +58,7 @@ export default function PageNotFound() {
         alignItems="center"
         spacing={0}
       >
-        <Grid item className={classes.imageBox}>
+        <Grid sm={12} md={4} item className={classes.imageBox}>
           <img className={classes.image} alt="404 mascot image" src={Image} />
         </Grid>
 
