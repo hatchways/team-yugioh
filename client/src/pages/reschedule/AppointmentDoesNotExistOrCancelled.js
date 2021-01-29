@@ -2,9 +2,9 @@ import React from "react";
 import { Paper, makeStyles, Grid, Typography } from "@material-ui/core";
 import { CheckCircleOutline, ErrorOutline } from "@material-ui/icons";
 
-const AppointmentDoesNotExistOrCancelled = (props) => {
-  const appointmentCancelled = props.variant === "cancelled";
-  const appointmentDoesNotExist = props.variant === "doesNotExist";
+const AppointmentDoesNotExistOrCancelled = ({ variant }) => {
+  const appointmentCancelled = variant === "cancelled";
+  const appointmentDoesNotExist = variant === "doesNotExist";
 
   const classes = useStyles();
   return (
