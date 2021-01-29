@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import { Grid, makeStyles, Paper, Divider } from "@material-ui/core";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 import Overview from "../../components/scheduler/Overview";
 import RescheduleCancelAppointment from "../../components/scheduler/RescheduleCancelAppointment";
@@ -79,5 +80,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
 }));
+
+RescheduleOrCancelAppointmentPage.propTypes = {
+  variant: PropTypes.string,
+};
 
 export default RescheduleOrCancelAppointmentPage;

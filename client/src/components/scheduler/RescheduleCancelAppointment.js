@@ -7,6 +7,7 @@ import {
   Button,
 } from "@material-ui/core";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const RescheduleCancelAppointment = ({
   variant,
@@ -75,4 +76,12 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
+
+RescheduleCancelAppointment.propTypes = {
+  variant: PropTypes.string,
+  appointmentId: PropTypes.string,
+  setAppointmentCancelled: PropTypes.func,
+  setRedirectToScheduling: PropTypes.func,
+};
+
 export default RescheduleCancelAppointment;

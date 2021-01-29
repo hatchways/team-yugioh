@@ -1,6 +1,7 @@
 import React from "react";
 import { Paper, makeStyles, Grid, Typography } from "@material-ui/core";
 import { CheckCircleOutline, ErrorOutline } from "@material-ui/icons";
+import PropTypes from "prop-types";
 
 const AppointmentDoesNotExistOrCancelled = ({ variant }) => {
   const appointmentCancelled = variant === "cancelled";
@@ -51,5 +52,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(6),
   },
 }));
+
+AppointmentDoesNotExistOrCancelled.propTypes = {
+  variant: PropTypes.string,
+};
 
 export default AppointmentDoesNotExistOrCancelled;
