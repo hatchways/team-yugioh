@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import axios from "axios";
 
 import { theme } from "./themes/theme";
-
 import Home from "./pages/Home";
 import LogInPage from "./pages/Login";
 import OnBoardingPage from "./pages/OnBoarding";
@@ -15,8 +15,8 @@ import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/AuthProvider";
-import axios from "axios";
-
+import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
+import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
 import "./App.css";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route path="/appt">
+        <Route path="/appt/:hostName/:eventName">
           <Scheduler />
         </Route>
         <Route path="/signup">
@@ -47,9 +47,6 @@ function App() {
         <PrivateRoute path="/onboarding">
           <OnBoardingPage />
         </PrivateRoute>
-        <Route path="/schedule-meeting">
-          <Scheduler />
-        </Route>
         <PrivateRoute path="/home">
           <Home />
         </PrivateRoute>
@@ -59,6 +56,18 @@ function App() {
         <PrivateRoute path="/checkout">
           <Checkout />
         </PrivateRoute>
+        <Route path="/appointment/reschedule/:appointmentId">
+          <RescheduleOrCancelAppointmentPage variant="reschedule" />
+        </Route>
+        <Route path="/appointment/cancel/:appointmentId">
+          <RescheduleOrCancelAppointmentPage variant="cancel" />
+        </Route>
+        <Route path="/appointment/cancelled">
+          <AppointmentDoesNotExistOrCancelled variant="cancelled" />
+        </Route>
+        <Route path="/appointment/does-not-exist">
+          <AppointmentDoesNotExistOrCancelled variant="doesNotExist" />
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );
