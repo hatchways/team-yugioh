@@ -1,11 +1,19 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { AccessTime } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const Overview = ({ name, duration, description, appointmentTime }) => {
   const classes = useStyles();
 
+  useEffect(() => {
+    if (appointmentTime) {
+      axios
+        .get(`/api/calendar/availability?day=${appointmentTime}`)
+        .then((res) => console.log(res));
+    }
+  }, [appointmentTime]);
   return (
     <Grid className={classes.root} spacing={1} container direction="column">
       <Grid item>
@@ -34,7 +42,7 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
             {JSON.stringify(appointmentTime)}
           </Typography>
         </Grid>
-      ) }
+      )}
       <Grid item>
         <Typography variant="body1">{description}</Typography>
       </Grid>

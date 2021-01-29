@@ -5,7 +5,7 @@ import {
   Paper,
   Grid,
   Divider,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
@@ -20,11 +20,10 @@ const Scheduler = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   //this will be fetched from the server
-  const availTimes={start:"09:00", end:"17:00"}
+  const availTimes = { start: "09:00", end: "17:00" };
   const availDates = [1, 2, 3, 4, 5];
   //this will be set when picking event type --> pulled from context?
-  const interval="60";
-
+  const interval = "60";
 
   //this needs to be done here rather than the date picker otherwise get pseudo race condition
   if (!availDates.includes(selectedDate.getDay())) {
@@ -118,8 +117,8 @@ const Scheduler = () => {
                     setAppointmentDetails={setAppointmentDetails}
                     setSelectedDate={setSelectedDate}
                     eventLink={eventDetails.link}
-                    interval={interval} 
-                    availabilityTimes={availTimes} 
+                    interval={interval}
+                    availabilityTimes={availTimes}
                   />
                 </Grid>
               </Grid>
@@ -131,20 +130,20 @@ const Scheduler = () => {
   );
 };
 
-const useStyles = makeStyles(theme => {
+const useStyles = makeStyles((theme) => {
   return {
     root: {
       height: theme.spacing(60),
       width: theme.spacing(100),
-      margin: `${theme.spacing(10)}px auto`
+      margin: `${theme.spacing(10)}px auto`,
     },
     grid: {
-      height: "100%"
+      height: "100%",
     },
     title: {},
     dateTimeSelect: {
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
   };
 });
 
