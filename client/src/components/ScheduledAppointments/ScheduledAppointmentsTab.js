@@ -93,6 +93,4 @@ const appointmentIsUpcoming = (appointmentDateInISOString) => {
   }
 };
 
-ScheduledAppointmentsTab.propTypes = {};
-
 export default ScheduledAppointmentsTab;
