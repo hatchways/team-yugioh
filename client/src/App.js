@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Route, Switch , Redirect} from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import Home from "./pages/Home";
@@ -12,7 +12,6 @@ import Authentication from "./pages/Authentication";
 import UpgradePage from "./pages/UpgradePage";
 import PageNotFound from "./pages/PageNotFound";
 import PrivateRoute from "./components/Routes/PrivateRoute";
-import PublicRoute from "./components/Routes/PublicRoute";
 import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/Context";
 import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
@@ -33,50 +32,49 @@ function App() {
   }, []);
   return (
     <MuiThemeProvider theme={theme}>
-
       <BrowserRouter>
-      <Switch>        
-        <Route path="/appt/:hostName/:eventName">
-          <Scheduler />
-        </Route>
-        <Route path="/signup">
-          <SignUpPage />
-        </Route>
-        <Route path="/login">
-          <LogInPage />
-        </Route>
-        <Route path="/authorized">
-          <Authentication />
-        </Route>
-        <PrivateRoute path="/onboarding">
-          <OnBoardingPage />
-        </PrivateRoute>
-        <PrivateRoute path="/home">
-          <Home />
-        </PrivateRoute>
-        <PrivateRoute path="/upgrade">
-          <UpgradePage />
-        </PrivateRoute>
-        <PrivateRoute path="/checkout">
-          <Checkout />
-        </PrivateRoute>
-        <Route path="/appointment/reschedule/:appointmentId">
-          <RescheduleOrCancelAppointmentPage variant="reschedule" />
-        </Route>
-        <Route path="/appointment/cancel/:appointmentId">
-          <RescheduleOrCancelAppointmentPage variant="cancel" />
-        </Route>
-        <Route path="/appointment/cancelled">
-          <AppointmentDoesNotExistOrCancelled variant="cancelled" />
-        </Route>
-        <Route path="/appointment/does-not-exist">
-          <AppointmentDoesNotExistOrCancelled variant="doesNotExist" />
-        </Route>
-        <Route path="/404">
-          <PageNotFound />
-        </Route>
-        <Route exact path="/" component={Home} />
-        <Route component={PageNotFound} />
+        <Switch>
+          <Route path="/appt/:hostName/:eventName">
+            <Scheduler />
+          </Route>
+          <Route path="/signup">
+            <SignUpPage />
+          </Route>
+          <Route path="/login">
+            <LogInPage />
+          </Route>
+          <Route path="/authorized">
+            <Authentication />
+          </Route>
+          <PrivateRoute path="/onboarding">
+            <OnBoardingPage />
+          </PrivateRoute>
+          <PrivateRoute path="/home">
+            <Home />
+          </PrivateRoute>
+          <PrivateRoute path="/upgrade">
+            <UpgradePage />
+          </PrivateRoute>
+          <PrivateRoute path="/checkout">
+            <Checkout />
+          </PrivateRoute>
+          <Route path="/appointment/reschedule/:appointmentId">
+            <RescheduleOrCancelAppointmentPage variant="reschedule" />
+          </Route>
+          <Route path="/appointment/cancel/:appointmentId">
+            <RescheduleOrCancelAppointmentPage variant="cancel" />
+          </Route>
+          <Route path="/appointment/cancelled">
+            <AppointmentDoesNotExistOrCancelled variant="cancelled" />
+          </Route>
+          <Route path="/appointment/does-not-exist">
+            <AppointmentDoesNotExistOrCancelled variant="doesNotExist" />
+          </Route>
+          <Route path="/404">
+            <PageNotFound />
+          </Route>
+          <Route exact path="/" component={Home} />
+          <Route component={PageNotFound} />
         </Switch>
       </BrowserRouter>
     </MuiThemeProvider>
