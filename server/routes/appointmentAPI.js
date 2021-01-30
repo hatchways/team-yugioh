@@ -17,8 +17,8 @@ router.post("/api/appointment", auth, (req, res) => {
 });
 
 // GET all appointments for user
-router.get("/api/appointment", auth, (req, res) => {
-  db.Appointment.find({ email: req.query.email })
+router.get("/api/all-appointments", auth, (req, res) => {
+  db.Appointment.find({ hostId: req.userId })
     .then((data) => res.send(data))
     .catch((error) => {
       console.log(error);
