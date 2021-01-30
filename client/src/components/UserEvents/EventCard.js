@@ -8,8 +8,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange } from "@material-ui/core/colors";
+
 import Snackbar from "@material-ui/core/Snackbar";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -33,6 +36,9 @@ export default function EventCard({ name, duration, color, link, url }) {
       height: 32,
       width: 80,
     },
+    cardContent : {
+      // marginTop: '2rem'
+    }
   });
   const classes = useStyles();
 
@@ -49,16 +55,40 @@ export default function EventCard({ name, duration, color, link, url }) {
   return (
     <>
       <Card className={classes.root}>
-        <CardHeader className={classes.colorBar}></CardHeader>
+        <CardHeader className={classes.colorBar}/>
 
         <CardContent>
-          <Typography variant="h5">
-            {name || duration + " minute meeting"}
-          </Typography>
+          <Grid
+            className={classes.cardContent}
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+          >
+            <Grid item>
+              <Typography variant="h5">
+                {name || duration + " minute meeting"}
+              </Typography>
 
-          <Typography variant="subtitle2" color="textSecondary">
-            One-on-One
-          </Typography>
+              <Typography variant="subtitle2" color="textSecondary">
+                One-on-One
+              </Typography>
+            </Grid>
+            <Grid item>
+              <FormControlLabel
+                labelPlacement="start"
+                control={
+                  <Switch
+                    // checked={state.checkedB}
+                    // onChange={handleChange}
+                    name="checkedB"
+                    color="primary"
+                  />
+                }
+                label="On/Off"
+              />
+            </Grid>
+          </Grid>
         </CardContent>
         <Divider />
         <CardActions>
