@@ -5,10 +5,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-
 import Logo from "./../../img/logo.png";
 import ProfileImage from "./../../img/user-image.png";
 import ImageUploader from "../UploadModal/ImageUploader";
+import UserMenu from "../UserMenu"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,14 +93,7 @@ export default function NavBar() {
             onClick={handleClickOpen}
           />
         </Box>
-
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
-          John Doe
-        </Link>
+        <UserMenu name="John Doe"/>
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />
     </AppBar>

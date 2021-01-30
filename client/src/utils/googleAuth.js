@@ -49,3 +49,14 @@ export const testAuth = async () => {
     return true;
   } else return false;
 };
+
+export const googleLogout = async () => {
+  const response = await axios.get(userAPIpath + "logout", {
+    withCredentials: true,
+  });
+  if (response.status === 200) {
+    //document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    console.log(response.data);
+    return true;
+  } else return false;
+};
