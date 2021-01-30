@@ -16,10 +16,13 @@ router.post("/api/appointment", auth, (req, res) => {
     });
 });
 
-// GET all appointments for user
+// GET all appointments for user. Query
 router.get("/api/all-appointments", auth, (req, res) => {
   db.Appointment.find({ hostId: req.userId })
-    .then((data) => res.send(data))
+    .then((data) => {
+      //data: [{_id, email, eventId, hostId, name, time, timezone},...]
+      res.send(data);
+    })
     .catch((error) => {
       console.log(error);
       res.status(500).send(error);

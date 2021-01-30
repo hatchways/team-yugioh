@@ -6,12 +6,16 @@ import axios from "axios";
 import { useUserData, useSetUserData } from "../../providers/Context";
 
 const ScheduledEventsTab = () => {
+  const classes = useStyles();
+
   const userData = useUserData();
   const { _id: userId } = userData;
 
+  const [appointments, setAppointments] = useState([]);
+
   useEffect(() => {
     axios.get("/api/all-appointments").then(({ data }) => {
-      console.log(data);
+      // data: [{_id, email, eventId, hostId, name, time, timezone},...]
     });
   }, [userId]);
   return <div>hi</div>;
