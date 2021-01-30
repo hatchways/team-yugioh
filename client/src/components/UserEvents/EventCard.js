@@ -35,9 +35,16 @@ export default function EventCard({ name, duration, color, link, url }) {
       textTransform: "none",
       height: 32,
       width: 80,
+      marginRight: '4px'
     },
-    cardContent : {
-      // marginTop: '2rem'
+    cardContentTop : {
+       marginTop: '-15px'
+    },
+    duration: {
+      marginLeft: '9.5px'
+    },
+    titleBox: {
+      marginLeft: 0
     }
   });
   const classes = useStyles();
@@ -58,23 +65,9 @@ export default function EventCard({ name, duration, color, link, url }) {
         <CardHeader className={classes.colorBar}/>
 
         <CardContent>
-          <Grid
-            className={classes.cardContent}
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <Grid item>
-              <Typography variant="h5">
-                {name || duration + " minute meeting"}
-              </Typography>
-
-              <Typography variant="subtitle2" color="textSecondary">
-                One-on-One
-              </Typography>
-            </Grid>
-            <Grid item>
+          <Grid container direction="column"
+>
+          <Grid container justify="flex-end" className={classes.cardContentTop} >
               <FormControlLabel
                 labelPlacement="start"
                 control={
@@ -88,6 +81,16 @@ export default function EventCard({ name, duration, color, link, url }) {
                 label="On/Off"
               />
             </Grid>
+            <Grid className={classes.titleBox}>
+              <Typography variant="h5" >
+                {name || duration + " minute meeting"}
+              </Typography>
+
+              <Typography variant="subtitle2" color="textSecondary">
+                One-on-One
+              </Typography>
+            </Grid>
+            
           </Grid>
         </CardContent>
         <Divider />
@@ -98,7 +101,7 @@ export default function EventCard({ name, duration, color, link, url }) {
             justify="space-between"
             alignItems="center"
           >
-            <Typography variant="subtitle2">{duration} min</Typography>
+            <Typography variant="subtitle2" className={classes.duration} >{duration} min</Typography>
             <CopyToClipboard
               text={invitationLink}
               onCopy={whenCopiedToClipboard}
