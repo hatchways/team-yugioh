@@ -8,7 +8,7 @@ import Container from "@material-ui/core/Container";
 
 import EventTypesTab from "./EventTypesTab";
 import TeamPage from "../teams/TeamPage"; //should have named this TeamTab, my bad
-import ScheduledEventsTab from "../ScheduledEvents/ScheduledEventsTab";
+import ScheduledAppointmentsTab from "../ScheduledAppointments/ScheduledAppointmentsTab";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -104,7 +104,7 @@ export default function SelectTabs() {
         <EventTypesTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ScheduledEventsTab />
+        <ScheduledAppointmentsTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <TeamPage />

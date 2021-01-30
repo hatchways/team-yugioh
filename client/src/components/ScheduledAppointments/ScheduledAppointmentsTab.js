@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 
 import { useUserData, useSetUserData } from "../../providers/Context";
-import IndividualEvent from "./IndividualEvent";
+import IndividualAppointment from "./IndividualAppointment";
 
-const ScheduledEventsTab = () => {
+const ScheduledAppointmentsTab = () => {
   const classes = useStyles();
 
   const userData = useUserData();
@@ -32,6 +32,6 @@ const ScheduledEventsTab = () => {
 
 const useStyles = makeStyles((theme) => ({}));
 
-ScheduledEventsTab.propTypes = {};
+ScheduledAppointmentsTab.propTypes = {};
 
-export default ScheduledEventsTab;
+export default ScheduledAppointmentsTab;
