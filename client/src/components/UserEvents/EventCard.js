@@ -17,9 +17,12 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function EventCard({ name, duration, color, link, url }) {
+  const [cardActive, setCardActive] = React.useState(true);
+
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
+      opacity: !cardActive ? ".7" : 1,
     },
     title: {
       fontSize: 14,
@@ -28,24 +31,24 @@ export default function EventCard({ name, duration, color, link, url }) {
       marginBottom: 12,
     },
     colorBar: {
-      background: color || deepOrange[500],
+      background: !cardActive ? "lightgrey" : color || deepOrange[500],
       padding: 4,
     },
     button: {
       textTransform: "none",
       height: 32,
       width: 80,
-      marginRight: '4px'
+      marginRight: "4px",
     },
-    cardContentTop : {
-       marginTop: '-15px'
+    cardContentTop: {
+      marginTop: "-15px",
     },
     duration: {
-      marginLeft: '9.5px'
+      marginLeft: "9.5px",
     },
     titleBox: {
-      marginLeft: 0
-    }
+      marginLeft: 0,
+    },
   });
   const classes = useStyles();
 
@@ -59,30 +62,38 @@ export default function EventCard({ name, duration, color, link, url }) {
     }, 3000);
   };
 
+  const handleChange = () => {
+    setCardActive(!cardActive);
+    console.log(cardActive);
+  };
+
   return (
     <>
       <Card className={classes.root}>
-        <CardHeader className={classes.colorBar}/>
+        <CardHeader className={classes.colorBar} />
 
         <CardContent>
-          <Grid container direction="column"
->
-          <Grid container justify="flex-end" className={classes.cardContentTop} >
+          <Grid container direction="column">
+            <Grid
+              container
+              justify="flex-end"
+              className={classes.cardContentTop}
+            >
               <FormControlLabel
                 labelPlacement="start"
                 control={
                   <Switch
-                    // checked={state.checkedB}
-                    // onChange={handleChange}
-                    name="checkedB"
                     color="primary"
+                    checked={cardActive}
+                    onChange={handleChange}
+                    name="checked"
                   />
                 }
                 label="On/Off"
               />
             </Grid>
             <Grid className={classes.titleBox}>
-              <Typography variant="h5" >
+              <Typography variant="h5">
                 {name || duration + " minute meeting"}
               </Typography>
 
@@ -90,7 +101,6 @@ export default function EventCard({ name, duration, color, link, url }) {
                 One-on-One
               </Typography>
             </Grid>
-            
           </Grid>
         </CardContent>
         <Divider />
@@ -101,12 +111,15 @@ export default function EventCard({ name, duration, color, link, url }) {
             justify="space-between"
             alignItems="center"
           >
-            <Typography variant="subtitle2" className={classes.duration} >{duration} min</Typography>
+            <Typography variant="subtitle2" className={classes.duration}>
+              {duration} min
+            </Typography>
             <CopyToClipboard
               text={invitationLink}
               onCopy={whenCopiedToClipboard}
             >
               <Button
+                disabled={!cardActive}
                 variant={copied ? "contained" : "outlined"}
                 color="secondary"
                 size="small"
