@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { makeStyles, Grid, Divider } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import axios from "axios";
 import { parseISO, startOfToday, compareAsc } from "date-fns";
 
-import { useUserData, useSetUserData } from "../../providers/Context";
+import { useUserData } from "../../providers/Context";
 import IndividualAppointment from "./IndividualAppointment";
 import YourAppointments from "./YourAppointments";
 
 const ScheduledAppointmentsTab = () => {
-  const classes = useStyles();
-
   const userData = useUserData();
   const { _id: userId } = userData;
 
@@ -78,8 +75,6 @@ const ScheduledAppointmentsTab = () => {
     </Grid>
   );
 };
-
-const useStyles = makeStyles((theme) => ({}));
 
 const appointmentIsUpcoming = (appointmentDateInISOString) => {
   // upcoming === true indicate that the appointment is either today or tomorrow onward

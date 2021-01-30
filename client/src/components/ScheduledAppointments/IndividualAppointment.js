@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   Accordion,
@@ -14,7 +14,6 @@ import { ExpandMore } from "@material-ui/icons";
 import { parseISO, format } from "date-fns";
 
 const IndividualAppointment = ({
-  appointmentId,
   upcoming,
   attendeeName,
   attendeeEmail,
@@ -104,5 +103,14 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(15),
   },
 }));
+
+IndividualAppointment.propTypes = {
+  upcoming: PropTypes.bool,
+  attendeeName: PropTypes.string,
+  attendeeEmail: PropTypes.string,
+  attendeeTimezone: PropTypes.string,
+  time: PropTypes.string,
+  duration: PropTypes.number,
+};
 
 export default IndividualAppointment;
