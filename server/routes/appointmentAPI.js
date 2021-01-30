@@ -1,9 +1,7 @@
 const express = require("express");
 const db = require("../db/models");
 const auth = require("../middleware/auth");
-
 const ensureAppointmentExists = require("../middleware/ensureAppointmentExists");
-
 const router = express.Router();
 
 // CREATE appointment
