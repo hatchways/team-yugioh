@@ -17,7 +17,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import axios from 'axios'
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-export default function EventCard({ name, duration, color, link, url, active }) {
+export default function EventCard({ name, duration, color, link, url, active, userID }) {
   const [cardActive, setCardActive] = React.useState(active !== undefined ? active : true);
   // const [cardActive, setCardActive] = React.useState(true);
   console.log(cardActive)
