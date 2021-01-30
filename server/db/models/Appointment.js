@@ -9,9 +9,6 @@ const schema = new Schema({
   hostId: {
     type: String, // Using string type here to prevent type conversion error since all we care if whether a given id value matches it
   },
-  duration: {
-    type: Number,
-  },
   name: {
     //attendee name
     type: String,
