@@ -27,7 +27,8 @@ const IndividualAppointment = ({
   const formattedTime = format(parsedDateObj, "h:mm b");
   const formattedDate = format(parsedDateObj, "E, LLL do yyyy");
   return (
-    <div className={classes.accordionWrapper}>
+    <div>
+      {/*wrapping in a div so there is space between each appointment*/}
       <Accordion
         TransitionProps={{
           timeout: 0, //allows animation to look smoother
@@ -101,9 +102,6 @@ const IndividualAppointment = ({
 const useStyles = makeStyles((theme) => ({
   button: {
     width: theme.spacing(15),
-  },
-  accordionWrapper: {
-    marginTop: theme.spacing(2),
   },
 }));
 
