@@ -6,8 +6,7 @@ import { parseISO, startOfToday, compareAsc } from "date-fns";
 
 import { useUserData, useSetUserData } from "../../providers/Context";
 import IndividualAppointment from "./IndividualAppointment";
-import YouHaveNoAppointments from "./YouHaveNoAppointments";
-import { FormatListBulletedSharp } from "@material-ui/icons";
+import YourAppointments from "./YourAppointments";
 
 const ScheduledAppointmentsTab = () => {
   const classes = useStyles();
@@ -39,9 +38,10 @@ const ScheduledAppointmentsTab = () => {
   }, [userId]);
   return (
     <Grid container direction="column">
-      {upcomingAppointments.length === 0 && (
-        <YouHaveNoAppointments upcoming={true} />
-      )}
+      <YourAppointments
+        upcoming={true}
+        empty={upcomingAppointments.length === 0}
+      />
 
       {upcomingAppointments.length !== 0 &&
         upcomingAppointments.map((appointment) => (
@@ -57,11 +57,10 @@ const ScheduledAppointmentsTab = () => {
           />
         ))}
 
-      <Divider />
-
-      {pastAppointments.length === 0 && (
-        <YouHaveNoAppointments upcoming={false} />
-      )}
+      <YourAppointments
+        upcoming={false}
+        empty={pastAppointments.length === 0}
+      />
 
       {pastAppointments.length !== 0 &&
         pastAppointments.map((appointment) => (
