@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 
 import { useUserData, useSetUserData } from "../../providers/Context";
+import IndividualEvent from "./IndividualEvent";
 
 const ScheduledEventsTab = () => {
   const classes = useStyles();
@@ -16,9 +17,17 @@ const ScheduledEventsTab = () => {
   useEffect(() => {
     axios.get("/api/all-appointments").then(({ data }) => {
       // data: [{_id, email, eventId, hostId, name, time, timezone},...]
+      setAppointments(data);
     });
   }, [userId]);
-  return <div>hi</div>;
+  return (
+    <div>
+      {appointments.length !== 0 &&
+        appointments.map((appointment) => {
+          return <IndividualEvent key={appointment._id} />;
+        })}
+    </div>
+  );
 };
 
 const useStyles = makeStyles((theme) => ({}));
