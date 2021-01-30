@@ -8,9 +8,7 @@ const router = express.Router();
 
 // CREATE appointment
 router.post("/api/appointment", auth, (req, res) => {
-  console.log(req.body);
-
-  db.Appointment.create({ ...req.body })
+  db.Appointment.create({ ...req.body, hostId: req.userId })
     .then((response) => res.send(response))
     .catch((error) => {
       console.log(error);
