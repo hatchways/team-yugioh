@@ -33,6 +33,8 @@ const ScheduledAppointmentsTab = () => {
               attendeeName={appointment.name}
               time={appointment.time}
               duration={appointment.duration}
+              attendeeEmail={appointment.email}
+              attendeeTimezone={appointment.timezone}
             />
           );
         })}
