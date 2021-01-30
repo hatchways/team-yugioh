@@ -11,6 +11,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
+import { parseISO, format } from "date-fns";
 
 const IndividualAppointment = ({
   appointmentId,
@@ -22,6 +23,9 @@ const IndividualAppointment = ({
   duration,
 }) => {
   const classes = useStyles();
+  const parsedDateObj = parseISO(time);
+  const formattedTime = format(parsedDateObj, "h:mm b");
+  const formattedDate = format(parsedDateObj, "E, LLL do yyyy");
   return (
     <div className={classes.accordionWrapper}>
       <Accordion
@@ -32,7 +36,8 @@ const IndividualAppointment = ({
         <AccordionSummary expandIcon={<ExpandMore />}>
           <Grid container spacing={3}>
             <Grid item xs={3}>
-              <Typography variant="body1">{time}</Typography>
+              <Typography variant="body1">{formattedTime}</Typography>
+              <Typography variant="body1">{formattedDate}</Typography>
             </Grid>
             <Grid item xs={4}>
               <Typography variant="subtitle1">{attendeeName}</Typography>
