@@ -24,7 +24,7 @@ const ScheduledAppointmentsTab = () => {
     <div>
       {appointments.length !== 0 &&
         appointments.map((appointment) => {
-          return <IndividualEvent key={appointment._id} />;
+          return <IndividualAppointment key={appointment._id} />;
         })}
     </div>
   );
