@@ -94,7 +94,7 @@ export default function SelectTabs() {
           <StyledTab label="Event Types" {...a11yProps(0)} />
           <StyledTab
             classes={classes.tab}
-            label="Scheduled Events"
+            label="Scheduled Appointments"
             {...a11yProps(1)}
           />
           <StyledTab label="Teams" />
