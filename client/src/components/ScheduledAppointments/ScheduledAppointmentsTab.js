@@ -24,6 +24,7 @@ const ScheduledAppointmentsTab = () => {
 
       const upcomingAppointments = [];
       const pastAppointments = [];
+
       data.forEach((appointment) => {
         if (appointmentIsUpcoming(appointment.time)) {
           upcomingAppointments.push(appointment);
