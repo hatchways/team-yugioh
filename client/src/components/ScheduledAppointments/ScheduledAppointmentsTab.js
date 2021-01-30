@@ -21,23 +21,14 @@ const ScheduledAppointmentsTab = () => {
   useEffect(() => {
     axios.get("/api/all-appointments").then(({ data }) => {
       // data: [{_id, email, eventId, hostId, name, time, timezone, duration},...]
-      const today = startOfToday();
-      console.log("today", today);
+
       const upcomingAppointments = [];
       const pastAppointments = [];
       data.forEach((appointment) => {
-        const appointmentDate = parseISO(appointment.time);
-
-        // comparison value:
-        // 1 if appointment is upcoming
-        // -1 if appointment is in the past
-        // 0 if the appointment is today
-        const comparison = compareAsc(appointmentDate, today);
-
-        if (comparison === -1) {
-          pastAppointments.push(appointment);
-        } else {
+        if (appointmentIsUpcoming(appointment.time)) {
           upcomingAppointments.push(appointment);
+        } else {
+          pastAppointments.push(appointment);
         }
       });
 
@@ -89,6 +80,23 @@ const ScheduledAppointmentsTab = () => {
 };
 
 const useStyles = makeStyles((theme) => ({}));
+
+const appointmentIsUpcoming = (appointmentDateInISOString) => {
+  // upcoming === true indicate that the appointment is either today or tomorrow onward
+  const today = startOfToday();
+  const appointmentDate = parseISO(appointmentDateInISOString);
+
+  // comparison value:
+  // 1 if appointment is upcoming
+  // -1 if appointment is in the past
+  // 0 if the appointment is today
+  const comparison = compareAsc(appointmentDate, today);
+  if (comparison === -1) {
+    return false;
+  } else {
+    return true;
+  }
+};
 
 ScheduledAppointmentsTab.propTypes = {};
 
