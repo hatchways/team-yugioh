@@ -12,13 +12,15 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange } from "@material-ui/core/colors";
-
 import Snackbar from "@material-ui/core/Snackbar";
+
+import axios from 'axios'
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-export default function EventCard({ name, duration, color, link, url }) {
-  const [cardActive, setCardActive] = React.useState(true);
-
+export default function EventCard({ name, duration, color, link, url, active }) {
+  const [cardActive, setCardActive] = React.useState(active !== undefined ? active : true);
+  // const [cardActive, setCardActive] = React.useState(true);
+  console.log(cardActive)
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -62,9 +64,14 @@ export default function EventCard({ name, duration, color, link, url }) {
     }, 3000);
   };
 
-  const handleChange = () => {
+  const handleSwitch = () => {
     setCardActive(!cardActive);
-    console.log(cardActive);
+
+    axios.put("/api/event/toggle-active", {
+      active : cardActive
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
   };
 
   return (
@@ -85,7 +92,7 @@ export default function EventCard({ name, duration, color, link, url }) {
                   <Switch
                     color="primary"
                     checked={cardActive}
-                    onChange={handleChange}
+                    onChange={handleSwitch}
                     name="checked"
                   />
                 }
