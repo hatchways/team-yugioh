@@ -59,7 +59,7 @@ router.put("/api/event/toggle-active", auth, (req, res) => {
   // const {active} = req.body
   // console.log(active)
   // res.send(active)
-  console.log(req.body.active);
+  console.log(req.body);
   db.EventType.updateOne(
     { _id: req.body.eventId },
     { $set: { active: req.body.active } }

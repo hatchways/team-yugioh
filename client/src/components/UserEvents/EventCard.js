@@ -14,14 +14,13 @@ import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange } from "@material-ui/core/colors";
 import Snackbar from "@material-ui/core/Snackbar";
 
-import axios from 'axios'
+import axios from "axios";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function EventCard(props) {
-  const {name, duration, color, link, url, active, userID, _id } = props
-  console.log(props)
+  const { name, duration, color, link, url, active, userID, _id } = props;
   const [eventActive, setEventActive] = useState(active);
-  
+  const checked = eventActive;
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -60,20 +59,19 @@ export default function EventCard(props) {
   const whenCopiedToClipboard = () => {
     setCopied(true);
     setTimeout(() => {
-      // such that the copied state doesn't linger forever
       setCopied(false);
     }, 3000);
   };
 
   const handleSwitch = async () => {
+    axios
+      .put("/api/event/toggle-active", {
+        active: !eventActive,
+        eventId: _id,
+      })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
     setEventActive(!eventActive);
-    
-    const res = await axios.put("/api/event/toggle-active", {
-      active : eventActive,
-      eventId : _id
-    })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
   };
 
   return (
@@ -92,9 +90,9 @@ export default function EventCard(props) {
                 labelPlacement="start"
                 control={
                   <Switch
-                  size="small"
+                    size="small"
                     color="primary"
-                    checked={eventActive}
+                    checked={checked}
                     onChange={handleSwitch}
                     name="checked"
                   />
