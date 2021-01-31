@@ -220,7 +220,6 @@ export default function EventTypesTab() {
     description: "",
     link: "",
     color: "#FF6A00",
-    active: true
   });
   const [unit, setUnit] = useState("min");
 
