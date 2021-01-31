@@ -15,6 +15,7 @@ import AppointmentDetails from "../components/scheduler/AppointmentDetails";
 import Confirmation from "../components/scheduler/Confirmation";
 import { getNextAvailableDate } from "../utils/calendarUtils";
 import axios from "axios";
+import EventNotActivePage from "../pages/EventNotActivePage";
 
 const Scheduler = () => {
   const classes = useStyles();
@@ -50,6 +51,8 @@ const Scheduler = () => {
     setSelectedDate(getNextAvailableDate(selectedDate, availDates));
   }
 
+  const [eventActive, setEventActive] = useState();
+
   useEffect(() => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
     const regex = /appt\/([0-9a-z-]*\/[0-9a-z-]*)/g;
@@ -64,95 +67,100 @@ const Scheduler = () => {
         duration: event.duration,
         link: event.link,
       });
+
       setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
+      setEventActive(event.active);
     });
   }, []);
-
-  return (
-    <Paper className={classes.root} elevation={5}>
-      <Grid container direction="row" wrap="nowrap" className={classes.grid}>
-        {appointmentConfirmed ? (
-          <Route to={`${eventDetails.link}/${appointmentConfirmed.id}`}>
-            <Confirmation
-              appointmentDetails={appointmentDetails}
-              eventDetails={eventDetails}
-            />
-          </Route>
-        ) : (
-          <>
-            <Grid item xs={4}>
-              <Overview
-                {...eventDetails}
-                appointmentTime={appointmentDetails.time}
+  if (!eventActive) {
+    return <EventNotActivePage />;
+  } else {
+    return (
+      <Paper className={classes.root} elevation={5}>
+        <Grid container direction="row" wrap="nowrap" className={classes.grid}>
+          {appointmentConfirmed ? (
+            <Route to={`${eventDetails.link}/${appointmentConfirmed.id}`}>
+              <Confirmation
+                appointmentDetails={appointmentDetails}
+                eventDetails={eventDetails}
               />
-            </Grid>
-            <Divider orientation="vertical" flexItem={true} />
+            </Route>
+          ) : (
+            <>
+              <Grid item xs={4}>
+                <Overview
+                  {...eventDetails}
+                  appointmentTime={appointmentDetails.time}
+                />
+              </Grid>
+              <Divider orientation="vertical" flexItem={true} />
 
-            <Grid
-              item
-              xs={8}
-              className={classes.dateTimeSelect}
-              container
-              direction="column"
-              wrap="nowrap"
-              spacing={2}
-            >
-              {appointmentDetails.time ? (
-                <Route
-                  to={`${eventDetails.link}/${encodeURI(
-                    appointmentDetails.time
-                  )}`}
-                >
-                  <AppointmentDetails
-                    appointmentDetails={appointmentDetails}
-                    setAppointmentDetails={setAppointmentDetails}
-                    path={path}
-                    appointmentConfirmed={appointmentConfirmed}
-                    setAppointmentConfirmed={setAppointmentConfirmed}
-                    setSelectedDate={setSelectedDate}
-                    eventLink={eventDetails.link}
-                    interval={interval}
-                    availabilityTimes={availTimes}
-                  />
-                </Route>
-              ) : (
-                <>
-                  <Grid item>
-                    <Typography variant="h5" className={classes.title}>
-                      Select a Date {"&"} Time
-                    </Typography>
-                  </Grid>
-                  <Grid item container spacing={2}>
-                    <Grid item xs={7}>
-                      <PickDate
-                        selectedDate={selectedDate}
-                        setSelectedDate={setSelectedDate}
-                        availability={availDates}
-                      />
-                      <Typography variant="subtitle2">
-                        Coordinated Universal Time
+              <Grid
+                item
+                xs={8}
+                className={classes.dateTimeSelect}
+                container
+                direction="column"
+                wrap="nowrap"
+                spacing={2}
+              >
+                {appointmentDetails.time ? (
+                  <Route
+                    to={`${eventDetails.link}/${encodeURI(
+                      appointmentDetails.time
+                    )}`}
+                  >
+                    <AppointmentDetails
+                      appointmentDetails={appointmentDetails}
+                      setAppointmentDetails={setAppointmentDetails}
+                      path={path}
+                      appointmentConfirmed={appointmentConfirmed}
+                      setAppointmentConfirmed={setAppointmentConfirmed}
+                      setSelectedDate={setSelectedDate}
+                      eventLink={eventDetails.link}
+                      interval={interval}
+                      availabilityTimes={availTimes}
+                    />
+                  </Route>
+                ) : (
+                  <>
+                    <Grid item>
+                      <Typography variant="h5" className={classes.title}>
+                        Select a Date {"&"} Time
                       </Typography>
                     </Grid>
-                    <Grid item xs={5}>
-                      <PickTime
-                        selectedDate={selectedDate}
-                        appointmentDetails={appointmentDetails}
-                        setAppointmentDetails={setAppointmentDetails}
-                        setSelectedDate={setSelectedDate}
-                        eventLink={eventDetails.link}
-                        interval={interval}
-                        availabilityTimes={availTimes}
-                      />
+                    <Grid item container spacing={2}>
+                      <Grid item xs={7}>
+                        <PickDate
+                          selectedDate={selectedDate}
+                          setSelectedDate={setSelectedDate}
+                          availability={availDates}
+                        />
+                        <Typography variant="subtitle2">
+                          Coordinated Universal Time
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={5}>
+                        <PickTime
+                          selectedDate={selectedDate}
+                          appointmentDetails={appointmentDetails}
+                          setAppointmentDetails={setAppointmentDetails}
+                          setSelectedDate={setSelectedDate}
+                          eventLink={eventDetails.link}
+                          interval={interval}
+                          availabilityTimes={availTimes}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </>
-              )}
-            </Grid>
-          </>
-        )}
-      </Grid>
-    </Paper>
-  );
+                  </>
+                )}
+              </Grid>
+            </>
+          )}
+        </Grid>
+      </Paper>
+    );
+  }
 };
 
 const useStyles = makeStyles((theme) => {
