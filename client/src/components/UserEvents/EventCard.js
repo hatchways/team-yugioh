@@ -90,6 +90,7 @@ export default function EventCard({ name, duration, color, link, url, active, us
                 labelPlacement="start"
                 control={
                   <Switch
+                  size="small"
                     color="primary"
                     checked={cardActive}
                     onChange={handleSwitch}
