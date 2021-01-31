@@ -30,18 +30,20 @@ router.get("/api/event", auth, (req, res) => {
 
 // GET whether event url is unique
 router.get("/api/event/is_unique", auth, (req, res) => {
-  db.EventType.find({ link: req.query.URL, userId: req.userId })
-    .then((data) => {
+  db.EventType.find({ link: req.query.URL, userId: req.userId }).then(
+    (data) => {
       if (data.length > 0) {
         res.status(400).send(new Error("URL is already taken."));
       } else {
         res.status(200).send("URL is available!");
       }
-    })
-  })
-  
+    }
+  );
+});
+
 // GET event details
 router.get("/api/event_details/:pref/:suf", (req, res) => {
+  console.log(req.params);
   db.EventType.find({ link: `${req.params.pref}/${req.params.suf}` })
     .then((data) => {
       res.send(data);
@@ -52,4 +54,4 @@ router.get("/api/event_details/:pref/:suf", (req, res) => {
     });
 });
 
-module.exports = router
+module.exports = router;

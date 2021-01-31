@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 
+import { useUserData, useSetUserData } from "../../providers/Context";
+
 import axios from "axios";
 import FormData from "form-data";
 
@@ -31,27 +33,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BUCKET = "cal-app-user-imgs";
-
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState("");
-  const [filename, setFilename] = useState(null);
-  const [url, setUrl] = useState("");
   const [message, setMessage] = useState("");
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+  const [saveDisabled, setSaveDisabled] = useState(true);
 
   const classes = useStyles();
 
+  // Assigns Context Hooks to vars
+  const setUserData = useSetUserData();
+  const userData = useUserData();
+  const {photoUrl} = userData
+
   const handleClose = () => {
     onClose();
+    setSaveDisabled(true);
   };
-  useEffect(() => {
-    //get the url and call setUrl(<url>)
-    setUrl(`https://${BUCKET}.s3.amazonaws.com/${filename}`);
-  }, []);
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -71,14 +72,19 @@ export default function UploadDialog(props) {
     setFile(e.target.files[0]);
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
+
       return;
     }
+    setSaveDisabled(false);
     // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(e.target.files[0]);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (saveDisabled) {
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
 
@@ -88,22 +94,18 @@ export default function UploadDialog(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      const { fileName } = res.data;
-      setFilename(fileName);
-
       setMessage(true);
-      await setTimeout(() => {
-        setMessage(false);
-        handleClose();
-      }, 2000);
+      
+      const { awsUrl } = res.data;
+    
+      setUserData({ ...userData, photoUrl: awsUrl });
     } catch (err) {
-      if (err.response.status === 500) {
-        console.log("There was a problem with the server");
-      } else {
-        console.log(err.response.data.msg);
-      }
+      console.log(err);
     }
+    setTimeout(() => {
+      setMessage(false);
+      handleClose();
+    }, 2000);
   };
 
   return (
@@ -117,7 +119,7 @@ export default function UploadDialog(props) {
 
       {message && <Alert>Your profile photo was updated!</Alert>}
 
-      <Avatar className={classes.avatar} src={preview} />
+      <Avatar className={classes.avatar} src={preview ? preview : photoUrl} />
 
       <form onSubmit={onSubmit}>
         <Box display="flex" justifyContent="space-around">
@@ -131,8 +133,8 @@ export default function UploadDialog(props) {
               onChange={onChange}
             />
             <label htmlFor="upload-button-file">
-              <Button variant="contained" color="secondary" component="span">
-                + Upload
+              <Button variant="contained" component="span">
+                Select a photo
               </Button>
             </label>
           </span>
@@ -144,8 +146,13 @@ export default function UploadDialog(props) {
               id="submit-button-file"
             />
             <label htmlFor="submit-button-file">
-              <Button variant="outlined" component="span">
-                Save Changes
+              <Button
+                color="primary"
+                variant="outlined"
+                component="span"
+                disabled={saveDisabled}
+              >
+                Set as profile photo
               </Button>
             </label>
           </span>
@@ -158,4 +165,5 @@ export default function UploadDialog(props) {
 UploadDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  fileName: PropTypes.string.isRequired,
 };

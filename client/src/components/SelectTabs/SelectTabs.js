@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 
 import EventTypesTab from "./EventTypesTab";
+import TeamPage from "../teams/TeamPage";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -95,6 +96,7 @@ export default function SelectTabs() {
             label="Scheduled Events"
             {...a11yProps(1)}
           />
+          <StyledTab label="Teams" />
         </Tabs>
       </div>
       <TabPanel value={value} index={0}>
@@ -102,6 +104,9 @@ export default function SelectTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         To be completed...
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <TeamPage />
       </TabPanel>
     </Container>
   );
