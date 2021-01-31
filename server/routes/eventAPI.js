@@ -56,14 +56,25 @@ router.get("/api/event_details/:pref/:suf", (req, res) => {
 
 // Update event type to active or disabled
 router.put("/api/event/toggle-active", auth, (req, res) => {
-  console.log(req.body);
-
-  // db.EventType.updateOne({ userId: req.userId }, { $set: { active: awsUrl } })
-  //   .then((data) => res.send(data))
-  //   .catch((error) => {
-  //     console.log(error.message);
-  //     res.status(500).send(error);
-  //   });
+  // const {active} = req.body
+  // console.log(active)
+  // res.send(active)
+  console.log(req.body.active);
+  db.EventType.updateOne(
+    { _id: req.body.eventId },
+    { $set: { active: req.body.active } }
+  )
+    // .then((data) => res.send(data))
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
+  db.EventType.findOne({ _id: req.body.eventId })
+    .then((data) => res.send(data))
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
 });
 
 module.exports = router;

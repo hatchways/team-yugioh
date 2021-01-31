@@ -17,14 +17,15 @@ import Snackbar from "@material-ui/core/Snackbar";
 import axios from 'axios'
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-export default function EventCard({ name, duration, color, link, url, active, userID }) {
-  const [cardActive, setCardActive] = React.useState(active !== undefined ? active : true);
-  // const [cardActive, setCardActive] = React.useState(true);
-  console.log(cardActive)
+export default function EventCard(props) {
+  const {name, duration, color, link, url, active, userID, _id } = props
+  console.log(props)
+  const [eventActive, setEventActive] = useState(active);
+  
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-      opacity: !cardActive ? ".7" : 1,
+      opacity: !eventActive ? ".7" : 1,
     },
     title: {
       fontSize: 14,
@@ -33,7 +34,7 @@ export default function EventCard({ name, duration, color, link, url, active, us
       marginBottom: 12,
     },
     colorBar: {
-      background: !cardActive ? "lightgrey" : color || deepOrange[500],
+      background: !eventActive ? "lightgrey" : color || deepOrange[500],
       padding: 4,
     },
     button: {
@@ -64,13 +65,14 @@ export default function EventCard({ name, duration, color, link, url, active, us
     }, 3000);
   };
 
-  const handleSwitch = () => {
-    setCardActive(!cardActive);
-
-    axios.put("/api/event/toggle-active", {
-      active : cardActive
+  const handleSwitch = async () => {
+    setEventActive(!eventActive);
+    
+    const res = await axios.put("/api/event/toggle-active", {
+      active : eventActive,
+      eventId : _id
     })
-    .then((res) => console.log(res))
+    .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   };
 
@@ -92,7 +94,7 @@ export default function EventCard({ name, duration, color, link, url, active, us
                   <Switch
                   size="small"
                     color="primary"
-                    checked={cardActive}
+                    checked={eventActive}
                     onChange={handleSwitch}
                     name="checked"
                   />
@@ -127,7 +129,7 @@ export default function EventCard({ name, duration, color, link, url, active, us
               onCopy={whenCopiedToClipboard}
             >
               <Button
-                disabled={!cardActive}
+                disabled={!eventActive}
                 variant={copied ? "contained" : "outlined"}
                 color="secondary"
                 size="small"

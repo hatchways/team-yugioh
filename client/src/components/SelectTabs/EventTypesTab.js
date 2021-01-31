@@ -220,6 +220,7 @@ export default function EventTypesTab() {
     description: "",
     link: "",
     color: "#FF6A00",
+    active: true
   });
   const [unit, setUnit] = useState("min");
 
@@ -238,6 +239,7 @@ export default function EventTypesTab() {
         setUserURL(res.data);
       })
       .catch((err) => console.log(err));
+      console.log(userEvents)
   }, []);
 
   const handleClickOpen = () => {
