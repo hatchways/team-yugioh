@@ -20,7 +20,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 export default function EventCard(props) {
   const { name, duration, color, link, url, active, userID, _id } = props;
   const [eventActive, setEventActive] = useState(active);
-  const checked = eventActive;
+
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -92,9 +92,8 @@ export default function EventCard(props) {
                   <Switch
                     size="small"
                     color="primary"
-                    checked={checked}
+                    checked={eventActive}
                     onChange={handleSwitch}
-                    name="checked"
                   />
                 }
                 label="On/Off"
