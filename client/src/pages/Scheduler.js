@@ -14,6 +14,8 @@ import PickTime from "../components/scheduler/PickTime";
 import AppointmentDetails from "../components/scheduler/AppointmentDetails";
 import Confirmation from "../components/scheduler/Confirmation";
 import { getNextAvailableDate } from "../utils/calendarUtils";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import axios from "axios";
 import EventNotActivePage from "../pages/EventNotActivePage";
 
@@ -52,27 +54,34 @@ const Scheduler = () => {
   }
 
   const [eventActive, setEventActive] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
     const regex = /appt\/([0-9a-z-]*\/[0-9a-z-]*)/g;
     let searchUrl = path.match(regex)[0].slice(5);
     const queryURL = `/api/event_details/${searchUrl}`;
-    axios.get(queryURL).then((res) => {
-      // TODO: redirect to 404 page on no event found?
-      let event = res.data[0];
-      setEventDetails({
-        name: event.name,
-        description: event.description,
-        duration: event.duration,
-        link: event.link,
-      });
+    axios
+      .get(queryURL)
+      .then((res) => {
+        // TODO: redirect to 404 page on no event found?
+        let event = res.data[0];
+        setEventDetails({
+          name: event.name,
+          description: event.description,
+          duration: event.duration,
+          link: event.link,
+        });
 
-      setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
-      setEventActive(event.active);
-    });
+        setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
+        setEventActive(event.active);
+      })
+      .then(() => setLoading(false));
   }, []);
-  if (!eventActive) {
+  
+  if (loading) {
+    return <LinearProgress />
+  } else if (!eventActive) {
     return <EventNotActivePage />;
   } else {
     return (
