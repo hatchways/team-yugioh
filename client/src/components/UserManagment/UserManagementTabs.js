@@ -99,7 +99,7 @@ export default function UserManagementTabs() {
           <StyledTab label="Active" {...a11yProps(0)} />
           <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1)} />
           <StyledTab classes={classes.tab} label="Team Event" {...a11yProps(2)} />
-          <StyledTab classes={classes.tab} label="Templates" {...a11yProps(3)} />
+          <StyledTab classes={classes.tab} label="Templates" {...a11yProps(3,true)} />
         </Tabs>
       </div>
       <Divider variant="fullWidth" />
