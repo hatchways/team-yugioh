@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { googleLogout } from "../utils/googleAuth";
 import { useHistory } from "react-router-dom";
-import { useSetAuthenticated } from "../providers/AuthProvider";
+import { useSetAuthenticated } from "../providers/Context";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 
@@ -73,6 +73,11 @@ export default function UserMenu({ name }) {
     history.push("/login");
   };
 
+  const handleTeamsButton = () => {
+    handleClose();
+    history.push("/teams");
+  };
+
   return (
     <div className={classes.root}>
       <Link
@@ -103,7 +108,7 @@ export default function UserMenu({ name }) {
             <Paper className={classes.Menu}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={handleTeamsButton}>
                     <PeopleOutlineIcon className={classes.icon} />
                     Manage Teams
                   </MenuItem>
