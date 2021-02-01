@@ -51,7 +51,7 @@ const Scheduler = () => {
     setSelectedDate(getNextAvailableDate(selectedDate, availDates));
   }
 
-  const [eventActive, setEventActive] = useState();
+  const [eventActive, setEventActive] = useState(true);
 
   useEffect(() => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
