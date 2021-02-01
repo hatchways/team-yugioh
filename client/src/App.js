@@ -17,6 +17,7 @@ import { useSetAuthenticated } from "./providers/Context";
 import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
 import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
 import axios from "axios";
+import UserManagementPage from "./pages/UserManagement";
 
 import "./App.css";
 
@@ -54,6 +55,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/upgrade">
             <UpgradePage />
+          </PrivateRoute>
+          <PrivateRoute path="/teams">
+            <UserManagementPage />
           </PrivateRoute>
           <PrivateRoute path="/checkout">
             <Checkout />
