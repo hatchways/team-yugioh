@@ -11,7 +11,7 @@ const ScheduledAppointmentsTab = () => {
   const userData = useUserData();
   const { _id: userId } = userData;
 
-  const [upcomingAppointments, setupcomingAppointments] = useState([]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [pastAppointments, setPastAppointments] = useState([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ScheduledAppointmentsTab = () => {
         }
       });
 
-      setupcomingAppointments(upcomingAppointments);
+      setUpcomingAppointments(upcomingAppointments);
       setPastAppointments(pastAppointments);
     });
   }, [userId]);
