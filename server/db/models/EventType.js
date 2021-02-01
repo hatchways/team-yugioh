@@ -26,7 +26,7 @@ const schema = new Schema({
     type: [User],
   },
   active: {
-    type: Boolean,
+    type: Boolean, default: true,
   }
 });
 
