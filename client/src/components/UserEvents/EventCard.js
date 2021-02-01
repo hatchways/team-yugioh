@@ -69,9 +69,7 @@ export default function EventCard(props) {
         active: !eventActive,
         eventId: _id,
       })
-      .then(() => {
-        setEventActive(!eventActive);
-      })
+      .then(() => setEventActive(!eventActive))
       .catch((err) => console.log(err));
   };
 
