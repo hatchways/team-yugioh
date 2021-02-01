@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles, TextField } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import CheckIcon from "@material-ui/icons/Check";
@@ -27,10 +27,20 @@ const useStyles = makeStyles({
 export default function TeamNameInput({
   handleSubmit,
   toggleNameChange,
-  teamName,
-  handleChange
+  teamName
 }) {
   const classes = useStyles();
+  const [inputValue, changeInput]=useState(teamName);
+
+  const handleChange = event => {
+    changeInput(event.target.value);
+  };
+
+  const handleClear=()=>{
+    //setTitle(previousName);
+    toggleNameChange();
+
+  }
 
   return (
     <div className={classes.root}>
@@ -38,7 +48,7 @@ export default function TeamNameInput({
         id="standard-multiline-flexible"
         multiline
         rowsMax={4}
-        value={teamName}
+        value={inputValue}
         onChange={handleChange}
       />
       <div className={classes.buttonContainer}>
@@ -46,7 +56,7 @@ export default function TeamNameInput({
           color="primary"
           aria-label="accept"
           component="span"
-          onClick={handleSubmit}
+          onClick={()=>handleSubmit(inputValue)}
           classes={{ root: classes.buttonCheck }}
         >
           <CheckIcon />
@@ -55,7 +65,7 @@ export default function TeamNameInput({
           color="primary"
           aria-label="decline"
           component="span"
-          onClick={toggleNameChange}
+          onClick={handleClear}
           classes={{ root: classes.buttonClose }}
         >
           <ClearIcon />

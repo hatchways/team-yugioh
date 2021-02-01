@@ -29,12 +29,11 @@ const Header = () => {
     setEditTitle(!editTitle);
   };
 
-  const handleChange = event => {
-    setTitle(event.target.value);
-  };
 
-  const handleSubmit = () => {
-    //use teams api to change name of the team
+  const handleSubmit = (newName) => {
+    //call api to change team name:
+    //if successful setTitle
+    setTitle(newName)
     toggleEditTeamName(false);
   };
 
@@ -43,7 +42,6 @@ const Header = () => {
       {editTitle ? (
         <TeamNameInput
           teamName={title}
-          handleChange={handleChange}
           toggleNameChange={toggleEditTeamName}
           handleSubmit={handleSubmit}
         />
