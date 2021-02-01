@@ -38,7 +38,7 @@ const IndividualAppointment = ({
   }, [eventId]);
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardHeader className={classes.colorBar} />
       <CardContent className={classes.cardContent}>
         <Grid container spacing={3}>
@@ -69,6 +69,9 @@ const IndividualAppointment = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  card: {
+    margin: theme.spacing(2),
+  },
   cardContent: {
     padding: theme.spacing(2),
   },
