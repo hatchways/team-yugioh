@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
       opacity: 0.8,
     },
   },
+  cameraCircle: {
+    width: 14,
+    height: 14, 
+    color: "lightgrey",
+    boxShadow: theme.shadows[3],
+
+  } 
 }));
 
 export default function NavBar() {
@@ -93,21 +100,12 @@ export default function NavBar() {
               horizontal: "right",
             }}
             badgeContent={
-              <Box
-                boxShadow={3}
-                style={{
-                  width: 14,
-                  height: 14,
-                  color: "lightgrey",
-                  borderRadius: 100,
-                }}
-              >
-                <Avatar style={{ width: 14, height: 14, color: "lightgrey" }}>
+                <Avatar className={classes.cameraCircle}>
                   <PhotoCameraIcon
                     style={{ width: 10, height: 10, color: "black" }}
                   />
                 </Avatar>
-              </Box>
+              
             }
           >
             <Avatar src={photoUrl} alt="User image" />
