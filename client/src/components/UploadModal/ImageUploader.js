@@ -8,6 +8,8 @@ import { orange } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import DoneIcon from "@material-ui/icons/Done";
 
 import { useUserData, useSetUserData } from "../../providers/Context";
 
@@ -15,8 +17,11 @@ import axios from "axios";
 import FormData from "form-data";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  container: {
     margin: theme.spacing(1),
+  },
+  title: {
+    marginTop: 4,
   },
   avatar: {
     backgroundColor: orange[100],
@@ -24,11 +29,13 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(22),
     height: theme.spacing(22),
     margin: "2rem 5rem",
+    boxShadow: theme.shadows[3],
   },
   input: {
     display: "none",
   },
-  button: {
+  buttonBox: {
+    padding: "2 3",
     marginBottom: theme.spacing(3),
   },
 }));
@@ -36,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 export default function UploadDialog(props) {
   const { onClose, open } = props;
   const [file, setFile] = useState("");
-  const [message, setMessage] = useState("");
+  const [uploading, setUploading] = useState();
+  const [success, setSuccess] = useState();
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
@@ -82,6 +90,7 @@ export default function UploadDialog(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setUploading(true);
     if (saveDisabled) {
       return;
     }
@@ -94,30 +103,27 @@ export default function UploadDialog(props) {
           "Content-Type": "multipart/form-data",
         },
       });
-      setMessage(true);
 
       const { awsUrl } = res.data;
-
       setUserData({ ...userData, photoUrl: awsUrl });
     } catch (err) {
       console.log(err);
     }
     setTimeout(() => {
-      setMessage(false);
-      handleClose();
-    }, 2000);
+      setUploading(false);
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        handleClose();
+      }, 800);
+    }, 500);
   };
 
   return (
-    <Dialog
-      className={classes.root}
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Update profile photo</DialogTitle>
+    <Dialog className={classes.container} onClose={handleClose} open={open}>
+      <DialogTitle className={classes.title}>Update profile photo</DialogTitle>
 
-      {message && <Alert>Your profile photo was updated!</Alert>}
+      {success && <Alert>Your profile photo was updated!</Alert>}
 
       <Avatar className={classes.avatar} src={preview ? preview : photoUrl} />
 
@@ -138,7 +144,7 @@ export default function UploadDialog(props) {
               </Button>
             </label>
           </span>
-          <span className={classes.button}>
+          <span className={classes.buttonBox}>
             <input
               type="submit"
               className={classes.input}
@@ -146,14 +152,37 @@ export default function UploadDialog(props) {
               id="submit-button-file"
             />
             <label htmlFor="submit-button-file">
-              <Button
-                color="primary"
-                variant="outlined"
-                component="span"
-                disabled={saveDisabled}
-              >
-                Set as profile photo
-              </Button>
+              {uploading ? (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  disableFocusRipple
+                  style={{ padding: "10px 57px", cusor: "default" }}
+                >
+                  <CircularProgress
+                    style={{ width: 14, height: 14, color: "white" }}
+                  />
+                </Button>
+              ) : success ? (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  disableFocusRipple
+                  style={{ padding: "10px 57px", cusor: "default" }}
+                >
+                  <DoneIcon style={{ width: 14, height: 14, color: "white" }} />
+                </Button>
+              ) : (
+                <Button
+                  className={classes.button}
+                  color="primary"
+                  variant="outlined"
+                  component="span"
+                  disabled={saveDisabled}
+                >
+                  Save profile photo
+                </Button>
+              )}
             </label>
           </span>
         </Box>
