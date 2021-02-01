@@ -16,7 +16,6 @@ import Checkout from "./pages/Checkout";
 import { useSetAuthenticated } from "./providers/Context";
 import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
 import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
-import EventNotActivePage from "./pages/EventNotActivePage";
 import axios from "axios";
 
 import "./App.css";
@@ -35,9 +34,6 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <Switch>
-          <Route path="/event/invalid-url">
-            <EventNotActivePage />
-          </Route>
           <Route path="/appt/:hostName/:eventName">
             <Scheduler />
           </Route>
