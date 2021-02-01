@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Accordion,
@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { parseISO, format } from "date-fns";
+import axios from "axios";
 
 const IndividualAppointment = ({
   upcoming,
@@ -19,12 +20,27 @@ const IndividualAppointment = ({
   attendeeEmail,
   attendeeTimezone,
   time,
-  duration,
+  eventId,
 }) => {
   const classes = useStyles();
   const parsedDateObj = parseISO(time);
   const formattedTime = format(parsedDateObj, "h:mm b");
   const formattedDate = format(parsedDateObj, "E, LLL do yyyy");
+
+  const [eventDetails, setEventDetails] = useState({});
+  useEffect(() => {
+    axios.get(`/api/event-details-via-id/${eventId}`).then(({ data }) => {
+      //data: {userId, duration, name, description, color, link, members}
+      console.log(data);
+      setEventDetails({
+        eventName: data.name,
+        eventDescription: data.description,
+        eventColor: data.color,
+        duration: data.duration,
+      });
+    });
+  }, [eventId]);
+
   return (
     <div>
       {/*wrapping in a div so there is space between each appointment*/}
@@ -36,12 +52,16 @@ const IndividualAppointment = ({
         <AccordionSummary expandIcon={<ExpandMore />}>
           <Grid container spacing={3}>
             <Grid item xs={3}>
-              <Typography variant="body1">{formattedTime}</Typography>
+              <Typography variant="body1">
+                {formattedTime} ({eventDetails.duration} min)
+              </Typography>
               <Typography variant="body1">{formattedDate}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography variant="subtitle1">{attendeeName}</Typography>
-              <Typography variant="body1">Event type {duration}</Typography>
+              <Typography variant="subtitle1">With: {attendeeName}</Typography>
+              <Typography variant="body1">
+                Event name: {eventDetails.eventName}
+              </Typography>
             </Grid>
           </Grid>
         </AccordionSummary>
