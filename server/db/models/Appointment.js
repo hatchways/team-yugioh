@@ -10,11 +10,9 @@ const schema = new Schema({
     type: String, // Using string type here to prevent type conversion error since all we care if whether a given id value matches it
   },
   name: {
-    //attendee name
     type: String,
   },
   email: {
-    //attendee email
     type: String,
     trim: true,
     match: [
