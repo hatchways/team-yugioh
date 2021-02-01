@@ -5,16 +5,27 @@ const ensureAppointmentExists = require("../middleware/ensureAppointmentExists")
 const router = express.Router();
 
 // CREATE appointment
-router.post("/api/appointment", auth, (req, res) => {
-  db.Appointment.create({ ...req.body, hostId: req.userId })
-    .then((response) => res.send(response))
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
+router.post("/api/appointment", async (req, res) => {
+  // req.body {eventId, name, email, notes, timezone, time}
+  try {
+    const { eventId } = req.body;
+
+    //get the userId that's hosting this event
+    const { userId: hostId } = await db.EventType.findOne({ _id: eventId });
+
+    //create the appointment with a hostId
+    const responseFromCreate = db.Appointment.create({
+      ...req.body,
+      hostId,
     });
+
+    res.send(responseFromCreate);
+  } catch (e) {
+    res.status(500).send(error);
+  }
 });
 
-// GET all appointments for user. Query
+// GET all appointments for user. Query via userId
 router.get("/api/all-appointments", auth, (req, res) => {
   db.Appointment.find({ hostId: req.userId })
     .then((data) => {
