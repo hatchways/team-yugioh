@@ -63,15 +63,16 @@ export default function EventCard(props) {
     }, 3000);
   };
 
-  const handleSwitch = async () => {
+  const handleSwitch = () => {
     axios
       .put("/api/event/toggle-active", {
         active: !eventActive,
         eventId: _id,
       })
-      .then((res) => console.log(res.data))
+      .then(() => {
+        setEventActive(!eventActive);
+      })
       .catch((err) => console.log(err));
-    setEventActive(!eventActive);
   };
 
   return (
