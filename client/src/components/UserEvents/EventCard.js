@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -17,10 +18,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-export default function EventCard(props) {
-  const { name, duration, color, link, url, active, userID, _id } = props;
-  const [eventActive, setEventActive] = useState(active);
 
+export default function EventCard({ name, duration, color, link , active , _id }) {
+  const [eventActive, setEventActive] = useState(active)
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -145,3 +145,10 @@ export default function EventCard(props) {
     </>
   );
 }
+
+EventCard.propTypes = {
+  name: PropTypes.string,
+  duration: PropTypes.number,
+  color: PropTypes.string,
+  link: PropTypes.string,
+};

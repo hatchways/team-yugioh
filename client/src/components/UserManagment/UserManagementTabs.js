@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-
-import EventTypesTab from "./EventTypesTab";
-import TeamPage from "../teams/TeamPage";
+import { Divider } from "@material-ui/core";
+import ActiveTab from "../UserManagment/ActiveTab";
+import PendingTab from "../UserManagment/PendingTab";
+import TemplatesTab from "../UserManagment/TemplatesTab";
+import TeamEventsTab from "../UserManagment/TeamEvents";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,43 +20,45 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <div>{children}</div>
-        </Box>
-      )}
+      {value === index && <div>{children}</div>}
     </div>
   );
 }
 
 TabPanel.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
-function a11yProps(index) {
+function a11yProps(index, disabled) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
+    disabled: disabled
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    paddingLeft: theme.spacing(10),
-    paddingRight: theme.spacing(10),
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(5)
   },
   avatar: {
     marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(4)
   },
+  noPadding: {
+    padding: 0
+  }
 }));
 
-const StyledTab = withStyles((theme) => ({
+const StyledTab = withStyles(theme => ({
+  noPadding: {
+    padding: 0
+  },
   root: {
     minWidth: 72,
     fontWeight: theme.typography.fontWeightRegular,
@@ -64,17 +66,17 @@ const StyledTab = withStyles((theme) => ({
     fontSize: "1rem",
     "&:hover": {
       color: "orange",
-      opacity: 1,
+      opacity: 1
     },
     "&$selected": {
       color: theme.palette.secondary.main,
-      fontWeight: theme.typography.fontWeightMedium,
-    },
+      fontWeight: theme.typography.fontWeightMedium
+    }
   },
-  selected: {},
-}))((props) => <Tab disableRipple {...props} />);
+  selected: {}
+}))(props => <Tab disableRipple {...props} />);
 
-export default function SelectTabs() {
+export default function UserManagementTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -83,31 +85,40 @@ export default function SelectTabs() {
   };
 
   return (
-    <Container className={classes.root} maxWidth="xl">
+    <>
       <div position="static">
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <StyledTab label="Event Types" {...a11yProps(0)} />
+          <StyledTab label="Active" {...a11yProps(0)} />
+          <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1)} />
           <StyledTab
             classes={classes.tab}
-            label="Scheduled Events"
-            {...a11yProps(1)}
+            label="Team Event"
+            {...a11yProps(2)}
           />
-          <StyledTab label="Teams" />
+          <StyledTab
+            classes={classes.tab}
+            label="Templates"
+            {...a11yProps(3, true)}
+          />
         </Tabs>
       </div>
+      <Divider variant="fullWidth" />
       <TabPanel value={value} index={0}>
-        <EventTypesTab />
+        <ActiveTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        To be completed...
+        <PendingTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TeamPage />
+        <TeamEventsTab />
       </TabPanel>
-    </Container>
+      <TabPanel value={value} index={3}>
+        <TemplatesTab />
+      </TabPanel>
+    </>
   );
 }

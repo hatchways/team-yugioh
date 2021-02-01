@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import Home from "./pages/Home";
@@ -17,6 +17,7 @@ import { useSetAuthenticated } from "./providers/Context";
 import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
 import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
 import axios from "axios";
+import UserManagementPage from "./pages/UserManagement";
 
 import "./App.css";
 
@@ -29,7 +30,7 @@ function App() {
         setAuthenticated(true);
       })
       .catch();
-  }, []);
+  }, [setAuthenticated]);
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -54,6 +55,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/upgrade">
             <UpgradePage />
+          </PrivateRoute>
+          <PrivateRoute path="/teams">
+            <UserManagementPage />
           </PrivateRoute>
           <PrivateRoute path="/checkout">
             <Checkout />

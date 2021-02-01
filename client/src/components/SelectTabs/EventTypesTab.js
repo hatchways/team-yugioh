@@ -270,7 +270,10 @@ export default function EventTypesTab() {
     }
   };
 
-  const debounceCheckUnique = useCallback(debounce(checkUnique, 500), []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceCheckUnique = useCallback(() => {
+    debounce(checkUnique, 500);
+  }, []);
 
   const handleLinkChange = async (event) => {
     handleFormChange(event);
@@ -346,7 +349,7 @@ export default function EventTypesTab() {
         open={openNewEvent}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        classes={classes.dialog}
+        className={classes.dialog}
         fullWidth
         maxWidth="sm"
       >
@@ -486,7 +489,6 @@ export default function EventTypesTab() {
                       : classes.groupedInput
                   }
                 >
-                  {/* TODO: pass in user link prefix */}
                   <Grid xs={5} className={classes.prefix} item>
                     calendapp.com/john-doe/
                   </Grid>
@@ -510,7 +512,9 @@ export default function EventTypesTab() {
                               ) : (
                                 <ClearIcon className={classes.invalidIcon} />
                               )
-                            ) : null}
+                            ) : (
+                              <></>
+                            )}
                           </InputAdornment>
                         ),
                       }}

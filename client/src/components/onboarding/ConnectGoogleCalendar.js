@@ -6,7 +6,6 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 const ConnectGoogleCalendar = () => {
   //styles

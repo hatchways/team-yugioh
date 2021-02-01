@@ -7,24 +7,21 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
-import { useParams } from "react-router-dom";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
 import AppointmentDetails from "../components/scheduler/AppointmentDetails";
 import Confirmation from "../components/scheduler/Confirmation";
 import { getNextAvailableDate } from "../utils/calendarUtils";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import axios from "axios";
 import EventNotActivePage from "../pages/EventNotActivePage";
 
 const Scheduler = () => {
   const classes = useStyles();
-  const [path, setPath] = useState(useLocation().pathname);
+  const [path] = useState(useLocation().pathname);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { hostName, eventName } = useParams();
-
   const [eventDetails, setEventDetails] = useState({
     name: "",
     details: "",
@@ -36,7 +33,6 @@ const Scheduler = () => {
     name: "",
     email: "",
     notes: "",
-    time: false,
     timezone: "UTC",
   });
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
@@ -72,15 +68,15 @@ const Scheduler = () => {
           duration: event.duration,
           link: event.link,
         });
-
         setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
         setEventActive(event.active);
       })
       .then(() => setLoading(false));
+      
   }, []);
-  
+
   if (loading) {
-    return <LinearProgress />
+    return <LinearProgress />;
   } else if (!eventActive) {
     return <EventNotActivePage />;
   } else {

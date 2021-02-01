@@ -9,13 +9,13 @@ import Box from "@material-ui/core/Box";
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
 
-import { useUserData } from '../../providers/Context'
+import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: "white",
-    padding: "1.5rem 3rem",
+    padding: "0.6rem 3rem",
   },
   title: {
     flexGrow: 1,
@@ -56,7 +56,7 @@ export default function NavBar() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
-  const { name, photoUrl } = useUserData()
+  const { name, photoUrl } = useUserData();
 
   return (
     <AppBar className={classes.root} position="static">
@@ -65,26 +65,16 @@ export default function NavBar() {
           <img width="110rem" src={Logo} alt="CalendApp logo" />
         </span>
 
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-          to="/home"
-        >
+        <Link variant="subtitle1" className={classes.link} href="/home">
           Home
         </Link>
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
+        <Link variant="subtitle1" className={classes.link}>
           Integration
         </Link>
         <Link
           variant="subtitle1"
-          onClick={preventDefault}
           className={classes.linkToUpgrade}
-          to="/upgrade"
+          href="/upgrade"
         >
           Upgrade account
         </Link>
@@ -103,7 +93,7 @@ export default function NavBar() {
           onClick={preventDefault}
           className={classes.link}
         >
-          {name}
+          {name || "CalendApp User"}
         </Link>
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />

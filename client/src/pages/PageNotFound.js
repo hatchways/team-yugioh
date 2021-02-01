@@ -12,7 +12,7 @@ import Logo from "../assets/logo.png";
 
 const useStyles = makeStyles(() => ({
   root: {
-    marginTop: '4rem',
+    marginTop: "4rem",
     flexGrow: 1,
   },
   image: {
@@ -59,7 +59,7 @@ export default function PageNotFound() {
         spacing={0}
       >
         <Grid sm={12} md={4} item className={classes.imageBox}>
-          <img className={classes.image} alt="404 mascot image" src={Image} />
+          <img className={classes.image} alt="404 mascot" src={Image} />
         </Grid>
 
         <Grid item>
@@ -73,7 +73,9 @@ export default function PageNotFound() {
               <Typography variant="h5">404 Page not found</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h1" className={classes.title}>Whoops...</Typography>
+              <Typography variant="h1" className={classes.title}>
+                Whoops...
+              </Typography>
             </Grid>
             <Grid item>
               <Typography variant="h4">
@@ -91,4 +93,4 @@ export default function PageNotFound() {
       </Grid>
     </>
   );
-};
+}
