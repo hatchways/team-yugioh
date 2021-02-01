@@ -6,7 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import UserActionsMenue from "./UserActionsMenue";
+import UserActionsMenue from "./UserActionsMenu";
 import { Clear } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import RemoveModal from "./RemoveModal";

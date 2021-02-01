@@ -3,18 +3,13 @@ import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Box from "@material-ui/core/Box";
 import {
-  Paper,
-  Grid,
-  Typography,
   Divider,
-  Button,
-  Container
 } from "@material-ui/core";
 import ActiveTab from "../UserManagment/ActiveTab";
 import PendingTab from "../UserManagment/PendingTab";
 import TemplatesTab from "../UserManagment/TemplatesTab";
+import TeamEventsTab from "../UserManagment/TeamEvents";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,10 +35,11 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired
 };
 
-function a11yProps(index) {
+function a11yProps(index, disabled) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    "aria-controls": `simple-tabpanel-${index}`,
+    disabled:disabled
   };
 }
 
@@ -102,11 +98,8 @@ export default function UserManagementTabs() {
         >
           <StyledTab label="Active" {...a11yProps(0)} />
           <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1)} />
-          <StyledTab
-            classes={classes.tab}
-            label="Templates"
-            {...a11yProps(2)}
-          />
+          <StyledTab classes={classes.tab} label="Team Event" {...a11yProps(2)} />
+          <StyledTab classes={classes.tab} label="Templates" {...a11yProps(3)} />
         </Tabs>
       </div>
       <Divider variant="fullWidth" />
@@ -117,6 +110,9 @@ export default function UserManagementTabs() {
         <PendingTab/>
       </TabPanel>
       <TabPanel value={value} index={2}>
+        <TeamEventsTab/>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
         <TemplatesTab/>
       </TabPanel>
     </>

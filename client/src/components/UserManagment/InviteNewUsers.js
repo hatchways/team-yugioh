@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   root: {
     textAlign: "center",
     padding: "10% 0",
-    width: "500px",
+    width: "496px",
     border: "solid 2px black",
   },
   title: {

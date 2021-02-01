@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import UserInfoDisplay from "./UserInfoDisplay";
 import { Link } from "react-router-dom";
-import UserActionsMenue from "./UserActionsMenue";
+import UserActionsMenue from "./UserActionsMenu";
 import ChangeRoleModal from "./ChangeRoleModal";
 import RemoveModal from "./RemoveModal";
 

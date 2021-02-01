@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function UserActionsMenue({children}) {
+export default function UserActionsMenu({children}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
