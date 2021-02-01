@@ -6,6 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import MembersToBeInvited from "../teams/MembersToBeInvited";
+import ChipInput from "material-ui-chip-input";
 
 const useStyles = makeStyles({
   root: {
@@ -77,6 +78,12 @@ continueButton:{
 },
 outerContainer:{
     padding:"0 5%"
+},
+body:{
+  marginBottom:"10%"
+},
+buttonContainer:{
+  marginTop:"10%"
 }
 });
 
@@ -84,25 +91,23 @@ function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, userName } = props;
 
-  const [email, setEmail] = useState("");
+ //TODO: add email validation
   const [emailValid, setEmailValid] = useState(false);
   const [membersToInvite, setMembersToInvite] = useState([]);
-  const handleEmailChange = event => {
-    //validation could probably be done better
-    const typedEmail = event.target.value;
-    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
-      setEmailValid(true);
-    } else {
-      setEmailValid(false);
-    }
-    setEmail(typedEmail);
+
+
+  
+  const [invitees, setInvitees] = React.useState([
+  ]);
+
+  const handleDeleteChip = (chipToDelete)=> {
+    setInvitees(invitees.filter((chip) => chip !== chipToDelete));
   };
 
-  const addEmailToInvitedList = () => {
-    setMembersToInvite([...membersToInvite, { email }]);
-    setEmail("");
-    setEmailValid(false);
-  };
+  const handleAddChip=(chipToAdd)=>{
+    setInvitees([...invitees, chipToAdd])
+  }
+
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -130,39 +135,15 @@ function Modal(props) {
           invitations to join your team!
         </Typography>
 
-        <Grid container alignItems="center" className={classes.label}>
-          <Grid item xs={2}>
-            <InputLabel>Members</InputLabel>
-          </Grid>
-          <Grid item xs={8}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              value={email}
-              onChange={handleEmailChange}
-              className={classes.inputField}
-              placeholder="Email address"
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              onClick={addEmailToInvitedList}
-              disabled={!emailValid}
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Add
-            </Button>
-          </Grid>
-        </Grid>
-        <div className={classes.container}>
-          <MembersToBeInvited
-            teamMembers={membersToInvite}
-            setTeamMembers={setMembersToInvite}
-          />
-        </div>
-        <div>
+        <ChipInput
+                value={invitees}
+                onAdd={chip => handleAddChip(chip)}
+                onDelete={(chip, index) => handleDeleteChip(chip, index)}
+                variant="outlined"
+                fullWidth
+                
+              />
+        <div className={classes.buttonContainer}>
             <Button variant="contained" color="primary" className={classes.continueButton} onClick={handleSubmit}>Send</Button>
             <Button variant="outlined" color="primary" className={classes.cancellButton} onClick={handleClose}>Cancel</Button>
         </div>

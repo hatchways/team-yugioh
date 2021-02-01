@@ -271,38 +271,7 @@ function Modal(props) {
     setInvitees([...invitees, chipToAdd])
   }
 
-  function createNewEventType() {
-    handleClose();
-
-    // TODO: make card titles change to xx hours xx mins for time > 60?
-    let minutes;
-    if (unit === "hour") {
-      minutes = Math.floor(eventBody.duration * 60);
-    } else {
-      minutes = Math.floor(eventBody.duration);
-    }
-    setUnit("min");
-
-    axios
-      .post("/api/event", {
-        ...eventBody,
-        duration: minutes,
-        link: `${userURL}/${eventBody.link}`
-      })
-      .then(res => {
-        const currentEventTypes = [...userEvents];
-        currentEventTypes.push(res.data);
-        setUserEvents(currentEventTypes);
-        setEventBody({
-          name: "",
-          duration: "",
-          description: "",
-          link: "",
-          color: "#FF6A00"
-        });
-      })
-      .catch(err => console.log(err));
-  }
+ 
 
   const handleFormChange = event => {
     const { name, value } = event.target;
