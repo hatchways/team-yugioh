@@ -72,9 +72,10 @@ const Scheduler = () => {
         setEventActive(event.active);
       })
       .then(() => setLoading(false));
-      
+    /* eslint-disable */
   }, []);
-
+  /* eslint-enable */
+  
   if (loading) {
     return <LinearProgress />;
   } else if (!eventActive) {
