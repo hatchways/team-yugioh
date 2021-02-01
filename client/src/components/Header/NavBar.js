@@ -3,8 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
-import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
+import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import CameraAltTwoToneIcon from "@material-ui/icons/CameraAltTwoTone";
+import CameraAltOutlinedIcon from "@material-ui/icons/CameraAltOutlined";
 
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
@@ -79,13 +83,35 @@ export default function NavBar() {
           Upgrade account
         </Link>
 
-        <Box>
-          <Avatar
+        <Box className={classes.badge}>
+          <Badge
             className={classes.profileImg}
-            src={photoUrl}
-            alt="User image"
             onClick={handleClickOpen}
-          />
+            overlap="circle"
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            badgeContent={
+              <Box
+                boxShadow={3}
+                style={{
+                  width: 14,
+                  height: 14,
+                  color: "lightgrey",
+                  borderRadius: 100,
+                }}
+              >
+                <Avatar style={{ width: 14, height: 14, color: "lightgrey" }}>
+                  <PhotoCameraIcon
+                    style={{ width: 10, height: 10, color: "black" }}
+                  />
+                </Avatar>
+              </Box>
+            }
+          >
+            <Avatar src={photoUrl} alt="User image" />
+          </Badge>
         </Box>
 
         <Link
