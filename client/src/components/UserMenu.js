@@ -38,16 +38,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserMenu({ name }) {
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-
-  // const handleClick = event => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
-
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -59,7 +49,11 @@ export default function UserMenu({ name }) {
   };
 
   const handleClose = event => {
-    if (event && anchorRef.current && anchorRef.current.contains(event.target)) {
+    if (
+      event &&
+      anchorRef.current &&
+      anchorRef.current.contains(event.target)
+    ) {
       return;
     }
     setOpen(false);
@@ -71,16 +65,6 @@ export default function UserMenu({ name }) {
       setOpen(false);
     }
   }
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
 
   const handleLogout = () => {
     setAuthenticated(false);
