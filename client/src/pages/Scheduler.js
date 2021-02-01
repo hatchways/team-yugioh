@@ -7,7 +7,6 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
-import { useParams } from "react-router-dom";
 import Overview from "../components/scheduler/Overview";
 import PickDate from "../components/scheduler/PickDate";
 import PickTime from "../components/scheduler/PickTime";
@@ -18,10 +17,8 @@ import axios from "axios";
 
 const Scheduler = () => {
   const classes = useStyles();
-  const [path, setPath] = useState(useLocation().pathname);
+  const [path] = useState(useLocation().pathname);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { hostName, eventName } = useParams();
-
   const [eventDetails, setEventDetails] = useState({
     name: "",
     details: "",
@@ -33,7 +30,6 @@ const Scheduler = () => {
     name: "",
     email: "",
     notes: "",
-    time: false,
     timezone: "UTC",
   });
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
@@ -66,6 +62,7 @@ const Scheduler = () => {
       });
       setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
