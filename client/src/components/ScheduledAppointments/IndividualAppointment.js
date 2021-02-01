@@ -24,7 +24,7 @@ const IndividualAppointment = ({
   const formattedDate = format(parsedDateObj, "E, LLL do yyyy");
 
   const [eventDetails, setEventDetails] = useState({});
-  const classes = useStyles({ eventColor: eventDetails.eventColor });
+  const classes = useStyles({ eventColor: eventDetails.eventColor, upcoming });
   useEffect(() => {
     axios.get(`/api/event-details-via-id/${eventId}`).then(({ data }) => {
       //data: {userId, duration, name, description, color, link, members}
@@ -43,15 +43,15 @@ const IndividualAppointment = ({
       <CardContent className={classes.cardContent}>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant="h4">
+            <Typography variant="h4" className={classes.textDisplayingDateTime}>
               {formattedTime} ({eventDetails.duration} min)
             </Typography>
-            <Typography variant="h6">{formattedDate}</Typography>
+            <Typography variant="h6" className={classes.textDisplayingDateTime}>
+              {formattedDate}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body1">
-              Appointment with: {attendeeName}
-            </Typography>
+            <Typography variant="body1">Attendee: {attendeeName}</Typography>
             <Typography variant="body1">
               Event name: {eventDetails.eventName}
             </Typography>
@@ -77,6 +77,9 @@ const useStyles = makeStyles((theme) => ({
   },
   colorBar: {
     background: (props) => props.eventColor,
+  },
+  textDisplayingDateTime: {
+    color: (props) => !props.upcoming && "lightgrey", // grey out the time if appointment is in the past
   },
 }));
 
