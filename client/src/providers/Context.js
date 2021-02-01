@@ -62,5 +62,5 @@ export const UserContextProvider = ({ children }) => {
 };
 
 UserContextProvider.propTypes = {
-  children: PropTypes.func,
+  children: PropTypes.object,
 };
