@@ -3,14 +3,10 @@ import { Grid } from "@material-ui/core";
 import axios from "axios";
 import { parseISO, startOfToday, compareAsc } from "date-fns";
 
-import { useUserData } from "../../providers/Context";
 import IndividualAppointment from "./IndividualAppointment";
 import YourAppointments from "./YourAppointments";
 
 const ScheduledAppointmentsTab = () => {
-  const userData = useUserData();
-  const { _id: userId } = userData;
-
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [pastAppointments, setPastAppointments] = useState([]);
 
@@ -32,7 +28,7 @@ const ScheduledAppointmentsTab = () => {
       setUpcomingAppointments(upcomingAppointments);
       setPastAppointments(pastAppointments);
     });
-  }, [userId]);
+  }, []);
   return (
     <Grid container direction="column">
       <YourAppointments
