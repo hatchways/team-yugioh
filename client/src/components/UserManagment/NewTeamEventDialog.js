@@ -502,6 +502,7 @@ function Modal(props) {
                 value={invitees}
                 onAdd={chip => handleAddChip(chip)}
                 onDelete={(chip, index) => handleDeleteChip(chip, index)}
+                variant="outlined"
               />
             </Grid>
           </Grid>
