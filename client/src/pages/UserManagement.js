@@ -2,15 +2,11 @@ import React from "react";
 import NavBar from "../components/Header/NavBar";
 import UserManagementTabs from "../components/UserManagment/UserManagementTabs";
 import {
-  Paper,
-  Grid,
   makeStyles,
-  Typography,
-  Divider,
-  Button,
   Container
 } from "@material-ui/core";
 import Header from "../components/UserManagment/Header";
+
 
 const useStyles = makeStyles(theme => ({
   root: {

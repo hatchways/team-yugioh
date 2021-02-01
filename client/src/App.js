@@ -56,6 +56,9 @@ function App() {
           <PrivateRoute path="/upgrade">
             <UpgradePage />
           </PrivateRoute>
+          <PrivateRoute path="/teams">
+            <UserManagementPage />
+          </PrivateRoute>
           <PrivateRoute path="/checkout">
             <Checkout />
           </PrivateRoute>

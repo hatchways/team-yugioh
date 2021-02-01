@@ -2,9 +2,8 @@ import React from "react";
 import {
     makeStyles,
     Typography,
-    Button,
   } from "@material-ui/core";
-  import AddIcon from '@material-ui/icons/Add';
+  import InviteNewUsers from "./InviteNewUsers";
 
   const useStyles = makeStyles(theme => ({
    headerText:{
@@ -20,7 +19,6 @@ import {
        padding:"9px 16px",
        fontSize:16,
        fontWeight:"normal"
-
    }
   }));
 
@@ -31,7 +29,7 @@ const Header=()=>{
     return(
        <div className={classes.header}>
            <Typography variant="h1" className={classes.headerText}>Users</Typography>
-           <Button variant="outlined" startIcon={<AddIcon/> } className={classes.newUbutton} color="primary">New User</Button>
+           <InviteNewUsers/>
        </div>
     )
 }
