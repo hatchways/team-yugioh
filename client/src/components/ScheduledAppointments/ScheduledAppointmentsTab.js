@@ -12,12 +12,13 @@ const ScheduledAppointmentsTab = () => {
 
   useEffect(() => {
     axios.get("/api/all-appointments").then(({ data }) => {
-      // data: [{_id, email, eventId, hostId, name, time, timezone, duration},...]
+      // data: [{_id, email, eventId, hostUserId, name, time, timezone},...]
 
       const upcomingAppointments = [];
       const pastAppointments = [];
 
       data.forEach((appointment) => {
+        // appointment: {_id, email, eventId, hostUserId, name, time, timezone}
         if (appointmentIsUpcoming(appointment.time)) {
           upcomingAppointments.push(appointment);
         } else {
@@ -47,6 +48,7 @@ const ScheduledAppointmentsTab = () => {
             duration={appointment.duration}
             attendeeEmail={appointment.email}
             attendeeTimezone={appointment.timezone}
+            eventId={appointment.eventId}
           />
         ))}
 
@@ -66,6 +68,7 @@ const ScheduledAppointmentsTab = () => {
             duration={appointment.duration}
             attendeeEmail={appointment.email}
             attendeeTimezone={appointment.timezone}
+            eventId={appointment.eventId}
           />
         ))}
     </Grid>
