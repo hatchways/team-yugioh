@@ -6,7 +6,7 @@ const schema = new Schema({
   eventId: {
     type: mongoose.Schema.Types.ObjectId,
   },
-  hostId: {
+  hostUserId: {
     type: String, // Using string type here to prevent type conversion error since all we care if whether a given id value matches it
   },
   name: {
