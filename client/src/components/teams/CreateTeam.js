@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   Dialog,
   makeStyles,
@@ -17,7 +18,7 @@ import MembersToBeInvited from "./MembersToBeInvited";
 const CreateTeam = ({ open, closeDialog }) => {
   const classes = useStyles();
 
-  const createTeam = (event) => {};
+  const createTeam = () => {};
 
   const [teamName, setTeamName] = useState("");
   const handleTeamNameChange = (event) => {
@@ -140,5 +141,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#9e9e9e",
   },
 }));
+
+CreateTeam.propTypes = {
+  open: PropTypes.bool,
+  closeDialog: PropTypes.func,
+};
 
 export default CreateTeam;

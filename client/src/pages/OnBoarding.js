@@ -7,7 +7,7 @@ import {
   Divider,
   Button,
 } from "@material-ui/core";
-import { Route, Switch, Link, Redirect, useRouteMatch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
@@ -26,7 +26,6 @@ const OnBoarding = () => {
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
-  
 
   useEffect(() => {
     axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
@@ -41,7 +40,7 @@ const OnBoarding = () => {
     if (page === 3) {
       axios
         .post("/api/user/", { URL: url, timezone: timezone })
-        .then((res) => setOnboarded(true));
+        .then(() => setOnboarded(true));
     }
   };
 

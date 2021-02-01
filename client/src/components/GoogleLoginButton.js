@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import googleLogo from "../assets/googlesvg1.svg";
-import { sendToken } from "../utils/googleAuth";
-import { useHistory } from "react-router-dom";
 import { useAuth, useSetAuthenticated } from "../providers/Context";
 import { Redirect } from "react-router-dom";
 import axios from "axios";

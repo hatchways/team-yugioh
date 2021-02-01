@@ -1,15 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Grid,
-  Button,
-  TextField,
-  InputLabel,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
-import axios from "axios";
 import BackArrow from "../../assets/back.svg";
 
 const Confirmation = ({ eventDetails, appointmentDetails }) => {
@@ -38,11 +29,14 @@ const Confirmation = ({ eventDetails, appointmentDetails }) => {
       <Grid item>
         <Typography variant="h6">
           You are scheduled for{" "}
-          {`${eventDetails.name}` || `a ${duration} minute meeting`}
+          {`${eventDetails.name}` ||
+            `a ${eventDetails.duration} minute meeting`}
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="body1">At {appointmentDetails.time}</Typography>
+        <Typography variant="body1">
+          At {appointmentDetails.time.toString()}
+        </Typography>
       </Grid>
       <Grid item>
         <Typography variant="h6">
@@ -87,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     textIndent: "-9999px",
     backgroundImage: `url(${BackArrow})`,
-    backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "30%",
