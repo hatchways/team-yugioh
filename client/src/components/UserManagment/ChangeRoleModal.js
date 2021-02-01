@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles, NativeSelect} from "@material-ui/core";
+import { makeStyles, NativeSelect } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     textAlign: "center",
     padding: "10% 0",
     width: "400px",
-    border:"solid 2px black"
+    border: "solid 2px black"
   },
   title: {
     fontSize: 20,
@@ -23,34 +23,33 @@ const useStyles = makeStyles({
     color: "#4d5055",
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom:"5%"
+    marginBottom: "5%"
   },
-  mainText:{
-      padding:"5% 10% 5% 10%",
-      fontSize:14,
-      color: "#4d5055",
+  mainText: {
+    padding: "5% 10% 5% 10%",
+    fontSize: 14,
+    color: "#4d5055"
   },
-  popoverButton:{
-    borderRadius:0,
-    borderBottom:"none"
-},
-cancellButton:{
-    padding:"8px 35px",
-    margin:"30px 10px",
-    fontSize:16
-
-},
-continueButton:{
-    padding:"8px 40px",
-    margin:"30px 10px",
-    fontSize:16,
-    color:"white"
-},
-selectDropdown:{
+  popoverButton: {
+    borderRadius: 0,
+    borderBottom: "none"
+  },
+  cancellButton: {
+    padding: "8px 35px",
+    margin: "30px 10px",
+    fontSize: 16
+  },
+  continueButton: {
+    padding: "8px 40px",
+    margin: "30px 10px",
+    fontSize: 16,
+    color: "white"
+  },
+  selectDropdown: {
     margin: "8px",
     minWidth: 120,
-    fontSize:16
-}
+    fontSize: 16
+  }
 });
 
 function Modal(props) {
@@ -73,10 +72,10 @@ function Modal(props) {
     onClose(selectedValue);
   };
 
-  const handleSubmit = ()=>{
+  const handleSubmit = () => {
     //api call here
-    handleClose()
-}
+    handleClose();
+  };
 
   return (
     <Dialog
@@ -109,8 +108,22 @@ function Modal(props) {
           also be added as Managers of individual teams.
         </Typography>
         <div>
-            <Button variant="contained" color="primary" className={classes.continueButton} onClick={handleSubmit}>Apply</Button>
-            <Button variant="outlined" color="primary" className={classes.cancellButton} onClick={handleClose}>Cancel</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.continueButton}
+            onClick={handleSubmit}
+          >
+            Apply
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.cancellButton}
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
         </div>
       </div>
     </Dialog>
@@ -119,10 +132,10 @@ function Modal(props) {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired
 };
 
-export default function ChangeRoleModal({userName}) {
+export default function ChangeRoleModal({ userName }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -132,8 +145,6 @@ export default function ChangeRoleModal({userName}) {
   const handleClose = () => {
     setOpen(false);
   };
-
-
 
   return (
     <div>

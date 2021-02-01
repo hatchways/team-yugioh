@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import {
-  Divider,
-} from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import ActiveTab from "../UserManagment/ActiveTab";
 import PendingTab from "../UserManagment/PendingTab";
 import TemplatesTab from "../UserManagment/TemplatesTab";
@@ -22,9 +20,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-          <div>{children}</div>
-      )}
+      {value === index && <div>{children}</div>}
     </div>
   );
 }
@@ -39,7 +35,7 @@ function a11yProps(index, disabled) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-    disabled:disabled
+    disabled: disabled
   };
 }
 
@@ -54,8 +50,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginBottom: theme.spacing(4)
   },
-  noPadding:{
-      padding:0
+  noPadding: {
+    padding: 0
   }
 }));
 
@@ -98,22 +94,30 @@ export default function UserManagementTabs() {
         >
           <StyledTab label="Active" {...a11yProps(0)} />
           <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1)} />
-          <StyledTab classes={classes.tab} label="Team Event" {...a11yProps(2)} />
-          <StyledTab classes={classes.tab} label="Templates" {...a11yProps(3,true)} />
+          <StyledTab
+            classes={classes.tab}
+            label="Team Event"
+            {...a11yProps(2)}
+          />
+          <StyledTab
+            classes={classes.tab}
+            label="Templates"
+            {...a11yProps(3, true)}
+          />
         </Tabs>
       </div>
       <Divider variant="fullWidth" />
       <TabPanel value={value} index={0}>
-        <ActiveTab/>
+        <ActiveTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PendingTab/>
+        <PendingTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TeamEventsTab/>
+        <TeamEventsTab />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <TemplatesTab/>
+        <TemplatesTab />
       </TabPanel>
     </>
   );

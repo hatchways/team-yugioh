@@ -12,7 +12,6 @@ import UserActionsMenue from "./UserActionsMenu";
 import ChangeRoleModal from "./ChangeRoleModal";
 import RemoveModal from "./RemoveModal";
 
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -27,7 +26,7 @@ const useStyles = makeStyles({
     textDecoration: "none",
     color: "#00a2ff",
     fontSize: 14
-  },
+  }
 });
 
 function createData(name, email, role, appPage, dateAdded) {
@@ -78,25 +77,26 @@ export default function ActiveTab() {
         <TableBody>
           {rows.map(row => {
             return (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                <UserInfoDisplay name={row.name} email={row.email} />
-              </TableCell>
-              <TableCell align="center">{row.role}</TableCell>
-              <TableCell align="center">
-                <Link to="#" className={classes.link}>
-                  {row.appPage}
-                </Link>
-              </TableCell>
-              <TableCell align="center">{row.dateAdded}</TableCell>
-              <TableCell align="center">
-                <UserActionsMenue>
-                  <ChangeRoleModal userName={row.name}/>
-                  <RemoveModal variant="remove_user" userName={row.name}/>
-                </UserActionsMenue>
-              </TableCell>
-            </TableRow>
-          )})}
+              <TableRow key={row.name}>
+                <TableCell component="th" scope="row">
+                  <UserInfoDisplay name={row.name} email={row.email} />
+                </TableCell>
+                <TableCell align="center">{row.role}</TableCell>
+                <TableCell align="center">
+                  <Link to="#" className={classes.link}>
+                    {row.appPage}
+                  </Link>
+                </TableCell>
+                <TableCell align="center">{row.dateAdded}</TableCell>
+                <TableCell align="center">
+                  <UserActionsMenue>
+                    <ChangeRoleModal userName={row.name} />
+                    <RemoveModal variant="remove_user" userName={row.name} />
+                  </UserActionsMenue>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     textAlign: "center",
     padding: "10% 0",
     width: "496px",
-    border: "solid 2px black",
+    border: "solid 2px black"
   },
   title: {
     fontSize: 20,
@@ -60,54 +60,49 @@ const useStyles = makeStyles({
   label: {
     marginTop: 40
   },
-  container:{
-      maxWidth:480,
-      padding:20
+  container: {
+    maxWidth: 480,
+    padding: 20
   },
-  cancellButton:{
-    padding:"10px 50px",
-    margin:"30px 10px",
-    fontSize:16
-
-},
-continueButton:{
-    padding:"10px 50px",
-    margin:"30px 10px",
-    fontSize:16,
-    color:"white"
-},
-outerContainer:{
-    padding:"0 5%"
-},
-body:{
-  marginBottom:"10%"
-},
-buttonContainer:{
-  marginTop:"10%"
-}
+  cancellButton: {
+    padding: "10px 50px",
+    margin: "30px 10px",
+    fontSize: 16
+  },
+  continueButton: {
+    padding: "10px 50px",
+    margin: "30px 10px",
+    fontSize: 16,
+    color: "white"
+  },
+  outerContainer: {
+    padding: "0 5%"
+  },
+  body: {
+    marginBottom: "10%"
+  },
+  buttonContainer: {
+    marginTop: "10%"
+  }
 });
 
 function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, userName } = props;
 
- //TODO: add email validation
+  //TODO: add email validation
   const [emailValid, setEmailValid] = useState(false);
   const [membersToInvite, setMembersToInvite] = useState([]);
 
+  const [invitees, setInvitees] = React.useState([]);
 
-  
-  const [invitees, setInvitees] = React.useState([
-  ]);
-
-  const handleDeleteChip = (chipToDelete)=> {
-    setInvitees(invitees.filter((chip) => chip !== chipToDelete));
+  const handleDeleteChip = chipToDelete => {
+    setInvitees(invitees.filter(chip => chip !== chipToDelete));
   };
 
-  const handleAddChip=(chipToAdd)=>{
-    setInvitees([...invitees, chipToAdd])
-  }
-
+  const handleAddChip = chipToAdd => {
+    setInvitees([...invitees, chipToAdd]);
+  };
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -126,27 +121,40 @@ function Modal(props) {
       maxWidth="xl"
     >
       <div className={classes.root}>
-          <div className={classes.outerContainer}>
-        <Typography variant="h1" className={classes.title}>
-          Invite Users to Join Your Team
-        </Typography>
-        <Typography variant="body1" className={classes.body}>
-          Enter email addresses for the new users below and they'll receive
-          invitations to join your team!
-        </Typography>
+        <div className={classes.outerContainer}>
+          <Typography variant="h1" className={classes.title}>
+            Invite Users to Join Your Team
+          </Typography>
+          <Typography variant="body1" className={classes.body}>
+            Enter email addresses for the new users below and they'll receive
+            invitations to join your team!
+          </Typography>
 
-        <ChipInput
-                value={invitees}
-                onAdd={chip => handleAddChip(chip)}
-                onDelete={(chip, index) => handleDeleteChip(chip, index)}
-                variant="outlined"
-                fullWidth
-                
-              />
-        <div className={classes.buttonContainer}>
-            <Button variant="contained" color="primary" className={classes.continueButton} onClick={handleSubmit}>Send</Button>
-            <Button variant="outlined" color="primary" className={classes.cancellButton} onClick={handleClose}>Cancel</Button>
-        </div>
+          <ChipInput
+            value={invitees}
+            onAdd={chip => handleAddChip(chip)}
+            onDelete={(chip, index) => handleDeleteChip(chip, index)}
+            variant="outlined"
+            fullWidth
+          />
+          <div className={classes.buttonContainer}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.continueButton}
+              onClick={handleSubmit}
+            >
+              Send
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.cancellButton}
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
       </div>
     </Dialog>

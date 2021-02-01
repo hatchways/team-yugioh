@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  makeStyles,
-  Button,
-} from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -27,14 +24,13 @@ const useStyles = makeStyles(theme => ({
     color: "#00a2ff",
     fontSize: 14
   },
-  popover:{
-      display:"flex",
-      flexDirection:"column"
-  },
-
+  popover: {
+    display: "flex",
+    flexDirection: "column"
+  }
 }));
 
-export default function UserActionsMenu({children}) {
+export default function UserActionsMenu({ children }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -59,7 +55,7 @@ export default function UserActionsMenu({children}) {
       ></Button>
       <Popover
         open={open}
-        classes={{paper:classes.popover}}
+        classes={{ paper: classes.popover }}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
@@ -71,8 +67,7 @@ export default function UserActionsMenu({children}) {
           horizontal: "left"
         }}
       >
-          {children}
-          
+        {children}
       </Popover>
     </>
   );

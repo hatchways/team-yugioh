@@ -11,7 +11,6 @@ import { Clear } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import RemoveModal from "./RemoveModal";
 
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -27,13 +26,13 @@ const useStyles = makeStyles({
     color: "#00a2ff",
     fontSize: 14
   },
-popoverButton:{
-    borderRadius:0,
-    borderBottom:"none"
-},
-clearIcon:{
-  marginLeft:"-20px"
-},
+  popoverButton: {
+    borderRadius: 0,
+    borderBottom: "none"
+  },
+  clearIcon: {
+    marginLeft: "-20px"
+  }
 });
 
 //delete once connected to api
@@ -43,16 +42,8 @@ function createData(email, status, dateInvited) {
 
 //dummy data
 const rows = [
-  createData(
-    "kozaktaras15@gmail.com",
-    "Pending",
-    "27 January 20201"
-  ),
-  createData(
-    "john-doe@gmail.com",
-    "Pending",
-    "27 January 2021"
-  )
+  createData("kozaktaras15@gmail.com", "Pending", "27 January 20201"),
+  createData("john-doe@gmail.com", "Pending", "27 January 2021")
 ];
 
 export default function PendingTab() {
@@ -63,7 +54,9 @@ export default function PendingTab() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell classes={{ head: classes.tableHeading }}>Email</TableCell>
+            <TableCell classes={{ head: classes.tableHeading }}>
+              Email
+            </TableCell>
             <TableCell align="center" classes={{ head: classes.tableHeading }}>
               Status
             </TableCell>
@@ -82,13 +75,11 @@ export default function PendingTab() {
               <TableCell component="th" scope="row">
                 {row.email}
               </TableCell>
-              <TableCell align="center" >{row.status}</TableCell>
-              <TableCell align="center">
-                    {row.dateInvited}
-              </TableCell>
+              <TableCell align="center">{row.status}</TableCell>
+              <TableCell align="center">{row.dateInvited}</TableCell>
               <TableCell align="center">
                 <UserActionsMenue>
-                  <RemoveModal variant="remove_invite" email={row.email}/>
+                  <RemoveModal variant="remove_invite" email={row.email} />
                 </UserActionsMenue>
               </TableCell>
             </TableRow>

@@ -17,9 +17,6 @@ import {
   TextField
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import EventGrid from "../UserEvents/EventGrid";
-import Avatar from "@material-ui/core/Avatar";
 import Checkmark from "../../assets/check.png";
 import ChipInput from "material-ui-chip-input";
 
@@ -28,7 +25,6 @@ import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 import { debounce } from "../../utils/utils";
 import axios from "axios";
-import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -260,18 +256,15 @@ function Modal(props) {
     debounceCheckUnique(event);
   };
 
-  const [invitees, setInvitees] = React.useState([
-  ]);
+  const [invitees, setInvitees] = React.useState([]);
 
-  const handleDeleteChip = (chipToDelete)=> {
-    setInvitees(invitees.filter((chip) => chip !== chipToDelete));
+  const handleDeleteChip = chipToDelete => {
+    setInvitees(invitees.filter(chip => chip !== chipToDelete));
   };
 
-  const handleAddChip=(chipToAdd)=>{
-    setInvitees([...invitees, chipToAdd])
-  }
-
- 
+  const handleAddChip = chipToAdd => {
+    setInvitees([...invitees, chipToAdd]);
+  };
 
   const handleFormChange = event => {
     const { name, value } = event.target;
