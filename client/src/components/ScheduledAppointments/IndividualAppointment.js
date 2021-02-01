@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  Card,
+  CardHeader,
+  CardContent,
   makeStyles,
   Grid,
   Typography,
@@ -22,16 +22,15 @@ const IndividualAppointment = ({
   time,
   eventId,
 }) => {
-  const classes = useStyles();
   const parsedDateObj = parseISO(time);
   const formattedTime = format(parsedDateObj, "h:mm b");
   const formattedDate = format(parsedDateObj, "E, LLL do yyyy");
 
   const [eventDetails, setEventDetails] = useState({});
+  const classes = useStyles({ eventColor: eventDetails.eventColor });
   useEffect(() => {
     axios.get(`/api/event-details-via-id/${eventId}`).then(({ data }) => {
       //data: {userId, duration, name, description, color, link, members}
-      console.log(data);
       setEventDetails({
         eventName: data.name,
         eventDescription: data.description,
@@ -42,85 +41,45 @@ const IndividualAppointment = ({
   }, [eventId]);
 
   return (
-    <div>
-      {/*wrapping in a div so there is space between each appointment*/}
-      <Accordion
-        TransitionProps={{
-          timeout: 0, //allows animation to look smoother
-        }}
-      >
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Grid container spacing={3}>
-            <Grid item xs={3}>
-              <Typography variant="body1">
-                {formattedTime} ({eventDetails.duration} min)
-              </Typography>
-              <Typography variant="body1">{formattedDate}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="subtitle1">With: {attendeeName}</Typography>
-              <Typography variant="body1">
-                Event name: {eventDetails.eventName}
-              </Typography>
-            </Grid>
+    <Card>
+      <CardHeader className={classes.colorBar} />
+      <CardContent className={classes.cardContent}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <Typography variant="h4">
+              {formattedTime} ({eventDetails.duration} min)
+            </Typography>
+            <Typography variant="h6">{formattedDate}</Typography>
           </Grid>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container spacing={3}>
-            <Grid item xs={8} container direction="column" spacing={2}>
-              <Grid item>
-                <Typography variant="body1">Email: {attendeeEmail}</Typography>
-              </Grid>
-
-              <Grid item>
-                <Typography variant="body1">
-                  Attendee timezone: {attendeeTimezone}
-                </Typography>
-              </Grid>
-            </Grid>
-            {upcoming && ( //render the reschedule and cancel button if the appointment is coming up
-              <>
-                <Divider orientation="vertical" flexItem={true} />
-                <Grid
-                  item
-                  xs={4}
-                  container
-                  direction="column"
-                  alignItems="flex-end"
-                  spacing={3}
-                >
-                  <Grid item>
-                    <Button
-                      className={classes.button}
-                      variant="outlined"
-                      color="secondary"
-                    >
-                      Reschedule
-                    </Button>
-                  </Grid>
-
-                  <Grid item>
-                    <Button
-                      className={classes.button}
-                      variant="outlined"
-                      color="secondary"
-                    >
-                      Cancel
-                    </Button>
-                  </Grid>
-                </Grid>
-              </>
-            )}
+          <Grid item xs={6}>
+            <Typography variant="body1">
+              Appointment with: {attendeeName}
+            </Typography>
+            <Typography variant="body1">
+              Event name: {eventDetails.eventName}
+            </Typography>
+            <Typography variant="body1">
+              Attendee email: {attendeeEmail}
+            </Typography>
+            <Typography variant="body1">
+              Attendee timezone: {attendeeTimezone}
+            </Typography>
           </Grid>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  cardContent: {
+    padding: theme.spacing(2),
+  },
   button: {
     width: theme.spacing(15),
+  },
+  colorBar: {
+    background: (props) => props.eventColor,
   },
 }));
 
