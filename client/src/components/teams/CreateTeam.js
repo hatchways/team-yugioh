@@ -61,25 +61,6 @@ const CreateTeam = ({ open, closeDialog }) => {
               </Grid>
             </Grid>
 
-            <Grid item container>
-              <Grid item xs={2}>
-                <InputLabel className={classes.descriptionLabel}>
-                  Description
-                </InputLabel>
-              </Grid>
-              <Grid item xs={10}>
-                <TextField
-                  value={teamDescription}
-                  onChange={handleDescriptionChange}
-                  fullWidth
-                  variant="outlined"
-                  multiline
-                  rows={4}
-                  margin="normal"
-                />
-              </Grid>
-            </Grid>
-
             <Grid item>
               <InviteMembers
                 setTeamMembers={setTeamMembers}

@@ -5,6 +5,7 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 // CREATE team
+// req.body: { members: [userId] }
 router.post("/api/team/create", auth, (req, res) => {
   db.Team.create(req.body)
     .then((response) => res.send(response))
@@ -15,8 +16,12 @@ router.post("/api/team/create", auth, (req, res) => {
 });
 
 // ADD Team member
+// req.body: { teamId: teamId, memberId: userId }
 router.get("/api/team/add", auth, (req, res) => {
-  db.Team.updateOne({ _id: req.body.teamId }, { $push: req.body.member })
+  db.Team.updateOne(
+    { _id: req.body.teamId },
+    { $push: { members: req.body.memberId } }
+  )
     .then((data) => {
       res.send(data);
     })
@@ -27,9 +32,10 @@ router.get("/api/team/add", auth, (req, res) => {
 });
 
 // REMOVE team member
+// req.body: { teamId: teamId, memberId: userId }
 router.post("/api/team/remove", auth, (req, res) => {
   db.Team.findById(req.body.teamId, (team) => {
-    const newTeam = team.filter(({ user_id }) => user_id != req.body.userId);
+    const newTeam = team.filter(({ user_id }) => user_id != req.body.memberId);
 
     db.Team.updateOne({ _id: req.body.teamId }, { $set: newTeam })
       .then((response) => res.send(response))
@@ -41,16 +47,13 @@ router.post("/api/team/remove", auth, (req, res) => {
 });
 
 // Change Admin
+// req.body: { newAdminId: userId }
 router.post("/api/team/admin", auth, (req, res) => {
   db.User.updateOne({ _id: req.body.newAdminId }, { $set: { isAdmin: true } })
     .then(() => {
-      db.User.updateOne({ _id: req.userId }, { $set: { isAdmin: false } })
-        .then((response) => res.send(response))
-        .catch((error) => {
-          console.log(error);
-          res.status(500).send(error);
-        });
+      db.User.updateOne({ _id: req.userId }, { $set: { isAdmin: false } });
     })
+    .then((response) => res.send(response))
     .catch((error) => {
       console.log(error);
       res.status(500).send(error);
