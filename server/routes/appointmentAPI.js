@@ -11,12 +11,12 @@ router.post("/api/appointment", async (req, res) => {
     const { eventId } = req.body;
 
     //get the userId that's hosting this event
-    const { userId: hostId } = await db.EventType.findOne({ _id: eventId });
+    const { userId: hostUserId } = await db.EventType.findOne({ _id: eventId });
 
     //create the appointment with a hostId
     const responseFromCreate = db.Appointment.create({
       ...req.body,
-      hostId,
+      hostUserId,
     });
 
     res.send(responseFromCreate);
@@ -27,9 +27,9 @@ router.post("/api/appointment", async (req, res) => {
 
 // GET all appointments for user. Query via userId
 router.get("/api/all-appointments", auth, (req, res) => {
-  db.Appointment.find({ hostId: req.userId })
+  db.Appointment.find({ hostUserId: req.userId })
     .then((data) => {
-      //data: [{_id, email, eventId, hostId, name, time, timezone},...]
+      //data: [{_id, email, eventId, hostUserId, name, time, timezone},...]
       res.send(data);
     })
     .catch((error) => {
