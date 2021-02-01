@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import axios from "axios";
-import { parseISO, startOfToday, compareAsc } from "date-fns";
 
 import IndividualAppointment from "./IndividualAppointment";
 import YourAppointments from "./YourAppointments";
@@ -76,20 +75,10 @@ const ScheduledAppointmentsTab = () => {
 };
 
 const appointmentIsUpcoming = (appointmentDateInISOString) => {
-  // upcoming === true indicate that the appointment is either today or tomorrow onward
-  const today = startOfToday();
-  const appointmentDate = parseISO(appointmentDateInISOString);
-
-  // comparison value:
-  // 1 if appointment is upcoming
-  // -1 if appointment is in the past
-  // 0 if the appointment is today
-  const comparison = compareAsc(appointmentDate, today);
-  if (comparison === -1) {
-    return false;
-  } else {
-    return true;
-  }
+  // upcoming === true indicate that the appointment has not occurred
+  const today = Date.now();
+  const appointmentDate = Date.parse(appointmentDateInISOString);
+  return today < appointmentDate;
 };
 
 export default ScheduledAppointmentsTab;
