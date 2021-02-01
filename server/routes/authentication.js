@@ -120,7 +120,17 @@ router.get("/api/authentication/test", auth, (req, res) => {
 
 router.get("/api/authentication/geturl", (req, res) => {
   const url = generateAuthUrl();
+  
   res.status(200).send({ url });
+});
+
+router.get("/api/authentication/logout", (req, res) => {
+  try{
+  res.cookie("app_auth_token", "", { httpOnly: true, maxAge: 100 });
+  res.status(200).send("logged out");}
+  catch(err){
+    console.log(err)
+  }
 });
 
 module.exports = router;

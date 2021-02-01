@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
+import UserMenu from "../UserMenu"
 
 import { useUserData } from "../../providers/Context";
 
@@ -87,14 +88,7 @@ export default function NavBar() {
             onClick={handleClickOpen}
           />
         </Box>
-
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
-          {name || "CalendApp User"}
-        </Link>
+        <UserMenu name={name}/>
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />
     </AppBar>
