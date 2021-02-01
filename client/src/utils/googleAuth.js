@@ -32,7 +32,7 @@ export const sendToken = async (callback) => {
 export const sendCode = async (code) => {
   axios
     .post(userAPIpath + "google", { code }, { withCredentials: true })
-    .then((resp) => window.close())
+    .then(() => window.close())
     .catch((err) => {
       console.log(err);
       window.close();

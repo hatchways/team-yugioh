@@ -6,21 +6,30 @@ import {
   TextField,
   Button,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import PropTypes from "prop-types";
 
-const RescheduleCancelAppointment = ({ variant, appointmentId, eventUrl }) => {
+const RescheduleCancelAppointment = ({
+  variant,
+  appointmentId,
+  setAppointmentCancelled,
+  setRedirectToScheduling,
+}) => {
   const reschedule = variant === "reschedule";
   const cancel = variant === "cancel";
   const classes = useStyles();
-  const cancelAppointment = (event) => {
+  const cancelAppointmentThenReschedule = (event) => {
     axios.delete(`/api/appointment/cancel/${appointmentId}`).then(() => {
-      setAppointmentCancelled(true);
+      if (reschedule) {
+        setRedirectToScheduling(true);
+      }
+
+      if (cancel) {
+        setAppointmentCancelled(true);
+      }
     });
   };
 
-  const linkToReschedule = `/appt/${eventUrl}`;
-  const linkToSuccessfulCancellation = "/appointment/cancelled";
   return (
     <div className={classes.gridContainer}>
       <Grid container direction="column" spacing={reschedule ? 1 : 4}>
@@ -42,13 +51,11 @@ const RescheduleCancelAppointment = ({ variant, appointmentId, eventUrl }) => {
           )}
         </Grid>
         <Grid item>
-          <Button className={classes.button} onClick={cancelAppointment}>
-            <Link
-              className={classes.link}
-              to={reschedule ? linkToReschedule : linkToSuccessfulCancellation}
-            >
-              Confirm
-            </Link>
+          <Button
+            className={classes.button}
+            onClick={cancelAppointmentThenReschedule}
+          >
+            Confirm
           </Button>
         </Grid>
       </Grid>
@@ -69,4 +76,12 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
+
+RescheduleCancelAppointment.propTypes = {
+  variant: PropTypes.string,
+  appointmentId: PropTypes.string,
+  setAppointmentCancelled: PropTypes.func,
+  setRedirectToScheduling: PropTypes.func,
+};
+
 export default RescheduleCancelAppointment;

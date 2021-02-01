@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import { Grid, makeStyles, Paper, Divider } from "@material-ui/core";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 import Overview from "../../components/scheduler/Overview";
 import RescheduleCancelAppointment from "../../components/scheduler/RescheduleCancelAppointment";
@@ -12,11 +13,12 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
 
   const [appointmentDoesNotExist, setAppointmentDoesNotExist] = useState(false);
   const [appointmentCancelled, setAppointmentCancelled] = useState(false);
+  const [redirectToScheduling, setRedirectToScheduling] = useState(false);
 
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventName: "",
     duration: "",
-    eventUrl: "",
+    eventUrl: "", //this is the full event url that include host name and event name (the one stored in database);
     appointmentTime: "",
     eventDescription: "",
   });
@@ -37,6 +39,10 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
     <>
       {appointmentCancelled && <Redirect to="/appointment/cancelled" />}
       {appointmentDoesNotExist && <Redirect to="/appointment/does-not-exist" />}
+      {redirectToScheduling && (
+        <Redirect to={`/appt/${appointmentDetails.eventUrl}`} />
+      )}
+
       <Paper className={classes.root} elevation={5}>
         <Grid container direction="row" wrap="nowrap" className={classes.grid}>
           <Grid item xs={4}>
@@ -54,8 +60,8 @@ const RescheduleOrCancelAppointmentPage = ({ variant }) => {
             <RescheduleCancelAppointment
               variant={variant}
               appointmentId={appointmentId}
-              eventUrl={appointmentDetails.eventUrl}
               setAppointmentCancelled={setAppointmentCancelled}
+              setRedirectToScheduling={setRedirectToScheduling}
             />
           </Grid>
         </Grid>
@@ -74,5 +80,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
 }));
+
+RescheduleOrCancelAppointmentPage.propTypes = {
+  variant: PropTypes.string,
+};
 
 export default RescheduleOrCancelAppointmentPage;

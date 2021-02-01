@@ -5,16 +5,18 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-import Logo from "./../../img/logo.png";
-import ProfileImage from "./../../img/user-image.png";
+
+import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
 import UserMenu from "../UserMenu"
+
+import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: "white",
-    padding: "1.5rem 3rem",
+    padding: "0.6rem 3rem",
   },
   title: {
     flexGrow: 1,
@@ -55,6 +57,8 @@ export default function NavBar() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
+  const { name, photoUrl } = useUserData();
+
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
@@ -62,38 +66,29 @@ export default function NavBar() {
           <img width="110rem" src={Logo} alt="CalendApp logo" />
         </span>
 
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-          to="/home"
-        >
+        <Link variant="subtitle1" className={classes.link} href="/home">
           Home
         </Link>
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
+        <Link variant="subtitle1" className={classes.link}>
           Integration
         </Link>
         <Link
           variant="subtitle1"
-          onClick={preventDefault}
           className={classes.linkToUpgrade}
-          to="/upgrade"
+          href="/upgrade"
         >
           Upgrade account
         </Link>
+
         <Box>
           <Avatar
             className={classes.profileImg}
-            src={ProfileImage}
+            src={photoUrl}
             alt="User image"
             onClick={handleClickOpen}
           />
         </Box>
-        <UserMenu name="John Doe"/>
+        <UserMenu name={name}/>
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />
     </AppBar>

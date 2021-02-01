@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { sendCode } from "../utils/googleAuth";
-import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
 const Authentication = () => {
@@ -15,7 +12,7 @@ const Authentication = () => {
       .then(() => {
         window.close();
       });
-  }, []);
+  }, [search]);
 
   return <div></div>;
 };

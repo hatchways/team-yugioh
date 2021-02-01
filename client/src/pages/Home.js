@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Route, Redirect } from "react-router-dom";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -27,7 +26,6 @@ export default function Home() {
   return (
     <div className={classes.root}>
       <NavBar />
-
       <Typography className={classes.title} variant="h5">
         My CalendApp
       </Typography>
