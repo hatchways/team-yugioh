@@ -238,7 +238,6 @@ export default function EventTypesTab() {
         setUserURL(res.data);
       })
       .catch((err) => console.log(err));
-      console.log(userEvents)
   }, []);
 
   const handleClickOpen = () => {

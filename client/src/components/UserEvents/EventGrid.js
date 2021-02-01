@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EventGrid({ userEvents }) {
   const classes = useStyles();
   const [userURL, setUserURL] = useState();
-  // console.log(userEvents)
+
   useEffect(() => {
     axios.get("/api/user/get_url").then((res) => {
       setUserURL(res.data);
