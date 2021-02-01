@@ -54,4 +54,15 @@ router.get("/api/event_details/:pref/:suf", (req, res) => {
     });
 });
 
+// GET event details via eventId
+router.get("/api/event-details-via-id/:eventId", async (req, res) => {
+  try {
+    // data: {userId, duration, name, description, color, link, members}
+    const data = await db.EventType.findOne({ _id: req.params.eventId });
+    res.send(data);
+  } catch (error) {
+    res.status(500).send("Failed to get event details via its ID");
+  }
+});
+
 module.exports = router;
