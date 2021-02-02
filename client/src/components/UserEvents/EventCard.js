@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -13,7 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { DoneOutlined } from "@material-ui/icons";
-import { deepOrange } from "@material-ui/core/colors";
+import { deepOrange, grey, indigo } from "@material-ui/core/colors";
 import Snackbar from "@material-ui/core/Snackbar";
 
 import axios from "axios";
@@ -66,6 +66,20 @@ export default function EventCard({
     },
   }));
   const classes = useStyles();
+  
+  const TurnOnBtn = withStyles((theme) => ({
+    root: {
+      color: 'white',
+      backgroundColor: indigo[400],
+      "&:hover": {
+        backgroundColor: indigo[700],
+      },
+      textTransform: "none",
+      height: 32,
+      width: 80,
+      marginRight: "4px",
+    },
+  }))(Button);
 
   const invitationLink = "http://localhost:3000/appt/" + link; // needs improvement
   const [copied, setCopied] = useState(false);
@@ -134,20 +148,30 @@ export default function EventCard({
               <Typography variant="subtitle2" className={classes.duration}>
                 {duration} min
               </Typography>
-              <CopyToClipboard
-                text={invitationLink}
-                onCopy={whenCopiedToClipboard}
-              >
-                <Button
-                  disabled={!eventActive}
-                  variant={copied ? "contained" : "outlined"}
-                  color="secondary"
-                  size="small"
-                  className={classes.button}
+
+              {eventActive ? (
+                <CopyToClipboard
+                  text={invitationLink}
+                  onCopy={whenCopiedToClipboard}
                 >
-                  {copied ? <DoneOutlined /> : "Copy link"}
-                </Button>
-              </CopyToClipboard>
+                  <Button
+                    variant={copied ? "contained" : "outlined"}
+                    color="secondary"
+                    size="small"
+                    className={classes.button}
+                  >
+                    {copied ? <DoneOutlined /> : "Copy link"}
+                  </Button>
+                </CopyToClipboard>
+              ) : (
+                <TurnOnBtn
+                  variant="outlined"
+                  size="small"
+                  className={classes.turnOnBtn}
+                >
+                  Turn on
+                </TurnOnBtn>
+              )}
             </Grid>
           </CardActions>
         </Card>
