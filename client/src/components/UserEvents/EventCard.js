@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { DoneOutlined } from "@material-ui/icons";
@@ -18,11 +19,23 @@ import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-
-export default function EventCard({ name, duration, color, link , active , _id }) {
-  const [eventActive, setEventActive] = useState(active)
-  const useStyles = makeStyles({
+export default function EventCard({
+  name,
+  duration,
+  color,
+  link,
+  active,
+  _id,
+}) {
+  const [eventActive, setEventActive] = useState(active);
+  const useStyles = makeStyles((theme) => ({
     root: {
+      "&:hover": {
+        boxShadow:
+          "0px 8px 17px 2px rgba(0,0,0,0.14) , 0px 3px 14px 2px rgba(0,0,0,0.12) , 0px 5px 5px -3px rgba(0,0,0,0.2) ",
+      },
+    },
+    card: {
       minWidth: 275,
       opacity: !eventActive ? ".7" : 1,
     },
@@ -51,7 +64,7 @@ export default function EventCard({ name, duration, color, link , active , _id }
     titleBox: {
       marginLeft: 0,
     },
-  });
+  }));
   const classes = useStyles();
 
   const invitationLink = "http://localhost:3000/appt/" + link; // needs improvement
@@ -75,68 +88,70 @@ export default function EventCard({ name, duration, color, link , active , _id }
 
   return (
     <>
-      <Card className={classes.root}>
-        <CardHeader className={classes.colorBar} />
+      <Paper className={classes.root}>
+        <Card className={classes.card}>
+          <CardHeader className={classes.colorBar} />
 
-        <CardContent>
-          <Grid container direction="column">
+          <CardContent>
+            <Grid container direction="column">
+              <Grid
+                container
+                justify="flex-end"
+                className={classes.cardContentTop}
+              >
+                <FormControlLabel
+                  labelPlacement="start"
+                  control={
+                    <Switch
+                      size="small"
+                      color="primary"
+                      checked={eventActive}
+                      onChange={handleSwitch}
+                    />
+                  }
+                  label="On/Off"
+                />
+              </Grid>
+              <Grid className={classes.titleBox}>
+                <Typography variant="h5">
+                  {name || duration + " minute meeting"}
+                </Typography>
+
+                <Typography variant="subtitle2" color="textSecondary">
+                  One-on-One
+                </Typography>
+              </Grid>
+            </Grid>
+          </CardContent>
+          <Divider />
+          <CardActions>
             <Grid
               container
-              justify="flex-end"
-              className={classes.cardContentTop}
+              direction="row"
+              justify="space-between"
+              alignItems="center"
             >
-              <FormControlLabel
-                labelPlacement="start"
-                control={
-                  <Switch
-                    size="small"
-                    color="primary"
-                    checked={eventActive}
-                    onChange={handleSwitch}
-                  />
-                }
-                label="On/Off"
-              />
-            </Grid>
-            <Grid className={classes.titleBox}>
-              <Typography variant="h5">
-                {name || duration + " minute meeting"}
+              <Typography variant="subtitle2" className={classes.duration}>
+                {duration} min
               </Typography>
-
-              <Typography variant="subtitle2" color="textSecondary">
-                One-on-One
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Divider />
-        <CardActions>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            <Typography variant="subtitle2" className={classes.duration}>
-              {duration} min
-            </Typography>
-            <CopyToClipboard
-              text={invitationLink}
-              onCopy={whenCopiedToClipboard}
-            >
-              <Button
-                disabled={!eventActive}
-                variant={copied ? "contained" : "outlined"}
-                color="secondary"
-                size="small"
-                className={classes.button}
+              <CopyToClipboard
+                text={invitationLink}
+                onCopy={whenCopiedToClipboard}
               >
-                {copied ? <DoneOutlined /> : "Copy link"}
-              </Button>
-            </CopyToClipboard>
-          </Grid>
-        </CardActions>
-      </Card>
+                <Button
+                  disabled={!eventActive}
+                  variant={copied ? "contained" : "outlined"}
+                  color="secondary"
+                  size="small"
+                  className={classes.button}
+                >
+                  {copied ? <DoneOutlined /> : "Copy link"}
+                </Button>
+              </CopyToClipboard>
+            </Grid>
+          </CardActions>
+        </Card>
+      </Paper>
       <Snackbar
         open={copied}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
