@@ -10,14 +10,15 @@ const ScheduledAppointmentsTab = () => {
   const [pastAppointments, setPastAppointments] = useState([]);
 
   useEffect(() => {
+    console.log("hi");
     axios.get("/api/all-appointments").then(({ data }) => {
       // data: [{_id, email, eventId, hostUserId, name, time, timezone},...]
-
+      console.log("all appointments", data);
       const upcomingAppointments = [];
       const pastAppointments = [];
 
       data.forEach((appointment) => {
-        // appointment: {_id, email, eventId, hostUserId, name, time, timezone}
+        // check comments on /api/all-appointments for object keys
         if (appointmentIsUpcoming(appointment.time)) {
           upcomingAppointments.push(appointment);
         } else {
@@ -43,11 +44,12 @@ const ScheduledAppointmentsTab = () => {
             appointmentId={appointment._id} //this is for child access
             upcoming={true}
             attendeeName={appointment.name}
-            time={appointment.time}
-            duration={appointment.duration}
             attendeeEmail={appointment.email}
             attendeeTimezone={appointment.timezone}
-            eventId={appointment.eventId}
+            eventName={appointment.eventName}
+            time={appointment.time}
+            duration={appointment.duration}
+            eventColor={appointment.color}
           />
         ))}
 
@@ -63,11 +65,12 @@ const ScheduledAppointmentsTab = () => {
             appointmentId={appointment._id} //this is for child access
             upcoming={false}
             attendeeName={appointment.name}
-            time={appointment.time}
-            duration={appointment.duration}
             attendeeEmail={appointment.email}
             attendeeTimezone={appointment.timezone}
-            eventId={appointment.eventId}
+            eventName={appointment.eventName}
+            time={appointment.time}
+            duration={appointment.duration}
+            eventColor={appointment.color}
           />
         ))}
     </Grid>
