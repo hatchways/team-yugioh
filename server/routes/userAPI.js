@@ -57,15 +57,12 @@ router.get("/api/user/data", auth, (req, res) => {
 });
 
 // Search users
-router.get("/api/user/data", auth, (req, res) => {
+router.get("/api/user/search", auth, (req, res) => {
   let cleanText = req.body.query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
   cleanText = cleanText.trim();
-
+  console.log(cleanText, "search");
   db.User.find({
-    $or: [
-      { email: RegExp(cleanText, "i") },
-      { name: RegExp("\\b" + cleanText, "i") },
-    ],
+    email: RegExp("\\b" + cleanText, "i"),
   })
     .then((response) => {
       res.send(response);

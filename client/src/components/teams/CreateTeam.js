@@ -25,11 +25,6 @@ const CreateTeam = ({ open, closeDialog }) => {
     setTeamName(event.target.value);
   };
 
-  const [teamDescription, setDescription] = useState("");
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
   const [teamMembers, setTeamMembers] = useState([]);
   // Data structure: teamMembers = [{name: <name>, email: <email>}, {}]
 
