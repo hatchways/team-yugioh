@@ -26,6 +26,7 @@ app.use(require("./routes/googleCalendarAPI"));
 app.use(require("./routes/emailAPI"));
 app.use(require("./routes/subscriptionAPI"));
 app.use(require("./routes/imageUploaderAPI"));
+app.use(require("./routes/teamEventAPI"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));
