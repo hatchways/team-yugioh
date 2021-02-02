@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { parseISO, format } from "date-fns";
-import axios from "axios";
 
 const IndividualAppointment = ({
   upcoming,
