@@ -57,12 +57,13 @@ router.get("/api/all-appointments", auth, async (req, res) => {
         // in eventDetails, that's the event's name,
         // in appointment, that's the attendee's name
         // I will save only the attendee's name
-        return { ...eventDetails, ...appointment };
+        // Also, mongoose query returned object is not a regular object
+        // need to convert before spreading
+        return { ...eventDetails.toObject(), ...appointment.toObject() };
       }
     );
 
     const appointmentsWithEventDetails = await Promise.all(
-      // wait for eveyrthing to resolve
       appointmentsWithEventDetailsPromise
     );
 
