@@ -59,7 +59,12 @@ router.get("/api/all-appointments", auth, async (req, res) => {
         // I will save only the attendee's name
         // Also, mongoose query returned object is not a regular object
         // need to convert before spreading
-        return { ...eventDetails.toObject(), ...appointment.toObject() };
+        // big pain
+        return {
+          ...eventDetails.toObject(),
+          ...appointment.toObject(),
+          eventName: eventDetails.name,
+        };
       }
     );
 
@@ -72,7 +77,7 @@ router.get("/api/all-appointments", auth, async (req, res) => {
     if (error.message === "noAppointmentsFound") {
       res.status(400).send("No appointments for the user");
     } else {
-      res.status(500).send("Error occurred in /api/all-appointments\n", error);
+      res.status(500).send("Error occurred in /api/all-appointments\n" + error);
     }
   }
 });
