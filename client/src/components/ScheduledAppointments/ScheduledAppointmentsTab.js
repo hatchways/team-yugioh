@@ -10,10 +10,8 @@ const ScheduledAppointmentsTab = () => {
   const [pastAppointments, setPastAppointments] = useState([]);
 
   useEffect(() => {
-    console.log("hi");
     axios.get("/api/all-appointments").then(({ data }) => {
       // data: [{_id, email, eventId, hostUserId, name, time, timezone},...]
-      console.log("all appointments", data);
       const upcomingAppointments = [];
       const pastAppointments = [];
 
