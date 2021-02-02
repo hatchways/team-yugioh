@@ -62,17 +62,22 @@ export const UserContextProvider = ({ children }) => {
         setUserData(res.data);
         setDataLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        setDataLoading(false);
+      });
   }, []);
 
   useEffect(() => {
     axios
       .get("/api/authentication/test", { withCredentials: true })
       .then(() => {
+        console.log("authenticated");
         setAuthenticated(true);
         setAuthLoading(false);
       })
-      .catch();
+      .catch(() => {
+        setAuthLoading(false);
+      });
   }, []);
 
   return (
