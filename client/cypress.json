@@ -1,4 +1,7 @@
 {
   "pluginsFile": false,
-  "supportFile":false
+  "baseUrl":"http://localhost:3000",
+  "env":{
+    "email":"uesttser@gmail.com"
+  }
 }
