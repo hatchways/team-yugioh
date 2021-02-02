@@ -5,11 +5,14 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 // 1 - Create a new team event type
-router.post("/api/team-event", auth, (req, res) => {
+router.post("/api/team-event", (req, res) => {
   if (req.body.duration) {
     //
     db.EventType.create({ ...req.body })
-      .then((response) => res.send(response))
+      .then((response) => {
+        console.log(response);
+        res.send(response);
+      })
       .catch((error) => {
         console.log(error);
         res.status(500).send(error);
@@ -24,7 +27,7 @@ router.post("/api/team-event", auth, (req, res) => {
 router.put("/api/team/:id", (req, res) => {
   db.Team.updateOne(
     { _id: req.params.id },
-    { teamMembers : req.body.members},
+    { teamMembers: req.body.members },
     { overwrite: true }
   )
     .then((team) => {
