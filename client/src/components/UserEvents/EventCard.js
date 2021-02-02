@@ -28,7 +28,7 @@ export default function EventCard({
   _id,
 }) {
   const [eventActive, setEventActive] = useState(active);
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles({
     root: {
       "&:hover": {
         boxShadow:
@@ -64,12 +64,15 @@ export default function EventCard({
     titleBox: {
       marginLeft: 0,
     },
-  }));
+    space: {
+      padding: 12,
+    },
+  });
   const classes = useStyles();
-  
-  const TurnOnBtn = withStyles((theme) => ({
+
+  const TurnOnBtn = withStyles({
     root: {
-      color: 'white',
+      color: "white",
       backgroundColor: indigo[400],
       "&:hover": {
         backgroundColor: indigo[700],
@@ -79,7 +82,7 @@ export default function EventCard({
       width: 80,
       marginRight: "4px",
     },
-  }))(Button);
+  })(Button);
 
   const invitationLink = "http://localhost:3000/appt/" + link; // needs improvement
   const [copied, setCopied] = useState(false);
@@ -113,18 +116,22 @@ export default function EventCard({
                 justify="flex-end"
                 className={classes.cardContentTop}
               >
-                <FormControlLabel
-                  labelPlacement="start"
-                  control={
-                    <Switch
-                      size="small"
-                      color="primary"
-                      checked={eventActive}
-                      onChange={handleSwitch}
-                    />
-                  }
-                  label="On/Off"
-                />
+                {eventActive ? (
+                  <FormControlLabel
+                    labelPlacement="start"
+                    control={
+                      <Switch
+                        size="small"
+                        color="primary"
+                        checked={eventActive}
+                        onChange={handleSwitch}
+                      />
+                    }
+                    label="On/Off"
+                  />
+                ) : (
+                  <div className={classes.space}></div>
+                )}
               </Grid>
               <Grid className={classes.titleBox}>
                 <Typography variant="h5">
@@ -167,7 +174,7 @@ export default function EventCard({
                 <TurnOnBtn
                   variant="outlined"
                   size="small"
-                  className={classes.turnOnBtn}
+                  onClick={handleSwitch}
                 >
                   Turn on
                 </TurnOnBtn>
