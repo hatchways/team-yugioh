@@ -52,6 +52,15 @@ export const UserContextProvider = ({ children }) => {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("/api/authentication/test", { withCredentials: true })
+      .then(() => {
+        setAuthenticated(true);
+      })
+      .catch();
+  }, [setAuthenticated]);
+
   return (
     <UserContext.Provider
       value={{ userData, setUserData, authenticated, setAuthenticated }}
