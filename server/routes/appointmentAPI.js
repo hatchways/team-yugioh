@@ -42,6 +42,7 @@ router.post("/api/appointment", async (req, res) => {
 //   link, // the incomplete link for building invitation link: <hostName>/<eventName>
 //   members,
 //   active, // indicate whether the event is active or not
+//   eventName
 // }, ...]
 router.get("/api/all-appointments", auth, async (req, res) => {
   try {
