@@ -20,7 +20,7 @@ describe("Display login, sign up pages", () => {
 
   it("Navigate to sign up page and return to login", () => {
     cy.contains("Sign up").click();
-    cy.log(cy.url());
+    cy.url().should("equal", `${baseUrl}/signup`);
     cy.contains("Login").click();
     cy.contains(loginPageTitle);
   });
