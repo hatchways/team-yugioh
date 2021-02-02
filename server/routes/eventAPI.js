@@ -30,16 +30,17 @@ router.get("/api/event", auth, (req, res) => {
 
 // GET whether event url is unique
 router.get("/api/event/is_unique", auth, (req, res) => {
-  db.EventType.find({ link: req.query.URL, userId: req.userId })
-    .then((data) => {
+  db.EventType.find({ link: req.query.URL, userId: req.userId }).then(
+    (data) => {
       if (data.length > 0) {
         res.status(400).send(new Error("URL is already taken."));
       } else {
         res.status(200).send("URL is available!");
       }
-    })
-  })
-  
+    }
+  );
+});
+
 // GET event details
 router.get("/api/event_details/:pref/:suf", (req, res) => {
   db.EventType.find({ link: `${req.params.pref}/${req.params.suf}` })
@@ -52,4 +53,17 @@ router.get("/api/event_details/:pref/:suf", (req, res) => {
     });
 });
 
-module.exports = router
+// Update event type to active or disabled
+router.put("/api/event/toggle-active", auth, (req, res) => {
+  db.EventType.updateOne(
+    { _id: req.body.eventId },
+    { $set: { active: req.body.active } }
+  )
+    .then((data) => res.send(data))
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
+});
+
+module.exports = router;

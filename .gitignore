@@ -26,3 +26,5 @@ yarn-error.log*
 client/debug.log
 client/.eslintcache
 client/debug.log
+
+pnpm-lock.yaml

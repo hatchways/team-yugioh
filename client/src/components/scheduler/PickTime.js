@@ -1,35 +1,41 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import PropTypes from "prop-types";
 import axios from "axios";
-import {getTimeSlots} from "../../utils/calendarUtils"
+import { getTimeSlots } from "../../utils/calendarUtils";
 
-const PickTime = ({selectedDate, interval, availabilityTimes}) => {
+const PickTime = ({
+  selectedDate,
+  appointmentDetails,
+  setAppointmentDetails,
+  eventLink,
+  interval,
+  availabilityTimes,
+}) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
-  let isoDate=new Date(selectedDate);
-  isoDate.setHours(0,0,0,0);
-  isoDate=isoDate.toISOString();
-
 
   const [timeSlots, setTimeSlots] = useState([]);
 
-  //appointment length
   useEffect(() => {
+    let isoDate = new Date(selectedDate);
+    isoDate.setHours(0, 0, 0, 0);
+    isoDate = isoDate.toISOString();
     //fetch from backend
-    axios.get(`/api/calendar/availability?day=${isoDate}`, {
-      withCredentials: true
-    }).then(res=>{
-      setTimeSlots(getTimeSlots(res.data.availability, interval, availabilityTimes))
-      }).catch(err=>console.log(err))
-    
-  }, []);
-
-
-
-
+    axios
+      .get(`/api/calendar/availability?day=${isoDate}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setTimeSlots(
+          getTimeSlots(res.data.availability, interval, availabilityTimes)
+        );
+      })
+      .catch((err) => console.log(err));
+  }, [availabilityTimes, interval, selectedDate]);
 
   return (
     <Grid
@@ -54,17 +60,38 @@ const PickTime = ({selectedDate, interval, availabilityTimes}) => {
       >
         {timeSlots.length !== 0 &&
           timeSlots.map((slot, i) => (
-            <ListItem key={i} className={classes.listItem} button>
-              <Grid
-                container
-                direction="row"
-                justify="space-around"
-                alignItems="center"
+            <Link
+              to={`/appt/${eventLink}/${encodeURI(
+                parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
+              )}`}
+              className={classes.schedLink}
+              key={i}
+            >
+              <ListItem
+                className={classes.listItem}
+                button
+                onClick={() =>
+                  setAppointmentDetails({
+                    ...appointmentDetails,
+                    time: parse(
+                      date + " " + slot,
+                      "EEEE, LLL do HH:mm",
+                      new Date()
+                    ),
+                  })
+                }
               >
-                <Brightness1 color="primary" className={classes.icon} />
-                <Typography>{slot}</Typography>
-              </Grid>
-            </ListItem>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-around"
+                  alignItems="center"
+                >
+                  <Brightness1 color="primary" className={classes.icon} />
+                  <Typography>{slot}</Typography>
+                </Grid>
+              </ListItem>
+            </Link>
           ))}
       </Grid>
     </Grid>
@@ -92,10 +119,19 @@ const useStyles = makeStyles((theme) => ({
     margin: `${theme.spacing(0.5)}px 0`,
     width: theme.spacing(15),
   },
+  schedLink: {
+    textDecoration: "none",
+    color: "inherit",
+  },
 }));
 
 PickTime.propTypes = {
   selectedDate: PropTypes.object,
+  appointmentDetails: PropTypes.object,
+  setAppointmentDetails: PropTypes.func,
+  eventLink: PropTypes.string,
+  interval: PropTypes.number,
+  availabilityTimes: PropTypes.object,
 };
 
 export default PickTime;
