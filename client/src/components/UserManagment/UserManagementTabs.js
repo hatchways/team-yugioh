@@ -8,6 +8,7 @@ import ActiveTab from "../UserManagment/ActiveTab";
 import PendingTab from "../UserManagment/PendingTab";
 import TemplatesTab from "../UserManagment/TemplatesTab";
 import TeamEventsTab from "../UserManagment/TeamEvents";
+import Badge from "@material-ui/core/Badge";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,6 +53,13 @@ const useStyles = makeStyles(theme => ({
   },
   noPadding: {
     padding: 0
+  },
+  badgePosition: {
+    top: 10,
+    right: 5
+  },
+  badgeColor: {
+    color: "white"
   }
 }));
 
@@ -99,11 +107,20 @@ export default function UserManagementTabs() {
             label="Team Event"
             {...a11yProps(2)}
           />
-          <StyledTab
-            classes={classes.tab}
-            label="Templates"
-            {...a11yProps(3, true)}
-          />
+          <Badge
+            badgeContent="Coming Soon"
+            color="primary"
+            classes={{
+              anchorOriginTopRightRectangle: classes.badgePosition,
+              colorPrimary: classes.badgeColor
+            }}
+          >
+            <StyledTab
+              classes={classes.tab}
+              label="Templates"
+              {...a11yProps(3, true)}
+            />
+          </Badge>
         </Tabs>
       </div>
       <Divider variant="fullWidth" />

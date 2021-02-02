@@ -25,6 +25,9 @@ const schema = new Schema({
   members: {
     type: [User],
   },
+  active: {
+    type: Boolean, default: true,
+  }
 });
 
 const EventType = mongoose.model("EventType", schema);
