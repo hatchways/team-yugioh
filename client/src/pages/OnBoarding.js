@@ -8,6 +8,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
+import LoadingScreen from "../components/LoadingScrean";
 
 import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
@@ -26,9 +27,12 @@ const OnBoarding = () => {
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
+  const [loading, setLoading]= useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
+      setLoading(false);
       if (res.data !== "") {
         setOnboarded(true);
       }
@@ -46,7 +50,8 @@ const OnBoarding = () => {
 
   return (
     <>
-      {onboarded ? (
+      {
+        loading?(<LoadingScreen/>):onboarded ? (
         <Redirect to="/home" />
       ) : (
         <Paper elevation={5} className={classes.paper}>
