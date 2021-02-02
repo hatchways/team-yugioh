@@ -78,8 +78,10 @@ IndividualAppointment.propTypes = {
   attendeeName: PropTypes.string,
   attendeeEmail: PropTypes.string,
   attendeeTimezone: PropTypes.string,
+  eventName: PropTypes.string,
   time: PropTypes.string,
   duration: PropTypes.number,
+  eventColor: PropTypes.string,
 };
 
 export default IndividualAppointment;
