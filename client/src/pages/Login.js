@@ -9,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { Button } from "@material-ui/core";
+import {emailExists} from "../utils/googleAuth"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,11 +70,19 @@ const LogInPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
+  const [emailError, setEmailError]= useState(false)
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
     //cehck if user has entered an email
+
     if (email) {
+      const emailExist= await emailExists(email);
+      if(!emailExist){
+        setEmailError(true)
+        return;
+      }
+
       showWelcome(true);
     }
   };
@@ -126,6 +135,8 @@ const LogInPage = () => {
                 style={{ textAlign: "center" }}
                 inputProps={{ min: 0, style: { textAlign: "center" } }}
                 onChange={handleChange}
+                error={emailError}
+                helperText={emailError?`No account exists for ${email}`:null}
               />
             </div>
           )}
