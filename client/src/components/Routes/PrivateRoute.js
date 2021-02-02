@@ -1,11 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
-import { useAuth } from "../../providers/Context";
+import { Redirect, Route } from "react-router-dom";
+import { useAuth, useAuthLoading } from "../../providers/Context";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const authenticated = useAuth();
-  return authenticated && <Route {...rest}>{children}</Route>;
+  const loading = useAuthLoading();
+  return (
+    !loading && (
+      <>
+        {authenticated && <Route {...rest}>{children}</Route>}
+        {!authenticated && <Redirect to="/login" />}
+      </>
+    )
+  );
 };
 
 PrivateRoute.propTypes = {
