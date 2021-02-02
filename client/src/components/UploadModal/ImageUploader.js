@@ -60,6 +60,7 @@ export default function UploadDialog(props) {
   const handleClose = () => {
     onClose();
     setSaveDisabled(true);
+    setSuccess(false);
   };
 
   // create a preview as a side effect, whenever selected file is changed
@@ -113,10 +114,10 @@ export default function UploadDialog(props) {
       setUploading(false);
       setSuccess(true);
       setTimeout(() => {
-        setSuccess(false);
         handleClose();
       }, 800);
-    }, 500);
+    }, 200);
+    
   };
 
   return (
