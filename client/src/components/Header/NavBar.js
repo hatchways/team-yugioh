@@ -7,8 +7,6 @@ import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import CameraAltTwoToneIcon from "@material-ui/icons/CameraAltTwoTone";
-import CameraAltOutlinedIcon from "@material-ui/icons/CameraAltOutlined";
 
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
