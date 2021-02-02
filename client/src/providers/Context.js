@@ -37,10 +37,22 @@ export const useSetUserData = () => {
   return useContext(UserContext).setUserData;
 };
 
+// Check whether the app is still fetching auth state
+// Usage:
+// const loading = useAuthLoading(); // true or false
+export const useAuthLoading = () => useContext(UserContext).authLoading;
+
+// Check whether the app is still fetching user data
+// Usage:
+// const loading = useDataLoading(); // true or false
+export const useDataLoading = () => useContext(UserContext).dataLoading;
+
 // CONTEXT PROVIDER SET UP
 export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
   const [authenticated, setAuthenticated] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
 
   // Gets User Data from DB
   useEffect(() => {
@@ -48,6 +60,7 @@ export const UserContextProvider = ({ children }) => {
       .get("/api/user/data")
       .then((res) => {
         setUserData(res.data);
+        setDataLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -57,13 +70,21 @@ export const UserContextProvider = ({ children }) => {
       .get("/api/authentication/test", { withCredentials: true })
       .then(() => {
         setAuthenticated(true);
+        setAuthLoading(false);
       })
       .catch();
-  }, [setAuthenticated]);
+  }, []);
 
   return (
     <UserContext.Provider
-      value={{ userData, setUserData, authenticated, setAuthenticated }}
+      value={{
+        userData,
+        setUserData,
+        authenticated,
+        setAuthenticated,
+        authLoading,
+        dataLoading,
+      }}
     >
       {children}
     </UserContext.Provider>
