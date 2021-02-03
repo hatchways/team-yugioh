@@ -5,7 +5,7 @@ import {
   makeStyles,
   Typography,
   Divider,
-  Button,
+  Button
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScrean";
@@ -27,11 +27,11 @@ const OnBoarding = () => {
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
-  const [loading, setLoading]= useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
+    axios.get("/api/user/get_url", { withCredentials: true }).then(res => {
       setLoading(false);
       if (res.data !== "") {
         setOnboarded(true);
@@ -50,8 +50,9 @@ const OnBoarding = () => {
 
   return (
     <>
-      {
-        loading?(<LoadingScreen/>):onboarded ? (
+      {loading ? (
+        <LoadingScreen />
+      ) : onboarded ? (
         <Redirect to="/home" />
       ) : (
         <Paper elevation={5} className={classes.paper}>
@@ -111,20 +112,20 @@ const OnBoarding = () => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    position: "relative",
+    position: "relative"
   },
   topContent: {
     padding: "2em",
-    height: "6em",
+    height: "6em"
   },
   paper: {
     margin: "8% auto",
-    width: "30em",
+    width: "30em"
   },
   gridForMainContent: {
-    height: "100%",
+    height: "100%"
   },
   button: {
     background: theme.palette.primary.button,
@@ -132,12 +133,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 50px 15px 50px",
     position: "absolute",
     bottom: "2em",
-    width: "3em",
+    width: "3em"
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.common.white,
-  },
+    color: theme.palette.common.white
+  }
 }));
 
 export default OnBoarding;
