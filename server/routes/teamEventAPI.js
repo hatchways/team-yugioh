@@ -33,12 +33,7 @@ router.post("/api/team-event", async (req, res) => {
     invitedUserIdsClean.forEach((member) => {
       if (!teamUserIds.members.includes(member)) res.status(400).send();
     });
-    const emailsArrOfObjects = [
-      {email: "mattcharlesh@gmail.com"},
-      {email: "kozaktaras15@gmail.com"},
-      {email: "uesttser@gmail.com"},
-      {email: "alvyjudy@gmail.com"},
-    ];
+   
     const eventName = 'The best event ever'
     const newEventTypeObj = {
       members: emails,
