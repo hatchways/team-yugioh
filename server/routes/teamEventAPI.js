@@ -4,27 +4,27 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
+const EMAILS = [
+  "mattcharlesh@gmail.com",
+  "kozaktaras15@gmail.com",
+  "uesttser@gmail.com",
+  "alvyjudy@gmail.com",
+];
+
+const TEAMNAME = "Team Yu Gi Oh";
+
 // 1 - Create a new team event type
 router.post("/api/team-event", async (req, res) => {
   // RECIEVE: a name, description, array of emails
 
-  const emails = [
-    "mattcharlesh@gmail.com",
-    "kozaktaras15@gmail.com",
-    "uesttser@gmail.com",
-    "alvyjudy@gmail.com",
-  ];
-
-  const teamName = "Team Yu Gi Oh";
-
   try {
     const invitedUserIds = await db.User.find({
-      email: { $in: emails },
+      email: { $in: EMAILS },
     });
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
     console.log(invitedUserIds)
     const teamUserIds = await db.Team.findOne(
-      { name: teamName },
+      { name: TEAMNAME },
       { members: 1 }
     );
 
@@ -51,18 +51,18 @@ router.post("/api/team-event", async (req, res) => {
 });
 
 // 2 - Add or remove members from an event type
-// an updated team member object is passed to DB to update added and removed members
-router.put("/api/team/:id", (req, res) => {
-  db.Team.updateOne(
+router.put("/api/team-event/:id", async (req, res) => {
+  // RECIEVE an updated team member object
+  
+
+
+  db.EventType.updateOne(
     { _id: req.params.id },
-    { teamMembers: req.body.members },
+    { members: req.body.members },
     { overwrite: true }
   )
-    .then((team) => {
-      if (!team.teamMembers) {
-        res.status(404).send();
-      }
-      res.send(team);
+    .then((data) => {
+      res.send(data);
     })
     .catch((err) => {
       res.status(400).send(err);
