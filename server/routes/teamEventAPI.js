@@ -13,13 +13,13 @@ const EMAILS = [
 
 const TEAM_NAME = "Team Yu Gi Oh";
 
-const UPDATE_USER_EMAILS  = [
+const UPDATE_USER_EMAILS = [
   "mattcharlesh@gmail.com",
   "kozaktaras15@gmail.com",
   "alvyjudy@gmail.com",
 ];
 
-const EVENT_TYPE_ID = "601ad52cab1b025396682324"
+const EVENT_TYPE_ID = "601ad52cab1b025396682324";
 
 // 1 - Create a new team event type
 router.post("/api/team-event", async (req, res) => {
@@ -27,7 +27,7 @@ router.post("/api/team-event", async (req, res) => {
 
   try {
     const invitedUserIds = await db.User.find({
-      email: { $in: EMAILS }
+      email: { $in: EMAILS },
     });
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
     const teamUserIds = await db.Team.findOne(
@@ -35,27 +35,25 @@ router.post("/api/team-event", async (req, res) => {
       { members: 1 }
     );
 
-    if (teamUserIds.members.length !== invitedUserIdsClean.length){
+    if (teamUserIds.members.length !== invitedUserIdsClean.length) {
       res.status(400).send();
       return;
-    } 
+    }
 
     invitedUserIdsClean.forEach((member) => {
-      if (!teamUserIds.members.includes(member)){
+      if (!teamUserIds.members.includes(member)) {
         res.status(400).send();
         return;
-      } 
+      }
     });
-   
-    const eventName = 'The best event ever'
+
+    const eventName = "The best event ever";
     const newEventTypeObj = {
       members: invitedUserIdsClean,
-      name: eventName //change to req.body.eventName
-
+      name: eventName, //change to req.body.eventName
     };
-    
 
-    const data = await db.EventType.create(newEventTypeObj)
+    const data = await db.EventType.create(newEventTypeObj);
     //console.log(response)
     res.send(data);
   } catch (error) {
@@ -72,7 +70,7 @@ router.put("/api/team-event/update-members/", async (req, res) => {
       email: { $in: UPDATE_USER_EMAILS }, // change to req.body.teamName
     });
     const updatedUserIdsClean = updatedUserIds.map((usr) => usr._id);
-    console.log(updatedUserIdsClean)
+    console.log(updatedUserIdsClean);
 
     const teamUserIds = await db.Team.findOne(
       { name: TEAM_NAME }, // change to req.body.teamName
@@ -80,17 +78,17 @@ router.put("/api/team-event/update-members/", async (req, res) => {
     );
 
     updatedUserIdsClean.forEach((member) => {
-      if (!teamUserIds.members.includes(member)){
+      if (!teamUserIds.members.includes(member)) {
         res.status(400).send();
         return;
-      } 
+      }
     });
 
     const data = await db.EventType.updateOne(
-      { _id: EVENT_TYPE_ID}, // change to req.params.id
-      { members: updatedUserIdsClean },
-    )
-    
+      { _id: EVENT_TYPE_ID }, // change to req.params.id
+      { members: updatedUserIdsClean }
+    );
+
     res.send(data);
   } catch (error) {
     console.log(error);
@@ -114,31 +112,17 @@ router.delete("/api/team-event/delete/:id", (req, res) => {
 });
 
 // 4 - Update an event type
-router.post("/api/team-event/update-event/:id", (req, res) => {
-  db.EventType.updateOne({ _id: req.params.id }, { $set: req.body })
-    .then((eventType) => {
-      if (!eventType) {
-        res.status(404).send();
-      }
-      res.send(eventType);
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    });
+router.post("/api/team-event/update-event/:id", async (req, res) => {
+  const updatedEventObj = { name: "NO YEAH TEAM", color: "green" };
+  try {
+    const data = await db.EventType.updateOne(
+      { _id: req.params.id },
+      { $set: updatedEventObj } //change to req.body
+    ); 
+    res.send(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 module.exports = router;
-
-// router.post("/api/team-event", async (req, res) => {
-//   const emails=req.body.members
-//   const userIds= await db.User.find({email:{$in:emails}})
-//   const userIdsClean= userIds.map(usr=>usr._id);
-//   const team= await db.Team.findOne({name:req.body.teamName}, {members:1})
-  
-//   if(req.body.members.length!==userIdsClean.length)
-//   res.status(400).send();
-  
-//   userIdsClean.forEach(member=>{
-//   if(!team.members.includes(member))
-//     res.status(400).send();
-// })
