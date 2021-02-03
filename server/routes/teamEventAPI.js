@@ -5,20 +5,53 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 // 1 - Create a new team event type
-router.post("/api/team-event", (req, res) => {
-  if (req.body.duration) {
-    //
-    db.EventType.create({ ...req.body })
-      .then((response) => {
-        console.log(response);
-        res.send(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).send(error);
-      });
-  } else if (!req.body.duration) {
-    res.status(400).send("Duration is required");
+router.post("/api/team-event", async (req, res) => {
+  // RECIEVE: a name, description, array of emails
+
+  const emails = [
+    "mattcharlesh@gmail.com",
+    "kozaktaras15@gmail.com",
+    "uesttser@gmail.com",
+    "alvyjudy@gmail.com",
+  ];
+
+  const teamName = "Team Yu Gi Oh";
+
+  try {
+    const invitedUserIds = await db.User.find({
+      email: { $in: emails },
+    });
+    const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
+    console.log(invitedUserIds)
+    const teamUserIds = await db.Team.findOne(
+      { name: teamName },
+      { members: 1 }
+    );
+
+    if (teamUserIds.length !== invitedUserIdsClean.length) res.status(400).send();
+
+    invitedUserIdsClean.forEach((member) => {
+      if (!teamUserIds.members.includes(member)) res.status(400).send();
+    });
+    const emailsArrOfObjects = [
+      {email: "mattcharlesh@gmail.com"},
+      {email: "kozaktaras15@gmail.com"},
+      {email: "uesttser@gmail.com"},
+      {email: "alvyjudy@gmail.com"},
+    ];
+    const eventName = 'The best event ever'
+    const newEventTypeObj = {
+      members: emailsArrOfObjects,
+      name: eventName
+    };
+    console.log(newEventTypeObj)
+
+    const response = await db.EventType.create(newEventTypeObj)
+    //console.log(response)
+    res.send(res);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
   }
 });
 
@@ -71,3 +104,17 @@ router.post("/api/team-event/:id", (req, res) => {
 });
 
 module.exports = router;
+
+// router.post("/api/team-event", async (req, res) => {
+//   const emails=req.body.members
+//   const userIds= await db.User.find({email:{$in:emails}})
+//   const userIdsClean= userIds.map(usr=>usr._id);
+//   const team= await db.Team.findOne({name:req.body.teamName}, {members:1})
+  
+//   if(req.body.members.length!==userIdsClean.length)
+//   res.status(400).send();
+  
+//   userIdsClean.forEach(member=>{
+//   if(!team.members.includes(member))
+//     res.status(400).send();
+// })
