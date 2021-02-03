@@ -223,7 +223,7 @@ export default function EventTypesTab() {
   });
   const [unit, setUnit] = useState("min");
 
-  const { name, photoUrl } = useUserData();
+  const { name, photoUrl, URL } = useUserData();
 
   useEffect(() => {
     axios
@@ -296,7 +296,7 @@ export default function EventTypesTab() {
       .post("/api/event", {
         ...eventBody,
         duration: minutes,
-        link: `${userURL}/${eventBody.link}`,
+        link: encodeURI(`${userURL}/${eventBody.link}`),
       })
       .then((res) => {
         const currentEventTypes = [...userEvents];
@@ -321,13 +321,16 @@ export default function EventTypesTab() {
           <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
-              src={photoUrl}
+              src={
+                photoUrl ||
+                "https://cal-app-user-imgs.s3.amazonaws.com/1611973087364.png"
+              }
               alt="User image"
             />
             <Box>
               <Typography className={classes.name}>{name}</Typography>
               <Typography className={classes.userUrl}>
-                calendapp.com/john-doe
+                calendapp.com/{URL}
               </Typography>
             </Box>
           </Box>
@@ -342,7 +345,6 @@ export default function EventTypesTab() {
             </Button>
           </Box>
         </Grid>
-        {/* TYPE OF EVENT CARDS */}
         <EventGrid userEvents={userEvents} />
       </Container>
       <Dialog
@@ -490,7 +492,7 @@ export default function EventTypesTab() {
                   }
                 >
                   <Grid xs={5} className={classes.prefix} item>
-                    calendapp.com/john-doe/
+                    calendapp.com/{URL}/
                   </Grid>
                   <Grid className={classes.link} xs={7} item>
                     <TextField
