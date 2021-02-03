@@ -55,8 +55,19 @@ export const googleLogout = async () => {
     withCredentials: true,
   });
   if (response.status === 200) {
-    //document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
     console.log(response.data);
     return true;
   } else return false;
 };
+
+export const emailExists = async (email) => {
+  try{
+    await axios.get(userAPIpath + `checkemail/?email=${email}`, {
+    withCredentials: true,
+  });
+    return true;
+}
+catch(err){
+  return false;
+}
+}
