@@ -1,6 +1,10 @@
 const express = require("express");
-const auth = require("../middleware/auth");
 const sgMail = require("@sendgrid/mail");
+const fs = require("fs");
+const confirmEmail = fs.readFileSync(
+  "./routes/assets/confirmEmail.html",
+  "utf8"
+);
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -8,17 +12,19 @@ const router = express.Router();
 
 // Send confirmation email
 router.post("/api/email", (req, res) => {
+  const { eventName, time, host, appointmentId } = req.body;
   const msg = {
     to: req.body.email,
-    // TODO: make project email/maybe also domain?
-    from: "uesttser@gmail.com",
-    // TODO: add in name and/or email of user, what appountment/event type was booked
-    // TODO: write good copy
-    subject: "Someone Has Booked an Appointment with you",
-    text:
-      "Someone has booked your appointment. Log in to Calendapp to make any updates.",
-    html: `<h1>Someone has booked your appointment</h1> 
-    <p>Log in to Calendapp to make any updates.</p>`,
+    from: "calendappygo@gmail.com",
+    subject: `Your Appointment with ${host} Has Been Booked!`,
+    text: `Your ${eventName} appointment at ${time} has been booked with ${host}.`,
+    html: confirmEmail,
+    headers: {
+      eventName: eventName,
+      time: time,
+      host: host,
+      appointmentId: appointmentId,
+    },
   };
   sgMail
     .send(msg)
