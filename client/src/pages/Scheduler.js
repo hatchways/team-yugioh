@@ -54,9 +54,11 @@ const Scheduler = () => {
 
   useEffect(() => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
-    const regex = /appt\/([0-9a-z-]*\/[0-9a-z-]*)/g;
+    const regex = /appt\/([%\s0-9a-z-]*\/[%\s0-9a-z-]*)/g;
     let searchUrl = path.match(regex)[0].slice(5);
-    const queryURL = `/api/event_details/${searchUrl}`;
+    console.log(path);
+    console.log(searchUrl);
+    const queryURL = `/api/event_details/${encodeURI(searchUrl)}`;
     axios
       .get(queryURL)
       .then((res) => {
