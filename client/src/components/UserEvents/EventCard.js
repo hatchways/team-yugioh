@@ -29,7 +29,6 @@ export default function EventCard({
   _id,
 }) {
   const [eventActive, setEventActive] = useState(active);
-  const [switchToggle, setSwitchToggle] = useState(active);
 
   const useStyles = makeStyles({
     root: {
@@ -112,10 +111,7 @@ export default function EventCard({
         eventId: _id,
       })
       .then(() => {
-        setSwitchToggle(!switchToggle);
-        setTimeout(() => {
-          setEventActive(!eventActive);
-        }, 300);
+        setEventActive(!eventActive);
       })
       .catch((err) => console.log(err));
   };
@@ -140,7 +136,7 @@ export default function EventCard({
                       <Switch
                         size="small"
                         color="primary"
-                        checked={switchToggle}
+                        checked={eventActive}
                         onChange={handleSwitch}
                       />
                    </LightTooltip>
