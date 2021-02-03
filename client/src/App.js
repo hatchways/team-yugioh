@@ -13,24 +13,13 @@ import UpgradePage from "./pages/UpgradePage";
 import PageNotFound from "./pages/PageNotFound";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import Checkout from "./pages/Checkout";
-import { useSetAuthenticated } from "./providers/Context";
 import RescheduleOrCancelAppointmentPage from "./pages/reschedule/RescheduleOrCancelAppointmentPage";
 import AppointmentDoesNotExistOrCancelled from "./pages/reschedule/AppointmentDoesNotExistOrCancelled";
-import axios from "axios";
 import UserManagementPage from "./pages/UserManagement";
 
 import "./App.css";
 
 function App() {
-  const setAuthenticated = useSetAuthenticated();
-  useEffect(() => {
-    axios
-      .get("/api/authentication/test", { withCredentials: true })
-      .then(() => {
-        setAuthenticated(true);
-      })
-      .catch();
-  }, [setAuthenticated]);
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -51,6 +40,9 @@ function App() {
             <OnBoardingPage />
           </PrivateRoute>
           <PrivateRoute path="/home">
+            <Home />
+          </PrivateRoute>
+          <PrivateRoute exact path="/">
             <Home />
           </PrivateRoute>
           <PrivateRoute path="/upgrade">
@@ -77,7 +69,7 @@ function App() {
           <Route path="/404">
             <PageNotFound />
           </Route>
-          <Route exact path="/" component={Home} />
+
           <Route component={PageNotFound} />
         </Switch>
       </BrowserRouter>

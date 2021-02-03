@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
+import {emailExists} from "../utils/googleAuth"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,10 +75,19 @@ const SignUpPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
-  const handleClick = (event) => {
+  const [emailError, setEmailError]= useState(false);
+
+  const handleClick = async (event) => {
     event.preventDefault();
     //cehck if user has entered an email
+
     if (email) {
+      const emailExist= await emailExists(email);
+      if(emailExist){
+        setEmailError(true)
+        return;
+      }
+
       showWelcome(true);
     }
   };
@@ -133,6 +143,8 @@ const SignUpPage = () => {
                 style={{ textAlign: "center" }}
                 inputProps={{ min: 0, style: { textAlign: "center" } }}
                 onChange={handleChange}
+                error={emailError}
+                helperText={emailError?`${email} is already registered.`:null}
               />
             </div>
           )}

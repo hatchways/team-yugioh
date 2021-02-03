@@ -3,12 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
-import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
+import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
-import UserMenu from "../UserMenu"
+import UserMenu from "../UserMenu";
 
 import { useUserData } from "../../providers/Context";
 
@@ -40,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       opacity: 0.8,
     },
+  },
+  cameraCircle: {
+    width: 14,
+    height: 14,
+    color: "lightgrey",
+    boxShadow: theme.shadows[3],
   },
 }));
 
@@ -80,15 +88,33 @@ export default function NavBar() {
           Upgrade account
         </Link>
 
-        <Box>
-          <Avatar
+        <Box className={classes.badge}>
+          <Badge
             className={classes.profileImg}
-            src={photoUrl}
-            alt="User image"
             onClick={handleClickOpen}
-          />
+            overlap="circle"
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            badgeContent={
+              <Avatar className={classes.cameraCircle}>
+                <PhotoCameraIcon
+                  style={{ width: 10, height: 10, color: "black" }}
+                />
+              </Avatar>
+            }
+          >
+            <Avatar
+              src={
+                photoUrl ||
+                "https://cal-app-user-imgs.s3.amazonaws.com/1611973087364.png"
+              }
+              alt="User image"
+            />
+          </Badge>
         </Box>
-        <UserMenu name={name}/>
+        <UserMenu name={name} />
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />
     </AppBar>
