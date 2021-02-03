@@ -321,7 +321,10 @@ export default function EventTypesTab() {
           <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
-              src={photoUrl}
+              src={
+                photoUrl ||
+                "https://cal-app-user-imgs.s3.amazonaws.com/1611973087364.png"
+              }
               alt="User image"
             />
             <Box>
