@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("../db/models");
 const auth = require("../middleware/auth");
-const mongoose = require("mongoose");
 
 const router = express.Router();
 
@@ -57,10 +56,9 @@ router.get("/api/user/data", auth, (req, res) => {
 });
 
 // Search users
-router.get("/api/user/search", auth, (req, res) => {
+router.post("/api/user/search", auth, (req, res) => {
   let cleanText = req.body.query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
   cleanText = cleanText.trim();
-  console.log(cleanText, "search");
   db.User.find({
     email: RegExp("\\b" + cleanText, "i"),
   })

@@ -11,67 +11,55 @@ import {
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 
-const InviteMembers = ({ setTeamMembers, teamMembers }) => {
+const InviteMembers = ({ setInvites, invites, setMembers }) => {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("");
   const [queryResults, setQueryResults] = useState([]);
-  const [emailValid, setEmailValid] = useState(false);
+  const [registered, setRegistered] = useState(true);
 
   const handleEmailChange = (event) => {
-    //validation could probably be done better
-    axios.get("/api/user/search", { query: event.target.value }).then((res) => {
-      if (res.data.length) {
-        setQueryResults(res.data);
-      } else {
-        const typedEmail = event.target.value;
-        if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
-          setEmailValid(true);
-        } else {
-          setEmailValid(false);
-        }
-        setQueryResults(["Invite " + typedEmail + "?"]);
-      }
-    });
+    if (event.target.value != "") {
+      axios
+        .post("/api/user/search", { query: event.target.value })
+        .then((res) => {
+          if (res.data.length) {
+            setRegistered(true);
+            setQueryResults(res.data.map((user) => user.email));
+          } else {
+            setRegistered(false);
+            const typedEmail = event.target.value;
+            if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
+              setQueryResults([typedEmail]);
+            } 
+          }
+        });
+    } else {
+      setQueryResults([]);
+    }
   };
 
-  const addEmailToInvitedList = () => {
-    setTeamMembers([...teamMembers, { email }]);
-    setEmail("");
-    setEmailValid(false);
-  };
+  const handleMemberChange = (event, value) => {
+    if(registered){
+      setMembers(value);
+    }else{
+      setInvites([...invites, value[value.length - 1]]);
+      value.pop();
+      setRegistered(true)
+    }
+  }
+
 
   return (
     <Grid container alignItems="center">
       <Grid item xs={2}>
         <InputLabel className={classes.label}>Members</InputLabel>
       </Grid>
-      {/* <Grid item xs={8}>
-        <TextField
-          variant="outlined"
-          fullWidth
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Email address"
-        />
-      </Grid>
-      <Grid item xs={2}>
-        <Button
-          onClick={addEmailToInvitedList}
-          disabled={!emailValid}
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Invite
-        </Button>
-      </Grid> */}
       <Grid item xs={10}>
         <Autocomplete
           multiple
-          options={queryResults}
           freeSolo
-          open={!!email}
+          options={queryResults}
+          onChange={handleMemberChange}
           onInputChange={handleEmailChange}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
@@ -91,6 +79,7 @@ const InviteMembers = ({ setTeamMembers, teamMembers }) => {
   );
 };
 
+
 const useStyles = makeStyles(() => ({
   label: {
     fontWeight: "bold",
@@ -104,8 +93,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 InviteMembers.propTypes = {
-  setTeamMembers: PropTypes.func,
-  teamMembers: PropTypes.array,
+  setInvites: PropTypes.func,
+  invites: PropTypes.array,
 };
 
 export default InviteMembers;

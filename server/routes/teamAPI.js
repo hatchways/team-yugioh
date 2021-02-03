@@ -5,14 +5,24 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 // CREATE team
-// req.body: { members: [userId] }
-router.post("/api/team/create", auth, (req, res) => {
-  db.Team.create(req.body)
-    .then((response) => res.send(response))
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    });
+// req.body: { name: name, members: [email:string] }
+router.post("/api/team/create", auth, async (req, res) => {
+  let team;
+  const findMembers = req.body.members.map(email => {
+    return db.User.findOne({email: email})
+  })
+  
+  try {
+    let results = await Promise.allSettled(findMembers);
+    team = results.map(result => result.value._id);
+    team.push(req.userId);
+    let response = await db.Team.create({name: req.body.name, members: team});
+    res.send(response);
+    console.log(team);
+  } catch(error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 });
 
 // ADD Team member

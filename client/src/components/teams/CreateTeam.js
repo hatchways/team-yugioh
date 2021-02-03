@@ -14,19 +14,23 @@ import {
 
 import InviteMembers from "./InviteMembers";
 import MembersToBeInvited from "./MembersToBeInvited";
+import axios from 'axios';
 
 const CreateTeam = ({ open, closeDialog }) => {
   const classes = useStyles();
 
-  const createTeam = () => {};
+  const createTeam = () => {
+    axios.post("/api/team/create", {name: teamName, members: members}).then(res => console.log(res)).catch(err => console.log(err))
+  };
 
   const [teamName, setTeamName] = useState("");
+  const [members, setMembers] = useState([]);
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
   };
 
-  const [teamMembers, setTeamMembers] = useState([]);
-  // Data structure: teamMembers = [{name: <name>, email: <email>}, {}]
+  const [invites, setInvites] = useState([]);
+  // Data structure: invites = [{name: <name>, email: <email>}, {}]
 
   return (
     <Dialog
@@ -58,15 +62,16 @@ const CreateTeam = ({ open, closeDialog }) => {
 
             <Grid item>
               <InviteMembers
-                setTeamMembers={setTeamMembers}
-                teamMembers={teamMembers}
+                setInvites={setInvites}
+                invites={invites}
+                setMembers={setMembers}
               />
             </Grid>
 
             <Grid item>
               <MembersToBeInvited
-                teamMembers={teamMembers}
-                setTeamMembers={setTeamMembers}
+                invites={invites}
+                setInvites={setInvites}
               />
             </Grid>
           </Grid>
