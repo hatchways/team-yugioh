@@ -17,7 +17,7 @@ const InviteMembers = ({ setInvites, invites, setMembers }) => {
   const [registered, setRegistered] = useState(true);
 
   const handleEmailChange = (event) => {
-    if (event.target.value != "") {
+    if (event.target.value !== "") {
       axios
         .post("/api/user/search", { query: event.target.value })
         .then((res) => {
