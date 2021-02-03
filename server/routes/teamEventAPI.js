@@ -4,48 +4,21 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-const EMAILS = [
-  "mattcharlesh@gmail.com",
-  "kozaktaras15@gmail.com",
-  "uesttser@gmail.com",
-  "alvyjudy@gmail.com",
-];
-
-const TEAM_NAME = "Team Yu Gi Oh";
-
-const UPDATE_USER_EMAILS = [
-  "mattcharlesh@gmail.com",
-  "kozaktaras15@gmail.com",
-  "alvyjudy@gmail.com",
-  "daniel@hatchways.io"
-];
-
-const EVENT_TYPE_ID = "601af6fce7743b6d7b22eb15";
-
-const NON_TEAM_EMAILS = [
-  "asdfsdf@ggg.ca",
-  "effffff@erer.com",
-  "mattcharlesh@gmail.com",
-  "sdfsdfsdf@ddfd.ca"
-]
-
-
-
 // 1 - Create a new team event type
 router.post("/api/team-event/create", async (req, res) => {
-  // RECIEVE: a name, description, array of emails
+  // Request: {name:eventName, teamName, emails:[array]}
 
   try {
     const invitedUserIds = await db.User.find({
-      email: { $in: EMAILS },
+      email: { $in: req.body.emails },
     });
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
     const teamUserIds = await db.Team.findOne(
-      { name: TEAM_NAME },
+      { name: req.body.teamName },
       { members: 1 }
     );
 
-    if (EMAILS.length > invitedUserIdsClean.length) {
+    if (req.body.emails.length > invitedUserIdsClean.length) {
       console.log('there are more emails then valid users found so some of the email are not users')
       res.status(400).send();
       return;
@@ -59,14 +32,13 @@ router.post("/api/team-event/create", async (req, res) => {
       }
     });
 
-    const eventName = "The best event ever";
     const newEventTypeObj = {
       members: invitedUserIdsClean,
-      name: eventName, //change to req.body.eventName
+      ...req.body
     };
 
     const data = await db.EventType.create(newEventTypeObj);
-    //console.log(response)
+    
     res.send(data);
   } catch (error) {
     console.log(error);
@@ -76,19 +48,19 @@ router.post("/api/team-event/create", async (req, res) => {
 
 // 2 - Add or remove members from an event type
 router.put("/api/team-event/update-members/", async (req, res) => {
-  // RECIEVE an updated team member object
+  // Request: an updated array of team member emails, teamName, eventId
   try {
     const updatedUserIds = await db.User.find({
-      email: { $in: UPDATE_USER_EMAILS }, // change to req.body.teamName
+      email: { $in: req.body.emails },
     });
     const updatedUserIdsClean = updatedUserIds.map((usr) => usr._id);
 
     const teamUserIds = await db.Team.findOne(
-      { name: TEAM_NAME }, // change to req.body.teamName
+      { name: req.body.teamName}, 
       { members: 1 }
     );
 
-    if (UPDATE_USER_EMAILS.length > updatedUserIdsClean.length) {
+    if (req.body.emails.length > updatedUserIdsClean.length) {
       console.log('there are more emails then valid users found so some of the email are not users')
       res.status(400).send();
       return;
@@ -103,7 +75,7 @@ router.put("/api/team-event/update-members/", async (req, res) => {
     });
 
     const data = await db.EventType.updateOne(
-      { _id: EVENT_TYPE_ID }, // change to req.params.id
+      { _id: req.body.eventId }, 
       { members: updatedUserIdsClean }
     );
 
@@ -127,12 +99,12 @@ router.delete("/api/team-event/delete/", (req, res) => {
 });
 
 // 4 - Update an event type
+// did not add checking for valid users on the team
 router.post("/api/team-event/update-event/", async (req, res) => {
-  const updatedEventObj = { name: "NO YEAH TEAM", color: "green" };
   try {
     const data = await db.EventType.updateOne(
       { _id: req.body.id },
-      { $set: updatedEventObj } //change to req.body
+      { $set: req.body } 
     ); 
     res.send(data);
   } catch (err) {
