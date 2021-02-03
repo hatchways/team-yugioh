@@ -61,21 +61,25 @@ const Scheduler = () => {
       .get(queryURL)
       .then((res) => {
         // TODO: redirect to 404 page on no event found?
-        let event = res.data[0];
-        setEventDetails({
-          name: event.name,
-          description: event.description,
-          duration: event.duration,
-          link: event.link,
-        });
-        setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
-        setEventActive(event.active);
+        if (res.data.length) {
+          let event = res.data[0];
+          setEventDetails({
+            name: event.name,
+            description: event.description,
+            duration: event.duration,
+            link: event.link,
+          });
+          setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
+          setEventActive(event.active);
+        } else {
+          setEventActive(false);
+        }
       })
       .then(() => setLoading(false));
     /* eslint-disable */
   }, []);
   /* eslint-enable */
-  
+
   if (loading) {
     return <LinearProgress />;
   } else if (!eventActive) {
