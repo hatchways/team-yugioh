@@ -1,40 +1,59 @@
 const express = require("express");
 const sgMail = require("@sendgrid/mail");
-const fs = require("fs");
-const confirmEmail = fs.readFileSync(
-  "./routes/assets/confirmEmail.html",
-  "utf8"
-);
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const router = express.Router();
 
+const request = require("request");
+
 // Send confirmation email
 router.post("/api/email", (req, res) => {
-  const { eventName, time, host, appointmentId } = req.body;
-  const msg = {
-    to: req.body.email,
-    from: "calendappygo@gmail.com",
-    subject: `Your Appointment with ${host} Has Been Booked!`,
-    text: `Your ${eventName} appointment at ${time} has been booked with ${host}.`,
-    html: confirmEmail,
+  const { eventName, time, host, appointmentId, name, email } = req.body;
+  var options = {
+    method: "POST",
+    url: "https://api.sendgrid.com/v3/mail/send",
     headers: {
-      eventName: eventName,
-      time: time,
-      host: host,
-      appointmentId: appointmentId,
+      "content-type": "application/json",
+      authorization: "Bearer " + process.env.SENDGRID_API_KEY,
     },
+    body: {
+      personalizations: [
+        {
+          to: [
+            {
+              email: email,
+              name: name,
+            },
+          ],
+          dynamic_template_data: {
+            eventName: eventName,
+            time: time,
+            host: host,
+            appointmentId: appointmentId,
+            name: name,
+          },
+          subject: "Test",
+        },
+      ],
+      from: {
+        email: "calendappygo@gmail.com",
+        name: "Calendy",
+      },
+      reply_to: {
+        email: "calendappygo@gmail.com",
+        name: "Calendy",
+      },
+      template_id: "d-d64b6ea55b9a4de28df401d8cf682a1a",
+    },
+    json: true,
   };
-  sgMail
-    .send(msg)
-    .then(() => {
-      res.send("Email sent!");
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send(error);
-    });
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    res.send(response);
+    console.log(body);
+  });
 });
 
 module.exports = router;
