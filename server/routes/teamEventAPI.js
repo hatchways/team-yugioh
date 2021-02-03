@@ -19,31 +19,38 @@ router.post("/api/team-event", async (req, res) => {
 
   try {
     const invitedUserIds = await db.User.find({
-      email: { $in: EMAILS },
+      email: { $in: EMAILS }
     });
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
-    console.log(invitedUserIds)
     const teamUserIds = await db.Team.findOne(
       { name: TEAMNAME },
       { members: 1 }
     );
 
-    if (teamUserIds.length !== invitedUserIdsClean.length) res.status(400).send();
+    if (teamUserIds.members.length !== invitedUserIdsClean.length){
+      res.status(400).send();
+      return;
+    } 
 
     invitedUserIdsClean.forEach((member) => {
-      if (!teamUserIds.members.includes(member)) res.status(400).send();
+      if (!teamUserIds.members.includes(member)){
+        console.log("here");
+        res.status(400).send();
+        return;
+      } 
     });
    
+    console.log("invited users",invitedUserIdsClean)
     const eventName = 'The best event ever'
     const newEventTypeObj = {
-      members: emails,
+      members: invitedUserIdsClean,
       name: eventName
     };
-    console.log(newEventTypeObj)
+    
 
     const response = await db.EventType.create(newEventTypeObj)
     //console.log(response)
-    res.send(res);
+    res.send(response);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
