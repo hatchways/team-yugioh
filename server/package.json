@@ -26,6 +26,7 @@
     "multer-s3": "^2.9.0",
     "njwt": "^1.0.0",
     "nodemon": "^2.0.6",
+    "request": "^2.88.2",
     "stripe": "^8.132.0"
   },
   "devDependencies": {
