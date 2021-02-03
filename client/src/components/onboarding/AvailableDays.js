@@ -24,10 +24,18 @@ const AvailableDays = (props) => {
 
   const days = props.days;
   const setDays = props.setDays;
-
+  console.log("days", days);
   const selectDay = (event) => {
-    const newDays = { ...days, [event.target.name]: event.target.checked };
-    setDays(newDays);
+    const day = parseInt(event.target.name);
+    const index = days.indexOf(day);
+    if (index === -1 && event.target.checked) {
+      setDays([...days, day]);
+    }
+
+    if (index !== -1 && !event.target.checked) {
+      const newDays = days.slice().splice(index, 1);
+      setDays(newDays);
+    }
   };
 
   return (
@@ -51,9 +59,9 @@ const AvailableDays = (props) => {
             control={
               <Checkbox
                 className={classes.eachDay}
-                checked={days[day] || false}
+                checked={days.includes(day)}
                 onChange={selectDay}
-                name={day}
+                name={day.toString()}
                 color="primary"
               />
             }
