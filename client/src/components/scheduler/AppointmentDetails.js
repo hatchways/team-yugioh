@@ -1,49 +1,66 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Grid,
   Button,
   TextField,
   InputLabel,
   makeStyles,
+  Typography,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import axios from "axios";
+import BackArrow from "../../assets/back.svg";
 
-const ConfirmAppointment = ({
+const AppointmentDetails = ({
   appointmentDetails,
   setAppointmentDetails,
   path,
+  setAppointmentConfirmed,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setAppointmentDetails({ ...appointmentDetails, [name]: value });
   };
 
-  const createAppointment = () => {
-    axios.post("/api/appointment", appointmentDetails).then((res) => {
-      setAppointmentDetails({
-        eventId: "",
-        name: "",
-        email: "",
-        notes: "",
-        time: false,
-        timezone: "UTC",
-      });
-    });
+  const createAppointment = async () => {
+    let res;
+    try {
+      res = await axios.post("/api/appointment", appointmentDetails);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      await axios.post("/api/email", { email: appointmentDetails.email });
+    } catch (err) {
+      console.log(err);
+    }
+
+    setAppointmentConfirmed({ id: res.data._id });
+
+    history.push(`${path}${res.data._id}`);
   };
+
   return (
     <>
-      <Link to={`${path}`}>
-        <Button
-          onClick={() =>
-            setAppointmentDetails({ ...appointmentDetails, time: false })
-          }
-        >
-          Back
-        </Button>
-      </Link>
+      <Grid direction="row" alignItems="center" container justify="flex-start">
+        <Link className={classes.back} to={`${path}`}>
+          <Button
+            className={classes.backButton}
+            onClick={() =>
+              setAppointmentDetails({ ...appointmentDetails, time: false })
+            }
+          >
+            Back
+          </Button>
+        </Link>
+        <Typography className={classes.formLabel} variant="h5">
+          Enter Details
+        </Typography>
+      </Grid>
       <Grid
         direction="row"
         alignItems="center"
@@ -64,6 +81,7 @@ const ConfirmAppointment = ({
             onChange={handleFormChange}
             fullWidth
             value={appointmentDetails.name}
+            size="small"
           />
         </Grid>
       </Grid>
@@ -86,6 +104,7 @@ const ConfirmAppointment = ({
             type="text"
             onChange={handleFormChange}
             fullWidth
+            size="small"
             value={appointmentDetails.email}
           />
         </Grid>
@@ -118,7 +137,6 @@ const ConfirmAppointment = ({
           />
         </Grid>
       </Grid>
-
       <Button
         color="primary"
         className={classes.button}
@@ -130,13 +148,53 @@ const ConfirmAppointment = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: { height: "100%", overflow: "hidden" },
+  button: {
+    background: theme.palette.primary.button,
+    fontSize: ".8rem",
+    color: "white",
+    padding: "2% 5%",
+    margin: "5% 0 0 17%",
+    width: "33%",
+  },
+  back: {
+    background: "white",
+    fontSize: ".8rem",
+    color: theme.palette.primary.main,
+    textDecoration: "none",
+    margin: "5% 0",
+    padding: "0",
+    width: "10%",
+    height: "2.3rem",
+    border: "1px solid lightgray",
+    borderRadius: "4px",
+    display: "flex",
+    alignItems: "center",
+  },
+  backButton: {
+    width: "100%",
+    height: "100%",
+    textIndent: "-9999px",
+    backgroundImage: `url(${BackArrow})`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "30%",
+    minWidth: "0",
+  },
+  formLabel: {
+    margin: "0 6%",
+    textAlign: "left",
+  },
+  inputRow: {
+    marginBottom: ".5rem",
+  },
 }));
 
-ConfirmAppointment.propTypes = {
+AppointmentDetails.propTypes = {
   appointmentDetails: PropTypes.object,
   setAppointmentDetails: PropTypes.func,
+  path: PropTypes.string,
 };
 
-export default ConfirmAppointment;
+export default AppointmentDetails;

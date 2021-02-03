@@ -1,64 +1,84 @@
 import React, { useState } from "react";
-
+import PropTypes from "prop-types";
 import {
-  Button,
   Grid,
   InputLabel,
   TextField,
   makeStyles,
+  Chip,
 } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import axios from "axios";
 
-const InviteMembers = ({ setTeamMembers, teamMembers }) => {
+const InviteMembers = ({ setInvites, invites, members, setMembers }) => {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("");
-  const [emailValid, setEmailValid] = useState(false);
+  const [queryResults, setQueryResults] = useState([]);
+  const [registered, setRegistered] = useState(true);
+
   const handleEmailChange = (event) => {
-    //validation could probably be done better
-    const typedEmail = event.target.value;
-    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
-      setEmailValid(true);
+    if (event.target.value !== "") {
+      axios
+        .post("/api/user/search", { query: event.target.value })
+        .then((res) => {
+          if (res.data.length) {
+            setRegistered(true);
+            setQueryResults(res.data.map((user) => user.email));
+          } else {
+            setRegistered(false);
+            const typedEmail = event.target.value;
+            if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
+              setQueryResults([typedEmail]);
+            }
+          }
+        });
     } else {
-      setEmailValid(false);
+      setQueryResults([]);
     }
-    setEmail(typedEmail);
   };
 
-  const addEmailToInvitedList = () => {
-    setTeamMembers([...teamMembers, { email }]);
-    setEmail("");
-    setEmailValid(false);
+  const handleMemberChange = (event, value) => {
+    if (registered) {
+      setMembers(value);
+    } else {
+      setInvites([...invites, value[value.length - 1]]);
+      value.pop();
+      setRegistered(true);
+    }
   };
+
   return (
     <Grid container alignItems="center">
       <Grid item xs={2}>
         <InputLabel className={classes.label}>Members</InputLabel>
       </Grid>
-      <Grid item xs={8}>
-        <TextField
-          variant="outlined"
-          fullWidth
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Email address"
+      <Grid item xs={10}>
+        <Autocomplete
+          multiple
+          freeSolo
+          options={queryResults}
+          value={members}
+          onChange={handleMemberChange}
+          onInputChange={handleEmailChange}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                variant="outlined"
+                label={option}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
+          renderInput={(params) => (
+            <TextField variant="outlined" {...params} placeholder="Email" />
+          )}
         />
-      </Grid>
-      <Grid item xs={2}>
-        <Button
-          onClick={addEmailToInvitedList}
-          disabled={!emailValid}
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Invite
-        </Button>
       </Grid>
     </Grid>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   label: {
     fontWeight: "bold",
     fontSize: "0.9rem",
@@ -69,5 +89,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
+
+InviteMembers.propTypes = {
+  setInvites: PropTypes.func,
+  invites: PropTypes.array,
+};
 
 export default InviteMembers;

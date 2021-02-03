@@ -3,18 +3,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from "@material-ui/core/Link";
-import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
+import Avatar from "@material-ui/core/Avatar";
+import Badge from "@material-ui/core/Badge";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 
-import Logo from "./../../img/logo.png";
-import ProfileImage from "./../../img/user-image.png";
+import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
+import UserMenu from "../UserMenu";
+
+import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: "white",
-    padding: "1.5rem 3rem",
+    padding: "0.6rem 3rem",
   },
   title: {
     flexGrow: 1,
@@ -39,6 +43,12 @@ const useStyles = makeStyles((theme) => ({
       opacity: 0.8,
     },
   },
+  cameraCircle: {
+    width: 14,
+    height: 14,
+    color: "lightgrey",
+    boxShadow: theme.shadows[3],
+  },
 }));
 
 export default function NavBar() {
@@ -55,6 +65,8 @@ export default function NavBar() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
+  const { name, photoUrl } = useUserData();
+
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
@@ -62,45 +74,47 @@ export default function NavBar() {
           <img width="110rem" src={Logo} alt="CalendApp logo" />
         </span>
 
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-          to="/home"
-        >
+        <Link variant="subtitle1" className={classes.link} href="/home">
           Home
         </Link>
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
+        <Link variant="subtitle1" className={classes.link}>
           Integration
         </Link>
         <Link
           variant="subtitle1"
-          onClick={preventDefault}
           className={classes.linkToUpgrade}
-          to="/upgrade"
+          href="/upgrade"
         >
           Upgrade account
         </Link>
-        <Box>
-          <Avatar
-            className={classes.profileImg}
-            src={ProfileImage}
-            alt="User image"
-            onClick={handleClickOpen}
-          />
-        </Box>
 
-        <Link
-          variant="subtitle1"
-          onClick={preventDefault}
-          className={classes.link}
-        >
-          John Doe
-        </Link>
+        <Box className={classes.badge}>
+          <Badge
+            className={classes.profileImg}
+            onClick={handleClickOpen}
+            overlap="circle"
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            badgeContent={
+              <Avatar className={classes.cameraCircle}>
+                <PhotoCameraIcon
+                  style={{ width: 10, height: 10, color: "black" }}
+                />
+              </Avatar>
+            }
+          >
+            <Avatar
+              src={
+                photoUrl ||
+                "https://cal-app-user-imgs.s3.amazonaws.com/1611973087364.png"
+              }
+              alt="User image"
+            />
+          </Badge>
+        </Box>
+        <UserMenu name={name} />
       </Toolbar>
       <ImageUploader open={open} onClose={handleClose} />
     </AppBar>

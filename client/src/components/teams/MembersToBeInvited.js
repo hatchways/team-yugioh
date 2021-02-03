@@ -7,16 +7,17 @@ import {
 } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 import React from "react";
+import PropTypes from "prop-types";
 
-const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
+const MembersToBeInvited = ({ invites, setInvites }) => {
   const classes = useStyles();
-  const teamMemberNotEmpty = teamMembers.length !== 0;
+  const teamMemberNotEmpty = invites.length !== 0;
   const removeEmailFromInvitedList = (memberToRemove) => () => {
     // Caveat: each email must be unique in the list for this to work
-    const filteredList = teamMembers.filter(
+    const filteredList = invites.filter(
       (member) => member.email !== memberToRemove.email
     );
-    setTeamMembers(filteredList);
+    setInvites(filteredList);
   };
   return (
     <Grid container direction="column" className={classes.root}>
@@ -27,19 +28,13 @@ const MembersToBeInvited = ({ teamMembers, setTeamMembers }) => {
       </Grid>
       <Grid item container direction="column" wrap="nowrap">
         {teamMemberNotEmpty &&
-          teamMembers.map((member) => (
-            <Grid
-              item
-              container
-              key={member.email}
-              alignItems="center"
-              spacing={3}
-            >
+          invites.map((member, i) => (
+            <Grid item container key={i} alignItems="center" spacing={3}>
               <Grid item xs={1}>
                 <Brightness1 color="primary" className={classes.icon} />
               </Grid>
               <Grid item xs={4}>
-                <Typography>{member.email}</Typography>
+                <Typography>{member}</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Button onClick={removeEmailFromInvitedList(member)}>
@@ -69,5 +64,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
+
+MembersToBeInvited.propTypes = {
+  setInvites: PropTypes.func,
+  invites: PropTypes.array,
+};
 
 export default MembersToBeInvited;

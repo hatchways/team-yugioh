@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Route, Redirect } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
+import React from "react";
+import PropTypes from "prop-types";
+import { Redirect, Route } from "react-router-dom";
+import { useAuth, useAuthLoading } from "../../providers/Context";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const authenticated = useAuth();
-  return authenticated && <Route {...rest}>{children}</Route>;
+  const loading = useAuthLoading();
+  return (
+    !loading && (
+      <>
+        {authenticated && <Route {...rest}>{children}</Route>}
+        {!authenticated && <Redirect to="/login" />}
+      </>
+    )
+  );
+};
+
+PrivateRoute.propTypes = {
+  children: PropTypes.any,
 };
 
 export default PrivateRoute;

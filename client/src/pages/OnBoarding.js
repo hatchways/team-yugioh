@@ -5,9 +5,10 @@ import {
   makeStyles,
   Typography,
   Divider,
-  Button,
+  Button
 } from "@material-ui/core";
-import { Route, Switch, Link, Redirect, useRouteMatch } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import LoadingScreen from "../components/LoadingScrean";
 
 import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
@@ -26,10 +27,12 @@ const OnBoarding = () => {
   const [startHour, setStartHour] = useState("");
   const [finishHour, setFinishHour] = useState("");
   const [days, setDays] = useState({});
-  
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
+    setLoading(true);
+    axios.get("/api/user/get_url", { withCredentials: true }).then(res => {
+      setLoading(false);
       if (res.data !== "") {
         setOnboarded(true);
       }
@@ -41,13 +44,15 @@ const OnBoarding = () => {
     if (page === 3) {
       axios
         .post("/api/user/", { URL: url, timezone: timezone })
-        .then((res) => setOnboarded(true));
+        .then(() => setOnboarded(true));
     }
   };
 
   return (
     <>
-      {onboarded ? (
+      {loading ? (
+        <LoadingScreen />
+      ) : onboarded ? (
         <Redirect to="/home" />
       ) : (
         <Paper elevation={5} className={classes.paper}>
@@ -107,20 +112,20 @@ const OnBoarding = () => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    position: "relative",
+    position: "relative"
   },
   topContent: {
     padding: "2em",
-    height: "6em",
+    height: "6em"
   },
   paper: {
     margin: "8% auto",
-    width: "30em",
+    width: "30em"
   },
   gridForMainContent: {
-    height: "100%",
+    height: "100%"
   },
   button: {
     background: theme.palette.primary.button,
@@ -128,12 +133,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 50px 15px 50px",
     position: "absolute",
     bottom: "2em",
-    width: "3em",
+    width: "3em"
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.common.white,
-  },
+    color: theme.palette.common.white
+  }
 }));
 
 export default OnBoarding;

@@ -32,7 +32,7 @@ export const sendToken = async (callback) => {
 export const sendCode = async (code) => {
   axios
     .post(userAPIpath + "google", { code }, { withCredentials: true })
-    .then((resp) => window.close())
+    .then(() => window.close())
     .catch((err) => {
       console.log(err);
       window.close();
@@ -49,3 +49,25 @@ export const testAuth = async () => {
     return true;
   } else return false;
 };
+
+export const googleLogout = async () => {
+  const response = await axios.get(userAPIpath + "logout", {
+    withCredentials: true,
+  });
+  if (response.status === 200) {
+    console.log(response.data);
+    return true;
+  } else return false;
+};
+
+export const emailExists = async (email) => {
+  try{
+    await axios.get(userAPIpath + `checkemail/?email=${email}`, {
+    withCredentials: true,
+  });
+    return true;
+}
+catch(err){
+  return false;
+}
+}

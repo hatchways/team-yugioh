@@ -38,6 +38,9 @@ const schema = new Schema({
   subscriptionId: {
     type: String,
   },
+  photoUrl: {
+    type: String,
+  },
   isAdmin: {
     type: Boolean,
   },

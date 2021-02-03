@@ -23,8 +23,11 @@ const schema = new Schema({
     type: String,
   },
   members: {
-    type: [User],
+    type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
+  active: {
+    type: Boolean, default: true,
+  }
 });
 
 const EventType = mongoose.model("EventType", schema);

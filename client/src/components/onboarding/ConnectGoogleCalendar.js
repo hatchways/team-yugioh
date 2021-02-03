@@ -6,16 +6,16 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { useUserData } from "../../providers/Context";
 
 const ConnectGoogleCalendar = () => {
-  //styles
   const classes = useStyles();
+  const { email } = useUserData();
 
   return (
     <div className={classes.root}>
       <Typography className={classes.entryBig} variant="subtitle1">
-        Here is how CalendApp will work with john-doe@gmail.com
+        Here is how CalendApp will work with {email}
       </Typography>
 
       <Divider />
@@ -28,7 +28,7 @@ const ConnectGoogleCalendar = () => {
         className={classes.entrySmall}
       >
         <Typography>
-          1. We will check <b>john-doe@gmail.com</b> for conflicts
+          1. We will check <b>{email}</b> for conflicts
         </Typography>
         <Button className={classes.editButton}>Edit</Button>
       </Grid>
@@ -41,7 +41,7 @@ const ConnectGoogleCalendar = () => {
         spacing={0}
       >
         <Typography>
-          2. We will add event to <b>john-doe@gmail.com</b>
+          2. We will add event to <b>{email}</b>
         </Typography>
         <Button className={classes.editButton}>Edit</Button>
       </Grid>

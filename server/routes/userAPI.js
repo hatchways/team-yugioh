@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("../db/models");
 const auth = require("../middleware/auth");
-const mongoose = require("mongoose");
 
 const router = express.Router();
 
@@ -37,6 +36,35 @@ router.get("/api/user/get_url", auth, (req, res) => {
 router.post("/api/user/", auth, (req, res) => {
   db.User.updateOne({ _id: req.userId }, { $set: req.body })
     .then((response) => res.send(response))
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+});
+
+// GET user data from DB
+router.get("/api/user/data", auth, (req, res) => {
+  db.User.findOne({ _id: req.userId })
+    .then((response) => {
+      console.log(response);
+      res.send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+});
+
+// Search users
+router.post("/api/user/search", auth, (req, res) => {
+  let cleanText = req.body.query.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+  cleanText = cleanText.trim();
+  db.User.find({
+    email: RegExp("\\b" + cleanText, "i"),
+  })
+    .then((response) => {
+      res.send(response);
+    })
     .catch((error) => {
       console.log(error);
       res.status(500).send(error);

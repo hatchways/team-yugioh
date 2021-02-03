@@ -10,113 +10,116 @@ import {
   Grid,
   Input,
   InputLabel,
-  TextareaAutosize,
   Box,
   RadioGroup,
   Radio,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
-import ProfileImage from "./../../img/user-image.png";
 import Checkmark from "../../assets/check.png";
+
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
-import {debounce} from "../../utils/utils"
+import { debounce } from "../../utils/utils";
 import axios from "axios";
+import { useUserData } from "../../providers/Context";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+  },
+  dialog: {
+    overflowX: "hidden",
   },
   profileAndNewTypeBox: {
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
   },
   avatar: {
     marginRight: theme.spacing(2),
-    background: theme.palette.secondary.main
+    background: theme.palette.secondary.main,
   },
   name: {
-    fontWeight: 500
+    fontWeight: 500,
   },
   userUrl: {
-    color: "gray"
+    color: "gray",
   },
   newEventTypeButton: {
     padding: ".5rem 2rem",
     textTransform: "none",
-    marginBotton: theme.spacing(4)
+    marginBotton: theme.spacing(4),
   },
   cancel: {
     margin: theme.spacing(3, 0, 2),
     fontSize: ".8rem",
-    color: "#9e9e9e"
+    color: "#9e9e9e",
   },
   label: {
     fontWeight: "bold",
     fontSize: "0.9rem",
-    color: "rgba(0, 0, 0, 0.8)"
+    color: "rgba(0, 0, 0, 0.8)",
   },
   button: {
     background: theme.palette.primary.button,
     fontSize: ".8rem",
     color: "white",
     padding: "2% 5%",
-    margin: "5% -2% 2% 0"
+    margin: "5% -2% 2% 0",
   },
   box: {
     padding: "0 3%",
     width: "90%",
     minWidth: "90%",
     maxWidth: "90%",
-    margin: "auto"
+    margin: "auto",
   },
   inputRow: {
-    marginBottom: ".9rem"
+    marginBottom: ".9rem",
   },
   colorRow: {
-    marginTop: "6%"
+    marginTop: "6%",
   },
   formLabel: {
     margin: "7% 4% 4% 3%",
-    textAlign: "left"
+    textAlign: "left",
   },
   descriptionLabel: {
     fontWeight: "bold",
     fontSize: "0.9rem",
-    color: "rgba(0, 0, 0, 0.8)"
+    color: "rgba(0, 0, 0, 0.8)",
   },
   prefix: {
     fontSize: ".75rem",
     fontWeight: "600",
     color: "lightgrey",
     borderRight: "1px solid lightgrey",
-    textAlign: "center"
+    textAlign: "center",
   },
   link: {
     "& > * > * > input": {
-      padding: "0"
+      padding: "0",
     },
     "& > * > * > fieldset": {
-      border: "none"
-    }
+      border: "none",
+    },
   },
   singleInput: {
     border: "1px solid lightgray",
     padding: "7px 3%",
-    borderRadius: "4px"
+    borderRadius: "4px",
   },
   textArea: {
     "&::placeholder": {
       fontSize: ".8rem",
       fontWeight: "500",
       color: "lightgrey",
-      fontFamily: "sans-serif"
-    }
+      fontFamily: "sans-serif",
+    },
   },
   groupedInput: {
     border: "1px solid lightgray",
@@ -124,65 +127,65 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     margin: 0,
     "&:hover": {
-      borderColor: "black"
+      borderColor: "black",
     },
     "&:focus-within": {
       borderColor: theme.palette.primary.main,
       borderWidth: "2px",
       "& > *": {
-        margin: "-1px 0"
-      }
-    }
+        margin: "-1px 0",
+      },
+    },
   },
   color: {
     borderRadius: "50%",
     border: "1px solid #d3d3d345",
     width: "1rem",
-    height: "1rem"
+    height: "1rem",
   },
   colorButton: {
     textIndent: "-9999px",
     backgroundColor: "transparent",
-    border: "none"
+    border: "none",
   },
   purple: {
-    backgroundColor: "#7900FF"
+    backgroundColor: "#7900FF",
   },
   orange: {
-    backgroundColor: "#FF6A00"
+    backgroundColor: "#FF6A00",
   },
   green: {
-    backgroundColor: "#66CC33"
+    backgroundColor: "#66CC33",
   },
   blue: {
-    backgroundColor: "#00AAFF"
+    backgroundColor: "#00AAFF",
   },
   yellow: {
-    backgroundColor: "#FFFF00"
+    backgroundColor: "#FFFF00",
   },
   grey: {
-    backgroundColor: "#808080"
+    backgroundColor: "#808080",
   },
   endAdornment: {
-    marginRight: -22
+    marginRight: -22,
   },
   validIcon: {
     color: "green",
-    fontSize: 16
+    fontSize: 16,
   },
   invalidIcon: {
     color: "red",
-    fontSize: 16
+    fontSize: 16,
   },
   borderRed: {
-    border: "2px solid red !important"
+    border: "2px solid red !important",
   },
   "@global": {
     ".MuiFormControl-marginNormal": {
-      marginTop: "8px"
+      marginTop: "8px",
     },
     "div[class*='PrivateRadioButtonIcon'] svg": {
-      opacity: 0
+      opacity: 0,
     },
     "div[class*='PrivateRadioButtonIcon-checked-']:after": {
       content: "''",
@@ -193,15 +196,15 @@ const useStyles = makeStyles(theme => ({
       top: "-1px",
       left: "-1px",
       backgroundSize: "contain",
-      filter: `drop-shadow(1px 1px 1px #80808050)`
+      filter: `drop-shadow(1px 1px 1px #80808050)`,
     },
     "#linkGroup": {
-      padding: "6.84px 4px"
+      padding: "6.84px 4px",
     },
     "#durationGroup": {
-      padding: "3.01px 0"
-    }
-  }
+      padding: "3.01px 0",
+    },
+  },
 }));
 
 export default function EventTypesTab() {
@@ -216,14 +219,16 @@ export default function EventTypesTab() {
     duration: "",
     description: "",
     link: "",
-    color: "#FF6A00"
+    color: "#FF6A00",
   });
   const [unit, setUnit] = useState("min");
+
+  const { name, photoUrl, URL } = useUserData();
 
   useEffect(() => {
     axios
       .get("/api/event")
-      .then(res => {
+      .then((res) => {
         setUserEvents([...res.data]);
       })
       .catch((err) => console.log(err));
@@ -241,19 +246,20 @@ export default function EventTypesTab() {
   const handleClose = () => {
     setOpenNewEvent(false);
   };
-  const handleUnitChange = event => {
+  const handleUnitChange = (event) => {
     setUnit(event.target.value);
   };
-  const handleFormChange = event => {
+  const handleFormChange = (event) => {
     const { name, value } = event.target;
     setEventBody({ ...eventBody, [name]: value });
   };
 
-  const checkUnique=async (event)=>{
+  const checkUnique = async (event) => {
     try {
       const response = await axios.get(
-        `/api/event/is_unique?URL=${event.target.value}`, {
-          withCredentials: true
+        `/api/event/is_unique?URL=${event.target.value}`,
+        {
+          withCredentials: true,
         }
       );
       if (response.status === 200);
@@ -262,20 +268,17 @@ export default function EventTypesTab() {
       console.log(err);
       setUnique(false);
     }
-  
-  }
-
-
-  const debounceCheckUnique= useCallback(debounce(checkUnique, 500), []);
-
-
-  const handleLinkChange = async event => {
-    handleFormChange(event);
-    debounceCheckUnique(event);
-    
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceCheckUnique = useCallback(() => {
+    debounce(checkUnique, 500);
+  }, []);
 
+  const handleLinkChange = async (event) => {
+    handleFormChange(event);
+    debounceCheckUnique(event);
+  };
 
   function createNewEventType() {
     handleClose();
@@ -293,9 +296,9 @@ export default function EventTypesTab() {
       .post("/api/event", {
         ...eventBody,
         duration: minutes,
-        link: `${userURL}/${eventBody.link}`,
+        link: encodeURI(`${userURL}/${eventBody.link}`),
       })
-      .then(res => {
+      .then((res) => {
         const currentEventTypes = [...userEvents];
         currentEventTypes.push(res.data);
         setUserEvents(currentEventTypes);
@@ -304,10 +307,10 @@ export default function EventTypesTab() {
           duration: "",
           description: "",
           link: "",
-          color: "#FF6A00"
+          color: "#FF6A00",
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   /* USER PROFILE + NEW EVENT TYPE BTN */
@@ -318,13 +321,16 @@ export default function EventTypesTab() {
           <Box display="flex" className={classes.profileAndNewTypeBox}>
             <Avatar
               className={classes.avatar}
-              src={ProfileImage}
+              src={
+                photoUrl ||
+                "https://cal-app-user-imgs.s3.amazonaws.com/1611973087364.png"
+              }
               alt="User image"
             />
             <Box>
-              <Typography className={classes.name}>John Doe</Typography>
+              <Typography className={classes.name}>{name}</Typography>
               <Typography className={classes.userUrl}>
-                calendapp.com/john-doe
+                calendapp.com/{URL}
               </Typography>
             </Box>
           </Box>
@@ -339,14 +345,13 @@ export default function EventTypesTab() {
             </Button>
           </Box>
         </Grid>
-        {/* TYPE OF EVENT CARDS */}
         <EventGrid userEvents={userEvents} />
       </Container>
       <Dialog
         open={openNewEvent}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        classes={classes.dialog}
+        className={classes.dialog}
         fullWidth
         maxWidth="sm"
       >
@@ -410,7 +415,7 @@ export default function EventTypesTab() {
                       disableUnderline
                       inputProps={{
                         min: "1",
-                        style: { textAlign: "center" }
+                        style: { textAlign: "center" },
                       }}
                       fullWidth
                     />
@@ -454,7 +459,7 @@ export default function EventTypesTab() {
                   value={eventBody.description}
                   placeholder={`Write a summary and details about your event.
                                     
-                                    
+                     
                                     `}
                   className={classes.textArea}
                 />
@@ -486,9 +491,8 @@ export default function EventTypesTab() {
                       : classes.groupedInput
                   }
                 >
-                  {/* TODO: pass in user link prefix */}
                   <Grid xs={5} className={classes.prefix} item>
-                    calendapp.com/john-doe/
+                    calendapp.com/{URL}/
                   </Grid>
                   <Grid className={classes.link} xs={7} item>
                     <TextField
@@ -510,9 +514,11 @@ export default function EventTypesTab() {
                               ) : (
                                 <ClearIcon className={classes.invalidIcon} />
                               )
-                            ) : null}
+                            ) : (
+                              <></>
+                            )}
                           </InputAdornment>
-                        )
+                        ),
                       }}
                     />
                   </Grid>
@@ -550,8 +556,8 @@ export default function EventTypesTab() {
                       { name: "green", hex: "#66CC33" },
                       { name: "yellow", hex: "#FFFF00" },
                       { name: "orange", hex: "#FF6A00" },
-                      { name: "grey", hex: "#808080" }
-                    ].map(color => (
+                      { name: "grey", hex: "#808080" },
+                    ].map((color) => (
                       <Grid key={color.name} item>
                         <Radio
                           value={color.hex}

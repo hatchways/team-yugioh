@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   Dialog,
   makeStyles,
@@ -13,24 +14,25 @@ import {
 
 import InviteMembers from "./InviteMembers";
 import MembersToBeInvited from "./MembersToBeInvited";
+import axios from "axios";
 
 const CreateTeam = ({ open, closeDialog }) => {
   const classes = useStyles();
 
-  const createTeam = (event) => {};
+  const createTeam = () => {
+    axios
+      .post("/api/team/create", { name: teamName, members: members })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   const [teamName, setTeamName] = useState("");
+  const [members, setMembers] = useState([]);
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
   };
 
-  const [teamDescription, setDescription] = useState("");
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const [teamMembers, setTeamMembers] = useState([]);
-  // Data structure: teamMembers = [{name: <name>, email: <email>}, {}]
+  const [invites, setInvites] = useState([]);
 
   return (
     <Dialog
@@ -60,37 +62,17 @@ const CreateTeam = ({ open, closeDialog }) => {
               </Grid>
             </Grid>
 
-            <Grid item container>
-              <Grid item xs={2}>
-                <InputLabel className={classes.descriptionLabel}>
-                  Description
-                </InputLabel>
-              </Grid>
-              <Grid item xs={10}>
-                <TextField
-                  value={teamDescription}
-                  onChange={handleDescriptionChange}
-                  fullWidth
-                  variant="outlined"
-                  multiline
-                  rows={4}
-                  margin="normal"
-                />
-              </Grid>
-            </Grid>
-
             <Grid item>
               <InviteMembers
-                setTeamMembers={setTeamMembers}
-                teamMembers={teamMembers}
+                setInvites={setInvites}
+                invites={invites}
+                members={members}
+                setMembers={setMembers}
               />
             </Grid>
 
             <Grid item>
-              <MembersToBeInvited
-                teamMembers={teamMembers}
-                setTeamMembers={setTeamMembers}
-              />
+              <MembersToBeInvited invites={invites} setInvites={setInvites} />
             </Grid>
           </Grid>
         </DialogContent>
@@ -140,5 +122,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#9e9e9e",
   },
 }));
+
+CreateTeam.propTypes = {
+  open: PropTypes.bool,
+  closeDialog: PropTypes.func,
+};
 
 export default CreateTeam;
