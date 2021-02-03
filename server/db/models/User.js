@@ -30,7 +30,7 @@ const schema = new Schema({
     type: String,
   },
   availableTime: {
-    type: Mixed, // {start: "HH:MM", end: "HH:MM"}
+    type: mongoose.Schema.Types.Mixed, // {start: "HH:MM", end: "HH:MM"}
   },
   availableDays: {
     type: [Number], // Number indicates day of week. 0: Sunday, 6: Saturday
