@@ -41,7 +41,7 @@ router.post("/api/team-event", async (req, res) => {
     ];
     const eventName = 'The best event ever'
     const newEventTypeObj = {
-      members: emailsArrOfObjects,
+      members: emails,
       name: eventName
     };
     console.log(newEventTypeObj)
