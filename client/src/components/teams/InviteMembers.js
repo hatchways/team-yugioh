@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
-  Button,
   Grid,
   InputLabel,
   TextField,
@@ -30,7 +29,7 @@ const InviteMembers = ({ setInvites, invites, setMembers }) => {
             const typedEmail = event.target.value;
             if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(typedEmail)) {
               setQueryResults([typedEmail]);
-            } 
+            }
           }
         });
     } else {
@@ -39,15 +38,14 @@ const InviteMembers = ({ setInvites, invites, setMembers }) => {
   };
 
   const handleMemberChange = (event, value) => {
-    if(registered){
+    if (registered) {
       setMembers(value);
-    }else{
+    } else {
       setInvites([...invites, value[value.length - 1]]);
       value.pop();
-      setRegistered(true)
+      setRegistered(true);
     }
-  }
-
+  };
 
   return (
     <Grid container alignItems="center">
@@ -78,7 +76,6 @@ const InviteMembers = ({ setInvites, invites, setMembers }) => {
     </Grid>
   );
 };
-
 
 const useStyles = makeStyles(() => ({
   label: {

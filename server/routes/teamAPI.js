@@ -8,18 +8,18 @@ const router = express.Router();
 // req.body: { name: name, members: [email:string] }
 router.post("/api/team/create", auth, async (req, res) => {
   let team;
-  const findMembers = req.body.members.map(email => {
-    return db.User.findOne({email: email})
-  })
-  
+  const findMembers = req.body.members.map((email) => {
+    return db.User.findOne({ email: email });
+  });
+
   try {
     let results = await Promise.allSettled(findMembers);
-    team = results.map(result => result.value._id);
+    team = results.map((result) => result.value._id);
+    // adding member creating the team
     team.push(req.userId);
-    let response = await db.Team.create({name: req.body.name, members: team});
+    let response = await db.Team.create({ name: req.body.name, members: team });
     res.send(response);
-    console.log(team);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     res.status(500).send(error);
   }
