@@ -29,6 +29,12 @@ const schema = new Schema({
   URL: {
     type: String,
   },
+  availableTime: {
+    type: Mixed, // {start: "HH:MM", end: "HH:MM"}
+  },
+  availableDays: {
+    type: [Number], // Number indicates day of week. 0: Sunday, 6: Saturday
+  },
   subscribed: {
     type: Boolean,
   },
