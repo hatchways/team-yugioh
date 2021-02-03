@@ -21,6 +21,14 @@ const UPDATE_USER_EMAILS = [
 
 const EVENT_TYPE_ID = "601ad52cab1b025396682324";
 
+const NON_TEAM_EMAILS = [
+  "asdfsdf@ggg.ca",
+  "effffff@erer.com",
+  "mattcharlesh@gmail.com",
+]
+
+
+
 // 1 - Create a new team event type
 router.post("/api/team-event", async (req, res) => {
   // RECIEVE: a name, description, array of emails
@@ -100,11 +108,8 @@ router.put("/api/team-event/update-members/", async (req, res) => {
 router.delete("/api/team-event/delete/:id", (req, res) => {
   // deleting a record
   db.EventType.findOneAndRemove({ _id: req.params.id })
-    .then((eventType) => {
-      if (!eventType) {
-        res.status(404).send();
-      }
-      res.send("Deleted team event type");
+    .then((data) => {
+      res.send(data);
     })
     .catch((err) => {
       res.status(400).send(err);
