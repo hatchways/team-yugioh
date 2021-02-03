@@ -6,7 +6,7 @@ const router = express.Router();
 
 // 1 - Create a new team event type
 router.post("/api/team-event/create", async (req, res) => {
-  // Request: {name:eventName, teamName, emails:[array]}
+  // Request: {name:eventName, teamName, emails:[array], ...}
 
   try {
     const invitedUserIds = await db.User.find({
@@ -36,6 +36,8 @@ router.post("/api/team-event/create", async (req, res) => {
       members: invitedUserIdsClean,
       ...req.body
     };
+    delete newEventTypeObj.teamName;
+
 
     const data = await db.EventType.create(newEventTypeObj);
     
@@ -99,7 +101,6 @@ router.delete("/api/team-event/delete/", (req, res) => {
 });
 
 // 4 - Update an event type
-// did not add checking for valid users on the team
 router.post("/api/team-event/update-event/", async (req, res) => {
   try {
     const data = await db.EventType.updateOne(
