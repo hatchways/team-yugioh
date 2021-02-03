@@ -7,8 +7,8 @@ const loginPageTitle = "Log into your account";
 
 describe("Display login, sign up pages", () => {
   beforeEach(() => {
-    cy.interceptApiAuthTestWithFailureResponse();
-    cy.interceptApiUserDataWithFailureResponse();
+    cy.interceptAuthTestWithFailureResponse();
+    cy.interceptUserDataWithFailureResponse();
     cy.visit("/login");
   });
 
@@ -23,5 +23,27 @@ describe("Display login, sign up pages", () => {
     cy.url().should("equal", `${baseUrl}/signup`);
     cy.contains("Login").click();
     cy.contains(loginPageTitle);
+  });
+});
+
+describe("Unauthenticated page returns to login", () => {
+  beforeEach(() => {
+    cy.interceptAuthTestWithFailureResponse();
+    cy.interceptUserDataWithFailureResponse();
+  });
+
+  it("navigate to home page", () => {
+    cy.visit("/home");
+  });
+});
+
+describe("Authenticated app root page", () => {
+  beforeEach(() => {
+    cy.interceptAuthTestWithSuccessResponse();
+  });
+
+  it("redirect to home page", () => {
+    cy.visit("/");
+    cy.contains("Event Types");
   });
 });
