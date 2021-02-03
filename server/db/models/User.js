@@ -31,11 +31,9 @@ const schema = new Schema({
   },
   availableTime: {
     type: mongoose.Schema.Types.Mixed, // {start: "HH:MM", end: "HH:MM"}
-    default: { start: "", end: "" },
   },
   availableDays: {
     type: [Number], // Number indicates day of week. 0: Sunday, 6: Saturday
-    default: [],
   },
   subscribed: {
     type: Boolean,
