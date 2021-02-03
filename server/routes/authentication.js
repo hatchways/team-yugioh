@@ -128,9 +128,7 @@ router.get("/api/authentication/logout", (req, res) => {
 router.get("/api/authentication/checkemail", async (req, res) => {
   const email = req.query.email;
   try {
-    console.log(email);
     const userWemail = await User.find({ email: email });
-    console.log(userWemail);
     if (userWemail.length > 0) res.status(200).send();
     else res.status(400).send();
   } catch (err) {
