@@ -72,12 +72,12 @@ export default function EventCard({
   });
   const classes = useStyles();
 
-  const TurnOnBtn = withStyles({
+  const DeleteBtn = withStyles({
     root: {
       color: "white",
-      backgroundColor: indigo[400],
+      backgroundColor: grey[600],
       "&:hover": {
-        backgroundColor: indigo[700],
+        backgroundColor: grey[800],
       },
       textTransform: "none",
       height: 32,
@@ -178,13 +178,13 @@ export default function EventCard({
                   </Button>
                 </CopyToClipboard>
               ) : (
-                <TurnOnBtn
+                <DeleteBtn
                   variant="outlined"
                   size="small"
                   onClick={handleSwitch}
                 >
-                  Turn on
-                </TurnOnBtn>
+                  Delete
+                </DeleteBtn>
               )}
             </Grid>
           </CardActions>
