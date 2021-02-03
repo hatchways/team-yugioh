@@ -49,7 +49,7 @@ describe("Authenticated app root page", () => {
   });
 });
 
-describe.only("Log out the app", () => {
+describe("Log out the app", () => {
   beforeEach(() => {
     cy.interceptAuthTestWithSuccessResponse();
     cy.interceptUserDataWithSuccessResponse();
