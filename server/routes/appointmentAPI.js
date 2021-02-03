@@ -54,13 +54,7 @@ router.get("/api/all-appointments", auth, async (req, res) => {
     const appointmentsWithEventDetailsPromise = appointments.map(
       async (appointment) => {
         const eventDetails = await getEventDetailViaId(appointment.eventId);
-        // Order matters, both of them contain a `name` key,
-        // in eventDetails, that's the event's name,
-        // in appointment, that's the attendee's name
-        // I will save only the attendee's name
-        // Also, mongoose query returned object is not a regular object
-        // need to convert before spreading
-        // big pain
+        // spread eventDetails first because of duplicate keys
         return {
           ...eventDetails.toObject(),
           ...appointment.toObject(),
