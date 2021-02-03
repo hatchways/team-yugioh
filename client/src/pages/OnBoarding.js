@@ -5,7 +5,7 @@ import {
   makeStyles,
   Typography,
   Divider,
-  Button
+  Button,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScrean";
@@ -31,7 +31,7 @@ const OnBoarding = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get("/api/user/get_url", { withCredentials: true }).then(res => {
+    axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
       setLoading(false);
       if (res.data !== "") {
         setOnboarded(true);
@@ -40,11 +40,14 @@ const OnBoarding = () => {
   }, []);
 
   const handleButtonClick = () => {
-    setPage(page + 1);
+    setPage(Math.min(3, page + 1)); // don't go over page 3
     if (page === 3) {
-      axios
-        .post("/api/user/", { URL: url, timezone: timezone })
-        .then(() => setOnboarded(true));
+      console.log("starthour", startHour);
+      console.log("finish hour", finishHour);
+      console.log("days", days);
+      // axios
+      //   .post("/api/user/", { URL: url, timezone: timezone })
+      //   .then(() => setOnboarded(true));
     }
   };
 
@@ -94,7 +97,6 @@ const OnBoarding = () => {
                 setDays={setDays}
               />
             )}
-            {page === 4 && <Redirect to="/home" />}
             <Grid container justify="center">
               <Button
                 color="primary"
@@ -112,20 +114,20 @@ const OnBoarding = () => {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative"
+    position: "relative",
   },
   topContent: {
     padding: "2em",
-    height: "6em"
+    height: "6em",
   },
   paper: {
     margin: "8% auto",
-    width: "30em"
+    width: "30em",
   },
   gridForMainContent: {
-    height: "100%"
+    height: "100%",
   },
   button: {
     background: theme.palette.primary.button,
@@ -133,12 +135,12 @@ const useStyles = makeStyles(theme => ({
     padding: "15px 50px 15px 50px",
     position: "absolute",
     bottom: "2em",
-    width: "3em"
+    width: "3em",
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.common.white
-  }
+    color: theme.palette.common.white,
+  },
 }));
 
 export default OnBoarding;
