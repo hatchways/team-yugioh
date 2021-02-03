@@ -17,7 +17,6 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 
 import axios from "axios";
 import EventNotActivePage from "../pages/EventNotActivePage";
-import { useUserData } from "../providers/Context";
 
 const Scheduler = () => {
   const classes = useStyles();
