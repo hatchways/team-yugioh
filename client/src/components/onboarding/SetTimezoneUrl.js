@@ -82,20 +82,18 @@ const SetTimezoneUrl = (props) => {
               fullWidth
               error={!unique}
               InputProps={{
-                endAdornment: (
+                endAdornment: url.length ? (
                   <InputAdornment
                     position="start"
                     classes={{ positionStart: classes.endAdornment }}
                   >
-                    {url.length > 0 ? (
-                      unique ? (
-                        <DoneIcon className={classes.validIcon} />
-                      ) : (
-                        <ClearIcon className={classes.invalidIcon} />
-                      )
-                    ) : null}
+                    {unique ? (
+                      <DoneIcon className={classes.validIcon} />
+                    ) : (
+                      <ClearIcon className={classes.invalidIcon} />
+                    )}
                   </InputAdornment>
-                ),
+                ) : undefined,
               }}
             />
           </Grid>
