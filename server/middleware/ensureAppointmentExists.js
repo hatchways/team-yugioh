@@ -1,4 +1,4 @@
-const validateObjId = require("mongoose").Types.ObjectId;
+const isObjectIdValid = require("mongoose").Types.ObjectId.isValid;
 const dbAppointment = require("../db/models/Appointment");
 
 const ensureAppointmentExists = async (req, res, next) => {
@@ -38,9 +38,10 @@ const ensureAppointmentExists = async (req, res, next) => {
   }
 };
 
-// throw an error if the string is not in valid object id format
+// throw an error if the string is not in valid object id format (valid if
+// it is a 12 characters long string)
 const stringIsValidObjectId = (stringValue) => {
-  if (!validateObjId(stringValue)) {
+  if (!isObjectIdValid(stringValue)) {
     throw new Error("invalidObjId");
   }
 };
