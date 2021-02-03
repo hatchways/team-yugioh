@@ -17,20 +17,22 @@ const UPDATE_USER_EMAILS = [
   "mattcharlesh@gmail.com",
   "kozaktaras15@gmail.com",
   "alvyjudy@gmail.com",
+  "daniel@hatchways.io"
 ];
 
-const EVENT_TYPE_ID = "601ad52cab1b025396682324";
+const EVENT_TYPE_ID = "601af6fce7743b6d7b22eb15";
 
 const NON_TEAM_EMAILS = [
   "asdfsdf@ggg.ca",
   "effffff@erer.com",
   "mattcharlesh@gmail.com",
+  "sdfsdfsdf@ddfd.ca"
 ]
 
 
 
 // 1 - Create a new team event type
-router.post("/api/team-event", async (req, res) => {
+router.post("/api/team-event/create", async (req, res) => {
   // RECIEVE: a name, description, array of emails
 
   try {
@@ -43,13 +45,15 @@ router.post("/api/team-event", async (req, res) => {
       { members: 1 }
     );
 
-    if (teamUserIds.members.length !== invitedUserIdsClean.length) {
+    if (EMAILS.length > invitedUserIdsClean.length) {
+      console.log('there are more emails then valid users found so some of the email are not users')
       res.status(400).send();
       return;
     }
 
     invitedUserIdsClean.forEach((member) => {
       if (!teamUserIds.members.includes(member)) {
+        console.log('one or more of the invited emails are users but are not in this team')
         res.status(400).send();
         return;
       }
@@ -78,15 +82,21 @@ router.put("/api/team-event/update-members/", async (req, res) => {
       email: { $in: UPDATE_USER_EMAILS }, // change to req.body.teamName
     });
     const updatedUserIdsClean = updatedUserIds.map((usr) => usr._id);
-    console.log(updatedUserIdsClean);
 
     const teamUserIds = await db.Team.findOne(
       { name: TEAM_NAME }, // change to req.body.teamName
       { members: 1 }
     );
 
+    if (UPDATE_USER_EMAILS.length > updatedUserIdsClean.length) {
+      console.log('there are more emails then valid users found so some of the email are not users')
+      res.status(400).send();
+      return;
+    }
+
     updatedUserIdsClean.forEach((member) => {
       if (!teamUserIds.members.includes(member)) {
+        console.log('one or more of the invited emails are users but are not in this team')
         res.status(400).send();
         return;
       }
@@ -105,9 +115,9 @@ router.put("/api/team-event/update-members/", async (req, res) => {
 });
 
 // 3 - Delete an event type
-router.delete("/api/team-event/delete/:id", (req, res) => {
+router.delete("/api/team-event/delete/", (req, res) => {
   // deleting a record
-  db.EventType.findOneAndRemove({ _id: req.params.id })
+  db.EventType.findOneAndRemove({ _id: req.body.id })
     .then((data) => {
       res.send(data);
     })
@@ -117,11 +127,11 @@ router.delete("/api/team-event/delete/:id", (req, res) => {
 });
 
 // 4 - Update an event type
-router.post("/api/team-event/update-event/:id", async (req, res) => {
+router.post("/api/team-event/update-event/", async (req, res) => {
   const updatedEventObj = { name: "NO YEAH TEAM", color: "green" };
   try {
     const data = await db.EventType.updateOne(
-      { _id: req.params.id },
+      { _id: req.body.id },
       { $set: updatedEventObj } //change to req.body
     ); 
     res.send(data);

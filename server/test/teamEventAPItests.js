@@ -5,34 +5,37 @@ const app = require("../app.js");
 chai.should();
 chai.use(chaiHttp);
 
-const user1 = {
-  _id: "600817aa8a879f137234447b",
-  name: "test subject",
-  email: "test@gmail.com",
-};
-const user2 = {
-  _id: "600817e2420075139bba2a13",
-  name: "test subject",
-  email: "test2@gmail.com",
-};
+const EMAILS = [
+  "mattcharlesh@gmail.com",
+  "kozaktaras15@gmail.com",
+  "uesttser@gmail.com",
+  "alvyjudy@gmail.com",
+];
 
-const user3 = {
-  _id:"6008a3e03d7fa706967aa202",email:"mattcharlesh@gmail.com",name:"Matt H"}
+const TEAM_NAME = "Team Yu Gi Oh";
 
-const user4 = { _id:"600abd338b4a2e049404b3e5",email:"kozaktaras15@gmail.com",name:"Taras Kozak"
-}
+const UPDATE_USER_EMAILS = [
+  "mattcharlesh@gmail.com",
+  "kozaktaras15@gmail.com",
+  "alvyjudy@gmail.com",
+  "daniel@hatchways.io"
+];
 
-const newTeamEventObj = {
-  duration: 20,
-  name: "New Team",
-  members: [user3, user4],
-};
+const EVENT_TYPE_ID = "601af6fce7743b6d7b22eb15";
+
+const NON_TEAM_EMAILS = [
+  "asdfsdf@ggg.ca",
+  "effffff@erer.com",
+  "mattcharlesh@gmail.com",
+  "sdfsdfsdf@ddfd.ca"
+]
+
 
 describe("/POST Create New Team Event ", () => {
   it("it should return 200", (done) => {
     chai
       .request(app)
-      .post(`/api/team-event/`)
+      .post(`/api/team-event/create`)
       .send(newTeamEventObj)
       .end((err, res) => {
         res.should.have.status(200);
