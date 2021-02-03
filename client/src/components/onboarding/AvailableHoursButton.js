@@ -1,14 +1,16 @@
 import React from "react";
 import { TextField, MenuItem, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
+import { format, parse } from "date-fns";
 
 const timeSlots = [];
 for (let i = 0; i < 24; i++) {
   const hour = i < 10 ? "0" + i.toString() : i.toString();
-  timeSlots.push(hour + ":00" + min);
+  timeSlots.push(hour + ":00");
 }
 
 const AvailableHoursBtn = (props) => {
+  const currentDate = new Date();
   const setHour = props.setHour;
   const hour = props.hour;
 
@@ -27,11 +29,12 @@ const AvailableHoursBtn = (props) => {
       variant="outlined"
       size="small"
     >
-      {timeSlots.map((time, i) => {
+      {timeSlots.map((time) => {
+        const parsedTime = parse(time, "HH:mm", currentDate);
+        const formattedTime = format(parsedTime, "h:mm b");
         return (
-          <MenuItem key={i} value={time}>
-            {`${time.slice(0, 1)}${time.slice(1, 2)} : 
-            ${time.slice(2, 3)}${time.slice(3, 4)}`}
+          <MenuItem key={time} value={time}>
+            {formattedTime}
           </MenuItem>
         );
       })}
