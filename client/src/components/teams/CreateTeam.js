@@ -66,6 +66,7 @@ const CreateTeam = ({ open, closeDialog }) => {
               <InviteMembers
                 setInvites={setInvites}
                 invites={invites}
+                members={members}
                 setMembers={setMembers}
               />
             </Grid>

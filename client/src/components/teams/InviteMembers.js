@@ -10,7 +10,7 @@ import {
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 
-const InviteMembers = ({ setInvites, invites, setMembers }) => {
+const InviteMembers = ({ setInvites, invites, members, setMembers }) => {
   const classes = useStyles();
 
   const [queryResults, setQueryResults] = useState([]);
@@ -57,6 +57,7 @@ const InviteMembers = ({ setInvites, invites, setMembers }) => {
           multiple
           freeSolo
           options={queryResults}
+          value={members}
           onChange={handleMemberChange}
           onInputChange={handleEmailChange}
           renderTags={(value, getTagProps) =>
