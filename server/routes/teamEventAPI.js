@@ -11,7 +11,15 @@ const EMAILS = [
   "alvyjudy@gmail.com",
 ];
 
-const TEAMNAME = "Team Yu Gi Oh";
+const TEAM_NAME = "Team Yu Gi Oh";
+
+const UPDATE_USER_EMAILS  = [
+  "mattcharlesh@gmail.com",
+  "kozaktaras15@gmail.com",
+  "alvyjudy@gmail.com",
+];
+
+const EVENT_TYPE_ID = "601ad52cab1b025396682324"
 
 // 1 - Create a new team event type
 router.post("/api/team-event", async (req, res) => {
@@ -23,7 +31,7 @@ router.post("/api/team-event", async (req, res) => {
     });
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
     const teamUserIds = await db.Team.findOne(
-      { name: TEAMNAME },
+      { name: TEAM_NAME },
       { members: 1 }
     );
 
@@ -42,7 +50,8 @@ router.post("/api/team-event", async (req, res) => {
     const eventName = 'The best event ever'
     const newEventTypeObj = {
       members: invitedUserIdsClean,
-      name: eventName
+      name: eventName //change to req.body.eventName
+
     };
     
 
@@ -56,36 +65,30 @@ router.post("/api/team-event", async (req, res) => {
 });
 
 // 2 - Add or remove members from an event type
-router.put("/api/team-event/members", async (req, res) => {
+router.put("/api/team-event/update-members/", async (req, res) => {
   // RECIEVE an updated team member object
-  
   try {
-    const invitedUserIds = await db.User.find({
-      email: { $in: EMAILS },
+    const updatedUserIds = await db.User.find({
+      email: { $in: UPDATE_USER_EMAILS }, // change to req.body.teamName
     });
-    const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
-    console.log(invitedUserIds)
+    const updatedUserIdsClean = updatedUserIds.map((usr) => usr._id);
+    console.log(updatedUserIdsClean)
+
     const teamUserIds = await db.Team.findOne(
-      { name: TEAMNAME },
+      { name: TEAM_NAME }, // change to req.body.teamName
       { members: 1 }
     );
 
-    invitedUserIdsClean.forEach((member) => {
-      if (!teamUserIds.members.includes(member)) res.status(400).send();
+    updatedUserIdsClean.forEach((member) => {
+      if (!teamUserIds.members.includes(member)){
+        res.status(400).send();
+        return;
+      } 
     });
-   
-    const eventName = 'The best event ever'
-
-    // includes emails or ids?
-    const updatedMembersObj = {
-      members: emails,
-      name: eventName
-    };
 
     const data = await db.EventType.updateOne(
-      { _id: req.body.id },
-      { members: req.body.members },
-      { overwrite: true }
+      { _id: EVENT_TYPE_ID}, // change to req.params.id
+      { members: updatedUserIdsClean },
     )
     
     res.send(data);
@@ -96,7 +99,7 @@ router.put("/api/team-event/members", async (req, res) => {
 });
 
 // 3 - Delete an event type
-router.delete("/api/team-event/:id", (req, res) => {
+router.delete("/api/team-event/delete/:id", (req, res) => {
   // deleting a record
   db.EventType.findOneAndRemove({ _id: req.params.id })
     .then((eventType) => {
@@ -111,7 +114,7 @@ router.delete("/api/team-event/:id", (req, res) => {
 });
 
 // 4 - Update an event type
-router.post("/api/team-event/:id", (req, res) => {
+router.post("/api/team-event/update-event/:id", (req, res) => {
   db.EventType.updateOne({ _id: req.params.id }, { $set: req.body })
     .then((eventType) => {
       if (!eventType) {
