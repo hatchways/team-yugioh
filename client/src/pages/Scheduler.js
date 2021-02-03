@@ -17,6 +17,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 
 import axios from "axios";
 import EventNotActivePage from "../pages/EventNotActivePage";
+import { useUserData } from "../providers/Context";
 
 const Scheduler = () => {
   const classes = useStyles();
@@ -38,6 +39,8 @@ const Scheduler = () => {
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
 
   //this will be fetched from the server
+  const userData = useUserData();
+  console.log("data", userData);
   const availTimes = { start: "09:00", end: "17:00" };
   const availDates = [1, 2, 3, 4, 5];
   //this will be set when picking event type --> pulled from context?
