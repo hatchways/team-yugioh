@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("../db/models");
 const getAvailability = require("../utils/googleCalendarUtils");
+import { format } from "date-fns";
 
 const router = new express.Router();
 
@@ -13,6 +14,9 @@ router.post("/api/calendar/availability", async (req, res) => {
   } else {
     try {
       const usr = await db.User.findById(req.body.members[0]);
+      // check if day is available
+
+      // check if time is available
       const tokenStore = await db.AuthStore.findOne({ email: usr.email });
       const authToken = tokenStore.googleAuthToken;
       const availability = await getAvailability(authToken, day);
