@@ -28,6 +28,8 @@ export default function EventCard({
   _id,
 }) {
   const [eventActive, setEventActive] = useState(active);
+  const [switchToggle, setSwitchToggle] = useState(active);
+
   const useStyles = makeStyles({
     root: {
       "&:hover": {
@@ -99,7 +101,12 @@ export default function EventCard({
         active: !eventActive,
         eventId: _id,
       })
-      .then(() => setEventActive(!eventActive))
+      .then(() => {
+        setSwitchToggle(!switchToggle);
+        setTimeout(() => {
+          setEventActive(!eventActive);
+        }, 300);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -123,7 +130,7 @@ export default function EventCard({
                       <Switch
                         size="small"
                         color="primary"
-                        checked={eventActive}
+                        checked={switchToggle}
                         onChange={handleSwitch}
                       />
                     }
