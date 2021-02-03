@@ -8,15 +8,16 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-const week = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const daysOfWeek = [0, 1, 2, 3, 4, 5, 6];
+const nameOfDay = {
+  0: "Sunday",
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+};
 
 const AvailableDays = (props) => {
   const classes = useStyles();
@@ -36,13 +37,13 @@ const AvailableDays = (props) => {
       justify="space-between"
       className={classes.daysGrid}
     >
-      {week.map((item, i) => {
+      {daysOfWeek.map((day) => {
         return (
           <FormControlLabel
-            key={i}
+            key={day}
             label={
               <Typography variant="subtitle2" className={classes.labelText}>
-                {item}
+                {nameOfDay[day]}
               </Typography>
             }
             labelPlacement="bottom"
@@ -50,9 +51,9 @@ const AvailableDays = (props) => {
             control={
               <Checkbox
                 className={classes.eachDay}
-                checked={days[item] || false}
+                checked={days[day] || false}
                 onChange={selectDay}
-                name={item}
+                name={day}
                 color="primary"
               />
             }
