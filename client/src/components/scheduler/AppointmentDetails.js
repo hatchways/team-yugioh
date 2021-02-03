@@ -15,6 +15,7 @@ import BackArrow from "../../assets/back.svg";
 const AppointmentDetails = ({
   appointmentDetails,
   setAppointmentDetails,
+  eventDetails,
   path,
   setAppointmentConfirmed,
 }) => {
@@ -34,7 +35,15 @@ const AppointmentDetails = ({
     }
 
     try {
-      await axios.post("/api/email", { email: appointmentDetails.email });
+      await axios.post("/api/email", {
+        email: appointmentDetails.email,
+        eventName: eventDetails.name,
+        time: appointmentDetails.time,
+        // TODO: get host name
+        host: "T Est",
+        appointmentId: res.data._id,
+        name: appointmentDetails.name,
+      });
     } catch (err) {
       console.log(err);
     }

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon ./bin/www",
     "debug": "nodemon  --inspect ./bin/www",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --exit --timeout 30000"
+    "test": "./node_modules/.bin/mocha --exit --timeout 30000"
   },
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -26,6 +26,7 @@
     "multer-s3": "^2.9.0",
     "njwt": "^1.0.0",
     "nodemon": "^2.0.6",
+    "request": "^2.88.2",
     "stripe": "^8.132.0"
   },
   "devDependencies": {
