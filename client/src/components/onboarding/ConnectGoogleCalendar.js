@@ -30,7 +30,6 @@ const ConnectGoogleCalendar = () => {
         <Typography>
           1. We will check <b>{email}</b> for conflicts
         </Typography>
-        <Button className={classes.editButton}>Edit</Button>
       </Grid>
 
       <Grid
@@ -43,7 +42,6 @@ const ConnectGoogleCalendar = () => {
         <Typography>
           2. We will add event to <b>{email}</b>
         </Typography>
-        <Button className={classes.editButton}>Edit</Button>
       </Grid>
 
       <Divider />
