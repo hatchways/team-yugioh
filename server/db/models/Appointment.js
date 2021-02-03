@@ -7,7 +7,7 @@ const schema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
   },
   hostUserId: {
-    type: String, // Using string type here to prevent type conversion error since all we care if whether a given id value matches it
+    type: mongoose.Schema.Types.ObjectId,
   },
   name: {
     type: String,
