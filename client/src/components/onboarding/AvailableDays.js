@@ -24,7 +24,6 @@ const AvailableDays = (props) => {
 
   const days = props.days;
   const setDays = props.setDays;
-  console.log("days", days);
   const selectDay = (event) => {
     const day = parseInt(event.target.name);
     const index = days.indexOf(day);
