@@ -40,10 +40,25 @@ describe("Unauthenticated page returns to login", () => {
 describe("Authenticated app root page", () => {
   beforeEach(() => {
     cy.interceptAuthTestWithSuccessResponse();
+    cy.interceptUserDataWithSuccessResponse();
   });
 
   it("redirect to home page", () => {
     cy.visit("/");
     cy.contains("Event Types");
+  });
+});
+
+describe.only("Log out the app", () => {
+  beforeEach(() => {
+    cy.interceptAuthTestWithSuccessResponse();
+    cy.interceptUserDataWithSuccessResponse();
+    cy.visit("/");
+  });
+
+  it("click on the log out button", () => {
+    cy.get("[data-cy=userMenu]").click();
+    cy.contains("Logout").click();
+    cy.contains(loginPageTitle);
   });
 });
