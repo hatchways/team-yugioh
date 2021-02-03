@@ -24,9 +24,9 @@ const OnBoarding = () => {
 
   const [url, setUrl] = useState("");
   const [timezone, setTimezone] = useState("");
-  const [startHour, setStartHour] = useState("");
-  const [finishHour, setFinishHour] = useState("");
-  const [days, setDays] = useState({});
+  const [startHour, setStartHour] = useState(""); //HH:MM
+  const [finishHour, setFinishHour] = useState(""); //HH:MM
+  const [days, setDays] = useState([]); //{0: bool, 1: bool, ..., 6: bool}
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -42,12 +42,15 @@ const OnBoarding = () => {
   const handleButtonClick = () => {
     setPage(Math.min(3, page + 1)); // don't go over page 3
     if (page === 3) {
-      console.log("starthour", startHour);
-      console.log("finish hour", finishHour);
-      console.log("days", days);
-      // axios
-      //   .post("/api/user/", { URL: url, timezone: timezone })
-      //   .then(() => setOnboarded(true));
+      const availableTime = { start: startHour, end: finishHour };
+      axios
+        .post("/api/user/", {
+          URL: url,
+          timezone: timezone,
+          availableTime,
+          availableDays: days,
+        })
+        .then(() => setOnboarded(true));
     }
   };
 
