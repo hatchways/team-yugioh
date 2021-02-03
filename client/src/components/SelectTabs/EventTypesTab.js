@@ -296,7 +296,7 @@ export default function EventTypesTab() {
       .post("/api/event", {
         ...eventBody,
         duration: minutes,
-        link: `${userURL}/${eventBody.link}`,
+        link: encodeURI(`${userURL}/${eventBody.link}`),
       })
       .then((res) => {
         const currentEventTypes = [...userEvents];
@@ -342,7 +342,6 @@ export default function EventTypesTab() {
             </Button>
           </Box>
         </Grid>
-        {/* TYPE OF EVENT CARDS */}
         <EventGrid userEvents={userEvents} />
       </Container>
       <Dialog
