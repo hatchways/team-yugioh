@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Tooltip from "@material-ui/core/Tooltip";
 import Switch from "@material-ui/core/Switch";
 import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange, grey, indigo } from "@material-ui/core/colors";
@@ -71,7 +72,7 @@ export default function EventCard({
     },
   });
   const classes = useStyles();
-
+// CUSTOM BTN
   const DeleteBtn = withStyles({
     root: {
       color: "white",
@@ -85,6 +86,15 @@ export default function EventCard({
       marginRight: "4px",
     },
   })(Button);
+// CUSTOM Tooltip
+  const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: theme.palette.common.white,
+      color: 'rgba(0, 0, 0, 0.87)',
+      boxShadow: theme.shadows[1],
+      fontSize: 11,
+    },
+  }))(Tooltip);
 
   const invitationLink = "http://localhost:3000/appt/" + link; // needs improvement
   const [copied, setCopied] = useState(false);
@@ -123,22 +133,18 @@ export default function EventCard({
                 justify="flex-end"
                 className={classes.cardContentTop}
               >
-                {eventActive ? (
-                  <FormControlLabel
-                    labelPlacement="start"
-                    control={
+                <LightTooltip title="Turn On/Off" placement="bottom">
+            
+          
+                  
                       <Switch
                         size="small"
                         color="primary"
                         checked={switchToggle}
                         onChange={handleSwitch}
                       />
-                    }
-                    label="On/Off"
-                  />
-                ) : (
-                  <div className={classes.space}></div>
-                )}
+                   </LightTooltip>
+                
               </Grid>
               <Grid className={classes.titleBox}>
                 <Typography variant="h5">
