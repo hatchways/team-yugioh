@@ -20,9 +20,6 @@ const schema = new Schema({
     googleAuthToken: {
         type: Schema.Types.Mixed,
     },
-    refreshToken: {
-        type: Schema.Types.Mixed,
-    },
 });
 
 const User = mongoose.model("AuthenticationStore", schema);

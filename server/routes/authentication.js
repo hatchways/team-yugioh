@@ -83,14 +83,14 @@ router.post("/api/authentication/google", async (req, res) => {
     const authRecord = await AuthStore.find({
       email: userInfo.payload.email,
     });
-    if (authRecord) {
-      await AuthStore.update(
-        { email },
-        {
-          authenticationTokenGoogle: tokens.access_token,
-          refreshToken: tokens.refresh_token,
-        }
-      );
+    if (authRecord.length>0) {
+      // await AuthStore.update(
+      //   { email },
+      //   {
+      //     authenticationTokenGoogle: tokens.access_token,
+      //     refreshToken: tokens.refresh_token,
+      //   }
+      // );
       res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
       res.status(201).send(jwtCompact);
       return;
@@ -98,8 +98,7 @@ router.post("/api/authentication/google", async (req, res) => {
     //save authentication tokens
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
-      authenticationTokenGoogle: tokens.access_token,
-      refreshToken: tokens.refresh_token,
+      googleAuthToken: token
     });
 
     try {
