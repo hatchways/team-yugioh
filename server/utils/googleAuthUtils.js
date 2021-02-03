@@ -32,10 +32,10 @@ function generateAuthUrl() {
     prompt: "select_account"
   };
 
-  if(process.env.FORCE_CONSENT== 'true'){
-    settings.prompt="consent"
+  if (process.env.FORCE_CONSENT == "true") {
+    settings.prompt = "consent";
   }
-  
+
   const authUrl = oAuth2Client.generateAuthUrl(settings);
   return authUrl;
 }

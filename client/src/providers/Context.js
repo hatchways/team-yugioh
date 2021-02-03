@@ -56,16 +56,18 @@ export const UserContextProvider = ({ children }) => {
 
   // Gets User Data from DB
   useEffect(() => {
-    axios
-      .get("/api/user/data")
-      .then((res) => {
-        setUserData(res.data);
-        setDataLoading(false);
-      })
-      .catch(() => {
-        setDataLoading(false);
-      });
-  }, []);
+    if (authenticated) {
+      axios
+        .get("/api/user/data")
+        .then(res => {
+          setUserData(res.data);
+          setDataLoading(false);
+        })
+        .catch(() => {
+          setDataLoading(false);
+        });
+    }
+  }, [authenticated]);
 
   useEffect(() => {
     axios
@@ -88,7 +90,7 @@ export const UserContextProvider = ({ children }) => {
         authenticated,
         setAuthenticated,
         authLoading,
-        dataLoading,
+        dataLoading
       }}
     >
       {children}
@@ -97,5 +99,5 @@ export const UserContextProvider = ({ children }) => {
 };
 
 UserContextProvider.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.object
 };
