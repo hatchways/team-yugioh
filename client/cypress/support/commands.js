@@ -13,3 +13,10 @@ Cypress.Commands.add("interceptAuthTestWithSuccessResponse", () => {
 Cypress.Commands.add("interceptUserDataWithFailureResponse", () => {
   cy.intercept(`${baseUrl}/api/user/data`, { statusCode: 401 });
 });
+
+Cypress.Commands.add("interceptUserDataWithSuccessResponse", () => {
+  cy.intercept(`${baseUrl}/api/user/data`, {
+    statusCode: 200,
+    fixture: "userData.json",
+  });
+});
