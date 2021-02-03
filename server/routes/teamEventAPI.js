@@ -19,10 +19,9 @@ router.post("/api/team-event", async (req, res) => {
 
   try {
     const invitedUserIds = await db.User.find({
-      email: { $in: EMAILS },
-    });
+      email: { $in: EMAILS }},{_id:1});
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
-    console.log(invitedUserIds)
+    
     const teamUserIds = await db.Team.findOne(
       { name: TEAMNAME },
       { members: 1 }
@@ -36,14 +35,14 @@ router.post("/api/team-event", async (req, res) => {
    
     const eventName = 'The best event ever'
     const newEventTypeObj = {
-      members: emails,
+      members: invitedUserIds,
       name: eventName
     };
     console.log(newEventTypeObj)
 
-    const response = await db.EventType.create(newEventTypeObj)
+    const data = await db.EventType.create(newEventTypeObj)
     //console.log(response)
-    res.send(res);
+    res.send(data);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
@@ -51,22 +50,43 @@ router.post("/api/team-event", async (req, res) => {
 });
 
 // 2 - Add or remove members from an event type
-router.put("/api/team-event/:id", async (req, res) => {
+router.put("/api/team-event/members", async (req, res) => {
   // RECIEVE an updated team member object
   
-
-
-  db.EventType.updateOne(
-    { _id: req.params.id },
-    { members: req.body.members },
-    { overwrite: true }
-  )
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(400).send(err);
+  try {
+    const invitedUserIds = await db.User.find({
+      email: { $in: EMAILS },
     });
+    const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
+    console.log(invitedUserIds)
+    const teamUserIds = await db.Team.findOne(
+      { name: TEAMNAME },
+      { members: 1 }
+    );
+
+    invitedUserIdsClean.forEach((member) => {
+      if (!teamUserIds.members.includes(member)) res.status(400).send();
+    });
+   
+    const eventName = 'The best event ever'
+
+    // includes emails or ids?
+    const updatedMembersObj = {
+      members: emails,
+      name: eventName
+    };
+
+    const data = await db.EventType.updateOne(
+      { _id: req.body.id },
+      { members: req.body.members },
+      { overwrite: true }
+    )
+    
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 });
 
 // 3 - Delete an event type
