@@ -223,7 +223,7 @@ export default function EventTypesTab() {
   });
   const [unit, setUnit] = useState("min");
 
-  const { name, photoUrl } = useUserData();
+  const { name, photoUrl, URL } = useUserData();
 
   useEffect(() => {
     axios
@@ -327,7 +327,7 @@ export default function EventTypesTab() {
             <Box>
               <Typography className={classes.name}>{name}</Typography>
               <Typography className={classes.userUrl}>
-                calendapp.com/john-doe
+                calendapp.com/{URL}
               </Typography>
             </Box>
           </Box>
@@ -490,7 +490,7 @@ export default function EventTypesTab() {
                   }
                 >
                   <Grid xs={5} className={classes.prefix} item>
-                    calendapp.com/john-doe/
+                    calendapp.com/{URL}/
                   </Grid>
                   <Grid className={classes.link} xs={7} item>
                     <TextField
