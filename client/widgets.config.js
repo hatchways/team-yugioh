@@ -9,6 +9,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
+      { test: /\.(png|svg)$/i, loader: "file-loader" },
     ],
   },
   devServer: {
