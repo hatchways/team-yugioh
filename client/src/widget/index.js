@@ -8,7 +8,7 @@ const Widget = () => {
   const url = element.getAttribute("data-url");
   const [hostName, eventName] = url.split("/");
   console.log("hostName, eventName", hostName, eventName);
-  return <div>Hello world</div>;
+  return <EmbeddedScheduler hostName={hostName} eventName={eventName} />;
 };
 
 ReactDom.render(
