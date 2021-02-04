@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
 import { Brightness1 } from "@material-ui/icons";
 import { format, parse } from "date-fns";
@@ -14,6 +13,7 @@ const PickTime = ({
   eventDetails,
   interval,
   availabilityTimes,
+  setPage,
 }) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
@@ -31,10 +31,6 @@ const PickTime = ({
         members: [userId],
       })
       .then((res) => {
-        console.log(
-          "timeslot",
-          getTimeSlots(res.data.availability, interval, availabilityTimes)
-        );
         setTimeSlots(
           getTimeSlots(res.data.availability, interval, availabilityTimes)
         );
@@ -65,38 +61,32 @@ const PickTime = ({
       >
         {timeSlots.length !== 0 &&
           timeSlots.map((slot, i) => (
-            <Link
-              to={`/appt/${link}/${encodeURI(
-                parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
-              )}`}
-              className={classes.schedLink}
+            <ListItem
+              className={classes.listItem}
+              button
               key={i}
+              onClick={() => {
+                setAppointmentDetails({
+                  ...appointmentDetails,
+                  time: parse(
+                    date + " " + slot,
+                    "EEEE, LLL do HH:mm",
+                    new Date()
+                  ),
+                });
+                setPage(2);
+              }}
             >
-              <ListItem
-                className={classes.listItem}
-                button
-                onClick={() =>
-                  setAppointmentDetails({
-                    ...appointmentDetails,
-                    time: parse(
-                      date + " " + slot,
-                      "EEEE, LLL do HH:mm",
-                      new Date()
-                    ),
-                  })
-                }
+              <Grid
+                container
+                direction="row"
+                justify="space-around"
+                alignItems="center"
               >
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-around"
-                  alignItems="center"
-                >
-                  <Brightness1 color="primary" className={classes.icon} />
-                  <Typography>{slot}</Typography>
-                </Grid>
-              </ListItem>
-            </Link>
+                <Brightness1 color="primary" className={classes.icon} />
+                <Typography>{slot}</Typography>
+              </Grid>
+            </ListItem>
           ))}
       </Grid>
     </Grid>

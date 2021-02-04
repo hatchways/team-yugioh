@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
 import {
   Grid,
   Button,
@@ -10,17 +9,16 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import axios from "axios";
-import BackArrow from "../../assets/back.svg";
+import { ArrowBack } from "@material-ui/icons";
 
 const AppointmentDetails = ({
   appointmentDetails,
   setAppointmentDetails,
   eventDetails,
-  path,
   setAppointmentConfirmed,
+  setPage,
 }) => {
   const classes = useStyles();
-  const history = useHistory();
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setAppointmentDetails({ ...appointmentDetails, [name]: value });
@@ -49,111 +47,111 @@ const AppointmentDetails = ({
     }
 
     setAppointmentConfirmed({ id: res.data._id });
-
-    history.push(`${path}${res.data._id}`);
   };
 
   return (
-    <>
-      <Grid direction="row" alignItems="center" container justify="flex-start">
-        <Link className={classes.back} to={`${path}`}>
+    <div className={classes.gridPadding}>
+      <Grid container direction="column">
+        <Grid alignItems="center" container justify="flex-start">
           <Button
             className={classes.backButton}
-            onClick={() =>
-              setAppointmentDetails({ ...appointmentDetails, time: false })
-            }
+            onClick={() => {
+              setAppointmentDetails({ ...appointmentDetails, time: false });
+              setPage(1);
+            }}
+            startIcon={<ArrowBack />}
           >
             Back
           </Button>
-        </Link>
-        <Typography className={classes.formLabel} variant="h5">
-          Enter Details
-        </Typography>
-      </Grid>
-      <Grid
-        direction="row"
-        alignItems="center"
-        container
-        justify="flex-start"
-        className={classes.inputRow}
-      >
-        <Grid xs={2} item>
-          <InputLabel className={classes.label}>Name</InputLabel>
+          <Typography className={classes.formLabel} variant="h5">
+            Enter Details
+          </Typography>
         </Grid>
+        <Grid
+          direction="row"
+          alignItems="center"
+          container
+          justify="flex-start"
+          className={classes.inputRow}
+        >
+          <Grid xs={2} item>
+            <InputLabel className={classes.label}>Name</InputLabel>
+          </Grid>
 
-        <Grid xs={10} item>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            name="name"
-            type="text"
-            onChange={handleFormChange}
-            fullWidth
-            value={appointmentDetails.name}
-            size="small"
-          />
+          <Grid xs={10} item>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              name="name"
+              type="text"
+              onChange={handleFormChange}
+              fullWidth
+              value={appointmentDetails.name}
+              size="small"
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        direction="row"
-        alignItems="center"
-        container
-        justify="flex-start"
-        className={classes.inputRow}
-      >
-        <Grid xs={2} item>
-          <InputLabel className={classes.label}>Email</InputLabel>
-        </Grid>
+        <Grid
+          direction="row"
+          alignItems="center"
+          container
+          justify="flex-start"
+          className={classes.inputRow}
+        >
+          <Grid xs={2} item>
+            <InputLabel className={classes.label}>Email</InputLabel>
+          </Grid>
 
-        <Grid xs={10} item>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            name="email"
-            type="text"
-            onChange={handleFormChange}
-            fullWidth
-            size="small"
-            value={appointmentDetails.email}
-          />
+          <Grid xs={10} item>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              name="email"
+              type="text"
+              onChange={handleFormChange}
+              fullWidth
+              size="small"
+              value={appointmentDetails.email}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        direction="row"
-        alignItems="center"
-        container
-        justify="flex-start"
-        className={classes.inputRow}
-      >
-        <Grid xs={2} item>
-          <InputLabel className={classes.descriptionLabel}>Notes</InputLabel>
-        </Grid>
+        <Grid
+          direction="row"
+          alignItems="center"
+          container
+          justify="flex-start"
+          className={classes.inputRow}
+        >
+          <Grid xs={2} item>
+            <InputLabel className={classes.descriptionLabel}>Notes</InputLabel>
+          </Grid>
 
-        <Grid xs={10} item>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            name="notes"
-            multiline
-            onChange={handleFormChange}
-            fullWidth
-            value={appointmentDetails.notes}
-            placeholder={`Write any details that will help prepare for our meeting.
+          <Grid xs={10} item>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              name="notes"
+              multiline
+              onChange={handleFormChange}
+              fullWidth
+              value={appointmentDetails.notes}
+              placeholder={`Write any details that will help prepare for our meeting.
                                     
                                     
                                     `}
-            className={classes.textArea}
-          />
+              className={classes.textArea}
+            />
+          </Grid>
         </Grid>
+        <Button
+          color="primary"
+          className={classes.button}
+          onClick={createAppointment}
+        >
+          Schedule Event
+        </Button>
       </Grid>
-      <Button
-        color="primary"
-        className={classes.button}
-        onClick={createAppointment}
-      >
-        Schedule Event
-      </Button>
-    </>
+    </div>
   );
 };
 
@@ -181,22 +179,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
   },
-  backButton: {
-    width: "100%",
-    height: "100%",
-    textIndent: "-9999px",
-    backgroundImage: `url(${BackArrow})`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundSize: "30%",
-    minWidth: "0",
-  },
   formLabel: {
     margin: "0 6%",
     textAlign: "left",
   },
   inputRow: {
     marginBottom: ".5rem",
+  },
+  gridPadding: {
+    padding: "2em",
   },
 }));
 

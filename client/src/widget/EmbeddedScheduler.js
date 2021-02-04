@@ -10,6 +10,7 @@ import {
   LinearProgress,
 } from "@material-ui/core";
 import axios from "axios";
+import regeneratorRuntime from "regenerator-runtime";
 
 import Overview from "./scheduler/Overview";
 import PickDate from "./scheduler/PickDate";
@@ -28,6 +29,7 @@ const Scheduler = ({ hostName, eventName }) => {
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
   const [eventActive, setEventActive] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   //this will be fetched from the server
   const availTimes = { start: "09:00", end: "17:00" };
@@ -82,7 +84,7 @@ const Scheduler = ({ hostName, eventName }) => {
         />
       </Paper>
     );
-  } else if (appointment.time) {
+  } else if (page === 2) {
     return (
       <Paper className={classes.root} elevation={5}>
         <Grid container direction="row" wrap="nowrap" className={classes.grid}>
@@ -94,15 +96,7 @@ const Scheduler = ({ hostName, eventName }) => {
           </Grid>
           <Divider orientation="vertical" flexItem={true} />
 
-          <Grid
-            item
-            xs={8}
-            className={classes.dateTimeSelect}
-            container
-            direction="column"
-            wrap="nowrap"
-            spacing={2}
-          >
+          <Grid item xs={8}>
             <AppointmentDetails
               appointmentDetails={appointmentDetails}
               setAppointmentDetails={setAppointmentDetails}
@@ -113,6 +107,7 @@ const Scheduler = ({ hostName, eventName }) => {
               eventLink={eventDetails.link}
               interval={interval}
               availabilityTimes={availTimes}
+              setPage={setPage}
             />
           </Grid>
         </Grid>
@@ -164,6 +159,7 @@ const Scheduler = ({ hostName, eventName }) => {
                   setSelectedDate={setSelectedDate}
                   interval={interval}
                   availabilityTimes={availTimes}
+                  setPage={setPage}
                 />
               </Grid>
             </Grid>
