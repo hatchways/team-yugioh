@@ -27,12 +27,22 @@ export default function EventGrid({ userEvents }) {
     });
   }, []);
 
+  const handleDelete = (eventId) => {
+    console.log(eventId)
+    axios
+      .delete("/api/team-event/delete/", {data: { id: eventId}})
+      .then((data) => {
+        console.log('item deleted')
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className={classes.root}>
       <Grid container spacing={10} justify="center">
         {userEvents.map((event, i) => (
           <Grid key={i} item>
-            <EventCard {...event} url={userURL} />
+            <EventCard deleteEvent={handleDelete} {...event} url={userURL} />
           </Grid>
         ))}
       </Grid>

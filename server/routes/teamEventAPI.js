@@ -89,9 +89,9 @@ router.put("/api/team-event/update-members/", async (req, res) => {
 });
 
 // 3 - Delete an event type
-router.delete("/api/team-event/delete/", (req, res) => {
+router.delete("/api/team-event/delete", (req, res) => {
   // deleting a record
-  db.EventType.findOneAndRemove({ _id: req.body.id })
+  db.EventType.deleteOne({ _id: req.body.id })
     .then((data) => {
       res.send(data);
     })

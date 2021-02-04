@@ -47,9 +47,12 @@ function DeleteEventDialog(props) {
           Deleting events are cannot be undone.
         </DialogContentText>
       </DialogContent>
-      <DialogActions style={{marginBottom:8, marginRight: 5}}>
-        <Button onClick={props.deleteEvent} 
-        color="secondary" variant="contained">
+      <DialogActions style={{ marginBottom: 8, marginRight: 5 }}>
+        <Button
+          onClick={() => props.deleteEvent()}
+          color="secondary"
+          variant="contained"
+        >
           Yes
         </Button>
         <Button onClick={onClose} variant="outlined" autoFocus>
@@ -67,6 +70,7 @@ export default function EventCard({
   link,
   active,
   _id,
+  deleteEvent
 }) {
   const [eventActive, setEventActive] = useState(active);
 
@@ -166,11 +170,9 @@ export default function EventCard({
     setOpen(false);
   };
 
-  const handleDelete = () => {
-    // axios.delete()
-
-    setOpen(false);
-  };
+  const passIdToDeleteEvent = () => {
+    deleteEvent(_id)
+  }
 
   return (
     <>
@@ -250,7 +252,7 @@ export default function EventCard({
         message="Invitation link copied to clipboard"
       />
       <DeleteEventDialog
-        deleteEvent={handleDelete}
+        deleteEvent={passIdToDeleteEvent}
         open={open}
         onClose={handleClose}
       />
