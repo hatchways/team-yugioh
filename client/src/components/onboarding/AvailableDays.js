@@ -8,25 +8,33 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-const week = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+const daysOfWeek = [0, 1, 2, 3, 4, 5, 6];
+const nameOfDay = {
+  0: "Sunday",
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+};
 
 const AvailableDays = (props) => {
   const classes = useStyles();
 
   const days = props.days;
   const setDays = props.setDays;
-
   const selectDay = (event) => {
-    const newDays = { ...days, [event.target.name]: event.target.checked };
-    setDays(newDays);
+    const day = parseInt(event.target.name);
+    const index = days.indexOf(day);
+    if (index === -1 && event.target.checked) {
+      setDays([...days, day]);
+    }
+
+    if (index !== -1 && !event.target.checked) {
+      const newDays = days.slice().splice(index, 1);
+      setDays(newDays);
+    }
   };
 
   return (
@@ -36,13 +44,13 @@ const AvailableDays = (props) => {
       justify="space-between"
       className={classes.daysGrid}
     >
-      {week.map((item, i) => {
+      {daysOfWeek.map((day) => {
         return (
           <FormControlLabel
-            key={i}
+            key={day}
             label={
               <Typography variant="subtitle2" className={classes.labelText}>
-                {item}
+                {nameOfDay[day]}
               </Typography>
             }
             labelPlacement="bottom"
@@ -50,9 +58,9 @@ const AvailableDays = (props) => {
             control={
               <Checkbox
                 className={classes.eachDay}
-                checked={days[item] || false}
+                checked={days.includes(day)}
                 onChange={selectDay}
-                name={item}
+                name={day.toString()}
                 color="primary"
               />
             }
@@ -81,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 AvailableDays.propTypes = {
-  days: PropTypes.object,
+  days: PropTypes.array,
   setDays: PropTypes.func,
 };
 

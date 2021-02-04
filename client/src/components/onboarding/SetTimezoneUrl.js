@@ -13,6 +13,32 @@ import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 import { debounce } from "../../utils/utils";
 
+const allTimezone = [
+  -11,
+  -10,
+  -9,
+  -8,
+  -7,
+  -6,
+  -5,
+  -4,
+  -3,
+  -2,
+  -1,
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+];
+
 const SetTimezoneUrl = (props) => {
   const classes = useStyles();
 
@@ -82,20 +108,18 @@ const SetTimezoneUrl = (props) => {
               fullWidth
               error={!unique}
               InputProps={{
-                endAdornment: (
+                endAdornment: url.length ? (
                   <InputAdornment
                     position="start"
                     classes={{ positionStart: classes.endAdornment }}
                   >
-                    {url.length > 0 ? (
-                      unique ? (
-                        <DoneIcon className={classes.validIcon} />
-                      ) : (
-                        <ClearIcon className={classes.invalidIcon} />
-                      )
-                    ) : null}
+                    {unique ? (
+                      <DoneIcon className={classes.validIcon} />
+                    ) : (
+                      <ClearIcon className={classes.invalidIcon} />
+                    )}
                   </InputAdornment>
-                ),
+                ) : undefined,
               }}
             />
           </Grid>
@@ -120,10 +144,10 @@ const SetTimezoneUrl = (props) => {
           }}
           className={classes.timezoneMenu}
         >
-          {["UTC-12", "UTC-11", "UTC-10", "UTC-9"].map((item, i) => {
+          {allTimezone.map((timezone, i) => {
             return (
-              <MenuItem value={item} key={i}>
-                {item}
+              <MenuItem value={timezone} key={i}>
+                UTC {timezone > 0 ? "+" : null} {timezone}
               </MenuItem>
             );
           })}

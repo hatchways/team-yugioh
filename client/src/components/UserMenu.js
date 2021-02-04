@@ -87,6 +87,7 @@ export default function UserMenu({ name }) {
         aria-haspopup="true"
         onClick={handleToggle}
         className={classes.link}
+        data-cy="userMenu"
       >
         {name}
       </Link>
