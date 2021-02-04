@@ -30,20 +30,21 @@ router.get("/api/event", auth, (req, res) => {
 
 // GET whether event url is unique
 router.get("/api/event/is_unique", auth, (req, res) => {
-  db.EventType.find({ link: req.query.URL, userId: req.userId }).then(
-    (data) => {
-      if (data.length > 0) {
-        res.status(400).send(new Error("URL is already taken."));
-      } else {
-        res.status(200).send("URL is available!");
-      }
+  db.EventType.find({
+    link: encodeURI(req.query.URL),
+    userId: req.userId,
+  }).then((data) => {
+    if (data.length > 0) {
+      res.status(400).send(new Error("URL is already taken."));
+    } else {
+      res.status(200).send("URL is available!");
     }
-  );
+  });
 });
 
 // GET event details
 router.get("/api/event_details/:pref/:suf", (req, res) => {
-  db.EventType.find({ link: `${req.params.pref}/${req.params.suf}` })
+  db.EventType.find({ link: encodeURI(`${req.params.pref}/${req.params.suf}`) })
     .then((data) => {
       res.send(data);
     })
@@ -64,6 +65,17 @@ router.put("/api/event/toggle-active", auth, (req, res) => {
       console.log(error.message);
       res.status(500).send(error);
     });
+});
+
+// GET event details via eventId
+router.get("/api/event-details-via-id/:eventId", async (req, res) => {
+  try {
+    // data: {userId, duration, name, description, color, link, members}
+    const data = await db.EventType.findOne({ _id: req.params.eventId });
+    res.send(data);
+  } catch (error) {
+    res.status(500).send("Failed to get event details via its ID");
+  }
 });
 
 module.exports = router;

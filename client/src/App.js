@@ -42,6 +42,9 @@ function App() {
           <PrivateRoute path="/home">
             <Home />
           </PrivateRoute>
+          <PrivateRoute exact path="/">
+            <Home />
+          </PrivateRoute>
           <PrivateRoute path="/upgrade">
             <UpgradePage />
           </PrivateRoute>
@@ -66,7 +69,7 @@ function App() {
           <Route path="/404">
             <PageNotFound />
           </Route>
-          <Route exact path="/" component={Home} />
+
           <Route component={PageNotFound} />
         </Switch>
       </BrowserRouter>

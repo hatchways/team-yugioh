@@ -26,17 +26,17 @@ router.post("/api/authentication/google", async (req, res) => {
     }
     const accessToken = {
       token: token.access_token,
-      exp: token.expiry_date,
+      exp: token.expiry_date
     };
     const tokens = {
       id_token: token.id_token,
       access_token: accessToken,
-      refresh_token: token.refresh_token,
+      refresh_token: token.refresh_token
     };
 
     const userInfo = await oAuthClient.verifyIdToken({
       idToken: tokens.id_token,
-      audience: process.env.AUTH_CREDENTIALS,
+      audience: process.env.AUTH_CREDENTIALS
     });
 
     const email = userInfo.payload.email;
@@ -54,7 +54,7 @@ router.post("/api/authentication/google", async (req, res) => {
     } else {
       const newUser = new User({
         email: userInfo.payload.email,
-        name: userInfo.payload.name,
+        name: userInfo.payload.name
       });
       try {
         await newUser.save();
@@ -65,7 +65,7 @@ router.post("/api/authentication/google", async (req, res) => {
           duration: 60,
           description: "",
           link: "60-min",
-          color: "#FF6A00",
+          color: "#FF6A00"
         });
       } catch (err) {
         console.log(err);
@@ -81,16 +81,9 @@ router.post("/api/authentication/google", async (req, res) => {
 
     //check if authentication record exists in db if it does update it
     const authRecord = await AuthStore.find({
-      email: userInfo.payload.email,
+      email: userInfo.payload.email
     });
-    if (authRecord) {
-      await AuthStore.update(
-        { email },
-        {
-          authenticationTokenGoogle: tokens.access_token,
-          refreshToken: tokens.refresh_token,
-        }
-      );
+    if (authRecord.length > 0) {
       res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
       res.status(201).send(jwtCompact);
       return;
@@ -98,8 +91,7 @@ router.post("/api/authentication/google", async (req, res) => {
     //save authentication tokens
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
-      authenticationTokenGoogle: tokens.access_token,
-      refreshToken: tokens.refresh_token,
+      googleAuthToken: token
     });
 
     try {
@@ -120,16 +112,27 @@ router.get("/api/authentication/test", auth, (req, res) => {
 
 router.get("/api/authentication/geturl", (req, res) => {
   const url = generateAuthUrl();
-  
+
   res.status(200).send({ url });
 });
 
 router.get("/api/authentication/logout", (req, res) => {
-  try{
-  res.cookie("app_auth_token", "", { httpOnly: true, maxAge: 100 });
-  res.status(200).send("logged out");}
-  catch(err){
-    console.log(err)
+  try {
+    res.cookie("app_auth_token", "", { httpOnly: true, maxAge: 100 });
+    res.status(200).send("logged out");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/api/authentication/checkemail", async (req, res) => {
+  const email = req.query.email;
+  try {
+    const userWemail = await User.find({ email: email });
+    if (userWemail.length > 0) res.status(200).send();
+    else res.status(400).send();
+  } catch (err) {
+    console.log(err);
   }
 });
 

@@ -54,28 +54,34 @@ const Scheduler = () => {
 
   useEffect(() => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
-    const regex = /appt\/([0-9a-z-]*\/[0-9a-z-]*)/g;
+    const regex = /appt\/([%\s0-9a-z-]*\/[%\s0-9a-z-]*)/g;
     let searchUrl = path.match(regex)[0].slice(5);
-    const queryURL = `/api/event_details/${searchUrl}`;
+    console.log(path);
+    console.log(searchUrl);
+    const queryURL = `/api/event_details/${encodeURI(searchUrl)}`;
     axios
       .get(queryURL)
       .then((res) => {
         // TODO: redirect to 404 page on no event found?
-        let event = res.data[0];
-        setEventDetails({
-          name: event.name,
-          description: event.description,
-          duration: event.duration,
-          link: event.link,
-        });
-        setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
-        setEventActive(event.active);
+        if (res.data.length) {
+          let event = res.data[0];
+          setEventDetails({
+            name: event.name,
+            description: event.description,
+            duration: event.duration,
+            link: event.link,
+          });
+          setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
+          setEventActive(event.active);
+        } else {
+          setEventActive(false);
+        }
       })
       .then(() => setLoading(false));
     /* eslint-disable */
   }, []);
   /* eslint-enable */
-  
+
   if (loading) {
     return <LinearProgress />;
   } else if (!eventActive) {
@@ -119,6 +125,7 @@ const Scheduler = () => {
                     <AppointmentDetails
                       appointmentDetails={appointmentDetails}
                       setAppointmentDetails={setAppointmentDetails}
+                      eventDetails={eventDetails}
                       path={path}
                       appointmentConfirmed={appointmentConfirmed}
                       setAppointmentConfirmed={setAppointmentConfirmed}
