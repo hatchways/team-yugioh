@@ -17,9 +17,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Tooltip from "@material-ui/core/Tooltip";
 import Switch from "@material-ui/core/Switch";
-import Box from "@material-ui/core/Box";
 import { DoneOutlined } from "@material-ui/icons";
-import { deepOrange, grey, indigo } from "@material-ui/core/colors";
+import { deepOrange, grey } from "@material-ui/core/colors";
 import Snackbar from "@material-ui/core/Snackbar";
 
 import axios from "axios";
@@ -172,6 +171,7 @@ export default function EventCard({
 
   const passIdToDeleteEvent = () => {
     deleteEvent(_id)
+    setOpen(false);
   }
 
   return (

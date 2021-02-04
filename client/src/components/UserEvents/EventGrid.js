@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EventGrid({ userEvents }) {
+export default function EventGrid({ userEvents, updateUserEvents }) {
   const classes = useStyles();
   const [userURL, setUserURL] = useState();
 
@@ -28,14 +28,14 @@ export default function EventGrid({ userEvents }) {
   }, []);
 
   const handleDelete = (eventId) => {
-    console.log(eventId)
     axios
       .delete("/api/team-event/delete/", {data: { id: eventId}})
       .then((data) => {
-        console.log('item deleted')
-        console.log(data);
+        console.log(data)
+        updateUserEvents(eventId)
       })
       .catch((err) => console.log(err));
+      
   };
   return (
     <div className={classes.root}>

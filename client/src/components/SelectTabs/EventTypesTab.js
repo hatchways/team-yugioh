@@ -240,6 +240,13 @@ export default function EventTypesTab() {
       .catch((err) => console.log(err));
   }, []);
 
+  const updateUserEvents = (eventId) => {
+    console.log('update events')
+    setUserEvents(userEvents.filter((event) =>
+      event._id !== eventId && event
+      ))
+  }
+
   const handleClickOpen = () => {
     setOpenNewEvent(true);
   };
@@ -345,7 +352,7 @@ export default function EventTypesTab() {
             </Button>
           </Box>
         </Grid>
-        <EventGrid userEvents={userEvents} />
+        <EventGrid userEvents={userEvents}  updateUserEvents={updateUserEvents} />
       </Container>
       <Dialog
         open={openNewEvent}
