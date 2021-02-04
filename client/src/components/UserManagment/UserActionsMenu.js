@@ -31,16 +31,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserActionsMenu({ children }) {
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [hidden, toggleHidden] = React.useState(false);
 
   const handleClick = event => {
+    toggleHidden(false);  
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const childrenWithExtraProp = React.Children.map(children, child =>
+    React.cloneElement(child, { handleClose: handleClose, toggleHidden: toggleHidden })
+  );
 
   const open = Boolean(anchorEl);
 
@@ -58,6 +65,7 @@ export default function UserActionsMenu({ children }) {
         classes={{ paper: classes.popover }}
         anchorEl={anchorEl}
         onClose={handleClose}
+        style={hidden?{display:"none"}:null}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left"
@@ -67,7 +75,7 @@ export default function UserActionsMenu({ children }) {
           horizontal: "left"
         }}
       >
-        {children}
+        {childrenWithExtraProp}
       </Popover>
     </>
   );

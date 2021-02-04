@@ -163,15 +163,17 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function RemoveModal({ userName, email, variant }) {
+export default function RemoveModal({ userName, email, variant, ...props }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
+    props.toggleHidden(true);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    props.handleClose();
   };
 
     return (

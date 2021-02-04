@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
-import UserActionsMenue from "./UserActionsMenu";
+import UserActionsMenu from "./UserActionsMenu";
 import EditIcon from "@material-ui/icons/Edit";
 import RemoveModal from "./RemoveModal";
 
@@ -63,7 +63,7 @@ export default function EventSummaryDisplay(props) {
         </div>
       </div>
       <div className={classes.link}>{props.link}</div>
-      <UserActionsMenue>
+      <UserActionsMenu>
         <Button
           variant="outlined"
           startIcon={<EditIcon className={classes.clearIcon} />}
@@ -72,7 +72,7 @@ export default function EventSummaryDisplay(props) {
           Edit
         </Button>
         <RemoveModal variant="remove_template" />
-      </UserActionsMenue>
+      </UserActionsMenu>
     </div>
   );
 }
