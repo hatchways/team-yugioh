@@ -38,7 +38,7 @@ const ProfilePhoto = ({ handleClickOpen }) => {
   const { photoUrl } = useUserData();
   return (
     <Badge
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer"}}
       onClick={handleClickOpen}
       overlap="circle"
       anchorOrigin={{
@@ -210,7 +210,7 @@ export default function Header() {
               style={{ paddingTop: "8px" }}
               handleClickOpen={handleClickOpen}
             />
-            <UserMenu name={"Matt H"} />
+            <UserMenu name={name}/>
           </Box>
           <HomeLink />
           <UpgradeLink />

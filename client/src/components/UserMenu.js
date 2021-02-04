@@ -20,7 +20,8 @@ import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    zIndex: 100
   },
   paper: {
     marginRight: theme.spacing(2)
