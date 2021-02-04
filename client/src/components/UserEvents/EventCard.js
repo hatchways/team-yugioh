@@ -41,9 +41,11 @@ function DeleteEventDialog(props) {
   return (
     <Dialog className={classes.root} onClose={handleClose} open={open}>
       <DialogTitle>Are you sure?</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
+      <DialogContent style={{overflow: 'hidden'}}>
+        <DialogContentText > 
+          <Typography variant="subtitle2"> 
           Deleting events are cannot be undone.
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions style={{ marginBottom: 8, marginRight: 5 }}>
