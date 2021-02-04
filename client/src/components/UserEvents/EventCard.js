@@ -36,10 +36,13 @@ function DeleteEventDialog(props) {
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Are you sure?</DialogTitle>
-      <Typography variant="subtitle1" style={{ padding: "12px 15px", fontWeight: 400  }}>
+      <Typography
+        variant="subtitle1"
+        style={{ padding: "12px 15px", fontWeight: 400 }}
+      >
         Deleting events are cannot be undone.
       </Typography>
-      <DialogActions style={{ marginBottom: 8, marginRight: 5}}>
+      <DialogActions style={{ marginBottom: 8, marginRight: 5 }}>
         <Button
           onClick={() => props.deleteEvent()}
           color="secondary"
@@ -65,6 +68,7 @@ export default function EventCard({
   deleteEvent,
 }) {
   const [eventActive, setEventActive] = useState(active);
+  const [showEmbedInstruction, setShowEmbedInstruction] = useState(false);
 
   const useStyles = makeStyles({
     root: {
@@ -173,10 +177,28 @@ export default function EventCard({
           <CardHeader className={classes.colorBar} />
 
           <CardContent>
-            <Grid container direction="column">
+            <Grid container>
               <Grid
+                item
+                xs={9}
                 container
-                justify="flex-end"
+                direction="column"
+                className={classes.titleBox}
+              >
+                <Typography variant="h5">
+                  {name || duration + " minute meeting"}
+                </Typography>
+
+                <Typography variant="subtitle2" color="textSecondary">
+                  One-on-One
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                container
+                direction="column"
+                alignItems="center"
                 className={classes.cardContentTop}
               >
                 <LightTooltip title="Turn On/Off" placement="bottom">
@@ -187,15 +209,14 @@ export default function EventCard({
                     onChange={handleSwitch}
                   />
                 </LightTooltip>
-              </Grid>
-              <Grid className={classes.titleBox}>
-                <Typography variant="h5">
-                  {name || duration + " minute meeting"}
-                </Typography>
-
-                <Typography variant="subtitle2" color="textSecondary">
-                  One-on-One
-                </Typography>
+                <Button
+                  className={classes.codeButton}
+                  onClick={() => {
+                    setShowEmbedInstruction(true);
+                  }}
+                >
+                  <Code />
+                </Button>
               </Grid>
             </Grid>
           </CardContent>
@@ -247,6 +268,11 @@ export default function EventCard({
         deleteEvent={passIdToDeleteEvent}
         open={open}
         onClose={handleClose}
+      />
+      <EmbedSchedulerDialog
+        showEmbedInstruction={showEmbedInstruction}
+        setShowEmbedInstruction={setShowEmbedInstruction}
+        link={link}
       />
     </>
   );

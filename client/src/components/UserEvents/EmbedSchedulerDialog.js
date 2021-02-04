@@ -6,7 +6,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { CopyBlock, a11yLight } from "react-code-blocks";
+import { CodeBlock, a11yLight } from "react-code-blocks";
 
 const domain = "http://localhost:3000";
 
@@ -32,7 +32,7 @@ const EmbedSchedulerDialog = ({
         <Typography variant="body1">
           Copy and paste the following code into your html
         </Typography>
-        <CopyBlock text={code} language="javascript" theme={a11yLight} />
+        <CodeBlock text={code} language="javascript" theme={a11yLight} />
       </DialogContent>
     </Dialog>
   );
