@@ -22,7 +22,7 @@ const CreateTeam = ({ open, closeDialog }) => {
   const createTeam = () => {
     axios
       .post("/api/team/create", { name: teamName, members: members })
-      .then((res) => console.log(res))
+      .then((res) => {closeDialog()})
       .catch((err) => console.log(err));
   };
 

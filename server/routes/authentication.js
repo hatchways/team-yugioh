@@ -5,7 +5,7 @@ const User = require("../db/models/User");
 const AuthStore = require("../db/models/AuthenticationStore");
 const auth = require("../middleware/auth");
 const jwt = require("njwt");
-const { generateAuthUrl, getAccessToken } = require("../utils/googleAuthUtils");
+const { generateAuthUrl } = require("../utils/googleAuthUtils");
 
 const router = new express.Router();
 
@@ -20,7 +20,7 @@ router.post("/api/authentication/google", async (req, res) => {
   const { code } = req.body;
   oAuthClient.getToken(code, async (err, token) => {
     if (err) {
-      console.log(err);
+       le.log(err);
       res.status(500).send("Authentication error.");
       return;
     }

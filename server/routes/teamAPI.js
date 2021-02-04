@@ -7,14 +7,12 @@ const router = express.Router();
 // CREATE team
 // req.body: { name: name, members: [email:string] }
 router.post("/api/team/create", auth, async (req, res) => {
-  let team;
-  const findMembers = req.body.members.map((email) => {
-    return db.User.findOne({ email: email });
-  });
 
   try {
-    let results = await Promise.allSettled(findMembers);
-    team = results.map((result) => result.value._id);
+    const results = await db.User.find({
+      email: { $in: req.body.members },
+    });
+    const team = results.map((result) => {result._id});
     // adding member creating the team
     team.push(req.userId);
     let response = await db.Team.create({ name: req.body.name, members: team });
@@ -25,12 +23,42 @@ router.post("/api/team/create", auth, async (req, res) => {
   }
 });
 
+// Get team info
+// :id=team id
+router.get("/api/team/:id", auth, (req, res) => {
+  db.Team.findById(req.params.id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(400).send(error);
+    });
+});
+
 // ADD Team member
 // req.body: { teamId: teamId, memberId: userId }
 router.get("/api/team/add", auth, (req, res) => {
   db.Team.updateOne(
     { _id: req.body.teamId },
     { $push: { members: req.body.memberId } }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      res.status(500).send(error);
+    });
+});
+
+
+// Change Team name
+// req.body: { teamId: teamId, name: teamName }
+router.post("/api/team/updatename", auth, (req, res) => {
+  db.Team.updateOne(
+    { _id: req.body.teamId },
+    { name:req.body.name }
   )
     .then((data) => {
       res.send(data);

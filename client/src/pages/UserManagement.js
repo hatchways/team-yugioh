@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../components/Header/NavBar";
 import UserManagementTabs from "../components/UserManagment/UserManagementTabs";
 import {
@@ -6,6 +6,8 @@ import {
   Container
 } from "@material-ui/core";
 import Header from "../components/UserManagment/Header";
+import {useUserData} from "../providers/Context"
+import axios from "axios";
 
 
 const useStyles = makeStyles(theme => ({
@@ -37,13 +39,24 @@ const useStyles = makeStyles(theme => ({
 const UserManagementPage = () => {
   const classes = useStyles();
 
+  const [teamData, setTeamData]=useState({})
+
+  const team= useUserData();
+  console.log("team:",team)
+
+  useEffect(()=>{
+    axios.get(`/api/team/${team.teamId}`).then(res=>{setTeamData(res.data)
+    console.log(res)}).catch(err=>console.log(err))
+  })
+
+
   return (
     <div>
       <NavBar />
 
       <Container maxWidth="md" className={classes.main}>
         <div className={classes.heading}>
-          <Header/>
+          <Header teamName={teamData.name}/>
         </div>
        
           <UserManagementTabs/>
