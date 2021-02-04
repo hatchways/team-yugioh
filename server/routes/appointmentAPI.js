@@ -1,31 +1,80 @@
 const express = require("express");
 const db = require("../db/models");
 const auth = require("../middleware/auth");
-
 const ensureAppointmentExists = require("../middleware/ensureAppointmentExists");
-
+const getEventDetailViaId = require("../utils/getEventDetailsViaId");
 const router = express.Router();
 
 // CREATE appointment
-router.post("/api/appointment", auth, (req, res) => {
-  console.log(req.body);
+router.post("/api/appointment", async (req, res) => {
+  // req.body {eventId, name, email, notes, timezone, time}
+  try {
+    const { eventId } = req.body;
 
-  db.Appointment.create({ ...req.body })
-    .then((response) => res.send(response))
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
+    //get the userId that's hosting this event
+    const { userId: hostUserId } = await db.EventType.findOne({ _id: eventId });
+
+    //create the appointment with a hostId
+    const responseFromCreate = db.Appointment.create({
+      ...req.body,
+      hostUserId,
     });
+
+    res.send(responseFromCreate);
+  } catch (e) {
+    res.status(500).send(error);
+  }
 });
 
-// GET all appointments for user
-router.get("/api/appointment", auth, (req, res) => {
-  db.Appointment.find({ email: req.query.email })
-    .then((data) => res.send(data))
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    });
+// GET all appointments for user. Query via userId.
+// Returns an array (could be of length 0) containing the details of the appointment
+// [{
+//   _id, // appointmentId
+//   eventId,
+//   hostUserId,
+//   name, // attendee's name
+//   email, // attendee's email
+//   time, // ISO8601 foramtted date and time
+//   timezone,
+//   duration, // a number in minute
+//   description,
+//   color, // the color of the flag
+//   link, // the incomplete link for building invitation link: <hostName>/<eventName>
+//   members,
+//   active, // indicate whether the event is active or not
+//   eventName
+// }, ...]
+router.get("/api/all-appointments", auth, async (req, res) => {
+  try {
+    const appointments = await db.Appointment.find({ hostUserId: req.userId });
+    if (!appointments.length) {
+      throw new Error("noAppointmentsFound");
+    }
+
+    const appointmentsWithEventDetailsPromise = appointments.map(
+      async (appointment) => {
+        const eventDetails = await getEventDetailViaId(appointment.eventId);
+        // spread eventDetails first because of duplicate keys
+        return {
+          ...eventDetails.toObject(),
+          ...appointment.toObject(),
+          eventName: eventDetails.name,
+        };
+      }
+    );
+
+    const appointmentsWithEventDetails = await Promise.all(
+      appointmentsWithEventDetailsPromise
+    );
+
+    res.status(200).send(appointmentsWithEventDetails);
+  } catch (error) {
+    if (error.message === "noAppointmentsFound") {
+      res.status(400).send("No appointments for the user");
+    } else {
+      res.status(500).send("Error occurred in /api/all-appointments\n" + error);
+    }
+  }
 });
 
 router.delete(

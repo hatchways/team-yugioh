@@ -6,6 +6,9 @@ const schema = new Schema({
   eventId: {
     type: mongoose.Schema.Types.ObjectId,
   },
+  hostUserId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   name: {
     type: String,
   },

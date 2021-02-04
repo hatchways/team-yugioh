@@ -1,3 +1,4 @@
+const isObjectIdValid = require("mongoose").Types.ObjectId.isValid;
 const dbAppointment = require("../db/models/Appointment");
 
 const ensureAppointmentExists = async (req, res, next) => {
@@ -13,6 +14,8 @@ const ensureAppointmentExists = async (req, res, next) => {
 
   const { appointmentId } = req.params;
   try {
+    stringIsValidObjectId(appointmentId);
+
     //result will return undefined when appointmentId is a valid format but does not exist in database
     const result = await dbAppointment.findOne({ _id: appointmentId });
     if (result) {
@@ -23,11 +26,23 @@ const ensureAppointmentExists = async (req, res, next) => {
     }
   } catch (error) {
     // the await statement will fail if the appointmentId is in a non-valid format
-    res
-      .status(400)
-      .send(
-        "No appointment found for the provided ID (Error in ensureAppointmentExists mdidleware"
-      );
+    if (error.message === "invalidObjId") {
+      res.status(400).send("Invalid format in appointment id");
+    } else {
+      res
+        .status(400)
+        .send(
+          "No appointment found for the provided ID (Error in ensureAppointmentExists mdidleware"
+        );
+    }
+  }
+};
+
+// throw an error if the string is not in valid object id format (valid if
+// it is a 12 characters long string)
+const stringIsValidObjectId = (stringValue) => {
+  if (!isObjectIdValid(stringValue)) {
+    throw new Error("invalidObjId");
   }
 };
 
