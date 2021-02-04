@@ -30,8 +30,7 @@ export default function EventGrid({ userEvents, updateUserEvents }) {
   const handleDelete = (eventId) => {
     axios
       .delete("/api/team-event/delete/", {data: { id: eventId}})
-      .then((data) => {
-        console.log(data)
+      .then(() => {
         updateUserEvents(eventId)
       })
       .catch((err) => console.log(err));
