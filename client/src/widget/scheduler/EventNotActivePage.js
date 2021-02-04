@@ -5,8 +5,8 @@ import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import Logo from "../assets/logo.png";
-import Mascot from "../assets/happy-cal.png";
+import Logo from "../../assets/logo.png";
+import Mascot from "../../assets/happy-cal.png";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
