@@ -147,7 +147,7 @@ const SetTimezoneUrl = (props) => {
           {allTimezone.map((timezone, i) => {
             return (
               <MenuItem value={timezone} key={i}>
-                UTC {timezone > 0 ? "+" : "-"} {timezone}
+                UTC {timezone > 0 ? "+" : null} {timezone}
               </MenuItem>
             );
           })}
