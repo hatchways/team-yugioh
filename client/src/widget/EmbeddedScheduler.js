@@ -1,7 +1,6 @@
 // Esssentially a copy of the `Scheduler.js` component
 
 import React, { useState, useEffect } from "react";
-import { Route, useLocation } from "react-router";
 import {
   makeStyles,
   Paper,
@@ -56,8 +55,8 @@ const Scheduler = ({ hostName, eventName }) => {
   useEffect(() => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
     const queryURL = `/api/event_details/${encodeURIComponent(
-      `${hostName}/${eventName}`
-    )}`;
+      hostName
+    )}/${encodeURIComponent(eventName)}`;
     axios
       .get(queryURL)
       .then((res) => {
