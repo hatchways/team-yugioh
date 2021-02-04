@@ -1,5 +1,5 @@
 // Esssentially a copy of the `Scheduler.js` component
-const domain = "http://localhost:3000";
+
 import React, { useState, useEffect } from "react";
 import {
   makeStyles,
@@ -8,17 +8,18 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
-import Overview from "../components/scheduler/Overview";
-import PickDate from "../components/scheduler/PickDate";
-import PickTime from "../components/scheduler/PickTime";
-import AppointmentDetails from "../components/scheduler/AppointmentDetails";
-import Confirmation from "../components/scheduler/Confirmation";
+import Overview from "./scheduler/Overview";
+import PickDate from "./scheduler/PickDate";
+import PickTime from "./scheduler/PickTime";
+import AppointmentDetails from "./scheduler/AppointmentDetails";
+import Confirmation from "./scheduler/Confirmation";
 import { getNextAvailableDate } from "../utils/calendarUtils";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import axios from "axios";
-import EventNotActivePage from "../pages/EventNotActivePage";
+import EventNotActivePage from "./scheduler/EventNotActivePage";
 
+const domain = "http://localhost:3000";
 const Scheduler = ({ hostName, eventName }) => {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -27,6 +28,7 @@ const Scheduler = ({ hostName, eventName }) => {
     details: "",
     duration: "",
     link: "",
+    userId: "",
   });
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventId: "",
@@ -60,14 +62,17 @@ const Scheduler = ({ hostName, eventName }) => {
     axios
       .get(queryURL)
       .then((res) => {
+        //
         // TODO: redirect to 404 page on no event found?
         if (res.data.length) {
           let event = res.data[0];
+          console.log("event3", event);
           setEventDetails({
             name: event.name,
             description: event.description,
             duration: event.duration,
             link: event.link,
+            userId: event.userId,
           });
           setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
           setEventActive(event.active);
@@ -115,7 +120,6 @@ const Scheduler = ({ hostName, eventName }) => {
                     appointmentDetails={appointmentDetails}
                     setAppointmentDetails={setAppointmentDetails}
                     eventDetails={eventDetails}
-                    path={path}
                     appointmentConfirmed={appointmentConfirmed}
                     setAppointmentConfirmed={setAppointmentConfirmed}
                     setSelectedDate={setSelectedDate}
@@ -146,8 +150,8 @@ const Scheduler = ({ hostName, eventName }) => {
                           selectedDate={selectedDate}
                           appointmentDetails={appointmentDetails}
                           setAppointmentDetails={setAppointmentDetails}
+                          eventDetails={eventDetails}
                           setSelectedDate={setSelectedDate}
-                          eventLink={eventDetails.link}
                           interval={interval}
                           availabilityTimes={availTimes}
                         />

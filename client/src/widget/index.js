@@ -7,7 +7,6 @@ const Widget = () => {
   const element = document.getElementById("calend-app-inline-widget");
   const url = element.getAttribute("data-url");
   const [hostName, eventName] = url.split("/");
-  console.log("hostName, eventName", hostName, eventName);
   return <EmbeddedScheduler hostName={hostName} eventName={eventName} />;
 };
 

@@ -6,6 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, "../../server/routes/assets/widget"),
     filename: "widget.bundle.js",
   },
+  devtool: "inline-source-map",
   module: {
     rules: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
@@ -16,7 +17,7 @@ module.exports = {
     contentBase: ".",
     port: 3002,
     host: "0.0.0.0",
-    publicPath: "/assets/",
+    publicPath: "/assets/widget/",
     proxy: {
       "/api": "http://localhost:3000",
     },
