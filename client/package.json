@@ -52,6 +52,13 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-only-warn": "^1.0.2"
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "eslint-plugin-only-warn": "^1.0.2",
+    "webpack": "^5.20.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
