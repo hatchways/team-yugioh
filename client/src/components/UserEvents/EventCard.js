@@ -14,13 +14,23 @@ import Switch from "@material-ui/core/Switch";
 import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange } from "@material-ui/core/colors";
 import Snackbar from "@material-ui/core/Snackbar";
+import { Code } from "@material-ui/icons";
 
 import axios from "axios";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import EmbedSchedulerDialog from "./EmbedSchedulerDialog";
 
+export default function EventCard({
+  name,
+  duration,
+  color,
+  link,
+  active,
+  _id,
+}) {
+  const [eventActive, setEventActive] = useState(active);
+  const [showEmbedInstruction, setShowEmbedInstruction] = useState(false);
 
-export default function EventCard({ name, duration, color, link , active , _id }) {
-  const [eventActive, setEventActive] = useState(active)
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -41,9 +51,6 @@ export default function EventCard({ name, duration, color, link , active , _id }
       height: 32,
       width: 80,
       marginRight: "4px",
-    },
-    cardContentTop: {
-      marginTop: "-15px",
     },
     duration: {
       marginLeft: "9.5px",
@@ -79,11 +86,22 @@ export default function EventCard({ name, duration, color, link , active , _id }
         <CardHeader className={classes.colorBar} />
 
         <CardContent>
-          <Grid container direction="column">
+          <Grid container justify="space-between" wrap="nowrap">
+            <Grid item xs={7} className={classes.titleBox}>
+              <Typography variant="h5">
+                {name || duration + " minute meeting"}
+              </Typography>
+
+              <Typography variant="subtitle2" color="textSecondary">
+                One-on-One
+              </Typography>
+            </Grid>
             <Grid
+              item
+              xs={5}
               container
-              justify="flex-end"
-              className={classes.cardContentTop}
+              direction="column"
+              alignItems="flex-end"
             >
               <FormControlLabel
                 labelPlacement="start"
@@ -97,15 +115,13 @@ export default function EventCard({ name, duration, color, link , active , _id }
                 }
                 label="On/Off"
               />
-            </Grid>
-            <Grid className={classes.titleBox}>
-              <Typography variant="h5">
-                {name || duration + " minute meeting"}
-              </Typography>
-
-              <Typography variant="subtitle2" color="textSecondary">
-                One-on-One
-              </Typography>
+              <Button
+                onClick={() => {
+                  setShowEmbedInstruction(true);
+                }}
+              >
+                <Code />
+              </Button>
             </Grid>
           </Grid>
         </CardContent>
@@ -141,6 +157,11 @@ export default function EventCard({ name, duration, color, link , active , _id }
         open={copied}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         message="Invitation link copied to clipboard"
+      />
+      <EmbedSchedulerDialog
+        showEmbedInstruction={showEmbedInstruction}
+        setShowEmbedInstruction={setShowEmbedInstruction}
+        link={link}
       />
     </>
   );
