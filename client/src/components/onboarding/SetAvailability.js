@@ -88,7 +88,7 @@ SetAvailability.propTypes = {
   setStartHour: PropTypes.func,
   finishHour: PropTypes.string,
   setFinishHour: PropTypes.func,
-  days: PropTypes.object,
+  days: PropTypes.array,
   setDays: PropTypes.func,
 };
 
