@@ -23,7 +23,7 @@ const OnBoarding = () => {
   const [page, setPage] = useState(1);
 
   const [url, setUrl] = useState("");
-  const [timezone, setTimezone] = useState("");
+  const [timezone, setTimezone] = useState(""); // a signed integer indicating the difference from UTC (Toronto: -5, Vancouver: -8)
   const [startHour, setStartHour] = useState(""); //HH:MM
   const [finishHour, setFinishHour] = useState(""); //HH:MM
   const [days, setDays] = useState([]); //{0: bool, 1: bool, ..., 6: bool}
