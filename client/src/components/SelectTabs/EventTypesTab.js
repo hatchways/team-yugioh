@@ -20,7 +20,7 @@ import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
 import Checkmark from "../../assets/check.png";
-
+import AddIcon from '@material-ui/icons/Add';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -335,14 +335,15 @@ export default function EventTypesTab() {
               </Typography>
             </Box>
           </Box>
-          <Box>
+          <Box mb={2}>
             <Button
+              pt={1}
               className={classes.newEventTypeButton}
               color="secondary"
               variant="outlined"
               onClick={handleClickOpen}
             >
-              + New Event Type
+              <AddIcon fontSize="small"/> New Event Type
             </Button>
           </Box>
         </Grid>
