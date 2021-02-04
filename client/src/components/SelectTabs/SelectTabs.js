@@ -18,11 +18,9 @@ function TabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box pt={3}>
           <div>{children}</div>
         </Box>
       )}
@@ -36,12 +34,6 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,15 +79,16 @@ export default function SelectTabs() {
     <Container className={classes.root} maxWidth="xl">
       <div position="static">
         <Tabs
+        direction="vertical"
           value={value}
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <StyledTab label="Event Types" {...a11yProps(0)} />
+          <StyledTab label="Event Types" />
           <StyledTab
             classes={classes.tab}
             label="Scheduled Appointments"
-            {...a11yProps(1)}
+            
           />
           <StyledTab label="Teams" />
         </Tabs>
@@ -112,3 +105,4 @@ export default function SelectTabs() {
     </Container>
   );
 }
+
