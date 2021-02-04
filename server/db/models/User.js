@@ -47,6 +47,10 @@ const schema = new Schema({
   teamId: {
     type: mongoose.Schema.Types.ObjectId,
   },
+  availableDays: {
+    type: Array,
+  },
+  availableTime: { type: Object },
 });
 
 const User = mongoose.model("User", schema);
