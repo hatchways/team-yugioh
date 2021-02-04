@@ -5,7 +5,7 @@ import {
   makeStyles,
   Typography,
   Divider,
-  Button
+  Button,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScrean";
@@ -23,15 +23,15 @@ const OnBoarding = () => {
   const [page, setPage] = useState(1);
 
   const [url, setUrl] = useState("");
-  const [timezone, setTimezone] = useState("");
-  const [startHour, setStartHour] = useState("");
-  const [finishHour, setFinishHour] = useState("");
-  const [days, setDays] = useState({});
+  const [timezone, setTimezone] = useState(""); // a signed integer indicating the difference from UTC (Toronto: -5, Vancouver: -8)
+  const [startHour, setStartHour] = useState(""); //HH:MM
+  const [finishHour, setFinishHour] = useState(""); //HH:MM
+  const [days, setDays] = useState([]); //{0: bool, 1: bool, ..., 6: bool}
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    axios.get("/api/user/get_url", { withCredentials: true }).then(res => {
+    axios.get("/api/user/get_url", { withCredentials: true }).then((res) => {
       setLoading(false);
       if (res.data !== "") {
         setOnboarded(true);
@@ -40,10 +40,16 @@ const OnBoarding = () => {
   }, []);
 
   const handleButtonClick = () => {
-    setPage(page + 1);
+    setPage(Math.min(3, page + 1)); // don't go over page 3
     if (page === 3) {
+      const availableTime = { start: startHour, end: finishHour };
       axios
-        .post("/api/user/", { URL: url, timezone: timezone })
+        .post("/api/user/", {
+          URL: url,
+          timezone: timezone,
+          availableTime,
+          availableDays: days,
+        })
         .then(() => setOnboarded(true));
     }
   };
@@ -94,7 +100,6 @@ const OnBoarding = () => {
                 setDays={setDays}
               />
             )}
-            {page === 4 && <Redirect to="/home" />}
             <Grid container justify="center">
               <Button
                 color="primary"
@@ -112,20 +117,20 @@ const OnBoarding = () => {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative"
+    position: "relative",
   },
   topContent: {
     padding: "2em",
-    height: "6em"
+    height: "6em",
   },
   paper: {
     margin: "8% auto",
-    width: "30em"
+    width: "30em",
   },
   gridForMainContent: {
-    height: "100%"
+    height: "100%",
   },
   button: {
     background: theme.palette.primary.button,
@@ -133,12 +138,12 @@ const useStyles = makeStyles(theme => ({
     padding: "15px 50px 15px 50px",
     position: "absolute",
     bottom: "2em",
-    width: "3em"
+    width: "3em",
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.common.white
-  }
+    color: theme.palette.common.white,
+  },
 }));
 
 export default OnBoarding;
