@@ -17,7 +17,7 @@ const EmbedSchedulerDialog = ({
 }) => {
   const classes = useStyles();
   const [hostName, eventName] = link.split("/") || ["", ""];
-  const code = `<div id="calend-app-inline-widget" data-url="${hostName}/${eventName}" style="min-width: 320px; height: 630px;"></div>\n<script type="text/javascript" src="${domain}/assets/widget.bundle.js"></script>`;
+  const code = `<div id="calend-app-inline-widget" data-url="${hostName}/${eventName}" style="min-width: 320px; height: 630px;"></div>\n<script type="text/javascript" src="${domain}/assets/widget/widget.bundle.js"></script>`;
   return (
     <Dialog
       open={showEmbedInstruction}
