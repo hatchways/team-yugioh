@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import BackArrow from "../../assets/back.svg";
+import Yay from "../../assets/yay.png";
 
 const Confirmation = ({ eventDetails, appointmentDetails }) => {
   const classes = useStyles();
@@ -19,6 +20,13 @@ const Confirmation = ({ eventDetails, appointmentDetails }) => {
         <Typography variant="h3" color="textSecondary">
           Confirmed
         </Typography>
+      </Grid>
+      <Grid item>
+        <img
+          src={Yay}
+          alt="A happy, jumping calendar"
+          className={classes.calendy}
+        />
       </Grid>
       <Grid item>
         <Typography variant="h5" color="textSecondary">
@@ -52,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     width: "50%",
     height: "100%",
     overflow: "hidden",
-    margin: "-10% auto 0 auto",
+    margin: "0 auto",
   },
   button: {
     background: theme.palette.primary.button,
@@ -85,6 +93,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     backgroundSize: "30%",
     minWidth: "0",
+  },
+  calendy: {
+    width: "50%",
   },
   formLabel: {
     margin: "0 6%",

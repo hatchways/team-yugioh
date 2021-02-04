@@ -125,6 +125,7 @@ const Scheduler = () => {
                     <AppointmentDetails
                       appointmentDetails={appointmentDetails}
                       setAppointmentDetails={setAppointmentDetails}
+                      eventDetails={eventDetails}
                       path={path}
                       appointmentConfirmed={appointmentConfirmed}
                       setAppointmentConfirmed={setAppointmentConfirmed}
