@@ -240,7 +240,7 @@ export default function EventTypesTab() {
   }, []);
 
   const updateUserEvents = (eventId) => {
-    setUserEvents(userEvents.filter((event) => event._id !== eventId && event));
+    setUserEvents(userEvents.filter((event) => event._id !== eventId));
   };
 
   const handleClickOpen = () => {
