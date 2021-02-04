@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-const domain = "http://localhost:3001";
+const domain = "http://localhost:3000";
 
 const EmbedSchedulerDialog = ({
   showEmbedInstruction,
