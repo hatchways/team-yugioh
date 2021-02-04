@@ -17,6 +17,7 @@ const AppointmentDetails = ({
   eventDetails,
   setAppointmentConfirmed,
   setPage,
+  domain,
 }) => {
   const classes = useStyles();
   const handleFormChange = (event) => {
@@ -27,13 +28,13 @@ const AppointmentDetails = ({
   const createAppointment = async () => {
     let res;
     try {
-      res = await axios.post("/api/appointment", appointmentDetails);
+      res = await axios.post(`${domain}/api/appointment`, appointmentDetails);
     } catch (err) {
       console.log(err);
     }
 
     try {
-      await axios.post("/api/email", {
+      await axios.post(`${domain}/api/email`, {
         email: appointmentDetails.email,
         eventName: eventDetails.name,
         time: appointmentDetails.time,

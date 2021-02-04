@@ -22,8 +22,5 @@ module.exports = {
     port: 3002,
     host: "0.0.0.0",
     publicPath: "/assets/widget/",
-    proxy: {
-      "/api": "http://localhost:3000",
-    },
   },
 };

@@ -14,6 +14,7 @@ const PickTime = ({
   interval,
   availabilityTimes,
   setPage,
+  domain,
 }) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
@@ -27,7 +28,7 @@ const PickTime = ({
     isoDate = isoDate.toISOString();
     //fetch from backend
     axios
-      .post(`/api/calendar/availability?day=${isoDate}`, {
+      .post(`${domain}/api/calendar/availability?day=${isoDate}`, {
         members: [userId],
       })
       .then((res) => {

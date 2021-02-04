@@ -20,8 +20,7 @@ import EventNotActivePage from "./scheduler/EventNotActivePage";
 import Confirmation from "./scheduler/Confirmation";
 import { getNextAvailableDate } from "../utils/calendarUtils";
 
-const domain = "http://localhost:3000";
-const Scheduler = ({ hostName, eventName }) => {
+const Scheduler = ({ hostName, eventName, domain }) => {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventDetails, setEventDetails] = useState({});
@@ -108,6 +107,7 @@ const Scheduler = ({ hostName, eventName }) => {
               interval={interval}
               availabilityTimes={availTimes}
               setPage={setPage}
+              domain={domain}
             />
           </Grid>
         </Grid>
@@ -160,6 +160,7 @@ const Scheduler = ({ hostName, eventName }) => {
                   interval={interval}
                   availabilityTimes={availTimes}
                   setPage={setPage}
+                  domain={domain}
                 />
               </Grid>
             </Grid>

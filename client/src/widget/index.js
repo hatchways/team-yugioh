@@ -5,13 +5,18 @@ import EmbeddedScheduler from "./EmbeddedScheduler";
 import { theme } from "../themes/theme";
 import { MuiThemeProvider } from "@material-ui/core";
 
+const domain = "http://localhost:3000";
 const Widget = () => {
   const element = document.getElementById("calend-app-inline-widget");
   const url = element.getAttribute("data-url");
   const [hostName, eventName] = url.split("/");
   return (
     <MuiThemeProvider theme={theme}>
-      <EmbeddedScheduler hostName={hostName} eventName={eventName} />
+      <EmbeddedScheduler
+        hostName={hostName}
+        eventName={eventName}
+        domain={domain}
+      />
     </MuiThemeProvider>
   );
 };
