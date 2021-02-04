@@ -69,7 +69,7 @@ export default function NavBar() {
 
   return (
     <AppBar className={classes.root} position="static">
-      {/* <Toolbar>
+      <Toolbar>
         <span className={classes.title}>
           <img width="110rem" src={Logo} alt="CalendApp logo" />
         </span>
@@ -116,7 +116,7 @@ export default function NavBar() {
         </Box>
         <UserMenu name={name} />
       </Toolbar>
-      <ImageUploader open={open} onClose={handleClose} /> */}
+      <ImageUploader open={open} onClose={handleClose} />
     </AppBar>
   );
 }
