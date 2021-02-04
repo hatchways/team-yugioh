@@ -20,18 +20,33 @@ router.post("/api/calendar/availability", async (req, res) => {
         const tokenStore = await db.AuthStore.findOne({ email: usr.email });
         const authToken = tokenStore.googleAuthToken;
         availability = await getAvailability(authToken, day);
-        // const googleCal = await getAvailability(authToken, day);
-        // for (let block of googleCal) {
-        //   const newBlock = { ...block };
-        //   if (
-        //     usr.availableTime.start > dateFns.getHours(block.end) ||
-        //     usr.availableTime.end < dateFns.getHours(block.start)
-        //   ) {
-        //     continue;
-        //   } else if (usr.availableTime.start < dateFns.getHours(block.start)) {
-        //     newBlock.start = usr.start;
-        //   }
-        // }
+        const googleCal = await getAvailability(authToken, day);
+        const usrUTC = {
+          start: parseInt(usr.availableTime.start.substring(0, 2)),
+          end: parseInt(usr.availableTime.end.substring(0, 2)),
+        };
+
+        if (usr.timezone) {
+          const diff = usr.timezone.substring(4);
+          usrUTC.start = usrUTC.start - diff;
+          usrUTC.end = usrUTC.end - diff;
+        }
+
+        for (let block of googleCal) {
+          const newBlock = { ...block };
+          const googleStart = new Date(block.start).getHours();
+          const googleEnd = new Date(block.end).getHours();
+
+          if (usrUTC.start > googleEnd || usrUTC.end < googleStart) {
+            continue;
+          } else if (usrUTC.start > googleStart) {
+            newBlock.start = day.setHours(usrUTC.start);
+          } else if (usrUTC.end < googleEnd) {
+            newBlock.end = day.setHours(usrUTC.end);
+          }
+
+          availability.push(newBlock);
+        }
       }
       res.status(200).send({ availability });
     } catch (err) {
