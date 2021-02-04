@@ -19,6 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import EventGrid from "../UserEvents/EventGrid";
 import Avatar from "@material-ui/core/Avatar";
+import AddIcon from '@material-ui/icons/Add';
 import Checkmark from "../../assets/check.png";
 
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -213,6 +214,7 @@ export default function EventTypesTab() {
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [unique, setUnique] = useState(true);
   const [userURL, setUserURL] = useState();
+
   const [eventBody, setEventBody] = useState({
     name: "",
     duration: "",
@@ -238,10 +240,6 @@ export default function EventTypesTab() {
       })
       .catch((err) => console.log(err));
   }, []);
-
-  const updateUserEvents = (eventId) => {
-    setUserEvents(userEvents.filter((event) => event._id !== eventId));
-  };
 
   const handleClickOpen = () => {
     setOpenNewEvent(true);
@@ -337,21 +335,19 @@ export default function EventTypesTab() {
               </Typography>
             </Box>
           </Box>
-          <Box>
+          <Box mb={2}>
             <Button
+              pt={1}
               className={classes.newEventTypeButton}
               color="secondary"
               variant="outlined"
               onClick={handleClickOpen}
             >
-              + New Event Type
+              <AddIcon fontSize="small"/> New Event Type
             </Button>
           </Box>
         </Grid>
-        <EventGrid
-          userEvents={userEvents}
-          updateUserEvents={updateUserEvents}
-        />
+        <EventGrid userEvents={userEvents} />
       </Container>
       <Dialog
         open={openNewEvent}
