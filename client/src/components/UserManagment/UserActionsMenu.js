@@ -25,16 +25,16 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14
   },
   popover: {
-    display: "flex",
+    display: hidden=>hidden?"none":"flex",
     flexDirection: "column"
   }
 }));
 
 export default function UserActionsMenu({ children }) {
 
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [hidden, toggleHidden] = React.useState(false);
+  const classes = useStyles(hidden);
 
   const handleClick = event => {
     toggleHidden(false);  
@@ -65,7 +65,6 @@ export default function UserActionsMenu({ children }) {
         classes={{ paper: classes.popover }}
         anchorEl={anchorEl}
         onClose={handleClose}
-        style={hidden?{display:"none"}:null}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left"
