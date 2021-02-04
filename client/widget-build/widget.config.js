@@ -1,9 +1,9 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/widget",
+  entry: "../src/widget",
   output: {
-    path: path.resolve(__dirname, "../server/routes/assets"),
+    path: path.resolve(__dirname, "../../server/routes/assets/widget"),
     filename: "widget.bundle.js",
   },
   module: {
@@ -13,11 +13,12 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: "./assets",
+    contentBase: ".",
     port: 3002,
     host: "0.0.0.0",
+    publicPath: "/assets/",
     proxy: {
-      "/assets": "http://localhost:3000",
+      "/api": "http://localhost:3000",
     },
   },
 };

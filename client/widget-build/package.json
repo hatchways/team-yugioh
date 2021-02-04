@@ -1,0 +1,42 @@
+{
+  "name": "widget-build",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "@date-io/date-fns": "^1.3.13",
+    "@fcannizzaro/react-use-cookie-watcher": "^1.0.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/data-grid": "^4.0.0-alpha.18",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/pickers": "^3.2.10",
+    "@stripe/react-stripe-js": "^1.2.0",
+    "@stripe/stripe-js": "^1.11.0",
+    "aws-sdk": "^2.830.0",
+    "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
+    "date-fns": "^2.16.1",
+    "file-loader": "^6.2.0",
+    "material-ui-chip-input": "^2.0.0-beta.2",
+    "moment": "^2.29.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "react": "^17.0.1",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "webpack": "^5.20.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
