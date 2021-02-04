@@ -172,6 +172,8 @@ export default function EventCard({
   const passIdToDeleteEvent = () => {
     deleteEvent(_id)
     setOpen(false);
+    // added this setState because first card after a event was deleted would always switch to inactive 
+    setEventActive(true); 
   }
 
   return (

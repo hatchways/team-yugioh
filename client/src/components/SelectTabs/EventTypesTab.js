@@ -213,7 +213,6 @@ export default function EventTypesTab() {
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [unique, setUnique] = useState(true);
   const [userURL, setUserURL] = useState();
-
   const [eventBody, setEventBody] = useState({
     name: "",
     duration: "",
@@ -241,11 +240,8 @@ export default function EventTypesTab() {
   }, []);
 
   const updateUserEvents = (eventId) => {
-    console.log('update events')
-    setUserEvents(userEvents.filter((event) =>
-      event._id !== eventId && event
-      ))
-  }
+    setUserEvents(userEvents.filter((event) => event._id !== eventId && event));
+  };
 
   const handleClickOpen = () => {
     setOpenNewEvent(true);
@@ -352,7 +348,10 @@ export default function EventTypesTab() {
             </Button>
           </Box>
         </Grid>
-        <EventGrid userEvents={userEvents}  updateUserEvents={updateUserEvents} />
+        <EventGrid
+          userEvents={userEvents}
+          updateUserEvents={updateUserEvents}
+        />
       </Container>
       <Dialog
         open={openNewEvent}
