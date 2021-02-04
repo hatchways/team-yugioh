@@ -10,15 +10,55 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Tooltip from "@material-ui/core/Tooltip";
 import Switch from "@material-ui/core/Switch";
+import Box from "@material-ui/core/Box";
 import { DoneOutlined } from "@material-ui/icons";
 import { deepOrange, grey, indigo } from "@material-ui/core/colors";
 import Snackbar from "@material-ui/core/Snackbar";
 
 import axios from "axios";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+
+function DeleteEventDialog(props) {
+  const useStyles = makeStyles({
+    root: {
+      padding: 233,
+    },
+  });
+
+  const { onClose, open } = props;
+
+  const handleClose = () => {
+    onClose();
+  };
+  const classes = useStyles();
+
+  return (
+    <Dialog className={classes.root} onClose={handleClose} open={open}>
+      <DialogTitle>Are you sure?</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Deleting events are cannot be undone.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions style={{marginBottom:8, marginRight: 5}}>
+        <Button onClick={props.deleteEvent} 
+        color="secondary" variant="contained">
+          Yes
+        </Button>
+        <Button onClick={onClose} variant="outlined" autoFocus>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 
 export default function EventCard({
   name,
@@ -71,7 +111,7 @@ export default function EventCard({
     },
   });
   const classes = useStyles();
-// CUSTOM BTN
+  // CUSTOM BTN
   const DeleteBtn = withStyles({
     root: {
       color: "white",
@@ -85,11 +125,11 @@ export default function EventCard({
       marginRight: "4px",
     },
   })(Button);
-// CUSTOM Tooltip
+  // CUSTOM Tooltip
   const LightTooltip = withStyles((theme) => ({
     tooltip: {
       backgroundColor: theme.palette.common.white,
-      color: 'rgba(0, 0, 0, 0.87)',
+      color: "rgba(0, 0, 0, 0.87)",
       boxShadow: theme.shadows[1],
       fontSize: 11,
     },
@@ -116,6 +156,22 @@ export default function EventCard({
       .catch((err) => console.log(err));
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = () => {
+    // axios.delete()
+
+    setOpen(false);
+  };
+
   return (
     <>
       <Paper className={classes.root}>
@@ -130,17 +186,13 @@ export default function EventCard({
                 className={classes.cardContentTop}
               >
                 <LightTooltip title="Turn On/Off" placement="bottom">
-            
-          
-                  
-                      <Switch
-                        size="small"
-                        color="primary"
-                        checked={eventActive}
-                        onChange={handleSwitch}
-                      />
-                   </LightTooltip>
-                
+                  <Switch
+                    size="small"
+                    color="primary"
+                    checked={eventActive}
+                    onChange={handleSwitch}
+                  />
+                </LightTooltip>
               </Grid>
               <Grid className={classes.titleBox}>
                 <Typography variant="h5">
@@ -183,7 +235,7 @@ export default function EventCard({
                 <DeleteBtn
                   variant="outlined"
                   size="small"
-                  onClick={handleSwitch}
+                  onClick={handleClickOpen}
                 >
                   Delete
                 </DeleteBtn>
@@ -196,6 +248,11 @@ export default function EventCard({
         open={copied}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         message="Invitation link copied to clipboard"
+      />
+      <DeleteEventDialog
+        deleteEvent={handleDelete}
+        open={open}
+        onClose={handleClose}
       />
     </>
   );
