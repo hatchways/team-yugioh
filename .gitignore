@@ -26,5 +26,6 @@ yarn-error.log*
 client/debug.log
 client/.eslintcache
 client/debug.log
+client/cypress/videos
 
 pnpm-lock.yaml
