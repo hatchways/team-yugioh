@@ -11,12 +11,13 @@ const PickTime = ({
   selectedDate,
   appointmentDetails,
   setAppointmentDetails,
-  eventLink,
+  eventDetails,
   interval,
   availabilityTimes,
 }) => {
   const classes = useStyles();
   const date = format(selectedDate, "EEEE, LLL do");
+  const { link, userId } = eventDetails;
 
   const [timeSlots, setTimeSlots] = useState([]);
 
@@ -26,8 +27,8 @@ const PickTime = ({
     isoDate = isoDate.toISOString();
     //fetch from backend
     axios
-      .get(`/api/calendar/availability?day=${isoDate}`, {
-        withCredentials: true,
+      .post(`/api/calendar/availability?day=${isoDate}`, {
+        members: [userId],
       })
       .then((res) => {
         setTimeSlots(
@@ -61,7 +62,7 @@ const PickTime = ({
         {timeSlots.length !== 0 &&
           timeSlots.map((slot, i) => (
             <Link
-              to={`/appt/${eventLink}/${encodeURI(
+              to={`/appt/${link}/${encodeURI(
                 parse(date + " " + slot, "EEEE, LLL do HH:mm", new Date())
               )}`}
               className={classes.schedLink}

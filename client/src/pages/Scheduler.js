@@ -27,6 +27,7 @@ const Scheduler = () => {
     details: "",
     duration: "",
     link: "",
+    userId: "",
   });
   const [appointmentDetails, setAppointmentDetails] = useState({
     eventId: "",
@@ -56,8 +57,6 @@ const Scheduler = () => {
     // Matching only the first two params so /hostname/eventname/datelinks will still work correctly
     const regex = /appt\/([%\s0-9a-z-]*\/[%\s0-9a-z-]*)/g;
     let searchUrl = path.match(regex)[0].slice(5);
-    console.log(path);
-    console.log(searchUrl);
     const queryURL = `/api/event_details/${encodeURI(searchUrl)}`;
     axios
       .get(queryURL)
@@ -70,6 +69,7 @@ const Scheduler = () => {
             description: event.description,
             duration: event.duration,
             link: event.link,
+            userId: event.userId,
           });
           setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
           setEventActive(event.active);
@@ -158,8 +158,8 @@ const Scheduler = () => {
                           selectedDate={selectedDate}
                           appointmentDetails={appointmentDetails}
                           setAppointmentDetails={setAppointmentDetails}
+                          eventDetails={eventDetails}
                           setSelectedDate={setSelectedDate}
-                          eventLink={eventDetails.link}
                           interval={interval}
                           availabilityTimes={availTimes}
                         />
