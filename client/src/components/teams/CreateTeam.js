@@ -15,21 +15,25 @@ import {
 import InviteMembers from "./InviteMembers";
 import MembersToBeInvited from "./MembersToBeInvited";
 import axios from "axios";
-import {useUserData} from "../../providers/Context"
+import {useUserData, useSetUserData} from "../../providers/Context"
 
 const CreateTeam = ({ open, closeDialog }) => {
   const classes = useStyles();
-  const {email}=useUserData();
+  const userData=useUserData();
+  const setUserdata=useSetUserData();
 
   const createTeam = () => {
     axios
       .post("/api/team/create", { name: teamName, members: members })
-      .then((res) => {closeDialog()})
+      .then((res) => {
+        console.log(res.data)
+        setUserdata({...userData, teamId:res.data._id, isAdmin:true})
+        closeDialog()})
       .catch((err) => console.log(err));
   };
 
   const [teamName, setTeamName] = useState("");
-  const [members, setMembers] = useState([email]);
+  const [members, setMembers] = useState([]);
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
   };

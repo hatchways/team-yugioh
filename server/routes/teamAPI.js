@@ -12,10 +12,17 @@ router.post("/api/team/create", auth, async (req, res) => {
     const results = await db.User.find({
       email: { $in: req.body.members },
     });
-    const team = results.map((result) => {result._id});
+
+    const team = results.map(result => result._id);
     // adding member creating the team
     team.push(req.userId);
+
+  
     let response = await db.Team.create({ name: req.body.name, members: team });
+
+    //set creating user as admin
+    await db.User.updateOne({_id:req.userId},{teamId:response._id, isAdmin:true})
+
     res.send(response);
   } catch (error) {
     console.log(error);
