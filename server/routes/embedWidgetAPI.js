@@ -7,5 +7,7 @@ router.get("/assets/widget/:fileName", (req, res) => {
   const options = {
     root: path.join(__dirname, "./assets/widget"),
   };
-  res.sendFile(req.params.fileName);
+  res.sendFile(req.params.fileName, options);
 });
+
+module.exports = router;
