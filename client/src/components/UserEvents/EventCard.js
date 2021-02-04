@@ -25,30 +25,19 @@ import axios from "axios";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function DeleteEventDialog(props) {
-  const useStyles = makeStyles({
-    root: {
-      padding: 233,
-    },
-  });
-
   const { onClose, open } = props;
 
   const handleClose = () => {
     onClose();
   };
-  const classes = useStyles();
 
   return (
-    <Dialog className={classes.root} onClose={handleClose} open={open}>
+    <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Are you sure?</DialogTitle>
-      <DialogContent style={{overflow: 'hidden'}}>
-        <DialogContentText > 
-          <Typography variant="subtitle2"> 
-          Deleting events are cannot be undone.
-          </Typography>
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions style={{ marginBottom: 8, marginRight: 5 }}>
+      <Typography variant="subtitle1" style={{ padding: "12px 15px", fontWeight: 400  }}>
+        Deleting events are cannot be undone.
+      </Typography>
+      <DialogActions style={{ marginBottom: 8, marginRight: 5}}>
         <Button
           onClick={() => props.deleteEvent()}
           color="secondary"
@@ -71,7 +60,7 @@ export default function EventCard({
   link,
   active,
   _id,
-  deleteEvent
+  deleteEvent,
 }) {
   const [eventActive, setEventActive] = useState(active);
 
@@ -172,11 +161,11 @@ export default function EventCard({
   };
 
   const passIdToDeleteEvent = () => {
-    deleteEvent(_id)
+    deleteEvent(_id);
     setOpen(false);
-    // added this setState because first card after a event was deleted would always switch to inactive 
-    setEventActive(true); 
-  }
+    // added this setState because first card after a event was deleted would always switch to inactive
+    setEventActive(true);
+  };
 
   return (
     <>
