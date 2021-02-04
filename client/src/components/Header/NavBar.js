@@ -12,7 +12,8 @@ import Grid from "@material-ui/core/Grid";
 
 // Mobile NavBar
 import MenuIcon from "@material-ui/icons/Menu";
-import IconButton from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import Drawer from "@material-ui/core/Drawer";
 
 import Logo from "../../assets/logo.png";
 import ImageUploader from "../UploadModal/ImageUploader";
@@ -37,7 +38,7 @@ const ProfilePhoto = ({ handleClickOpen }) => {
   const { photoUrl } = useUserData();
   return (
     <Badge
-    style={{cursor: "pointer", }}
+      style={{ cursor: "pointer" }}
       onClick={handleClickOpen}
       overlap="circle"
       anchorOrigin={{
@@ -86,22 +87,40 @@ const useStyles = makeStyles((theme) => ({
       opacity: 0.8,
     },
   },
+  drawerContainer: {
+    padding: "30px 30px",
+  },
 }));
 
 export default function Header() {
   const classes = useStyles();
   const { name } = useUserData();
 
+  // Handle modal open
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+  //Handle responsive screen sizing
+  const [state, setState] = useState({
+    mobileView: false,
+    drawerOpen: false,
+  });
+  const { mobileView, drawerOpen } = state;
 
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 900
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
+    setResponsiveness();
+    window.addEventListener("resize", () => setResponsiveness());
+  }, []);
+  // DESKTOP SETUP
   const displayDesktop = () => {
     return (
       <Toolbar>
@@ -130,7 +149,10 @@ export default function Header() {
                 classes={classes.profileBox}
                 style={{ width: 130 }}
               >
-                <ProfilePhoto className={classes.profile} handleClickOpen={handleClickOpen} />
+                <ProfilePhoto
+                  className={classes.profile}
+                  handleClickOpen={handleClickOpen}
+                />
                 <UserMenu name={name} />
               </Box>
             </Grid>
@@ -139,11 +161,68 @@ export default function Header() {
       </Toolbar>
     );
   };
+  // MOBILE SETUP
+  const displayMobile = () => {
+    const handleDrawerOpen = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: true }));
+    const handleDrawerClose = () =>
+      setState((prevState) => ({ ...prevState, drawerOpen: false }));
+
+    return (
+      <Toolbar>
+        <IconButton
+          {...{
+            edge: "start",
+            color: "inherit",
+            onClick: handleDrawerOpen,
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
+          <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
+        </Drawer>
+        <div>
+          <CalendLogo />
+        </div>
+      </Toolbar>
+    );
+  };
+
+  const getDrawerChoices = () => {
+    return (
+      <>
+        <Grid
+          container
+          direction="column"
+          justify="space-around"
+          alignItems="flex-start"
+          style={{ height: 120 }}
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            classes={classes.profileBox}
+            style={{ width: 130 }}
+          >
+            <ProfilePhoto
+              style={{ paddingTop: "8px" }}
+              handleClickOpen={handleClickOpen}
+            />
+            <UserMenu name={"Matt H"} />
+          </Box>
+          <HomeLink />
+          <UpgradeLink />
+        </Grid>
+      </>
+    );
+  };
 
   return (
     <header>
       <AppBar className={classes.header} position="static">
-        {displayDesktop()}
+        {mobileView ? displayMobile() : displayDesktop()}
       </AppBar>
       <ImageUploader open={open} onClose={handleClose} />
     </header>
