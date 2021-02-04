@@ -91,10 +91,10 @@ export default function UploadDialog(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setUploading(true);
-    if (saveDisabled) {
+    if (saveDisabled ) {
       return;
     }
+    setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
 
