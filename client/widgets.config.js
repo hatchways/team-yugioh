@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: "./src/widget",
   output: {
-    path: path.resolve(__dirname, "assets"),
+    path: path.resolve(__dirname, "../server/routes/assets"),
     filename: "widget.bundle.js",
   },
   module: {
@@ -17,7 +17,7 @@ module.exports = {
     port: 3002,
     host: "0.0.0.0",
     proxy: {
-      "/api": "http://localhost:3001",
+      "/assets": "http://localhost:3000",
     },
   },
 };
