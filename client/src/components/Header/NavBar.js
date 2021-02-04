@@ -8,8 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 //NEW Desktop NavBar
-import { Link as RouterLink } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 // Mobile NavBar
 import MenuIcon from "@material-ui/icons/Menu";
@@ -38,12 +37,7 @@ const ProfilePhoto = ({ handleClickOpen }) => {
   const { photoUrl } = useUserData();
   return (
     <Badge
-      style={{
-        cursor: "pointer",
-        "&:hover": {
-          opacity: 0.8,
-        },
-      }}
+    style={{cursor: "pointer", }}
       onClick={handleClickOpen}
       overlap="circle"
       anchorOrigin={{
@@ -75,13 +69,24 @@ const ProfilePhoto = ({ handleClickOpen }) => {
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: "white",
     flexGrow: 1,
     padding: "0.6rem 3rem",
   },
-});
+  title: {
+    flexGrow: 1,
+  },
+  linkGrid: {
+    width: 350,
+  },
+  profile: {
+    "&:hover": {
+      opacity: 0.8,
+    },
+  },
+}));
 
 export default function Header() {
   const classes = useStyles();
@@ -100,11 +105,37 @@ export default function Header() {
   const displayDesktop = () => {
     return (
       <Toolbar>
-        <CalendLogo />
-        <HomeLink />
-        <UpgradeLink />
-        <ProfilePhoto handleClickOpen={handleClickOpen} />
-        <UserMenu name={name} />
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            <CalendLogo className={classes.title} />
+          </Grid>
+          <Grid item className={classes.linkGrid}>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+              <HomeLink />
+              <UpgradeLink />
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                classes={classes.profileBox}
+                style={{ width: 130 }}
+              >
+                <ProfilePhoto className={classes.profile} handleClickOpen={handleClickOpen} />
+                <UserMenu name={name} />
+              </Box>
+            </Grid>
+          </Grid>
+        </Grid>
       </Toolbar>
     );
   };
