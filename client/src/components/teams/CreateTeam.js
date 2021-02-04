@@ -15,9 +15,11 @@ import {
 import InviteMembers from "./InviteMembers";
 import MembersToBeInvited from "./MembersToBeInvited";
 import axios from "axios";
+import {useUserData} from "../../providers/Context"
 
 const CreateTeam = ({ open, closeDialog }) => {
   const classes = useStyles();
+  const {email}=useUserData();
 
   const createTeam = () => {
     axios
@@ -27,7 +29,7 @@ const CreateTeam = ({ open, closeDialog }) => {
   };
 
   const [teamName, setTeamName] = useState("");
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState([email]);
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
   };
