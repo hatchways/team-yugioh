@@ -62,7 +62,7 @@ const Header = ({ teamName, teamId }) => {
           {title}
         </Typography>
       )}
-      <InviteNewUsers />
+      <InviteNewUsers teamId={teamId} />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import MembersToBeInvited from "../teams/MembersToBeInvited";
 import ChipInput from "material-ui-chip-input";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -88,11 +89,11 @@ const useStyles = makeStyles({
 
 function Modal(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
+  const { onClose, selectedValue, open, teamId } = props;
 
   //TODO: add email validation
 
-  const [invitees, setInvitees] = React.useState([]);
+  const [invitees, setInvitees] = useState([]);
 
   const handleDeleteChip = chipToDelete => {
     setInvitees(invitees.filter(chip => chip !== chipToDelete));
@@ -108,6 +109,15 @@ function Modal(props) {
 
   const handleSubmit = () => {
     //api call here
+    //change to post
+    axios.post(
+      "/api/team/add",
+      { memberEmails: invitees, teamId: teamId },
+      {
+        withCredentials: true
+      }
+    ).then(res=>console.log(res.data)).catch(err=>console.log(err));
+
     handleClose();
   };
 
@@ -164,7 +174,7 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function InviteNewUsers({ userName }) {
+export default function InviteNewUsers({ teamId }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -186,7 +196,7 @@ export default function InviteNewUsers({ userName }) {
       >
         New User
       </Button>
-      <Modal open={open} onClose={handleClose} userName={userName} />
+      <Modal open={open} onClose={handleClose} teamId={teamId} />
     </div>
   );
 }

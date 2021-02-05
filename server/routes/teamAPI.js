@@ -49,28 +49,31 @@ router.get("/api/team/:id", auth, (req, res) => {
     });
 });
 
-// ADD Team member
+// ADD Team members
 // req.body: { teamId: teamId, memberEmails: [emails] }
-router.get("/api/team/add", auth, async (req, res) => {
+router.post("/api/team/add", auth, async (req, res) => {
   //convert emails to memberIDs
 
+  console.log(req.body);
+
   const addedUserIds = await db.User.find({
-    email: { $in: req.body.memberEmails },
+    email: { $in: req.body.memberEmails }
   });
 
-  const addedUserIdsClean = addedUserIds.map((usr) => usr._id);
+  const addedUserIdsClean = addedUserIds.map(usr => usr._id);
 
-  db.Team.updateOne(
+  const response = await db.Team.updateOne(
     { _id: req.body.teamId },
-    { $push: {members:{$each:{ addedUserIdsClean }}} }
-  )
-    .then(data => {
-      res.send(data);
-    })
-    .catch(error => {
-      console.log(error.message);
-      res.status(500).send(error);
-    });
+    { $push: { members: { $each: addedUserIdsClean } } }
+  );
+
+  //update users who have been added to the team
+  await db.User.updateMany(
+    { _id: { $in: addedUserIdsClean } },
+    { teamId: req.body.teamId, isAdmin: false }
+  );
+  
+  res.send(response);
 });
 
 // Change Team name
