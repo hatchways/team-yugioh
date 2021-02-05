@@ -39,10 +39,13 @@ const Scheduler = () => {
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
 
   //this will be fetched from the server
-  const availTimes = { start: "09:00", end: "17:00" };
-  const availDates = [1, 2, 3, 4, 5];
+  const [availTimes, setAvailTimes] = useState({
+    start: "09:00",
+    end: "17:00",
+  });
+  const [availDates, setAvailDates] = useState([1, 2, 3, 4, 5]);
   //this will be set when picking event type --> pulled from context?
-  const interval = 60;
+  const [interval, setInterval] = useState(60);
 
   //this needs to be done here rather than the date picker otherwise get pseudo race condition
   if (!availDates.includes(selectedDate.getDay())) {
@@ -73,6 +76,14 @@ const Scheduler = () => {
           });
           setAppointmentDetails({ ...appointmentDetails, eventId: event._id });
           setEventActive(event.active);
+          setInterval(event.duration);
+
+          axios
+            .post("/api/user/availability", { userId: event.userId })
+            .then((res) => {
+              setAvailDates(res.data.availableDays);
+              setAvailTimes(res.data.availableTime);
+            });
         } else {
           setEventActive(false);
         }
@@ -128,12 +139,7 @@ const Scheduler = () => {
                       setAppointmentDetails={setAppointmentDetails}
                       eventDetails={eventDetails}
                       path={path}
-                      appointmentConfirmed={appointmentConfirmed}
                       setAppointmentConfirmed={setAppointmentConfirmed}
-                      setSelectedDate={setSelectedDate}
-                      eventLink={eventDetails.link}
-                      interval={interval}
-                      availabilityTimes={availTimes}
                     />
                   </Route>
                 ) : (
