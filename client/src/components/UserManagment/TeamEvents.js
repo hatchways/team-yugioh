@@ -52,27 +52,6 @@ export default function TeamEventsTab() {
       });
   }, []);
 
-  const dummyEventTypes = [
-    {
-      name: "Test1",
-      duration: "60",
-      link: "taras-k/test",
-      color: "red"
-    },
-    {
-      name: "Test2",
-      duration: "30",
-      link: "taras-k/test2",
-      color: "blue"
-    },
-    {
-      name: "Test3",
-      duration: "15",
-      link: "taras-k/test3",
-      color: "green"
-    }
-  ];
-
   return (
     <div className={classes.root}>
       <Typography variant="body1" className={classes.text}>
@@ -93,7 +72,7 @@ export default function TeamEventsTab() {
         <NewTeamEventsDialog/>
       </div>
       <Grid container spacing={3} className={classes.eventContainer}>
-        {dummyEventTypes.map((item, idx) => (
+        {eventsData.map((item, idx) => (
           <Grid item xs={12} sm={3}>
             <EventCard
               name={item.name}
