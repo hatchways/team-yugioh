@@ -55,6 +55,9 @@ router.get("/api/all-appointments", auth, async (req, res) => {
       async (appointment) => {
         const eventDetails = await getEventDetailViaId(appointment.eventId);
         // spread eventDetails first because of duplicate keys
+        if (!eventDetails) {
+          return undefined;
+        }
         return {
           ...eventDetails.toObject(),
           ...appointment.toObject(),
@@ -63,9 +66,9 @@ router.get("/api/all-appointments", auth, async (req, res) => {
       }
     );
 
-    const appointmentsWithEventDetails = await Promise.all(
-      appointmentsWithEventDetailsPromise
-    );
+    const appointmentsWithEventDetails = (
+      await Promise.all(appointmentsWithEventDetailsPromise)
+    ).filter((appointment) => appointment); //filter those that return undefined
 
     res.status(200).send(appointmentsWithEventDetails);
   } catch (error) {
