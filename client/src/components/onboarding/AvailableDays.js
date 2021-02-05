@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Checkbox,
   Grid,
@@ -8,33 +8,31 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-const daysOfWeek = [0, 1, 2, 3, 4, 5, 6];
-const nameOfDay = {
-  0: "Sunday",
-  1: "Monday",
-  2: "Tuesday",
-  3: "Wednesday",
-  4: "Thursday",
-  5: "Friday",
-  6: "Saturday",
-};
-
-const AvailableDays = (props) => {
+const AvailableDays = ({ setDays }) => {
   const classes = useStyles();
+  const [weekDays, setWeekDays] = useState([
+    { name: "Sunday", checked: false },
+    { name: "Monday", checked: false },
+    { name: "Tuesday", checked: false },
+    { name: "Wednesday", checked: false },
+    { name: "Thursday", checked: false },
+    { name: "Friday", checked: false },
+    { name: "Saturday", checked: false },
+  ]);
 
-  const days = props.days;
-  const setDays = props.setDays;
   const selectDay = (event) => {
-    const day = parseInt(event.target.name);
-    const index = days.indexOf(day);
-    if (index === -1 && event.target.checked) {
-      setDays([...days, day]);
+    const tempWeekDays = [...weekDays];
+    const dayIndex = parseInt(event.target.name);
+
+    if (!weekDays[dayIndex].checked) {
+      tempWeekDays[dayIndex].checked = true;
+    } else {
+      tempWeekDays[dayIndex].checked = false;
     }
 
-    if (index !== -1 && !event.target.checked) {
-      const newDays = days.slice().splice(index, 1);
-      setDays(newDays);
-    }
+    const newDays = tempWeekDays.flatMap((day, i) => (day.checked ? [i] : []));
+    setDays([...newDays]);
+    setWeekDays([...tempWeekDays]);
   };
 
   return (
@@ -44,13 +42,13 @@ const AvailableDays = (props) => {
       justify="space-between"
       className={classes.daysGrid}
     >
-      {daysOfWeek.map((day) => {
+      {weekDays.map(({ name, checked }, i) => {
         return (
           <FormControlLabel
-            key={day}
+            key={name}
             label={
               <Typography variant="subtitle2" className={classes.labelText}>
-                {nameOfDay[day]}
+                {name}
               </Typography>
             }
             labelPlacement="bottom"
@@ -58,9 +56,9 @@ const AvailableDays = (props) => {
             control={
               <Checkbox
                 className={classes.eachDay}
-                checked={days.includes(day)}
+                checked={checked}
                 onChange={selectDay}
-                name={day.toString()}
+                name={i}
                 color="primary"
               />
             }
