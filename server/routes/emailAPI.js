@@ -1,5 +1,6 @@
 const express = require("express");
 const sgMail = require("@sendgrid/mail");
+const dateFns = require("date-fns");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -28,7 +29,7 @@ router.post("/api/email", (req, res) => {
           ],
           dynamic_template_data: {
             eventName: eventName,
-            time: time,
+            time: dateFns.format(new Date(time), "PPpp"),
             host: host,
             appointmentId: appointmentId,
             name: name,

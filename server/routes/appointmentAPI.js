@@ -15,7 +15,7 @@ router.post("/api/appointment", async (req, res) => {
     const { userId: hostUserId } = await db.EventType.findOne({ _id: eventId });
 
     //create the appointment with a hostId
-    const responseFromCreate = db.Appointment.create({
+    const responseFromCreate = await db.Appointment.create({
       ...req.body,
       hostUserId,
     });

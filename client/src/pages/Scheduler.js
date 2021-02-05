@@ -78,6 +78,7 @@ const Scheduler = () => {
         }
       })
       .then(() => setLoading(false));
+
     /* eslint-disable */
   }, []);
   /* eslint-enable */
