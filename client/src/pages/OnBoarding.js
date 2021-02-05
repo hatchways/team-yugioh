@@ -53,14 +53,24 @@ const OnBoarding = () => {
           availableDays: days,
         })
         .then((res) => {
-          setUserData({
-            ...userData,
-            URL: url,
-            timezone: timezone,
-            availableTime,
-            availableDays: days,
-          });
-          setOnboarded(true);
+          axios
+            .post("/api/event", {
+              name: "",
+              duration: 60,
+              description: "",
+              link: encodeURI(`${url}/60-min`),
+              color: "#FF6A00",
+            })
+            .then(() => {
+              setUserData({
+                ...userData,
+                URL: url,
+                timezone: timezone,
+                availableTime,
+                availableDays: days,
+              });
+              setOnboarded(true);
+            });
         });
     }
   };

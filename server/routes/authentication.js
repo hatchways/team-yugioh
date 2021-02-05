@@ -26,17 +26,17 @@ router.post("/api/authentication/google", async (req, res) => {
     }
     const accessToken = {
       token: token.access_token,
-      exp: token.expiry_date
+      exp: token.expiry_date,
     };
     const tokens = {
       id_token: token.id_token,
       access_token: accessToken,
-      refresh_token: token.refresh_token
+      refresh_token: token.refresh_token,
     };
 
     const userInfo = await oAuthClient.verifyIdToken({
       idToken: tokens.id_token,
-      audience: process.env.AUTH_CREDENTIALS
+      audience: process.env.AUTH_CREDENTIALS,
     });
 
     const email = userInfo.payload.email;
@@ -54,19 +54,11 @@ router.post("/api/authentication/google", async (req, res) => {
     } else {
       const newUser = new User({
         email: userInfo.payload.email,
-        name: userInfo.payload.name
+        name: userInfo.payload.name,
       });
       try {
         await newUser.save();
         claims = { userId: newUser._id, email };
-        db.EventType.create({
-          userId: newUser._id,
-          name: "",
-          duration: 60,
-          description: "",
-          link: "60-min",
-          color: "#FF6A00"
-        });
       } catch (err) {
         console.log(err);
         res.status(400).send(err);
@@ -81,7 +73,7 @@ router.post("/api/authentication/google", async (req, res) => {
 
     //check if authentication record exists in db if it does update it
     const authRecord = await AuthStore.find({
-      email: userInfo.payload.email
+      email: userInfo.payload.email,
     });
     if (authRecord.length > 0) {
       res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
@@ -91,7 +83,7 @@ router.post("/api/authentication/google", async (req, res) => {
     //save authentication tokens
     const newAuthStore = new AuthStore({
       email: userInfo.payload.email,
-      googleAuthToken: token
+      googleAuthToken: token,
     });
 
     try {
