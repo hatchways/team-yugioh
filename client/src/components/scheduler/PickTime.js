@@ -21,6 +21,13 @@ const PickTime = ({
 
   const [timeSlots, setTimeSlots] = useState([]);
 
+  let members;
+  if (eventDetails.members?.length > 1) {
+    members = eventDetails.members;
+  } else {
+    members = [userId];
+  }
+
   useEffect(() => {
     let isoDate = new Date(selectedDate);
     isoDate.setHours(0, 0, 0, 0);
@@ -28,7 +35,7 @@ const PickTime = ({
     //fetch from backend
     axios
       .post(`/api/calendar/availability?day=${isoDate}`, {
-        members: [userId],
+        members: members,
       })
       .then((res) => {
         setTimeSlots(
