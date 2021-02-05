@@ -9,14 +9,16 @@ import {
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScrean";
-
 import SetTimezoneUrl from "../components/onboarding/SetTimezoneUrl";
 import ConnectGoogleCalendar from "../components/onboarding/ConnectGoogleCalendar";
 import SetAvailability from "../components/onboarding/SetAvailability";
 import ProgressBar from "../components/onboarding/ProgressBar";
+import { useUserData, useSetUserData } from "../providers/Context";
 const axios = require("axios");
 
 const OnBoarding = () => {
+  const userData = useUserData();
+  const setUserData = useSetUserData();
   const [onboarded, setOnboarded] = useState(false);
   const classes = useStyles();
 
@@ -50,7 +52,16 @@ const OnBoarding = () => {
           availableTime,
           availableDays: days,
         })
-        .then(() => setOnboarded(true));
+        .then((res) => {
+          setUserData({
+            ...userData,
+            URL: url,
+            timezone: timezone,
+            availableTime,
+            availableDays: days,
+          });
+          setOnboarded(true);
+        });
     }
   };
 
