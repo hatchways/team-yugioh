@@ -76,9 +76,9 @@ const CreateTeam = ({ open, closeDialog }) => {
               />
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <MembersToBeInvited invites={invites} setInvites={setInvites} />
-            </Grid>
+            </Grid> */}
           </Grid>
         </DialogContent>
 
