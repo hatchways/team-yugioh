@@ -12,44 +12,44 @@ router.post("/api/calendar/availability", async (req, res) => {
   } else {
     try {
       const availability = [];
-      const usr = await db.User.findById(req.body.members[0]);
-      if (usr.availableDays.includes(day.getDay())) {
-        const tokenStore = await db.AuthStore.findOne({ email: usr.email });
+      const user = await db.User.findById(req.body.members[0]);
+      if (user.availableDays.includes(day.getDay())) {
+        const tokenStore = await db.AuthStore.findOne({ email: user.email });
         const authToken = tokenStore.googleAuthToken;
-        const googleCal = await getAvailability(authToken, day);
+        const googleCalendar = await getAvailability(authToken, day);
 
         // convert user's times to UTC
-        const usrUTC = {
+        const userUTC = {
           start: new Date(
             day.setHours(
-              parseInt(usr.availableTime.start.substring(0, 2)),
-              parseInt(usr.availableTime.start.substring(3))
+              parseInt(user.availableTime.start.substring(0, 2)),
+              parseInt(user.availableTime.start.substring(3))
             )
           ),
           end: new Date(
             day.setHours(
-              parseInt(usr.availableTime.end.substring(0, 2)),
-              parseInt(usr.availableTime.end.substring(3))
+              parseInt(user.availableTime.end.substring(0, 2)),
+              parseInt(user.availableTime.end.substring(3))
             )
           ),
         };
-        if (usr.timezone) {
-          usrUTC.start = new Date(
-            usrUTC.start.setHours(usrUTC.start.getHours() - usr.timezone)
+        if (user.timezone) {
+          userUTC.start = new Date(
+            userUTC.start.setHours(userUTC.start.getHours() - user.timezone)
           );
-          usrUTC.end = new Date(
-            usrUTC.end.setHours(usrUTC.end.getHours() - usr.timezone)
+          userUTC.end = new Date(
+            userUTC.end.setHours(userUTC.end.getHours() - user.timezone)
           );
         }
         // merge with google calendar
-        for (let block of googleCal) {
+        for (let block of googleCalendar) {
           const newBlock = { ...block };
-          if (usrUTC.start > block.end || usrUTC.end < block.start) {
+          if (userUTC.start > block.end || userUTC.end < block.start) {
             continue;
-          } else if (usrUTC.start > block.start) {
-            newBlock.start = day.setHours(usrUTC.start);
-          } else if (usrUTC.end < block.end) {
-            newBlock.end = day.setHours(usrUTC.end);
+          } else if (userUTC.start > block.start) {
+            newBlock.start = day.setHours(userUTC.start);
+          } else if (userUTC.end < block.end) {
+            newBlock.end = day.setHours(userUTC.end);
           }
 
           availability.push(newBlock);
