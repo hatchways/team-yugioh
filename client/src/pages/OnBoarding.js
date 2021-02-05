@@ -53,7 +53,13 @@ const OnBoarding = () => {
           availableDays: days,
         })
         .then((res) => {
-          setUserData(...userData, ...res.data);
+          setUserData({
+            ...userData,
+            URL: url,
+            timezone: timezone,
+            availableTime,
+            availableDays: days,
+          });
           setOnboarded(true);
         });
     }
