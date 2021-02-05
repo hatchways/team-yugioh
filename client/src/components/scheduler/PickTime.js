@@ -89,7 +89,11 @@ const PickTime = ({
                   alignItems="center"
                 >
                   <Brightness1 color="primary" className={classes.icon} />
-                  <Typography>{slot}</Typography>
+                  <Typography>
+                    {(parseInt(slot.match(/[0-9]+(?=:)/)) % 12) + 1}
+                    {slot.match(/\:(.*)/)[0]}{" "}
+                    {parseInt(slot.match(/[0-9]+(?=:)/)) < 12 ? "AM" : "PM"}
+                  </Typography>
                 </Grid>
               </ListItem>
             </Link>
