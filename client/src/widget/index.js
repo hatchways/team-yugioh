@@ -5,7 +5,7 @@ import EmbeddedScheduler from "./EmbeddedScheduler";
 import { theme } from "../themes/theme";
 import { MuiThemeProvider } from "@material-ui/core";
 
-const domain = "http://localhost:3000";
+const domain = "http://localhost:3001";
 const Widget = () => {
   const element = document.getElementById("calend-app-inline-widget");
   const url = element.getAttribute("data-url");
