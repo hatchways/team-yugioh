@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   header: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   newUbutton: {
     padding: "9px 16px",
@@ -26,7 +26,6 @@ const Header = ({ teamName, teamId }) => {
   const classes = useStyles();
   const teamData=useTeamData();
   const [editTitle, setEditTitle] = useState(false);
-  console.log("name:", teamName)
   const [title, setTitle] = useState(`${teamName}`);
   const toggleEditTeamName = () => {
     setEditTitle(!editTitle);

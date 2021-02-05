@@ -77,7 +77,7 @@ export default function TeamEventsTab({teamID}) {
           </div>
           <Grid container spacing={3} className={classes.eventContainer}>
             {eventsData.map((item, idx) => (
-              <Grid item xs={12} sm={3}>
+              <Grid item xs={12} sm={4}>
                 <EventCard
                   name={item.name}
                   duration={item.duration}

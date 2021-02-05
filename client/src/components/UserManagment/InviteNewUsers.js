@@ -8,6 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import MembersToBeInvited from "../teams/MembersToBeInvited";
 import ChipInput from "material-ui-chip-input";
 import axios from "axios";
+import {useTeamData, useSetTeamData} from "../../providers/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -91,6 +92,8 @@ function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, teamId } = props;
 
+  const teamData=useTeamData();
+  const setTeamData=useSetTeamData();
   //TODO: add email validation
 
   const [invitees, setInvitees] = useState([]);
@@ -107,16 +110,22 @@ function Modal(props) {
     onClose(selectedValue);
   };
 
+  const addNewUser=(addedUsers)=>{
+    const currentUsers=[...teamData.members];
+    setTeamData({...teamData, members:[...currentUsers, ...addedUsers]})
+  }
+
   const handleSubmit = () => {
     //api call here
-    //change to post
     axios.post(
       "/api/team/add",
       { memberEmails: invitees, teamId: teamId },
       {
         withCredentials: true
       }
-    ).then(res=>console.log(res.data)).catch(err=>console.log(err));
+    ).then(res=>{
+      addNewUser(res.data)
+    }).catch(err=>console.log(err));
 
     handleClose();
   };

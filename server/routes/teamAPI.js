@@ -54,8 +54,7 @@ router.get("/api/team/:id", auth, (req, res) => {
 router.post("/api/team/add", auth, async (req, res) => {
   //convert emails to memberIDs
 
-  console.log(req.body);
-
+  
   const addedUserIds = await db.User.find({
     email: { $in: req.body.memberEmails }
   });
@@ -73,7 +72,7 @@ router.post("/api/team/add", auth, async (req, res) => {
     { teamId: req.body.teamId, isAdmin: false }
   );
 
-  res.send(response);
+  res.send(addedUserIds);
 });
 
 // Change Team name
@@ -90,7 +89,6 @@ router.post("/api/team/updatename", auth, (req, res) => {
 // REMOVE team member
 // req.body: { teamId: teamId, memberId: userId }
 router.post("/api/team/remove", auth, async (req, res) => {
-  console.log(req.body)
   try {
     const team = await db.Team.findById(req.body.teamId);
 
@@ -116,7 +114,7 @@ router.post("/api/team/remove", auth, async (req, res) => {
 router.post("/api/team/admin", auth, (req, res) => {
   db.User.updateOne({ _id: req.body.newAdminId }, { $set: { isAdmin: true } })
     .then(() => {
-      db.User.updateOne({ _id: req.userId }, { $set: { isAdmin: false } });
+      db.User.updateOne({ _id: req.userId }, { $set: { isAdmin: false } }).then(()=>{});
     })
     .then(response => res.send(response))
     .catch(error => {
@@ -127,7 +125,6 @@ router.post("/api/team/admin", auth, (req, res) => {
 
 //Get all members info
 router.get("/api/team/members/:teamID", async (req, res) => {
-  console.log("teamID:", req.params.teamID);
   try {
     const data = await db.Team.findById(req.params.teamID).populate("members");
     res.send(data);

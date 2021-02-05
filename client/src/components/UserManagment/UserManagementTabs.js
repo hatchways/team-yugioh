@@ -91,7 +91,7 @@ export default function UserManagementTabs({ teamID }) {
   const [teamMembersData, setTeamData] = useState([]);
 
   const [value, setValue] = useState(0);
-  //console.log("manTeamID:", teamID)
+  
   useEffect(() => {
     axios
       .get(`/api/team/members/${teamID}`, {
@@ -115,7 +115,8 @@ export default function UserManagementTabs({ teamID }) {
           aria-label="simple tabs example"
         >
           <StyledTab label="Active" {...a11yProps(0)} />
-          <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1)} />
+         
+          <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1, true)} />
           <StyledTab
             classes={classes.tab}
             label="Team Event"
