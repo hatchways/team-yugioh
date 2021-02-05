@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import { Clear } from "@material-ui/icons";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -60,7 +61,18 @@ function Modal(props) {
   };
 
   const handleSubmit = () => {
-    //api call here
+    axios
+      .post(
+        "/api/team/remove",
+        { teamId: props.teamId, memberId: props.userId },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
     handleClose();
   };
 
@@ -163,7 +175,13 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function RemoveModal({ userName, email, variant }) {
+export default function RemoveModal({
+  userName,
+  email,
+  variant,
+  userId,
+  teamId
+}) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -174,23 +192,29 @@ export default function RemoveModal({ userName, email, variant }) {
     setOpen(false);
   };
 
-    return (
-      <div>
-        <Button
-          variant="outlined"
-          startIcon={<Clear className={variant==="remove_user"?classes.clearIcon:null}/>}
-          classes={{ root: classes.popoverButton }}
-          onClick={handleClickOpen}
-        >
-          Remove
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          userName={userName}
-          variant={variant}
-          email={email}
-        />
-      </div>
-    )
+  return (
+    <div>
+      <Button
+        variant="outlined"
+        startIcon={
+          <Clear
+            className={variant === "remove_user" ? classes.clearIcon : null}
+          />
+        }
+        classes={{ root: classes.popoverButton }}
+        onClick={handleClickOpen}
+      >
+        Remove
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        userName={userName}
+        variant={variant}
+        email={email}
+        teamId={teamId}
+        userId={userId}
+      />
+    </div>
+  );
 }

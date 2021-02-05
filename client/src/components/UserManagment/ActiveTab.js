@@ -29,26 +29,6 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, email, role, appPage, dateAdded) {
-  return { name, email, role, appPage, dateAdded };
-}
-
-const rows = [
-  createData(
-    "Taras Kozak",
-    "kozaktaras15@gmail.com",
-    "Owner",
-    "calendapp.com/taras-k",
-    "27 January 20201"
-  ),
-  createData(
-    "John Doe",
-    "john-doe@gmail.com",
-    "User",
-    "calendapp.com/john-doe",
-    "27 January 2021"
-  )
-];
 
 export default function ActiveTab({teamData}) {
   const classes = useStyles();
@@ -91,7 +71,7 @@ export default function ActiveTab({teamData}) {
                 <TableCell align="center">
                   <UserActionsMenue>
                     <ChangeRoleModal userName={row.name} userId={row._id} />
-                    <RemoveModal variant="remove_user" userName={row.name} userId={row._id} />
+                    <RemoveModal variant="remove_user" userName={row.name} userId={row._id} teamId={row.teamId} />
                   </UserActionsMenue>
                 </TableCell>
               </TableRow>

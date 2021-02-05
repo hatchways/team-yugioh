@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -85,17 +85,21 @@ const StyledTab = withStyles(theme => ({
   selected: {}
 }))(props => <Tab disableRipple {...props} />);
 
-export default function UserManagementTabs({teamID}) {
+export default function UserManagementTabs({ teamID }) {
   const classes = useStyles();
-  const [teamMembersData, setTeamData]=useState([]);
+  const [teamMembersData, setTeamData] = useState([]);
 
   const [value, setValue] = useState(0);
 
-  useEffect(()=>{
-    axios.get(`/api/team/members/${teamID}`).then(res=>{
-      setTeamData(res.data.members);
-    })
-  },[])
+  useEffect(() => {
+    axios
+      .get(`/api/team/members/${teamID}`, {
+        withCredentials: true
+      })
+      .then(res => {
+        setTeamData(res.data.members);
+      });
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
