@@ -30,7 +30,6 @@ const AppointmentDetails = ({
     let res;
     try {
       res = await axios.post("/api/appointment", appointmentDetails);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
