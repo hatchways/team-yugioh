@@ -7,15 +7,15 @@ const router = express.Router();
 // 1 - Create a new team event type
 router.post("/api/team-event/create", async (req, res) => {
   // Request: {name:eventName, teamID, emails:[array], ...}
-
+  console.log(req.body)
   try {
     const invitedUserIds = await db.User.find({
-      email: { $in: req.body.emails },
+      email: { $in: req.body.members },
     });
     const invitedUserIdsClean = invitedUserIds.map((usr) => usr._id);
     const teamUserIds = await db.Team.findById(req.body.teamID);
 
-    if (req.body.emails.length > invitedUserIdsClean.length) {
+    if (req.body.members.length > invitedUserIdsClean.length) {
       console.log('there are more emails then valid users found so some of the email are not users')
       res.status(400).send();
       return;

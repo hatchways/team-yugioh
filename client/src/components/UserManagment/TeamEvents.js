@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function TeamEventsTab() {
+export default function TeamEventsTab({teamID}) {
   const classes = useStyles();
   const userData = useUserData();
   const [loading, setLoading] = useState(false);
@@ -72,7 +72,7 @@ export default function TeamEventsTab() {
               Team Events:
             </Typography>
            
-            <NewTeamEventsDialog />
+            <NewTeamEventsDialog teamID={teamID} />
           </div>
           <Grid container spacing={3} className={classes.eventContainer}>
             {eventsData.map((item, idx) => (

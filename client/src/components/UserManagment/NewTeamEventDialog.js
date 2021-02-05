@@ -207,7 +207,7 @@ const useStyles = makeStyles(theme => ({
 
 function Modal(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open, userName } = props;
+  const { onClose, selectedValue, open, teamID } = props;
   const userData=useUserData();
 
   const handleClose = () => {
@@ -228,13 +228,15 @@ function Modal(props) {
     description: "",
     link: "",
     color: "#FF6A00",
-    members:[]
+    members:[userData.email]
   });
 
   const handleSubmit = () => {
     // console.log("ivitees:", invitees)
     // setEventBody({...eventBody, members:[...invitees]});
     console.log(eventBody);
+    console.log(teamID);
+    axios.post("/api/team-event/create",eventBody,{ withCredentials: true })
     handleClose();
   };
 
@@ -547,7 +549,7 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function NewTeEvantDialog({ userName }) {
+export default function NewTeEvantDialog({ userName, teamID }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -568,7 +570,7 @@ export default function NewTeEvantDialog({ userName }) {
       >
         + New Team Event
       </Button>
-      <Modal open={open} onClose={handleClose} userName={userName} />
+      <Modal open={open} onClose={handleClose} userName={userName} teamID={teamID} />
     </div>
   );
 }

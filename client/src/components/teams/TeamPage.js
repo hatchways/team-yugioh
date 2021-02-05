@@ -35,7 +35,7 @@ const TeamPage = () => {
         <LoadingScrean />
       ) : userData.teamId ? (
         <div className={classes.container}>
-          <TeamEventsTab />
+          <TeamEventsTab teamID={userData.teamId} />
         </div>
       ) : (
         <>
