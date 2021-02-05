@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Typography, Button, makeStyles, Grid } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import EventSummaryDisplay from "./EventSummaryDisplay";
 import EventCard from "../UserEvents/EventCard";
 import NewTeamEventsDialog from "./NewTeamEventDialog";
+import axios from "axios";
+import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -35,6 +37,20 @@ const useStyles = makeStyles({
 
 export default function TeamEventsTab() {
   const classes = useStyles();
+  const userData = useUserData();
+  const [eventsData, setEventsData] = useState({});
+  //console.log(userData)
+
+  useEffect(() => {
+    axios
+      .get(`api/team-event/${userData._id}`)
+      .then(res => {
+        setEventsData(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   const dummyEventTypes = [
     {
@@ -78,7 +94,7 @@ export default function TeamEventsTab() {
       </div>
       <Grid container spacing={3} className={classes.eventContainer}>
         {dummyEventTypes.map((item, idx) => (
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={3}>
             <EventCard
               name={item.name}
               duration={item.duration}

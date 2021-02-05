@@ -26,7 +26,6 @@ const CreateTeam = ({ open, closeDialog }) => {
     axios
       .post("/api/team/create", { name: teamName, members: members })
       .then((res) => {
-        console.log(res.data)
         setUserdata({...userData, teamId:res.data._id, isAdmin:true})
         closeDialog()})
       .catch((err) => console.log(err));

@@ -42,12 +42,11 @@ const UserManagementPage = () => {
   const [teamData, setTeamData]=useState({})
 
   const team= useUserData();
-  console.log("team:",team)
 
   useEffect(()=>{
     axios.get(`/api/team/${team.teamId}`).then(res=>{setTeamData(res.data)
     console.log(res)}).catch(err=>console.log(err))
-  })
+  },[team.teamId])
 
 
   return (

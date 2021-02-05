@@ -113,4 +113,17 @@ router.post("/api/team-event/update-event/", async (req, res) => {
   }
 });
 
+//5 - Get all team events
+router.get("/api/team-event/:teamID", async (req, res) => {
+  try {
+    const data = await db.EventType.find(
+      {'members.1': {$exists: true}, members:[req.params.teamID]}
+    ); 
+    console.log(data)
+    res.send(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;

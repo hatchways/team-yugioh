@@ -560,7 +560,7 @@ export default function NewTeEvantDialog({ userName }) {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        + New Event Type
+        + New Team Event
       </Button>
       <Modal open={open} onClose={handleClose} userName={userName} />
     </div>

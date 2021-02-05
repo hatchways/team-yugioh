@@ -23,8 +23,10 @@ const useStyles = makeStyles(theme => ({
 const Header = ({teamName}) => {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
-  const [title, setTitle] = useState(teamName);
+  
 
+  console.log("teamName header:", teamName)
+  const [title, setTitle] = useState(`${teamName}`);
   const toggleEditTeamName = () => {
     setEditTitle(!editTitle);
   };
