@@ -25,6 +25,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 import { debounce } from "../../utils/utils";
 import axios from "axios";
+import {useUserData} from "../../providers/Context";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -207,6 +208,7 @@ const useStyles = makeStyles(theme => ({
 function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, userName } = props;
+  const userData=useUserData();
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -225,11 +227,14 @@ function Modal(props) {
     duration: "",
     description: "",
     link: "",
-    color: "#FF6A00"
+    color: "#FF6A00",
+    members:[]
   });
 
   const handleSubmit = () => {
-    //api call here
+    // console.log("ivitees:", invitees)
+    // setEventBody({...eventBody, members:[...invitees]});
+    console.log(eventBody);
     handleClose();
   };
 
@@ -256,14 +261,15 @@ function Modal(props) {
     debounceCheckUnique(event);
   };
 
-  const [invitees, setInvitees] = React.useState([]);
+  
 
   const handleDeleteChip = chipToDelete => {
-    setInvitees(invitees.filter(chip => chip !== chipToDelete));
+    const newMembers=eventBody.members.filter(chip=>chip !==chipToDelete);
+    setEventBody({...eventBody,members:newMembers});
   };
 
   const handleAddChip = chipToAdd => {
-    setInvitees([...invitees, chipToAdd]);
+    setEventBody({...eventBody,members:[...eventBody.members,chipToAdd]});
   };
 
   const handleFormChange = event => {
@@ -417,7 +423,7 @@ function Modal(props) {
               >
                 {/* TODO: pass in user link prefix */}
                 <Grid xs={5} className={classes.prefix} item>
-                  calendapp.com/john-doe/
+                  {`calendapp.com/${userData.URL}`}
                 </Grid>
                 <Grid className={classes.link} xs={7} item>
                   <TextField
@@ -461,7 +467,7 @@ function Modal(props) {
 
             <Grid xs={10} item>
               <ChipInput
-                value={invitees}
+                value={eventBody.members}
                 onAdd={chip => handleAddChip(chip)}
                 onDelete={(chip, index) => handleDeleteChip(chip, index)}
                 variant="outlined"
