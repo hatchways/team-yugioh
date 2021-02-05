@@ -50,11 +50,19 @@ router.get("/api/team/:id", auth, (req, res) => {
 });
 
 // ADD Team member
-// req.body: { teamId: teamId, memberId: userId }
-router.get("/api/team/add", auth, (req, res) => {
+// req.body: { teamId: teamId, memberEmails: [emails] }
+router.get("/api/team/add", auth, async (req, res) => {
+  //convert emails to memberIDs
+
+  const addedUserIds = await db.User.find({
+    email: { $in: req.body.memberEmails },
+  });
+
+  const addedUserIdsClean = addedUserIds.map((usr) => usr._id);
+
   db.Team.updateOne(
     { _id: req.body.teamId },
-    { $push: { members: req.body.memberId } }
+    { $push: {members:{$each:{ addedUserIdsClean }}} }
   )
     .then(data => {
       res.send(data);

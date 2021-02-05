@@ -88,11 +88,9 @@ const useStyles = makeStyles({
 
 function Modal(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open, userName } = props;
+  const { onClose, selectedValue, open } = props;
 
   //TODO: add email validation
-  const [emailValid, setEmailValid] = useState(false);
-  const [membersToInvite, setMembersToInvite] = useState([]);
 
   const [invitees, setInvitees] = React.useState([]);
 
