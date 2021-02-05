@@ -29,3 +29,5 @@ client/debug.log
 client/cypress/videos
 
 pnpm-lock.yaml
+
+server/routes/assets/widget

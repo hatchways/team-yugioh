@@ -48,7 +48,8 @@ router.get("/api/event/is_unique", auth, async (req, res) => {
 
 // GET event details
 router.get("/api/event_details/:pref/:suf", (req, res) => {
-  db.EventType.find({ link: encodeURI(`${req.params.pref}/${req.params.suf}`) })
+  const link = `${req.params.pref}/${req.params.suf}`;
+  db.EventType.find({ link })
     .then((data) => {
       res.send(data);
     })
