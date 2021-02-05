@@ -12,8 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import IconButton from "@material-ui/core/IconButton";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Tooltip from "@material-ui/core/Tooltip";
 import Switch from "@material-ui/core/Switch";
@@ -90,6 +89,9 @@ export default function EventCard({
     colorBar: {
       background: !eventActive ? "lightgrey" : color || deepOrange[500],
       padding: 4,
+    },
+    cardContent: {
+      paddingRight: "4px",
     },
     button: {
       textTransform: "none",
@@ -176,7 +178,7 @@ export default function EventCard({
         <Card className={classes.card}>
           <CardHeader className={classes.colorBar} />
 
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             <Grid container>
               <Grid
                 item
@@ -212,14 +214,14 @@ export default function EventCard({
                     onChange={handleSwitch}
                   />
                 </LightTooltip>
-                <Button
+                <IconButton
                   className={classes.codeButton}
                   onClick={() => {
                     setShowEmbedInstruction(true);
                   }}
                 >
                   <Code />
-                </Button>
+                </IconButton>
               </Grid>
             </Grid>
           </CardContent>
