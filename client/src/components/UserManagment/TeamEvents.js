@@ -58,6 +58,15 @@ export default function TeamEventsTab({teamID}) {
       });
   }, []);
 
+  const handleDelete = (eventId) => {
+    axios
+      .delete("/api/team-event/delete/", {data: { id: eventId}})
+      .then(() => {
+        setEventsData(eventsData.filter(event=>event._id!==eventId))
+      })
+      .catch((err) => console.log(err));
+      
+  };
   return (
     <div className={classes.root}>
       {loading ? (
@@ -83,6 +92,9 @@ export default function TeamEventsTab({teamID}) {
                   duration={item.duration}
                   link={item.link}
                   color={item.color}
+                  active={item.active}
+                  _id={item._id}
+                  deleteEvent={handleDelete}
                   key={idx}
                 />
               </Grid>
