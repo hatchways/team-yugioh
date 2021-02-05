@@ -31,7 +31,7 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
           className={classes.iconWrapper}
         >
           <Typography variant="caption">
-            {JSON.stringify(appointmentTime)}
+            {appointmentTime.toString()}
           </Typography>
         </Grid>
       )}
