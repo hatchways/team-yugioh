@@ -10,6 +10,7 @@ import TemplatesTab from "../UserManagment/TemplatesTab";
 import TeamEventsTab from "../UserManagment/TeamEvents";
 import Badge from "@material-ui/core/Badge";
 import axios from "axios";
+import {useTeamData, useSetTeamData, useTeamEvents, useSetTeamEvents} from "../../providers/Context";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

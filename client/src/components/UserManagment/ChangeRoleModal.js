@@ -6,6 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import axios from "axios";
+import { useTeamData, useSetTeamData } from "../../providers/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -56,6 +57,9 @@ const useStyles = makeStyles({
 function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, userName } = props;
+  const teamData=useTeamData();
+  console.log("teamData",teamData);
+  const setTeamData=useSetTeamData();
 
   const [state, setState] = React.useState({
     Role: ""
@@ -73,9 +77,12 @@ function Modal(props) {
     onClose(selectedValue);
   };
 
+  const upgradeRole=(id)=>{
+    
+  }
+
   const handleSubmit = () => {
     //api call here
-    console.log(state.Role)
     if (state.Role === "Admin") {
       axios
         .post("/api/team/admin", { newAdminId: props.userId })

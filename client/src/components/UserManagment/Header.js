@@ -3,6 +3,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 import InviteNewUsers from "./InviteNewUsers";
 import TeamNameInput from "./TeamNameInput";
 import axios from "axios";
+import {useTeamData, useSetTeamData, useTeamEvents, useSetTeamEvents} from "../../providers/Context";
 
 const useStyles = makeStyles(theme => ({
   headerText: {
@@ -23,7 +24,9 @@ const useStyles = makeStyles(theme => ({
 
 const Header = ({ teamName, teamId }) => {
   const classes = useStyles();
+  const teamData=useTeamData();
   const [editTitle, setEditTitle] = useState(false);
+  console.log("name:", teamName)
   const [title, setTitle] = useState(`${teamName}`);
   const toggleEditTeamName = () => {
     setEditTitle(!editTitle);
@@ -49,7 +52,7 @@ const Header = ({ teamName, teamId }) => {
     <div className={classes.header}>
       {editTitle ? (
         <TeamNameInput
-          teamName={title}
+          teamName={teamData.name}
           toggleNameChange={toggleEditTeamName}
           handleSubmit={handleSubmit}
         />

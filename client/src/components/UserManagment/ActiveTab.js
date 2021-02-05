@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import UserActionsMenue from "./UserActionsMenu";
 import ChangeRoleModal from "./ChangeRoleModal";
 import RemoveModal from "./RemoveModal";
+import { useTeamData} from "../../providers/Context";
 
 const useStyles = makeStyles({
   table: {
@@ -30,9 +31,10 @@ const useStyles = makeStyles({
 });
 
 
-export default function ActiveTab({teamData}) {
+export default function ActiveTab() {
   const classes = useStyles();
-  console.log(teamData)
+  const teamData=useTeamData();
+
   return (
     <TableContainer>
       <Table className={classes.table} aria-label="simple table">
@@ -55,7 +57,7 @@ export default function ActiveTab({teamData}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {teamData.map((row, idx) => {
+          {teamData.members.map((row, idx) => {
             return (
               <TableRow key={idx}>
                 <TableCell component="th" scope="row">

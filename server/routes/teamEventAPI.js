@@ -31,13 +31,13 @@ router.post("/api/team-event/create", async (req, res) => {
 
     const newEventTypeObj = {
       ...req.body,
-      members: invitedUserIdsClean
+      members: invitedUserIdsClean,
+      active:true
     };
     delete newEventTypeObj.teamID;
 
 
     const data = await db.EventType.create(newEventTypeObj);
-    
     res.send(data);
   } catch (error) {
     console.log(error);

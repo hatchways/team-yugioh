@@ -130,7 +130,6 @@ router.get("/api/team/members/:teamID", async (req, res) => {
   console.log("teamID:", req.params.teamID);
   try {
     const data = await db.Team.findById(req.params.teamID).populate("members");
-    console.log("populated!!!!", data);
     res.send(data);
   } catch (err) {
     res.status(500).send(err);

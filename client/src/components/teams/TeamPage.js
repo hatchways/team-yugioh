@@ -5,18 +5,21 @@ import TeamEventsTab from "../UserManagment/TeamEvents";
 import CreateTeam from "./CreateTeam";
 import axios from "axios";
 import LoadingScrean from "../LoadingScrean";
+import {useTeamData, useSetTeamData} from "../../providers/Context";
 
 const TeamPage = () => {
   const userData = useUserData();
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
-  const [teamData, setTeamData] = useState({});
+  // const [teamData, setTeamData] = useState({});
   const [loading, setLoading] = useState(false);
+  const teamData=useTeamData();
+  const setTeamData=useSetTeamData();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api/team/${userData.teamId}`)
+      .get(`/api/team/members/${userData.teamId}`)
       .then(res => {
         setTeamData(res.data);
         setLoading(false);
@@ -26,7 +29,8 @@ const TeamPage = () => {
         setLoading(false);
       });
   }, [userData.teamId]);
-  console.log("name", teamData.name);
+
+  console.log("teamData",teamData)
 
   return (
     <div>

@@ -6,6 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import { Clear } from "@material-ui/icons";
 import axios from "axios";
+import {useTeamData, useSetTeamData} from "../../providers/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -55,22 +56,32 @@ const useStyles = makeStyles({
 function Modal(props) {
   const classes = useStyles();
   const { onClose, open, userName, variant } = props;
+  const teamData=useTeamData();
+  const setTeamData=useSetTeamData();
+  const {teamId, userId}=props;
 
   const handleClose = () => {
     onClose();
   };
 
-  console.log("props.teamid", props.teamId)
+  const removeUser=(userId)=>{
+    const newMembers=[...teamData.members]
+    const memberRemoved=newMembers.filter(user=>user._id!==userId);
+    setTeamData({...teamData, members:memberRemoved})
+
+  }
+
   const handleSubmit = () => {
     axios
       .post(
         "/api/team/remove",
-        { teamId: props.teamId, memberId: props.userId },
+        { teamId: teamId, memberId: userId },
         {
           withCredentials: true
         }
       )
       .then(res => {
+        removeUser(userId);
         console.log(res.data);
       })
       .catch(err => console.log(err));

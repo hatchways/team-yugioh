@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import { useSetAuthenticated } from "../providers/Context";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
+import {useUserData} from "../providers/Context"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +44,8 @@ export default function UserMenu({ name }) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const setAuthenticated = useSetAuthenticated();
-
+  const userData=useUserData();
+  console.log("nadd", userData);
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
   };
@@ -108,10 +110,10 @@ export default function UserMenu({ name }) {
             <Paper className={classes.Menu}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem onClick={handleTeamsButton}>
+                  {userData.teamId?<MenuItem onClick={handleTeamsButton}>
                     <PeopleOutlineIcon className={classes.icon} />
                     Manage Teams
-                  </MenuItem>
+                  </MenuItem>:null}
                   <MenuItem onClick={handleLogout}>
                     <ExitToAppIcon className={classes.icon} />
                     Logout

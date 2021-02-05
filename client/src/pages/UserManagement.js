@@ -3,7 +3,7 @@ import NavBar from "../components/Header/NavBar";
 import UserManagementTabs from "../components/UserManagment/UserManagementTabs";
 import { makeStyles, Container } from "@material-ui/core";
 import Header from "../components/UserManagment/Header";
-import { useUserData } from "../providers/Context";
+import { useUserData, useTeamData, useSetTeamData } from "../providers/Context";
 import axios from "axios";
 import LoadingScrean from "../components/LoadingScrean";
 
@@ -36,22 +36,22 @@ const useStyles = makeStyles(theme => ({
 const UserManagementPage = () => {
   const classes = useStyles();
 
-  const [teamData, setTeamData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const teamData=useTeamData();
+  const setTeamData=useSetTeamData()
+  const [loading, setLoading] = useState(true);
 
   const team = useUserData();
 
   useEffect(() => {
-    setLoading(true);
     axios
-      .get(`/api/team/${team.teamId}`)
+      .get(`/api/team/members/${team.teamId}`)
       .then(res => {
         setTeamData(res.data);
         setLoading(false);
       })
       .catch(err => {
         console.log(err);
-        setLoading(false);
+        //setLoading(false);
       });
   }, [team.teamId]);
 

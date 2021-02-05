@@ -5,7 +5,7 @@ import EventSummaryDisplay from "./EventSummaryDisplay";
 import EventCard from "../UserEvents/EventCard";
 import NewTeamEventsDialog from "./NewTeamEventDialog";
 import axios from "axios";
-import { useUserData } from "../../providers/Context";
+import { useUserData, useTeamEvents, useSetTeamEvents } from "../../providers/Context";
 import LoadingScrean from "../LoadingScrean";
 
 const useStyles = makeStyles({
@@ -40,8 +40,9 @@ export default function TeamEventsTab({teamID}) {
   const classes = useStyles();
   const userData = useUserData();
   const [loading, setLoading] = useState(false);
-  const [eventsData, setEventsData] = useState([]);
-  console.log("teamEventsTab", teamID)
+  const eventsData=useTeamEvents();
+  const setEventsData=useSetTeamEvents();
+  console.log("teamEventsTab", eventsData)
 
   useEffect(() => {
     setLoading(true);
@@ -72,7 +73,7 @@ export default function TeamEventsTab({teamID}) {
               Team Events:
             </Typography>
            
-            <NewTeamEventsDialog teamID={teamID} />
+            <NewTeamEventsDialog teamID={teamID} eventsData={eventsData} setEventsData={setEventsData} />
           </div>
           <Grid container spacing={3} className={classes.eventContainer}>
             {eventsData.map((item, idx) => (

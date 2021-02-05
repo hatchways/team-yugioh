@@ -25,7 +25,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 import { debounce } from "../../utils/utils";
 import axios from "axios";
-import {useUserData} from "../../providers/Context";
+import { useUserData } from "../../providers/Context";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -207,8 +207,15 @@ const useStyles = makeStyles(theme => ({
 
 function Modal(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open, teamID } = props;
-  const userData=useUserData();
+  const {
+    onClose,
+    selectedValue,
+    open,
+    teamID,
+    setEventsData,
+    eventsData
+  } = props;
+  const userData = useUserData();
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -220,7 +227,6 @@ function Modal(props) {
   };
 
   const [unique, setUnique] = useState(true);
-  const [userURL, setUserURL] = useState();
 
   const [eventBody, setEventBody] = useState({
     name: "",
@@ -228,18 +234,19 @@ function Modal(props) {
     description: "",
     link: "",
     color: "#FF6A00",
-    members:[userData.email]
+    members: [userData.email]
   });
 
   const handleSubmit = () => {
-    // console.log("ivitees:", invitees)
-    // setEventBody({...eventBody, members:[...invitees]});
-    console.log("teamID:", teamID)
-    const reqBody={
-      teamID:teamID,
+    const reqBody = {
+      teamID: teamID,
       ...eventBody
-    }
-    axios.post("/api/team-event/create",reqBody,{ withCredentials: true })
+    };
+    axios
+      .post("/api/team-event/create", reqBody, { withCredentials: true })
+      .then(res => {
+        setEventsData([...eventsData, res.data]);
+      });
     handleClose();
   };
 
@@ -266,15 +273,13 @@ function Modal(props) {
     debounceCheckUnique(event);
   };
 
-  
-
   const handleDeleteChip = chipToDelete => {
-    const newMembers=eventBody.members.filter(chip=>chip !==chipToDelete);
-    setEventBody({...eventBody,members:newMembers});
+    const newMembers = eventBody.members.filter(chip => chip !== chipToDelete);
+    setEventBody({ ...eventBody, members: newMembers });
   };
 
   const handleAddChip = chipToAdd => {
-    setEventBody({...eventBody,members:[...eventBody.members,chipToAdd]});
+    setEventBody({ ...eventBody, members: [...eventBody.members, chipToAdd] });
   };
 
   const handleFormChange = event => {
@@ -552,7 +557,12 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function NewTeEvantDialog({ userName, teamID }) {
+export default function NewTeEvantDialog({
+  userName,
+  teamID,
+  eventsData,
+  setEventsData
+}) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -563,7 +573,7 @@ export default function NewTeEvantDialog({ userName, teamID }) {
     setOpen(false);
   };
 
-  console.log(teamID)
+  console.log(teamID);
   return (
     <div>
       <Button
@@ -574,7 +584,14 @@ export default function NewTeEvantDialog({ userName, teamID }) {
       >
         + New Team Event
       </Button>
-      <Modal open={open} onClose={handleClose} userName={userName} teamID={teamID} />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        userName={userName}
+        teamID={teamID}
+        eventsData={eventsData}
+        setEventsData={setEventsData}
+      />
     </div>
   );
 }
