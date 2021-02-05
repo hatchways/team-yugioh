@@ -37,6 +37,22 @@ export const useSetUserData = () => {
   return useContext(UserContext).setUserData;
 };
 
+// Get User TeamData
+export const useTeamData = () => {
+  // Usage:
+  // const teamData = useTeamData();
+  // {_id, email, name, googleCredentials, photoUrl, URL, stripeId, subscribed, subscriptionId, ...}
+  return useContext(UserContext).teamData;
+};
+
+// Set User Data
+export const useSetTeamData = () => {
+  // Usage:
+  // const setUserData = useSetUserData();
+  // setUserData({...current, <updatedkey>})
+  return useContext(UserContext).setTeamData;
+};
+
 // Check whether the app is still fetching auth state
 // Usage:
 // const loading = useAuthLoading(); // true or false
@@ -53,6 +69,8 @@ export const UserContextProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
   const [dataLoading, setDataLoading] = useState(true);
+  const [teamName, setTeamName]= useState("");
+  const [teamData, setTeamData]= useState({});
 
   // Gets User Data from DB
   useEffect(() => {
@@ -90,7 +108,9 @@ export const UserContextProvider = ({ children }) => {
         authenticated,
         setAuthenticated,
         authLoading,
-        dataLoading
+        dataLoading,
+        teamData,
+        setTeamData
       }}
     >
       {children}
