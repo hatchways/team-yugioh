@@ -1,10 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 import SelectTabs from "../components/SelectTabs/SelectTabs";
 import NavBar from "./../components/Header/NavBar";
-import GetStartedButton from "../components/Buttons/GetStartedButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,14 +29,6 @@ export default function Home() {
       </Typography>
 
       <SelectTabs />
-
-      <Box
-        className={classes.getStartedButton}
-        display="flex"
-        justifyContent="flex-end"
-      >
-        <GetStartedButton />
-      </Box>
     </div>
   );
 }
