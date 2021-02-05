@@ -1,14 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/Header/NavBar";
 import UserManagementTabs from "../components/UserManagment/UserManagementTabs";
-import {
-  makeStyles,
-  Container
-} from "@material-ui/core";
+import { makeStyles, Container } from "@material-ui/core";
 import Header from "../components/UserManagment/Header";
-import {useUserData} from "../providers/Context"
+import { useUserData } from "../providers/Context";
 import axios from "axios";
-
+import LoadingScrean from "../components/LoadingScrean";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,27 +36,41 @@ const useStyles = makeStyles(theme => ({
 const UserManagementPage = () => {
   const classes = useStyles();
 
-  const [teamData, setTeamData]=useState({})
+  const [teamData, setTeamData] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const team= useUserData();
+  const team = useUserData();
 
-  useEffect(()=>{
-    axios.get(`/api/team/${team.teamId}`).then(res=>{setTeamData(res.data)
-    console.log(res)}).catch(err=>console.log(err))
-  },[team.teamId])
-
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`/api/team/${team.teamId}`)
+      .then(res => {
+        setTeamData(res.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, [team.teamId]);
 
   return (
     <div>
       <NavBar />
 
       <Container maxWidth="md" className={classes.main}>
-        <div className={classes.heading}>
-          <Header teamName={teamData.name}/>
-        </div>
-       
-          <UserManagementTabs/>
-    
+        {loading ? (
+          <LoadingScrean />
+        ) : (
+          <>
+            <div className={classes.heading}>
+              <Header teamName={teamData.name} />
+            </div>
+
+            <UserManagementTabs teamID={team.teamId}/>
+          </>
+        )}
       </Container>
     </div>
   );

@@ -14,15 +14,17 @@ router.post("/api/team/create", auth, async (req, res) => {
     });
 
     const team = results.map(result => result._id);
+    
     // adding member creating the team
     team.push(req.userId);
 
   
     let response = await db.Team.create({ name: req.body.name, members: team });
 
+    //update user records of all users with teamId
+    const updatedMembers =await db.User.updateMany({_id:{$in: team}}, {teamId:response._id, isAdmin:false})
     //set creating user as admin
-    await db.User.updateOne({_id:req.userId},{teamId:response._id, isAdmin:true})
-
+    const updatedUser=await db.User.updateOne({_id:req.userId},{isAdmin:true})
     res.send(response);
   } catch (error) {
     console.log(error);
@@ -103,6 +105,18 @@ router.post("/api/team/admin", auth, (req, res) => {
       console.log(error);
       res.status(500).send(error);
     });
+});
+
+//Get all members info
+router.get("/api/team/members/:teamID", async (req, res) => {
+  console.log("teamID:",req.params.teamID)
+  try {
+    const data = await db.Team.findById(req.params.teamID).populate("members");
+    console.log("populated!!!!",data)
+    res.send(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 module.exports = router;

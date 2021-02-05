@@ -3,7 +3,6 @@ import { Button, makeStyles } from "@material-ui/core";
 import { useUserData } from "../../providers/Context";
 import TeamEventsTab from "../UserManagment/TeamEvents";
 import CreateTeam from "./CreateTeam";
-import Header from "../UserManagment/Header";
 import axios from "axios";
 import LoadingScrean from "../LoadingScrean";
 

@@ -45,7 +45,7 @@ const schema = new Schema({
     type: Boolean,
   },
   teamId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId
   },
 });
 

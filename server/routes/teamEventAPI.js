@@ -110,11 +110,11 @@ router.post("/api/team-event/update-event/", async (req, res) => {
   }
 });
 
-//5 - Get all team events
-router.get("/api/team-event/:teamID", async (req, res) => {
+//5 - Get all team events for a user
+router.get("/api/team-event/:userID", async (req, res) => {
   try {
     const data = await db.EventType.find(
-      {'members.1': {$exists: true}, members:[req.params.teamID]}
+      {'members.1': {$exists: true}, members:[req.params.userID]}
     ); 
     console.log(data)
     res.send(data);
@@ -122,5 +122,7 @@ router.get("/api/team-event/:teamID", async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+
 
 module.exports = router;

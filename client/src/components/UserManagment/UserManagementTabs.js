@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -9,6 +9,7 @@ import PendingTab from "../UserManagment/PendingTab";
 import TemplatesTab from "../UserManagment/TemplatesTab";
 import TeamEventsTab from "../UserManagment/TeamEvents";
 import Badge from "@material-ui/core/Badge";
+import axios from "axios";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,9 +85,18 @@ const StyledTab = withStyles(theme => ({
   selected: {}
 }))(props => <Tab disableRipple {...props} />);
 
-export default function UserManagementTabs() {
+export default function UserManagementTabs({teamID}) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [teamMembersData, setTeamData]=useState([]);
+
+  const [value, setValue] = useState(0);
+
+  useEffect(()=>{
+    axios.get(`/api/team/members/${teamID}`).then(res=>{
+      setTeamData(res.data);
+      console.log(res.data)
+    })
+  },[])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
