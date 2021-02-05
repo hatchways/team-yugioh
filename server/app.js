@@ -11,9 +11,7 @@ const app = express();
 
 const corsOption = {
   credentials: true,
-  origin: (origin, callback) => {
-    callback(null, origin);
-  },
+  origin: true,
 };
 
 //Mount utilities
