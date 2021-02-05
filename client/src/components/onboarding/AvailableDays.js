@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Checkbox,
   Grid,
@@ -8,25 +8,31 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-const week = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const AvailableDays = (props) => {
+const AvailableDays = ({ setDays }) => {
   const classes = useStyles();
-
-  const days = props.days;
-  const setDays = props.setDays;
+  const [weekDays, setWeekDays] = useState([
+    { name: "Sunday", checked: false },
+    { name: "Monday", checked: false },
+    { name: "Tuesday", checked: false },
+    { name: "Wednesday", checked: false },
+    { name: "Thursday", checked: false },
+    { name: "Friday", checked: false },
+    { name: "Saturday", checked: false },
+  ]);
 
   const selectDay = (event) => {
-    const newDays = { ...days, [event.target.name]: event.target.checked };
-    setDays(newDays);
+    const tempWeekDays = [...weekDays];
+    const dayIndex = parseInt(event.target.name);
+
+    if (!weekDays[dayIndex].checked) {
+      tempWeekDays[dayIndex].checked = true;
+    } else {
+      tempWeekDays[dayIndex].checked = false;
+    }
+
+    const newDays = tempWeekDays.flatMap((day, i) => (day.checked ? [i] : []));
+    setDays([...newDays]);
+    setWeekDays([...tempWeekDays]);
   };
 
   return (
@@ -36,13 +42,13 @@ const AvailableDays = (props) => {
       justify="space-between"
       className={classes.daysGrid}
     >
-      {week.map((item, i) => {
+      {weekDays.map(({ name, checked }, i) => {
         return (
           <FormControlLabel
-            key={i}
+            key={name}
             label={
               <Typography variant="subtitle2" className={classes.labelText}>
-                {item}
+                {name}
               </Typography>
             }
             labelPlacement="bottom"
@@ -50,9 +56,9 @@ const AvailableDays = (props) => {
             control={
               <Checkbox
                 className={classes.eachDay}
-                checked={days[item] || false}
+                checked={checked}
                 onChange={selectDay}
-                name={item}
+                name={i}
                 color="primary"
               />
             }
@@ -81,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 AvailableDays.propTypes = {
-  days: PropTypes.object,
+  days: PropTypes.array,
   setDays: PropTypes.func,
 };
 

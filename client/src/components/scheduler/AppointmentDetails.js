@@ -50,7 +50,7 @@ const AppointmentDetails = ({
 
     setAppointmentConfirmed({ id: res.data._id });
 
-    history.push(`${path}${res.data._id}`);
+    history.push(`${path}/${res.data._id}`);
   };
 
   return (

@@ -15,9 +15,9 @@ router.get("/api/subscription/check", auth, async (req, res) => {
 
 router.post("/api/subscription/create-customer", auth, async (req, res) => {
   const userId = req.userId;
-  const email = await dbUser.findOne({ _id: userId }).email;
+  const { email, name } = await dbUser.findOne({ _id: userId });
 
-  const customer = await stripe.customers.create({ email: email });
+  const customer = await stripe.customers.create({ email, name });
   await dbUser.updateOne({ _id: userId }, { stripeId: customer.id }); //no need to wait, but just in case
   res.status(200).send({ customer });
 });

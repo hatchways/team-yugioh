@@ -32,7 +32,7 @@ const DisplayCalendar = ({ selectedDate, setSelectedDate, availability }) => {
 };
 
 const useStyles = makeStyles(() => ({
-  root: { height: "100%", overflow: "hidden" },
+  root: { height: "100%", width: "min-content", overflow: "hidden" },
 }));
 
 DisplayCalendar.propTypes = {

@@ -192,11 +192,13 @@ export default function RemoveModal({
   email,
   variant,
   userId,
-  teamId
+  teamId,
+  ...props
 }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
+    props.toggleHidden(true);
     setOpen(true);
   };
 
@@ -204,6 +206,7 @@ export default function RemoveModal({
 
   const handleClose = () => {
     setOpen(false);
+    props.handleClose();
   };
 
   return (

@@ -1,16 +1,13 @@
 import React from "react";
 import {
-  Menu,
-  Button,
   MenuItem,
-  Divider,
   makeStyles,
   Paper,
   MenuList,
   Link,
   Popper,
   Grow,
-  ClickAwayListener
+  ClickAwayListener,
 } from "@material-ui/core";
 import { googleLogout } from "../utils/googleAuth";
 import { useHistory } from "react-router-dom";
@@ -19,23 +16,20 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import {useUserData} from "../providers/Context"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
-  },
-  paper: {
-    marginRight: theme.spacing(2)
+    display: "flex",
+    zIndex: 100,
   },
   link: {
     color: "black",
-    marginRight: theme.spacing(3),
     cursor: "pointer",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   Menu: {
-    marginLeft: 25
+    marginLeft: 25,
   },
-  icon: { marginRight: 10 }
+  icon: { marginRight: 10 },
 }));
 
 export default function UserMenu({ name }) {
@@ -47,10 +41,10 @@ export default function UserMenu({ name }) {
   const userData=useUserData();
   console.log("nadd", userData);
   const handleToggle = () => {
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = event => {
+  const handleClose = (event) => {
     if (
       event &&
       anchorRef.current &&
@@ -89,6 +83,7 @@ export default function UserMenu({ name }) {
         aria-haspopup="true"
         onClick={handleToggle}
         className={classes.link}
+        data-cy="userMenu"
       >
         {name}
       </Link>
@@ -104,7 +99,7 @@ export default function UserMenu({ name }) {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === "bottom" ? "center top" : "center bottom"
+                placement === "bottom" ? "center top" : "center bottom",
             }}
           >
             <Paper className={classes.Menu}>

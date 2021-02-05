@@ -46,7 +46,18 @@ router.post("/api/user/", auth, (req, res) => {
 router.get("/api/user/data", auth, (req, res) => {
   db.User.findOne({ _id: req.userId })
     .then((response) => {
-      console.log(response);
+      res.send(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+});
+
+// get user avilability for Scheduler
+router.post("/api/user/availability", (req, res) => {
+  db.User.findOne({ _id: req.body.userId })
+    .then((response) => {
       res.send(response);
     })
     .catch((error) => {

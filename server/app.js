@@ -9,10 +9,15 @@ require("./db/connection");
 
 const app = express();
 
+const corsOption = {
+  credentials: true,
+  origin: true,
+};
+
 //Mount utilities
 app.use(logger("dev"));
 app.use(json());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors(corsOption));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
@@ -28,7 +33,7 @@ app.use(require("./routes/subscriptionAPI"));
 app.use(require("./routes/imageUploaderAPI"));
 app.use(require("./routes/teamEventAPI"));
 app.use(require("./routes/teamAPI"));
-
+app.use(require("./routes/embedWidgetAPI"));
 
 //Mount utilities
 app.use(require("./utils/errorHandler"));

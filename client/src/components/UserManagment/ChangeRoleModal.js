@@ -149,15 +149,17 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function ChangeRoleModal({ userName, userId }) {
+export default function ChangeRoleModal({ userName, userId, ...props }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
     setOpen(true);
+    props.toggleHidden(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    props.handleClose();
   };
 
   return (

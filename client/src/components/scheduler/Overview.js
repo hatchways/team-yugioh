@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 const Overview = ({ name, duration, description, appointmentTime }) => {
   const classes = useStyles();
+
   return (
     <Grid className={classes.root} spacing={1} container direction="column">
       <Grid item>
@@ -18,9 +19,19 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
           {`${name}` || `${duration} minute meeting`}
         </Typography>
       </Grid>
-      <Grid container item alignItems="center" className={classes.iconWrapper}>
-        <AccessTime />
-        <Typography variant="caption">{duration} minute</Typography>
+      <Grid
+        container
+        item
+        alignItems="center"
+        spacing={1}
+        className={classes.iconWrapper}
+      >
+        <Grid item>
+          <AccessTime />
+        </Grid>
+        <Grid item className={classes.duration}>
+          <Typography variant="caption">{duration} minutes</Typography>
+        </Grid>
       </Grid>
       {appointmentTime && (
         <Grid
@@ -30,7 +41,7 @@ const Overview = ({ name, duration, description, appointmentTime }) => {
           className={classes.iconWrapper}
         >
           <Typography variant="caption">
-            {JSON.stringify(appointmentTime)}
+            {appointmentTime.toString()}
           </Typography>
         </Grid>
       )}
@@ -46,8 +57,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     padding: theme.spacing(3),
   },
-  iconWrapper: {
-    padding: 0,
+  duration: {
+    padding: "0 0 7px 0!important",
   },
 }));
 

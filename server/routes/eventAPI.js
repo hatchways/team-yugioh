@@ -29,9 +29,13 @@ router.get("/api/event", auth, (req, res) => {
 });
 
 // GET whether event url is unique
-router.get("/api/event/is_unique", auth, (req, res) => {
+router.get("/api/event/is_unique", auth, async (req, res) => {
+  console.log(req.userId)
+  const user=await db.User.findById(req.userId);
+  const prefix=user.URL;
+  const url=`${prefix}/${req.query.URL}`;
   db.EventType.find({
-    link: encodeURI(req.query.URL),
+    link: encodeURI(url),
     userId: req.userId,
   }).then((data) => {
     if (data.length > 0) {
@@ -44,7 +48,8 @@ router.get("/api/event/is_unique", auth, (req, res) => {
 
 // GET event details
 router.get("/api/event_details/:pref/:suf", (req, res) => {
-  db.EventType.find({ link: encodeURI(`${req.params.pref}/${req.params.suf}`) })
+  const link = `${req.params.pref}/${req.params.suf}`;
+  db.EventType.find({ link })
     .then((data) => {
       res.send(data);
     })
