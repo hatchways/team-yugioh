@@ -93,8 +93,7 @@ export default function UserManagementTabs({teamID}) {
 
   useEffect(()=>{
     axios.get(`/api/team/members/${teamID}`).then(res=>{
-      setTeamData(res.data);
-      console.log(res.data)
+      setTeamData(res.data.members);
     })
   },[])
 
@@ -135,7 +134,7 @@ export default function UserManagementTabs({teamID}) {
       </div>
       <Divider variant="fullWidth" />
       <TabPanel value={value} index={0}>
-        <ActiveTab />
+        <ActiveTab teamData={teamMembersData} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <PendingTab />

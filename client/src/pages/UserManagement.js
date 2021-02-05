@@ -65,7 +65,7 @@ const UserManagementPage = () => {
         ) : (
           <>
             <div className={classes.heading}>
-              <Header teamName={teamData.name} />
+              <Header teamName={teamData.name} teamId={team.teamId} />
             </div>
 
             <UserManagementTabs teamID={team.teamId}/>

@@ -50,9 +50,9 @@ const rows = [
   )
 ];
 
-export default function ActiveTab() {
+export default function ActiveTab({teamData}) {
   const classes = useStyles();
-
+  console.log(teamData)
   return (
     <TableContainer>
       <Table className={classes.table} aria-label="simple table">
@@ -65,9 +65,9 @@ export default function ActiveTab() {
             <TableCell align="center" classes={{ head: classes.tableHeading }}>
               CalendApp Page
             </TableCell>
-            <TableCell align="center" classes={{ head: classes.tableHeading }}>
+            {/* <TableCell align="center" classes={{ head: classes.tableHeading }}>
               Date Added
-            </TableCell>
+            </TableCell> */}
             <TableCell
               align="center"
               classes={{ head: classes.tableHeading }}
@@ -75,23 +75,23 @@ export default function ActiveTab() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => {
+          {teamData.map((row, idx) => {
             return (
-              <TableRow key={row.name}>
+              <TableRow key={idx}>
                 <TableCell component="th" scope="row">
                   <UserInfoDisplay name={row.name} email={row.email} />
                 </TableCell>
-                <TableCell align="center">{row.role}</TableCell>
+                <TableCell align="center">{row.isAdmin?"Admin":"User"}</TableCell>
                 <TableCell align="center">
                   <Link to="#" className={classes.link}>
-                    {row.appPage}
+                    {`calendapp.com/${row.URL}`}
                   </Link>
                 </TableCell>
-                <TableCell align="center">{row.dateAdded}</TableCell>
+                {/* <TableCell align="center">{row.dateAdded}</TableCell> */}
                 <TableCell align="center">
                   <UserActionsMenue>
-                    <ChangeRoleModal userName={row.name} />
-                    <RemoveModal variant="remove_user" userName={row.name} />
+                    <ChangeRoleModal userName={row.name} userId={row._id} />
+                    <RemoveModal variant="remove_user" userName={row.name} userId={row._id} />
                   </UserActionsMenue>
                 </TableCell>
               </TableRow>

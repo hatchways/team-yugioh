@@ -69,9 +69,8 @@ router.post("/api/team/updatename", auth, (req, res) => {
     { _id: req.body.teamId },
     { name:req.body.name }
   )
-    .then((data) => {
-      res.send(data);
-    })
+    .then(
+      res.send())
     .catch((error) => {
       console.log(error.message);
       res.status(500).send(error);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import InviteNewUsers from "./InviteNewUsers";
 import TeamNameInput from "./TeamNameInput";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   headerText: {
@@ -20,23 +21,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = ({teamName}) => {
+const Header = ({ teamName, teamId }) => {
   const classes = useStyles();
   const [editTitle, setEditTitle] = useState(false);
-  
-
-  console.log("teamName header:", teamName)
   const [title, setTitle] = useState(`${teamName}`);
   const toggleEditTeamName = () => {
     setEditTitle(!editTitle);
   };
 
-
-  const handleSubmit = (newName) => {
+  const handleSubmit = newName => {
     //call api to change team name:
     //if successful setTitle
-    setTitle(newName)
-    toggleEditTeamName(false);
+    axios.post(
+      "/api/team/updatename",
+      { teamId: teamId, name: newName },
+      {
+        withCredentials: true
+      }
+    ).then(res=>{
+      setTitle(newName);
+      toggleEditTeamName(false);
+    }).catch(err=>console.log(err));
+    
   };
 
   return (

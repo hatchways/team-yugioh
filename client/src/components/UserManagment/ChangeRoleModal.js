@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/LockOutlined";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -74,6 +75,13 @@ function Modal(props) {
 
   const handleSubmit = () => {
     //api call here
+    console.log(state.Role)
+    if (state.Role === "Admin") {
+      axios
+        .post("/api/team/admin", { newAdminId: props.userId })
+        .then(res => handleClose())
+        .catch(err => console.log(err));
+    }
     handleClose();
   };
 
@@ -101,7 +109,6 @@ function Modal(props) {
         >
           <option value="User">User</option>
           <option value="Admin">Admin</option>
-          <option value="Owner">Owner</option>
         </NativeSelect>
         <Typography variant="body1" className={classes.mainText}>
           Users can create and manage their own personal event types. They can
@@ -135,7 +142,7 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function ChangeRoleModal({ userName }) {
+export default function ChangeRoleModal({ userName, userId }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -156,7 +163,12 @@ export default function ChangeRoleModal({ userName }) {
       >
         Change role
       </Button>
-      <Modal open={open} onClose={handleClose} userName={userName} />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        userName={userName}
+        userId={userId}
+      />
     </div>
   );
 }
