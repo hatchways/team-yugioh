@@ -201,7 +201,10 @@ export default function EventCard({
                 alignItems="center"
                 className={classes.cardContentTop}
               >
-                <LightTooltip title="Turn On/Off" placement="bottom">
+                <LightTooltip
+                  title={eventActive ? "Disable" : "Enable"}
+                  placement="right"
+                >
                   <Switch
                     size="small"
                     color="primary"
