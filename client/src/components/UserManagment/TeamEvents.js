@@ -41,7 +41,7 @@ export default function TeamEventsTab({teamID}) {
   const userData = useUserData();
   const [loading, setLoading] = useState(false);
   const [eventsData, setEventsData] = useState([]);
-  //console.log(userData)
+  console.log("teamEventsTab", teamID)
 
   useEffect(() => {
     setLoading(true);

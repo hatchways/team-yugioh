@@ -72,7 +72,7 @@ router.post("/api/team/add", auth, async (req, res) => {
     { _id: { $in: addedUserIdsClean } },
     { teamId: req.body.teamId, isAdmin: false }
   );
-  
+
   res.send(response);
 });
 
@@ -90,6 +90,7 @@ router.post("/api/team/updatename", auth, (req, res) => {
 // REMOVE team member
 // req.body: { teamId: teamId, memberId: userId }
 router.post("/api/team/remove", auth, async (req, res) => {
+  console.log(req.body)
   try {
     const team = await db.Team.findById(req.body.teamId);
 
@@ -103,7 +104,7 @@ router.post("/api/team/remove", auth, async (req, res) => {
       { _id: req.body.memberId },
       { teamId: null, isAdmin: null }
     );
-    res.send({ _id: body.memberId });
+    res.send({ _id: req.body.memberId });
   } catch (err) {
     console.log(err);
     res.status(500).send("delete failed");

@@ -234,9 +234,12 @@ function Modal(props) {
   const handleSubmit = () => {
     // console.log("ivitees:", invitees)
     // setEventBody({...eventBody, members:[...invitees]});
-    console.log(eventBody);
-    console.log(teamID);
-    axios.post("/api/team-event/create",eventBody,{ withCredentials: true })
+    console.log("teamID:", teamID)
+    const reqBody={
+      teamID:teamID,
+      ...eventBody
+    }
+    axios.post("/api/team-event/create",reqBody,{ withCredentials: true })
     handleClose();
   };
 
@@ -560,6 +563,7 @@ export default function NewTeEvantDialog({ userName, teamID }) {
     setOpen(false);
   };
 
+  console.log(teamID)
   return (
     <div>
       <Button

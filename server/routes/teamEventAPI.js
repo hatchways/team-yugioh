@@ -30,10 +30,10 @@ router.post("/api/team-event/create", async (req, res) => {
     });
 
     const newEventTypeObj = {
-      members: invitedUserIdsClean,
-      ...req.body
+      ...req.body,
+      members: invitedUserIdsClean
     };
-    delete newEventTypeObj.teamName;
+    delete newEventTypeObj.teamID;
 
 
     const data = await db.EventType.create(newEventTypeObj);
@@ -114,7 +114,7 @@ router.post("/api/team-event/update-event/", async (req, res) => {
 router.get("/api/team-event/:userID", async (req, res) => {
   try {
     const data = await db.EventType.find(
-      {'members.1': {$exists: true}, members:[req.params.userID]}
+      {'members.1': {$exists: true}, members:req.params.userID}
     ); 
     console.log(data)
     res.send(data);

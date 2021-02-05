@@ -60,6 +60,7 @@ function Modal(props) {
     onClose();
   };
 
+  console.log("props.teamid", props.teamId)
   const handleSubmit = () => {
     axios
       .post(
@@ -187,6 +188,8 @@ export default function RemoveModal({
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  console.log("teamId", teamId);
 
   const handleClose = () => {
     setOpen(false);

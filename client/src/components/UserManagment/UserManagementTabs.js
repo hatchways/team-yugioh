@@ -90,7 +90,7 @@ export default function UserManagementTabs({ teamID }) {
   const [teamMembersData, setTeamData] = useState([]);
 
   const [value, setValue] = useState(0);
-
+  //console.log("manTeamID:", teamID)
   useEffect(() => {
     axios
       .get(`/api/team/members/${teamID}`, {
@@ -144,7 +144,7 @@ export default function UserManagementTabs({ teamID }) {
         <PendingTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TeamEventsTab />
+        <TeamEventsTab teamID={teamID} />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <TemplatesTab />
