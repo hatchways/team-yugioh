@@ -12,6 +12,21 @@ router.post("/api/team/create", auth, async (req, res) => {
       email: { $in: req.body.members }
     });
 
+    //check if user is already on a team
+    let userOnTeamError = null;
+    results.some(usr => {
+      if (usr.teamId) {
+        userOnTeamError = `${usr.name} is already on a team.`;
+      }
+      return usr.teamID;
+    });
+
+    //if user is on a team send an error response
+    if (userOnTeamError) {
+      res.status(400).send(userOnTeamError);
+      return;
+    }
+
     const team = results.map(result => result._id);
 
     // adding member creating the team
@@ -54,10 +69,24 @@ router.get("/api/team/:id", auth, (req, res) => {
 router.post("/api/team/add", auth, async (req, res) => {
   //convert emails to memberIDs
 
-  
   const addedUserIds = await db.User.find({
     email: { $in: req.body.memberEmails }
   });
+
+  //check if user is already on a team
+  let userOnTeamError = null;
+  addedUserIds.some(usr => {
+    if (usr.teamId) {
+      userOnTeamError = `${usr.name} is already on a team.`;
+    }
+    return usr.teamID;
+  });
+
+  //if user is on a team send an error response
+  if (userOnTeamError) {
+    res.status(400).send(userOnTeamError);
+    return;
+  }
 
   const addedUserIdsClean = addedUserIds.map(usr => usr._id);
 
@@ -114,7 +143,10 @@ router.post("/api/team/remove", auth, async (req, res) => {
 router.post("/api/team/admin", auth, (req, res) => {
   db.User.updateOne({ _id: req.body.newAdminId }, { $set: { isAdmin: true } })
     .then(() => {
-      db.User.updateOne({ _id: req.userId }, { $set: { isAdmin: false } }).then(()=>{});
+      db.User.updateOne(
+        { _id: req.userId },
+        { $set: { isAdmin: false } }
+      ).then(() => {});
     })
     .then(response => res.send(response))
     .catch(error => {
