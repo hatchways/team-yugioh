@@ -107,6 +107,7 @@ function Modal(props) {
   };
 
   const handleClose = () => {
+    setInvitees([]);
     onClose(selectedValue);
   };
 
