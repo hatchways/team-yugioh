@@ -572,8 +572,6 @@ export default function NewTeEvantDialog({
   const handleClose = () => {
     setOpen(false);
   };
-
-  console.log(teamID);
   return (
     <div>
       <Button

@@ -47,9 +47,6 @@ export default function ActiveTab() {
             <TableCell align="center" classes={{ head: classes.tableHeading }}>
               CalendApp Page
             </TableCell>
-            {/* <TableCell align="center" classes={{ head: classes.tableHeading }}>
-              Date Added
-            </TableCell> */}
             <TableCell
               align="center"
               classes={{ head: classes.tableHeading }}
@@ -69,8 +66,8 @@ export default function ActiveTab() {
                     {`calendapp.com/${row.URL}`}
                   </Link>
                 </TableCell>
-                {/* <TableCell align="center">{row.dateAdded}</TableCell> */}
                 <TableCell align="center">
+                  
                   <UserActionsMenue>
                     <ChangeRoleModal userName={row.name} userId={row._id} />
                     <RemoveModal variant="remove_user" userName={row.name} userId={row._id} teamId={row.teamId} />

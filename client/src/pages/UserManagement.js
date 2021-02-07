@@ -6,6 +6,7 @@ import Header from "../components/UserManagment/Header";
 import { useUserData, useTeamData, useSetTeamData } from "../providers/Context";
 import axios from "axios";
 import LoadingScrean from "../components/LoadingScrean";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,42 +37,47 @@ const useStyles = makeStyles(theme => ({
 const UserManagementPage = () => {
   const classes = useStyles();
 
-  const teamData=useTeamData();
-  const setTeamData=useSetTeamData()
+  const teamData = useTeamData();
+  const setTeamData = useSetTeamData();
   const [loading, setLoading] = useState(true);
 
-  const team = useUserData();
+  const userData = useUserData();
 
   useEffect(() => {
     axios
-      .get(`/api/team/members/${team.teamId}`)
+      .get(`/api/team/members/${userData.teamId}`)
       .then(res => {
         setTeamData(res.data);
         setLoading(false);
       })
       .catch(err => {
         console.log(err);
-        //setLoading(false);
       });
-  }, [team.teamId]);
+  }, [userData.teamId]);
 
   return (
     <div>
-      <NavBar />
+      {userData.isAdmin ? (
+        <>
+          <NavBar />
 
-      <Container maxWidth="md" className={classes.main}>
-        {loading ? (
-          <LoadingScrean />
-        ) : (
-          <>
-            <div className={classes.heading}>
-              <Header teamName={teamData.name} teamId={team.teamId} />
-            </div>
+          <Container maxWidth="md" className={classes.main}>
+            {loading ? (
+              <LoadingScrean />
+            ) : (
+              <>
+                <div className={classes.heading}>
+                  <Header teamName={teamData.name} teamId={userData.teamId} />
+                </div>
 
-            <UserManagementTabs teamID={team.teamId}/>
-          </>
-        )}
-      </Container>
+                <UserManagementTabs teamID={userData.teamId} />
+              </>
+            )}
+          </Container>
+        </>
+      ) : (
+        <Redirect to="/home" />
+      )}
     </div>
   );
 };

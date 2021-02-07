@@ -6,7 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import { Clear } from "@material-ui/icons";
 import axios from "axios";
-import {useTeamData, useSetTeamData} from "../../providers/Context";
+import { useTeamData, useSetTeamData } from "../../providers/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -56,20 +56,19 @@ const useStyles = makeStyles({
 function Modal(props) {
   const classes = useStyles();
   const { onClose, open, userName, variant } = props;
-  const teamData=useTeamData();
-  const setTeamData=useSetTeamData();
-  const {teamId, userId}=props;
+  const teamData = useTeamData();
+  const setTeamData = useSetTeamData();
+  const { teamId, userId } = props;
 
   const handleClose = () => {
     onClose();
   };
 
-  const removeUser=(userId)=>{
-    const newMembers=[...teamData.members]
-    const memberRemoved=newMembers.filter(user=>user._id!==userId);
-    setTeamData({...teamData, members:memberRemoved})
-
-  }
+  const removeUser = userId => {
+    const newMembers = [...teamData.members];
+    const memberRemoved = newMembers.filter(user => user._id !== userId);
+    setTeamData({ ...teamData, members: memberRemoved });
+  };
 
   const handleSubmit = () => {
     axios
@@ -82,7 +81,6 @@ function Modal(props) {
       )
       .then(res => {
         removeUser(userId);
-        console.log(res.data);
       })
       .catch(err => console.log(err));
     handleClose();
@@ -201,8 +199,6 @@ export default function RemoveModal({
     props.toggleHidden(true);
     setOpen(true);
   };
-
-  console.log("teamId", teamId);
 
   const handleClose = () => {
     setOpen(false);

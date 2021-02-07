@@ -30,8 +30,6 @@ const TeamPage = () => {
       });
   }, [userData.teamId]);
 
-  console.log("teamData",teamData)
-
   return (
     <div>
       {loading ? (

@@ -6,7 +6,8 @@ import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import axios from "axios";
-import { useTeamData, useSetTeamData } from "../../providers/Context";
+import { useTeamData, useSetTeamData, useUserData, useSetUserData } from "../../providers/Context";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -58,8 +59,10 @@ function Modal(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, userName } = props;
   const teamData=useTeamData();
-  console.log("teamData",teamData);
   const setTeamData=useSetTeamData();
+  const history=useHistory();
+  const userData=useUserData();
+  const setUserData=useSetUserData();
 
   const [state, setState] = React.useState({
     Role: ""
@@ -78,15 +81,27 @@ function Modal(props) {
   };
 
   const upgradeRole=(id)=>{
-    
+    const team=[...teamData.members];
+    if(state.Role==="Admin")
+      team.forEach(member=>{
+      if(member._id===id){
+        member.isAdmin=true
+      }
+      else
+        member.isAdmin=false
+    })
+    setTeamData({...teamData, members:team});
+    setUserData({...userData, isAdmin:false})
   }
 
   const handleSubmit = () => {
-    //api call here
     if (state.Role === "Admin") {
       axios
         .post("/api/team/admin", { newAdminId: props.userId })
-        .then(res => handleClose())
+        .then( res=>{
+          upgradeRole(props.userId);
+          history.push("/home")
+        })
         .catch(err => console.log(err));
     }
     handleClose();

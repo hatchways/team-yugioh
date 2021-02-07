@@ -39,7 +39,6 @@ export default function UserMenu({ name }) {
   const anchorRef = React.useRef(null);
   const setAuthenticated = useSetAuthenticated();
   const userData=useUserData();
-  console.log("nadd", userData);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -105,7 +104,7 @@ export default function UserMenu({ name }) {
             <Paper className={classes.Menu}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  {userData.teamId?<MenuItem onClick={handleTeamsButton}>
+                  {userData.isAdmin?<MenuItem onClick={handleTeamsButton}>
                     <PeopleOutlineIcon className={classes.icon} />
                     Manage Teams
                   </MenuItem>:null}
