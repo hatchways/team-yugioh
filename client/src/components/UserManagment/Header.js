@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = ({ teamName, teamId }) => {
+const Header = () => {
   const classes = useStyles();
-  const teamData=useTeamData();
+  const {name, _id}=useTeamData();
   const [editTitle, setEditTitle] = useState(false);
-  const [title, setTitle] = useState(`${teamName}`);
+  const [title, setTitle] = useState(`${name}`);
   const toggleEditTeamName = () => {
     setEditTitle(!editTitle);
   };
@@ -36,7 +36,7 @@ const Header = ({ teamName, teamId }) => {
     //if successful setTitle
     axios.post(
       "/api/team/updatename",
-      { teamId: teamId, name: newName },
+      { teamId: _id, name: newName },
       {
         withCredentials: true
       }
@@ -51,7 +51,7 @@ const Header = ({ teamName, teamId }) => {
     <div className={classes.header}>
       {editTitle ? (
         <TeamNameInput
-          teamName={teamData.name}
+          teamName={name}
           toggleNameChange={toggleEditTeamName}
           handleSubmit={handleSubmit}
         />
@@ -64,7 +64,7 @@ const Header = ({ teamName, teamId }) => {
           {title}
         </Typography>
       )}
-      <InviteNewUsers teamId={teamId} />
+      <InviteNewUsers teamId={_id} />
     </div>
   );
 };
