@@ -5,15 +5,13 @@ import TeamEventsTab from "../UserManagment/TeamEvents";
 import CreateTeam from "./CreateTeam";
 import axios from "axios";
 import LoadingScrean from "../LoadingScrean";
-import {useTeamData, useSetTeamData} from "../../providers/Context";
+import {useSetTeamData} from "../../providers/Context";
 
 const TeamPage = () => {
   const userData = useUserData();
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
-  // const [teamData, setTeamData] = useState({});
   const [loading, setLoading] = useState(false);
-  const teamData=useTeamData();
   const setTeamData=useSetTeamData();
 
   useEffect(() => {

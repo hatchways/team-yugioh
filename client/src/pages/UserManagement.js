@@ -3,7 +3,7 @@ import NavBar from "../components/Header/NavBar";
 import UserManagementTabs from "../components/UserManagment/UserManagementTabs";
 import { makeStyles, Container } from "@material-ui/core";
 import Header from "../components/UserManagment/Header";
-import { useUserData, useTeamData, useSetTeamData } from "../providers/Context";
+import { useUserData, useSetTeamData } from "../providers/Context";
 import axios from "axios";
 import LoadingScrean from "../components/LoadingScrean";
 import { Redirect } from "react-router-dom";
@@ -36,8 +36,6 @@ const useStyles = makeStyles(theme => ({
 
 const UserManagementPage = () => {
   const classes = useStyles();
-
-  const teamData = useTeamData();
   const setTeamData = useSetTeamData();
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +65,7 @@ const UserManagementPage = () => {
             ) : (
               <>
                 <div className={classes.heading}>
-                  <Header teamName={teamData.name} teamId={userData.teamId} />
+                  <Header/>
                 </div>
 
                 <UserManagementTabs teamID={userData.teamId} />

@@ -3,7 +3,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 import InviteNewUsers from "./InviteNewUsers";
 import TeamNameInput from "./TeamNameInput";
 import axios from "axios";
-import {useTeamData, useSetTeamData, useTeamEvents, useSetTeamEvents} from "../../providers/Context";
+import { useTeamData } from "../../providers/Context";
 
 const useStyles = makeStyles(theme => ({
   headerText: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   header: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   newUbutton: {
     padding: "9px 16px",
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const classes = useStyles();
-  const {name, _id}=useTeamData();
+  const { name, _id } = useTeamData();
   const [editTitle, setEditTitle] = useState(false);
   const [title, setTitle] = useState(`${name}`);
   const toggleEditTeamName = () => {
@@ -34,17 +34,19 @@ const Header = () => {
   const handleSubmit = newName => {
     //call api to change team name:
     //if successful setTitle
-    axios.post(
-      "/api/team/updatename",
-      { teamId: _id, name: newName },
-      {
-        withCredentials: true
-      }
-    ).then(res=>{
-      setTitle(newName);
-      toggleEditTeamName(false);
-    }).catch(err=>console.log(err));
-    
+    axios
+      .post(
+        "/api/team/updatename",
+        { teamId: _id, name: newName },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => {
+        setTitle(newName);
+        toggleEditTeamName(false);
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -64,7 +66,7 @@ const Header = () => {
           {title}
         </Typography>
       )}
-      <InviteNewUsers teamId={_id} />
+      <InviteNewUsers />
     </div>
   );
 };

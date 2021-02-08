@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { makeStyles, Grid, InputLabel, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
-import MembersToBeInvited from "../teams/MembersToBeInvited";
 import ChipInput from "material-ui-chip-input";
 import axios from "axios";
-import {useTeamData, useSetTeamData} from "../../providers/Context";
+import { useTeamData, useSetTeamData } from "../../providers/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -90,10 +89,10 @@ const useStyles = makeStyles({
 
 function Modal(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open, teamId } = props;
+  const { onClose, selectedValue, open } = props;
 
-  const teamData=useTeamData();
-  const setTeamData=useSetTeamData();
+  const teamData = useTeamData();
+  const setTeamData = useSetTeamData();
   //TODO: add email validation
 
   const [invitees, setInvitees] = useState([]);
@@ -111,22 +110,25 @@ function Modal(props) {
     onClose(selectedValue);
   };
 
-  const addNewUser=(addedUsers)=>{
-    const currentUsers=[...teamData.members];
-    setTeamData({...teamData, members:[...currentUsers, ...addedUsers]})
-  }
+  const addNewUser = addedUsers => {
+    const currentUsers = [...teamData.members];
+    setTeamData({ ...teamData, members: [...currentUsers, ...addedUsers] });
+  };
 
   const handleSubmit = () => {
     //api call here
-    axios.post(
-      "/api/team/add",
-      { memberEmails: invitees, teamId: teamId },
-      {
-        withCredentials: true
-      }
-    ).then(res=>{
-      addNewUser(res.data)
-    }).catch(err=>console.log(err));
+    axios
+      .post(
+        "/api/team/add",
+        { memberEmails: invitees, teamId: teamData._id },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => {
+        addNewUser(res.data);
+      })
+      .catch(err => console.log(err));
 
     handleClose();
   };
@@ -184,7 +186,7 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired
 };
 
-export default function InviteNewUsers({ teamId }) {
+export default function InviteNewUsers() {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -206,7 +208,7 @@ export default function InviteNewUsers({ teamId }) {
       >
         New User
       </Button>
-      <Modal open={open} onClose={handleClose} teamId={teamId} />
+      <Modal open={open} onClose={handleClose} />
     </div>
   );
 }

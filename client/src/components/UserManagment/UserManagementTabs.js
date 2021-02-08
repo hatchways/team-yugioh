@@ -10,7 +10,12 @@ import TemplatesTab from "../UserManagment/TemplatesTab";
 import TeamEventsTab from "../UserManagment/TeamEvents";
 import Badge from "@material-ui/core/Badge";
 import axios from "axios";
-import {useTeamData, useSetTeamData, useTeamEvents, useSetTeamEvents} from "../../providers/Context";
+import {
+  useTeamData,
+  useSetTeamData,
+  useTeamEvents,
+  useSetTeamEvents
+} from "../../providers/Context";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -88,19 +93,9 @@ const StyledTab = withStyles(theme => ({
 
 export default function UserManagementTabs({ teamID }) {
   const classes = useStyles();
-  const [teamMembersData, setTeamData] = useState([]);
 
   const [value, setValue] = useState(0);
-  
-  useEffect(() => {
-    axios
-      .get(`/api/team/members/${teamID}`, {
-        withCredentials: true
-      })
-      .then(res => {
-        setTeamData(res.data.members);
-      });
-  }, []);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -115,8 +110,12 @@ export default function UserManagementTabs({ teamID }) {
           aria-label="simple tabs example"
         >
           <StyledTab label="Active" {...a11yProps(0)} />
-         
-          <StyledTab classes={classes.tab} label="Pending" {...a11yProps(1, true)} />
+
+          <StyledTab
+            classes={classes.tab}
+            label="Pending"
+            {...a11yProps(1, true)}
+          />
           <StyledTab
             classes={classes.tab}
             label="Team Event"
@@ -140,7 +139,7 @@ export default function UserManagementTabs({ teamID }) {
       </div>
       <Divider variant="fullWidth" />
       <TabPanel value={value} index={0}>
-        <ActiveTab teamData={teamMembersData} />
+        <ActiveTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <PendingTab />
