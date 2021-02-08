@@ -69,7 +69,7 @@ router.get("/api/team/:id", auth, (req, res) => {
 router.post("/api/team/add", auth, async (req, res) => {
   //convert emails to memberIDs
 
-  const addedUserIds = await db.User.find({
+  let addedUserIds = await db.User.find({
     email: { $in: req.body.memberEmails }
   });
 
@@ -100,6 +100,10 @@ router.post("/api/team/add", auth, async (req, res) => {
     { _id: { $in: addedUserIdsClean } },
     { teamId: req.body.teamId, isAdmin: false }
   );
+
+  addedUserIds = await db.User.find({
+    email: { $in: req.body.memberEmails }
+  });
 
   res.send(addedUserIds);
 });

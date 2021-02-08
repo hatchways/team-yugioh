@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import UserActionsMenue from "./UserActionsMenu";
 import ChangeRoleModal from "./ChangeRoleModal";
 import RemoveModal from "./RemoveModal";
-import { useTeamData} from "../../providers/Context";
+import { useTeamData } from "../../providers/Context";
 
 const useStyles = makeStyles({
   table: {
@@ -30,10 +30,9 @@ const useStyles = makeStyles({
   }
 });
 
-
 export default function ActiveTab() {
   const classes = useStyles();
-  const teamData=useTeamData();
+  const teamData = useTeamData();
 
   return (
     <TableContainer>
@@ -60,17 +59,23 @@ export default function ActiveTab() {
                 <TableCell component="th" scope="row">
                   <UserInfoDisplay name={row.name} email={row.email} />
                 </TableCell>
-                <TableCell align="center">{row.isAdmin?"Admin":"User"}</TableCell>
+                <TableCell align="center">
+                  {row.isAdmin ? "Admin" : "User"}
+                </TableCell>
                 <TableCell align="center">
                   <Link to="#" className={classes.link}>
                     {`calendapp.com/${row.URL}`}
                   </Link>
                 </TableCell>
                 <TableCell align="center">
-                  
                   <UserActionsMenue>
                     <ChangeRoleModal userName={row.name} userId={row._id} />
-                    <RemoveModal variant="remove_user" userName={row.name} userId={row._id} teamId={row.teamId} />
+                    <RemoveModal
+                      variant="remove_user"
+                      userName={row.name}
+                      userId={row._id}
+                      teamId={row.teamId}
+                    />
                   </UserActionsMenue>
                 </TableCell>
               </TableRow>

@@ -59,7 +59,6 @@ function Modal(props) {
   const teamData = useTeamData();
   const setTeamData = useSetTeamData();
   const { teamId, userId } = props;
-
   const handleClose = () => {
     onClose();
   };
