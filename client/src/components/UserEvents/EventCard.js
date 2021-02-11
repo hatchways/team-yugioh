@@ -134,7 +134,7 @@ export default function EventCard({
     },
   }))(Tooltip);
 
-  const invitationLink = "http://localhost:3000/appt/" + link; // needs improvement
+  const invitationLink = "http://localhost:3001/appt/" + link; // needs improvement
   const [copied, setCopied] = useState(false);
   const whenCopiedToClipboard = () => {
     setCopied(true);

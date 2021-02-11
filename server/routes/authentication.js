@@ -105,6 +105,8 @@ router.get("/api/authentication/test", auth, (req, res) => {
 router.get("/api/authentication/geturl", (req, res) => {
   const url = generateAuthUrl();
 
+  console.log("===>", url);
+
   res.status(200).send({ url });
 });
 
