@@ -31,12 +31,11 @@
     "react-scripts": "^4.0.0"
   },
   "scripts": {
-    "start-client": "react-scripts start",
     "build": "react-scripts build && cd widget-build && yarn run build",
     "test": "cypress run",
     "testInteractive": "cypress open",
     "eject": "react-scripts eject",
-    "start": "cd ../server && npm start"
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
