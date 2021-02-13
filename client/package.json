@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "build": "react-scripts build && (cd ../server && npm install)",
+    "build": "react-scripts build && cd widget-build && yarn run build",
     "test": "cypress run",
     "testInteractive": "cypress open",
     "eject": "react-scripts eject",

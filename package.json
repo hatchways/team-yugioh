@@ -9,5 +9,9 @@
   "private": true,
   "workspaces":[
     "client", "server"
-  ]
+  ],
+  "scripts":{
+    "build":"yarn workspace client run webpack",
+    "start":"yarn workspace server run start"
+  }
 }
