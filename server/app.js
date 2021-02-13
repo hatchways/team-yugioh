@@ -41,14 +41,10 @@ app.use(require("./routes/teamEventAPI"));
 app.use(require("./routes/teamAPI"));
 app.use(require("./routes/embedWidgetAPI"));
 
-//Mount utilities
-//deploy route handleer
+// Serve the build folder and redirect 404 to index.html
+app.use(express.static("../client/build"));
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
+  res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
 
 app.use(require("./utils/errorHandler"));
