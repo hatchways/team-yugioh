@@ -17,6 +17,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.EnvironmentPlugin({
+      APP_DOMAIN: ""
+    })
+  ],
   devServer: {
     contentBase: ".",
     port: 3002,
