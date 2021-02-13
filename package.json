@@ -1,0 +1,13 @@
+{
+  "name": "calendy",
+  "version": "1.0.0",
+  "description": "An event scheduling application for easy appointment management",
+  "main": "index.js",
+  "repository": "https://github.com/hatchways/team-yugioh.git",
+  "author": "alvy <alvyjudy@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces":[
+    "client", "server"
+  ]
+}
