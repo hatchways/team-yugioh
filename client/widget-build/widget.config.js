@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   entry: "../src/widget",
   output: {
-    path: path.resolve(__dirname, "../../server/routes/assets/widget"),
+    path: path.resolve(__dirname, "../build"),
     filename: "widget.bundle.js",
   },
   devtool: "inline-source-map",
