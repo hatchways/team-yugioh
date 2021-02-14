@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const userAPIpath = "http://localhost:3001/api/authentication/";
+const userAPIpath = "/api/authentication/";
 
 export const sendToken = async (callback) => {
   try {
@@ -61,13 +61,12 @@ export const googleLogout = async () => {
 };
 
 export const emailExists = async (email) => {
-  try{
+  try {
     await axios.get(userAPIpath + `checkemail/?email=${email}`, {
-    withCredentials: true,
-  });
+      withCredentials: true,
+    });
     return true;
-}
-catch(err){
-  return false;
-}
-}
+  } catch (err) {
+    return false;
+  }
+};
