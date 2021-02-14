@@ -1,0 +1,20 @@
+{
+  "name": "cland-app",
+  "version": "1.0.0",
+  "description": "clandly look-alike",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd ./client && npm run build && (cd ../server && npm install)",
+    "start": "cd ./server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hatchways/team-yugioh.git"
+  },
+  "author": "team yugioh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hatchways/team-yugioh/issues"
+  },
+  "homepage": "https://github.com/hatchways/team-yugioh#readme"
+}
