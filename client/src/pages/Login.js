@@ -7,10 +7,11 @@ import logo from "../assets/logo.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { Button } from "@material-ui/core";
 import { emailExists } from "../utils/googleAuth";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,6 +77,7 @@ const LogInPage = () => {
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const history = useHistory();
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -96,6 +98,18 @@ const LogInPage = () => {
     setEmail(event.target.value);
   };
 
+  const registerDemoAccount = () => {
+    const email = "demo" + Date.now() + "@mail.com";
+    const password = Date.now().toString();
+    const name = "demo user" + Date.now();
+    axios
+      .post("/api/authentication/sign-up", { email, password, name })
+      .then(() => {
+        console.log("done");
+        history.push("/home");
+      });
+  };
+
   return (
     <Container
       maxWidth="sm"
@@ -109,6 +123,10 @@ const LogInPage = () => {
           variant="outlined"
           color="primary"
           className={classes.demoButton}
+          type="button"
+          onClick={() => {
+            registerDemoAccount();
+          }}
         >
           Demo
         </Button>
