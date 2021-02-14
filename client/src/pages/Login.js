@@ -13,6 +13,8 @@ import { Button } from "@material-ui/core";
 import { emailExists } from "../utils/googleAuth";
 import axios from "axios";
 
+import { useSetAuthenticated } from "../providers/Context";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -78,6 +80,7 @@ const LogInPage = () => {
   const [welcomeMsg, showWelcome] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const history = useHistory();
+  const setAuthenticated = useSetAuthenticated();
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -105,7 +108,7 @@ const LogInPage = () => {
     axios
       .post("/api/authentication/sign-up", { email, password, name })
       .then(() => {
-        console.log("done");
+        setAuthenticated(true);
         history.push("/home");
       });
   };
