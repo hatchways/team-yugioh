@@ -109,7 +109,7 @@ const LogInPage = () => {
       .post("/api/authentication/sign-up", { email, password, name })
       .then(() => {
         setAuthenticated(true);
-        history.push("/home");
+        history.push("/onboarding");
       });
   };
 
