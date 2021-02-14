@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      APP_DOMAIN: ""
+      APP_DOMAIN: "https://calendy-team-yugioh.herokuapp.com/"
     })
   ],
   devServer: {
