@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import logo from "../assets/logo.png";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { Button } from "@material-ui/core";
-import {emailExists} from "../utils/googleAuth"
+import { emailExists } from "../utils/googleAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "80%",
     margin: "auto",
+    position: "relative",
   },
   formInput: {
     marginTop: "20%",
@@ -63,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "-10px",
     textAlign: "center",
   },
+  demoButton: {
+    position: "absolute",
+  },
 }));
 
 const LogInPage = () => {
@@ -70,16 +75,16 @@ const LogInPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
-  const [emailError, setEmailError]= useState(false)
+  const [emailError, setEmailError] = useState(false);
 
   const handleClick = async (event) => {
     event.preventDefault();
     //cehck if user has entered an email
 
     if (email) {
-      const emailExist= await emailExists(email);
-      if(!emailExist){
-        setEmailError(true)
+      const emailExist = await emailExists(email);
+      if (!emailExist) {
+        setEmailError(true);
         return;
       }
 
@@ -100,6 +105,13 @@ const LogInPage = () => {
     >
       <img src={logo} alt="company logo" className={classes.logo} />
       <Paper elevation={5} className={classes.paper}>
+        <Button
+          variant="outlined"
+          color="primary"
+          className={classes.demoButton}
+        >
+          Demo
+        </Button>
         <form className={classes.formMain} onSubmit={handleClick}>
           <Typography variant="h5">
             {welcomeMsg ? (
@@ -136,7 +148,9 @@ const LogInPage = () => {
                 inputProps={{ min: 0, style: { textAlign: "center" } }}
                 onChange={handleChange}
                 error={emailError}
-                helperText={emailError?`No account exists for ${email}`:null}
+                helperText={
+                  emailError ? `No account exists for ${email}` : null
+                }
               />
             </div>
           )}
