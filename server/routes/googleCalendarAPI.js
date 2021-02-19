@@ -15,8 +15,6 @@ router.post("/api/calendar/availability", async (req, res) => {
       const user = await db.User.findById(req.body.members[0]);
       if (user.availableDays.includes(day.getDay())) {
         const tokenStore = await db.AuthStore.findOne({ email: user.email });
-        const authToken = tokenStore.googleAuthToken;
-        const googleCalendar = await getAvailability(authToken, day);
 
         // convert user's times to UTC
         const userUTC = {
@@ -41,18 +39,26 @@ router.post("/api/calendar/availability", async (req, res) => {
             userUTC.end.setHours(userUTC.end.getHours() - user.timezone)
           );
         }
-        // merge with google calendar
-        for (let block of googleCalendar) {
-          const newBlock = { ...block };
-          if (userUTC.start > block.end || userUTC.end < block.start) {
-            continue;
-          } else if (userUTC.start > block.start) {
-            newBlock.start = day.setHours(userUTC.start);
-          } else if (userUTC.end < block.end) {
-            newBlock.end = day.setHours(userUTC.end);
-          }
 
-          availability.push(newBlock);
+        if (tokenStore.googleAuthToken) {
+          // merge with google calendar
+          const authToken = tokenStore.googleAuthToken;
+          const googleCalendar = await getAvailability(authToken, day);
+          for (let block of googleCalendar) {
+            const newBlock = { ...block };
+            if (userUTC.start > block.end || userUTC.end < block.start) {
+              continue;
+            } else if (userUTC.start > block.start) {
+              newBlock.start = day.setHours(userUTC.start);
+            } else if (userUTC.end < block.end) {
+              newBlock.end = day.setHours(userUTC.end);
+            }
+
+            availability.push(newBlock);
+          }
+        } else {
+          // fallback when google calendar is not available
+          availability.push({ start: userUTC.start, end: userUTC.end });
         }
       }
       res.status(200).send({ availability });

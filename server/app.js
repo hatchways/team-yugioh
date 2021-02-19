@@ -1,5 +1,5 @@
 const express = require("express");
-const { join } = require("path");
+const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
@@ -20,7 +20,7 @@ app.use(json());
 app.use(cors(corsOption));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(join(__dirname, "public")));
+//app.use(express.static(join(__dirname, "public")));
 
 //Mount route handlers
 app.use(require("./routes/appointmentAPI"));
@@ -35,7 +35,12 @@ app.use(require("./routes/teamEventAPI"));
 app.use(require("./routes/teamAPI"));
 app.use(require("./routes/embedWidgetAPI"));
 
-//Mount utilities
+// Serve the build folder and redirect 404 to index.html
+app.use(express.static("../client/build"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+
 app.use(require("./utils/errorHandler"));
 app.use(require("./utils/fourOfourHandler"));
 

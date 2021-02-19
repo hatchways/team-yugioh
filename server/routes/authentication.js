@@ -6,6 +6,7 @@ const AuthStore = require("../db/models/AuthenticationStore");
 const auth = require("../middleware/auth");
 const jwt = require("njwt");
 const { generateAuthUrl } = require("../utils/googleAuthUtils");
+const bcrypt = require("bcrypt");
 
 const router = new express.Router();
 
@@ -20,7 +21,7 @@ router.post("/api/authentication/google", async (req, res) => {
   const { code } = req.body;
   oAuthClient.getToken(code, async (err, token) => {
     if (err) {
-       le.log(err);
+      le.log(err);
       res.status(500).send("Authentication error.");
       return;
     }
@@ -105,6 +106,8 @@ router.get("/api/authentication/test", auth, (req, res) => {
 router.get("/api/authentication/geturl", (req, res) => {
   const url = generateAuthUrl();
 
+  console.log("===>", url);
+
   res.status(200).send({ url });
 });
 
@@ -126,6 +129,68 @@ router.get("/api/authentication/checkemail", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+// Route to sign up with email and password
+router.post("/api/authentication/sign-up", async (req, res) => {
+  // check the presence of required parameters
+  const { email, password, name } = req.body;
+  if (!email || !password || !name) {
+    res.status(400).send("Email, password or name not included");
+  }
+
+  // check for duplicates in both collections
+  const recordInAuthStore = await db.AuthStore.findOne({ email });
+  if (recordInAuthStore) {
+    res.status(400).send("Email already registered in AuthStore collection");
+  }
+  const recordInUser = await db.User.findOne({ email });
+  if (recordInUser) {
+    res.status(400).send("Email already registered in User collection");
+  }
+
+  // create hashed password and create new document
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await db.AuthStore.create({ email, hashedPassword });
+  const newUser = new db.User({ email, name }); // no shortcut because we need ID
+  const userId = newUser._id;
+  await newUser.save();
+
+  // generate JWT token with userId and email and send token back to client
+  const jwtToken = jwt.create({ userId, email }, process.env.JWT_SECRET);
+  jwtToken.setExpiration(new Date().getTime() + 24 * 60 * 60 * 1000);
+  const jwtCompact = jwtToken.compact();
+  res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
+  res.status(200).send(jwtCompact);
+});
+
+// Route to login with email and password
+router.post("/api/authentication/login", async (req, res) => {
+  // check presence of required parameters
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400).send("Email or password not included");
+  }
+
+  // check if email exists
+  const recordInAuthStore = await db.AuthStore.findOne({ email });
+  if (!recordInAuthStore) {
+    res.status(400).send("This email is not registered");
+  }
+
+  // compare the password
+  const { hashedPassword } = recordInAuthStore;
+  const correct = await bcrypt.compare(password, hashedPassword);
+  if (!correct) {
+    res.status(400).send("Password is incorrect");
+  }
+
+  // generate jwt token
+  const jwtToken = jwt.create({ userId, email }, process.env.JWT_SECRET);
+  jwtToken.setExpiration(new Date().getTime() + 24 * 60 * 60 * 1000);
+  const jwtCompact = jwtToken.compact();
+  res.cookie("app_auth_token", jwtCompact, { httpOnly: true });
+  res.status(200).send(jwtCompact);
 });
 
 module.exports = router;

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
   },
   email: {
     type: String,
@@ -13,13 +13,16 @@ const schema = new Schema({
     required: true,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address"
-    ]
+      "Please fill a valid email address",
+    ],
+  },
+  hashedPassword: {
+    type: String,
   },
   //token used for api access and google auth
   googleAuthToken: {
-    type: Schema.Types.Mixed
-  }
+    type: Schema.Types.Mixed,
+  },
 });
 
 const User = mongoose.model("AuthenticationStore", schema);

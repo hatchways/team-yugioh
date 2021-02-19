@@ -14,7 +14,7 @@ import { DoneOutlined } from "@material-ui/icons";
 import { CodeBlock, a11yLight } from "react-code-blocks";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const domain = "http://localhost:3000";
+const domain = window.location.origin;
 
 const EmbedSchedulerDialog = ({
   showEmbedInstruction,

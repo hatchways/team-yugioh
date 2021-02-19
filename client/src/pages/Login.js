@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import logo from "../assets/logo.png";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { Button } from "@material-ui/core";
-import {emailExists} from "../utils/googleAuth"
+import { emailExists } from "../utils/googleAuth";
+import axios from "axios";
+
+import { useSetAuthenticated } from "../providers/Context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.button,
     color: "white",
     padding: "15px 50px 15px 50px",
-    marginTop: "15%",
-    marginBottom: "10%",
+    width: "12em",
+    margin: "1em",
   },
   link: {
     marginLeft: 3,
@@ -54,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "80%",
     margin: "auto",
+    position: "relative",
   },
   formInput: {
     marginTop: "20%",
@@ -70,16 +75,18 @@ const LogInPage = () => {
   const [email, setEmail] = useState(null);
   //welcomeMsg is true if use has entered an email and pressed continue button
   const [welcomeMsg, showWelcome] = useState(false);
-  const [emailError, setEmailError]= useState(false)
+  const [emailError, setEmailError] = useState(false);
+  const history = useHistory();
+  const setAuthenticated = useSetAuthenticated();
 
   const handleClick = async (event) => {
     event.preventDefault();
     //cehck if user has entered an email
 
     if (email) {
-      const emailExist= await emailExists(email);
-      if(!emailExist){
-        setEmailError(true)
+      const emailExist = await emailExists(email);
+      if (!emailExist) {
+        setEmailError(true);
         return;
       }
 
@@ -89,6 +96,18 @@ const LogInPage = () => {
 
   const handleChange = (event) => {
     setEmail(event.target.value);
+  };
+
+  const registerDemoAccount = () => {
+    const email = "demo" + Date.now() + "@mail.com";
+    const password = Date.now().toString();
+    const name = "demo user" + Date.now();
+    axios
+      .post("/api/authentication/sign-up", { email, password, name })
+      .then(() => {
+        setAuthenticated(true);
+        history.push("/onboarding");
+      });
   };
 
   return (
@@ -136,16 +155,30 @@ const LogInPage = () => {
                 inputProps={{ min: 0, style: { textAlign: "center" } }}
                 onChange={handleChange}
                 error={emailError}
-                helperText={emailError?`No account exists for ${email}`:null}
+                helperText={
+                  emailError ? `No account exists for ${email}` : null
+                }
               />
             </div>
           )}
           {welcomeMsg ? (
             <GoogleLoginButton variant={"login"} />
           ) : (
-            <Button className={classes.button} type="submit">
-              <span style={{ marginLeft: "20px" }}>Continue</span>
-            </Button>
+            <>
+              <Button className={classes.button} type="submit">
+                Continue
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                type="button"
+                onClick={() => {
+                  registerDemoAccount();
+                }}
+              >
+                Want a demo tour?
+              </Button>
+            </>
           )}
         </form>
         <Divider />
