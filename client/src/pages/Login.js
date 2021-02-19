@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.button,
     color: "white",
     padding: "15px 50px 15px 50px",
-    marginTop: "15%",
-    marginBottom: "10%",
+    width: "12em",
+    margin: "1em",
   },
   link: {
     marginLeft: 3,
@@ -67,9 +67,6 @@ const useStyles = makeStyles((theme) => ({
   formLabel: {
     marginBottom: "-10px",
     textAlign: "center",
-  },
-  demoButton: {
-    position: "absolute",
   },
 }));
 
@@ -122,17 +119,6 @@ const LogInPage = () => {
     >
       <img src={logo} alt="company logo" className={classes.logo} />
       <Paper elevation={5} className={classes.paper}>
-        <Button
-          variant="outlined"
-          color="primary"
-          className={classes.demoButton}
-          type="button"
-          onClick={() => {
-            registerDemoAccount();
-          }}
-        >
-          Demo
-        </Button>
         <form className={classes.formMain} onSubmit={handleClick}>
           <Typography variant="h5">
             {welcomeMsg ? (
@@ -178,9 +164,21 @@ const LogInPage = () => {
           {welcomeMsg ? (
             <GoogleLoginButton variant={"login"} />
           ) : (
-            <Button className={classes.button} type="submit">
-              <span style={{ marginLeft: "20px" }}>Continue</span>
-            </Button>
+            <>
+              <Button className={classes.button} type="submit">
+                Continue
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                type="button"
+                onClick={() => {
+                  registerDemoAccount();
+                }}
+              >
+                Want a demo tour?
+              </Button>
+            </>
           )}
         </form>
         <Divider />
