@@ -13,10 +13,6 @@ update it accordingly. It will collect the required contact information and
 notify the attendee. As a host, you can easily see who have booked appointments
 with you and even connect your Google Calendar for a more automated workflow.
 
-![dashboard]("https://github.com/hatchways/team-yugioh/blob/deployment/demo/dashboard.png")
-
-![Scheduler]("https://github.com/hatchways/team-yugioh/blob/deployment/demo/scheduler.png")
-
 Core developers:
 
 - [Mathew](https://github.com/mattchx)
