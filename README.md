@@ -15,7 +15,7 @@ with you and even connect your Google Calendar for a more automated workflow.
 
 Core developers:
 
-- [Mathew](https://github.com/mattchx)
+- [Matthew](https://github.com/mattchx)
 - [Nellie](https://github.com/WhoaNellie)
 - [Taras](https://github.com/kozaktar)
 - [Di](https://github.com/alvyjudy)
